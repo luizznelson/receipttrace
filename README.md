@@ -5,7 +5,7 @@ Extração de recibos com avaliação rastreável e revisão humana.
 [English](README.en.md)
 
 ## Estado atual
-Aquisição de dados e validação do domínio implementadas. Extrator, benchmark, API e interface ainda não foram implementados. Não há resultados de desempenho medidos.
+Aquisição de dados e validação do domínio implementadas. OCR inicial e avaliação dos campos de totais implementados. Extração com LLM, API e interface ainda estão pendentes. Não há resultados de desempenho medidos.
 
 ## Objetivo
 Converter imagens de recibos em registros estruturados, validar relações aritméticas suportadas e preservar evidências para revisão humana. A avaliação inicial usará o CORD v2 público; não comprova suporte a documentos fiscais brasileiros nem conferência entre nota e pedido.
@@ -43,7 +43,7 @@ uv run receipttrace verify-sample
 
 A aquisição baixa aproximadamente 490 MB. Apenas o primeiro arquivo de treino é utilizado na inspeção inicial; validação e teste ficam reservados. [Instruções e verificações](docs/development.md).
 
-Implementado: aquisição com revisão e hash fixados, amostragem determinística, manifesto de proveniência, verificação local e testes de integridade. Extração, API e interface continuam pendentes.
+Implementado: aquisição com revisão e hash fixados, amostragem determinística, manifesto de proveniência, verificação local e testes de integridade. Extração com LLM, API e interface continuam pendentes.
 
 [Relatório da inspeção inicial dos dados](docs/reports/cord-inspection.md).
 
@@ -56,3 +56,7 @@ uv run receipttrace validate-receipt examples/synthetic-receipt.json --policy id
 ```
 
 Este comando valida dados estruturados; ainda não extrai informações de imagens.
+
+## Extração OCR e medição inicial
+
+OCR local em CPU e avaliação independente implementados. [Como executar e limites](docs/ocr.md). Na amostra de desenvolvimento: total correto em 14 de 19 documentos anotados. Esse resultado não mede todos os campos nem representa teste reservado. [Relatório completo](docs/reports/ocr-baseline.md).

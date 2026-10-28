@@ -1,4 +1,4 @@
-"""Local data preparation commands. No extraction or benchmark is claimed here."""
+"""Local acquisition, validation, image extraction and independent evaluation commands."""
 
 import argparse
 import hashlib
@@ -10,6 +10,7 @@ from pathlib import Path
 from typing import cast
 from urllib.error import URLError
 
+from receipttrace.cli_serialization import decimal_json
 from receipttrace.data import (
     DATASET,
     EXPECTED_SHA256,
@@ -25,12 +26,6 @@ from receipttrace.domain import RawReceipt, report
 from receipttrace.money import POLICIES, NumberPolicy
 
 
-def decimal_json(value: object) -> str:
-    if isinstance(value, Decimal):
-        return str(value)
-    raise TypeError(f"Unsupported JSON type: {type(value).__name__}")
-
-
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
@@ -44,8 +39,28 @@ def main() -> int:
     validation.add_argument("input", type=Path)
     validation.add_argument("--policy", choices=POLICIES, required=True)
     validation.add_argument("--tolerance", default="0")
+    ocr = commands.add_parser("extract-ocr", help="Run local CPU OCR on PNG images only")
+    ocr.add_argument("--inputs", type=Path, required=True)
+    ocr.add_argument("--output", type=Path, required=True)
+    evaluation = commands.add_parser(
+        "evaluate-ocr", help="Compare a saved run with CORD annotations"
+    )
+    evaluation.add_argument("--sample", type=Path, required=True)
+    evaluation.add_argument("--run", type=Path, required=True)
+    evaluation.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     try:
+        if args.command == "evaluate-ocr":
+            from receipttrace.evaluation import evaluate
+
+            result = evaluate(args.sample, args.run, args.output)
+            print(json.dumps({"documents": result["document_count"], "metrics": result["metrics"]}))
+            return 0
+        if args.command == "extract-ocr":
+            from receipttrace.ocr import run
+
+            result = run(args.inputs, args.output)
+            return 2 if any(row["status"] == "error" for row in result["records"]) else 0
         if args.command == "validate-receipt":
             payload = args.input.read_bytes()
             raw = RawReceipt.model_validate_json(payload)
@@ -83,7 +98,7 @@ def main() -> int:
         manifest = inspect(source, args.output, args.size, args.seed)
         print(json.dumps({"sample_size": manifest["sample_size"], "output": str(args.output)}))
         return 0
-    except (OSError, ValueError, URLError, InvalidOperation) as error:
+    except (OSError, ValueError, URLError, InvalidOperation, RuntimeError) as error:
         print(f"Error: {error}", file=sys.stderr)
         return 1
 
