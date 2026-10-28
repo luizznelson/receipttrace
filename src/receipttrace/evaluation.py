@@ -132,7 +132,8 @@ def evaluate(sample: Path, run: Path, output: Path) -> dict[str, Any]:
         "latency": {
             "p50_seconds": ordered[math.ceil(0.5 * len(ordered)) - 1],
             "p95_seconds": ordered[math.ceil(0.95 * len(ordered)) - 1],
-            "method": "nearest rank, includes first lazy inference; excludes engine init",
+            "method": "nearest rank",
+            "scope": run_manifest.get("latency_scope"),
             "initialization_seconds": run_manifest["initialization_seconds"],
         },
         "limitations": [
@@ -140,9 +141,52 @@ def evaluate(sample: Path, run: Path, output: Path) -> dict[str, Any]:
             "Unannotated fields are not negatives",
             "Not a held-out benchmark",
             "OCR scores are not calibrated probabilities",
-            "No paid inference; CPU and hosting resource cost not estimated",
+            "Costs use run-specific metadata; CPU/hosting cost not estimated",
         ],
         "documents": results,
+    }
+    result["cost_summary"] = run_manifest.get("cost_summary")
+    output.parent.mkdir(parents=True, exist_ok=True)
+    write_json(output, result)
+    return result
+
+
+def compare_reports(baseline: Path, candidate: Path, output: Path) -> dict[str, Any]:
+    """Compare only evaluations of the same sample and reference fields."""
+    if output.exists():
+        raise FileExistsError(f"Output already exists: {output}")
+    before = json.loads(baseline.read_text(encoding="utf-8"))
+    after = json.loads(candidate.read_text(encoding="utf-8"))
+    if (
+        before["sample_manifest_sha256"] != after["sample_manifest_sha256"]
+        or before["evaluation_version"] != after["evaluation_version"]
+        or before["document_count"] != after["document_count"]
+    ):
+        raise ValueError("Evaluations must use the same sample and evaluation version")
+    before_images = {row["id"]: row["image_sha256"] for row in before["documents"]}
+    after_images = {row["id"]: row["image_sha256"] for row in after["documents"]}
+    if before_images != after_images or set(before["metrics"]) != set(after["metrics"]):
+        raise ValueError("Evaluation images or fields differ")
+    metrics = {}
+    for name, old in before["metrics"].items():
+        new = after["metrics"][name]
+        if old["annotated_documents"] != new["annotated_documents"]:
+            raise ValueError("Reference denominators differ")
+        metrics[name] = {
+            "baseline": old,
+            "candidate": new,
+            "correct_difference": new["correct"] - old["correct"],
+        }
+    result = {
+        "comparison_version": "1",
+        "baseline_sha256": sha256(baseline),
+        "candidate_sha256": sha256(candidate),
+        "metrics": metrics,
+        "baseline_latency": before["latency"],
+        "candidate_latency": after["latency"],
+        "baseline_cost": before.get("cost_summary"),
+        "candidate_cost": after.get("cost_summary"),
+        "note": "Development comparison; different latency scopes must be considered",
     }
     output.parent.mkdir(parents=True, exist_ok=True)
     write_json(output, result)

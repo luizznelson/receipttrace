@@ -43,14 +43,51 @@ def main() -> int:
     ocr.add_argument("--inputs", type=Path, required=True)
     ocr.add_argument("--output", type=Path, required=True)
     evaluation = commands.add_parser(
-        "evaluate-ocr", help="Compare a saved run with CORD annotations"
+        "evaluate-extraction",
+        aliases=["evaluate-ocr"],
+        help="Compare a saved run with CORD annotations",
     )
     evaluation.add_argument("--sample", type=Path, required=True)
     evaluation.add_argument("--run", type=Path, required=True)
     evaluation.add_argument("--output", type=Path, required=True)
+    for name in ("plan-llm", "extract-llm"):
+        llm = commands.add_parser(
+            name, help="Plan offline or execute explicitly budgeted vision extraction"
+        )
+        llm.add_argument("--inputs", type=Path, required=True)
+        llm.add_argument("--config", type=Path, required=True)
+        llm.add_argument("--output", type=Path, required=True)
+    comparison = commands.add_parser(
+        "compare-extractions", help="Compare evaluations of the same sample"
+    )
+    comparison.add_argument("--baseline", type=Path, required=True)
+    comparison.add_argument("--candidate", type=Path, required=True)
+    comparison.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     try:
-        if args.command == "evaluate-ocr":
+        if args.command == "compare-extractions":
+            from receipttrace.evaluation import compare_reports
+
+            compare_reports(args.baseline, args.candidate, args.output)
+            print("Comparison saved")
+            return 0
+        if args.command in ("plan-llm", "extract-llm"):
+            from receipttrace.llm import plan
+            from receipttrace.llm import run as llm_run
+            from receipttrace.llm_config import LLMConfig
+
+            config = LLMConfig.model_validate_json(args.config.read_bytes())
+            if args.command == "plan-llm":
+                if args.output.exists():
+                    raise FileExistsError("Output already exists")
+                prepared = plan(args.inputs, config)
+                args.output.parent.mkdir(parents=True, exist_ok=True)
+                write_json(args.output, prepared)
+                print(f"Offline plan: {len(prepared['documents'])} images; no API calls")
+                return 0
+            result = llm_run(args.inputs, args.output, config)
+            return 2 if any(row["status"] == "error" for row in result["records"]) else 0
+        if args.command in ("evaluate-ocr", "evaluate-extraction"):
             from receipttrace.evaluation import evaluate
 
             result = evaluate(args.sample, args.run, args.output)

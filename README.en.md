@@ -5,7 +5,7 @@ Receipt extraction with traceable evaluation and human review.
 [Português brasileiro](README.md)
 
 ## Status
-Data acquisition and domain validation implemented. Initial OCR and totals evaluation are implemented. LLM extraction, API and UI remain pending. No performance results are claimed.
+Data acquisition and domain validation implemented. Initial OCR and totals evaluation are implemented. LLM integration is available but unmeasured; application API and UI remain pending. No performance results are claimed.
 
 ## Purpose
 Turn receipt images into structured records, validate supported arithmetic relationships, and preserve evidence for human review. Initial evaluation targets the public CORD v2 benchmark, not Brazilian fiscal compliance or invoice–purchase order matching.
@@ -43,7 +43,7 @@ uv run receipttrace verify-sample
 
 Acquisition downloads approximately 490 MB. Initial inspection only uses the first training shard; validation and test remain reserved. [Development instructions (Portuguese)](docs/development.md).
 
-Implemented: revision-pinned and checksum-verified acquisition, deterministic sampling, provenance manifests, offline verification and integrity tests. LLM extraction, API and UI remain pending.
+Implemented: revision-pinned and checksum-verified acquisition, deterministic sampling, provenance manifests, offline verification and integrity tests. LLM integration is available but unmeasured; application API and UI remain pending.
 
 [Initial data inspection report (Portuguese)](docs/reports/cord-inspection.md).
 
@@ -60,3 +60,7 @@ This command validates structured data; image extraction is not implemented yet.
 ## OCR extraction and initial measurement
 
 Local CPU OCR and independent evaluation are implemented. [Execution and limitations (Portuguese)](docs/ocr.md). On the development sample, total amount was correct in 14 of 19 annotated documents. This is not a held-out result or an all-fields accuracy score. [Full report (Portuguese)](docs/reports/ocr-baseline.md).
+
+## LLM integration
+
+Vision extraction with structured output, offline planning, budget reservation and OCR comparison are implemented. [Configuration and limitations (Portuguese)](docs/llm.md). Live inference still requires credentials, model selection and budget; no LLM performance result is claimed.
