@@ -5,7 +5,7 @@ Extração de recibos com avaliação rastreável e revisão humana.
 [English](README.en.md)
 
 ## Estado atual
-Etapa de aquisição e inspeção dos dados. Extrator, benchmark, API e interface ainda não foram implementados. Não há resultados de desempenho medidos.
+Aquisição de dados e validação do domínio implementadas. Extrator, benchmark, API e interface ainda não foram implementados. Não há resultados de desempenho medidos.
 
 ## Objetivo
 Converter imagens de recibos em registros estruturados, validar relações aritméticas suportadas e preservar evidências para revisão humana. A avaliação inicial usará o CORD v2 público; não comprova suporte a documentos fiscais brasileiros nem conferência entre nota e pedido.
@@ -46,3 +46,13 @@ A aquisição baixa aproximadamente 490 MB. Apenas o primeiro arquivo de treino 
 Implementado: aquisição com revisão e hash fixados, amostragem determinística, manifesto de proveniência, verificação local e testes de integridade. Extração, API e interface continuam pendentes.
 
 [Relatório da inspeção inicial dos dados](docs/reports/cord-inspection.md).
+
+## Esquema e validação
+
+Contratos estritos, preservação do texto original e regras monetárias com Decimal estão implementados. [Políticas e limites](docs/domain.md).
+
+```powershell
+uv run receipttrace validate-receipt examples/synthetic-receipt.json --policy idr-grouped
+```
+
+Este comando valida dados estruturados; ainda não extrai informações de imagens.

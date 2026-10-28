@@ -1,10 +1,13 @@
 """Local data preparation commands. No extraction or benchmark is claimed here."""
 
 import argparse
+import hashlib
 import json
 import sys
 from datetime import UTC, datetime
+from decimal import Decimal, InvalidOperation
 from pathlib import Path
+from typing import cast
 from urllib.error import URLError
 
 from receipttrace.data import (
@@ -18,6 +21,14 @@ from receipttrace.data import (
     verify,
     write_json,
 )
+from receipttrace.domain import RawReceipt, report
+from receipttrace.money import POLICIES, NumberPolicy
+
+
+def decimal_json(value: object) -> str:
+    if isinstance(value, Decimal):
+        return str(value)
+    raise TypeError(f"Unsupported JSON type: {type(value).__name__}")
 
 
 def main() -> int:
@@ -29,8 +40,19 @@ def main() -> int:
     prepare.add_argument("--output", type=Path, default=Path("data/processed/cord-inspection"))
     check = commands.add_parser("verify-sample", help="Verify image and label checksums offline")
     check.add_argument("--output", type=Path, default=Path("data/processed/cord-inspection"))
+    validation = commands.add_parser("validate-receipt", help="Validate structured receipt text")
+    validation.add_argument("input", type=Path)
+    validation.add_argument("--policy", choices=POLICIES, required=True)
+    validation.add_argument("--tolerance", default="0")
     args = parser.parse_args()
     try:
+        if args.command == "validate-receipt":
+            payload = args.input.read_bytes()
+            raw = RawReceipt.model_validate_json(payload)
+            result = report(raw, cast(NumberPolicy, args.policy), Decimal(args.tolerance))
+            result["input_sha256"] = hashlib.sha256(payload).hexdigest()
+            print(json.dumps(result, ensure_ascii=False, indent=2, default=decimal_json))
+            return 2 if result["has_findings"] else 0
         if args.command == "verify-sample":
             print(f"Verified {verify(args.output)} documents")
             return 0
@@ -61,7 +83,7 @@ def main() -> int:
         manifest = inspect(source, args.output, args.size, args.seed)
         print(json.dumps({"sample_size": manifest["sample_size"], "output": str(args.output)}))
         return 0
-    except (OSError, ValueError, URLError) as error:
+    except (OSError, ValueError, URLError, InvalidOperation) as error:
         print(f"Error: {error}", file=sys.stderr)
         return 1
 

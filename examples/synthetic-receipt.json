@@ -1,0 +1,7 @@
+{
+  "document_id": "synthetic-example-not-a-real-receipt",
+  "currency": "IDR",
+  "items_complete": true,
+  "items": [{"description": "Synthetic item", "quantity": "2 x", "unit_price": "10,000", "amount": "20,000", "discount": "0"}],
+  "subtotal": "20,000", "discount": "0", "tax": "2,000", "service": "0", "total": "22,000"
+}

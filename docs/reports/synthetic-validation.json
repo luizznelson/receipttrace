@@ -1,0 +1,124 @@
+{
+  "schema_version": "1",
+  "rules_version": "1",
+  "numeric_policy": "idr-grouped",
+  "quantity_policy": "decimal-dot-optional-x",
+  "tolerance": "0",
+  "raw": {
+    "document_id": "synthetic-example-not-a-real-receipt",
+    "currency": "IDR",
+    "items": [
+      {
+        "description": "Synthetic item",
+        "quantity": "2 x",
+        "unit_price": "10,000",
+        "amount": "20,000",
+        "discount": "0",
+        "children": []
+      }
+    ],
+    "items_complete": true,
+    "subtotal": "20,000",
+    "discount": "0",
+    "tax": "2,000",
+    "service": "0",
+    "total": "22,000"
+  },
+  "normalized": {
+    "document_id": "synthetic-example-not-a-real-receipt",
+    "currency": "IDR",
+    "items": [
+      {
+        "description": "Synthetic item",
+        "quantity": {
+          "raw": "2 x",
+          "value": "2",
+          "status": "parsed",
+          "reason": null
+        },
+        "unit_price": {
+          "raw": "10,000",
+          "value": "10000",
+          "status": "parsed",
+          "reason": null
+        },
+        "amount": {
+          "raw": "20,000",
+          "value": "20000",
+          "status": "parsed",
+          "reason": null
+        },
+        "discount": {
+          "raw": "0",
+          "value": "0",
+          "status": "parsed",
+          "reason": null
+        },
+        "children": []
+      }
+    ],
+    "items_complete": true,
+    "subtotal": {
+      "raw": "20,000",
+      "value": "20000",
+      "status": "parsed",
+      "reason": null
+    },
+    "discount": {
+      "raw": "0",
+      "value": "0",
+      "status": "parsed",
+      "reason": null
+    },
+    "tax": {
+      "raw": "2,000",
+      "value": "2000",
+      "status": "parsed",
+      "reason": null
+    },
+    "service": {
+      "raw": "0",
+      "value": "0",
+      "status": "parsed",
+      "reason": null
+    },
+    "total": {
+      "raw": "22,000",
+      "value": "22000",
+      "status": "parsed",
+      "reason": null
+    }
+  },
+  "checks": [
+    {
+      "code": "item_total",
+      "path": "items[0]",
+      "status": "pass",
+      "reason": null,
+      "expected": "20000",
+      "observed": "20000",
+      "difference": "0"
+    },
+    {
+      "code": "subtotal",
+      "path": "subtotal",
+      "status": "pass",
+      "reason": null,
+      "expected": "20000",
+      "observed": "20000",
+      "difference": "0"
+    },
+    {
+      "code": "receipt_total",
+      "path": "total",
+      "status": "pass",
+      "reason": null,
+      "expected": "22000",
+      "observed": "22000",
+      "difference": "0"
+    }
+  ],
+  "has_findings": false,
+  "has_skipped_checks": false,
+  "input_sha256": "bd856b7529b29f370c9945f0903fa1f5178ad6756e79f7259c745b03ed87cec8"
+}

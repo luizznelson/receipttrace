@@ -5,7 +5,7 @@ Receipt extraction with traceable evaluation and human review.
 [Português brasileiro](README.md)
 
 ## Status
-Data acquisition and inspection stage. No extractor, benchmark, API, or interface is implemented yet. No performance results are claimed.
+Data acquisition and domain validation implemented. No extractor, benchmark, API, or interface is implemented yet. No performance results are claimed.
 
 ## Purpose
 Turn receipt images into structured records, validate supported arithmetic relationships, and preserve evidence for human review. Initial evaluation targets the public CORD v2 benchmark, not Brazilian fiscal compliance or invoice–purchase order matching.
@@ -46,3 +46,13 @@ Acquisition downloads approximately 490 MB. Initial inspection only uses the fir
 Implemented: revision-pinned and checksum-verified acquisition, deterministic sampling, provenance manifests, offline verification and integrity tests. Extraction, API and UI remain pending.
 
 [Initial data inspection report (Portuguese)](docs/reports/cord-inspection.md).
+
+## Schema and validation
+
+Strict input contracts, original text preservation and Decimal arithmetic checks are implemented. [Policies and limitations (Portuguese)](docs/domain.md).
+
+```powershell
+uv run receipttrace validate-receipt examples/synthetic-receipt.json --policy idr-grouped
+```
+
+This command validates structured data; image extraction is not implemented yet.
