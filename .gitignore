@@ -1,0 +1,31 @@
+# Credentials
+.env
+.env.*
+!.env.example
+*.pem
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# Data and local execution artifacts
+data/raw/
+data/processed/
+artifacts/
+runs/
+*.log
+
+# Editor and OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
