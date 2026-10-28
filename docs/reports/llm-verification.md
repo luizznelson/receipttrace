@@ -17,3 +17,6 @@ Nenhuma chamada real de contagem ou inferência à API. Nenhuma comparação rea
 
 ## Referências
 [Configuração e limites](../llm.md). O arquivo de exemplo em examples/llm-config.example.json contém placeholders inválidos de propósito e exige edição antes de qualquer uso real.
+
+## Atualização posterior
+A configuração principal passou a ser Gemini Free Tier. Os placeholders pagos descritos acima estão agora em examples/openai-config.example.json. Consulte gemini-verification.md para o estado da integração gratuita.

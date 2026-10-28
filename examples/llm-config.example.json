@@ -1,10 +1,13 @@
 {
-  "model": "SET_AVAILABLE_VISION_MODEL_SNAPSHOT",
+  "provider": "gemini-free",
+  "model": "gemini-2.5-flash",
+  "free_tier_confirmed": false,
+  "min_interval_seconds": 15,
   "max_requests": 20,
-  "max_output_tokens": 2048,
+  "max_output_tokens": 4096,
   "max_input_tokens": 20000,
-  "max_budget_usd": "SET_BUDGET_USD",
-  "input_usd_per_million": "SET_INPUT_PRICE",
-  "output_usd_per_million": "SET_OUTPUT_PRICE",
+  "max_budget_usd": "0",
+  "input_usd_per_million": "0",
+  "output_usd_per_million": "0",
   "pricing_as_of": "2026-10-28"
 }

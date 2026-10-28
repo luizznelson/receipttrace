@@ -1,0 +1,10 @@
+{
+  "model": "SET_AVAILABLE_VISION_MODEL_SNAPSHOT",
+  "max_requests": 20,
+  "max_output_tokens": 2048,
+  "max_input_tokens": 20000,
+  "max_budget_usd": "SET_BUDGET_USD",
+  "input_usd_per_million": "SET_INPUT_PRICE",
+  "output_usd_per_million": "SET_OUTPUT_PRICE",
+  "pricing_as_of": "2026-10-28"
+}

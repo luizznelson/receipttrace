@@ -1,4 +1,6 @@
-# Extração com IA — integração pronta, medição real pendente
+# OpenAI: integração paga opcional
+
+**Caminho recomendado: [Gemini Free Tier](gemini.md).** Esta página documenta apenas o provedor OpenAI opcional; seus preços e requisitos não se aplicam ao Gemini.
 
 ## Estado
 Adaptador implementado para OpenAI Responses API, imagens e saída JSON estruturada. Não foi executada inferência paga: OPENAI_API_KEY não estava configurada. Não há alegação de acurácia, custo real ou superioridade em relação ao OCR.
@@ -9,7 +11,7 @@ Não foi escolhido modelo padrão ou presumido acesso da conta. Use um modelo di
 ```powershell
 uv sync --locked --extra llm
 New-Item -ItemType Directory -Path runs -Force | Out-Null
-Copy-Item examples/llm-config.example.json runs/llm-config.json
+Copy-Item examples/openai-config.example.json runs/llm-config.json
 ```
 Edite `runs/llm-config.json`: substitua todos os SET_ por modelo, teto em USD e tarifas por milhão de tokens. Atualize pricing_as_of. Os placeholders falham antes de qualquer envio. Não inclua a chave nesse arquivo.
 

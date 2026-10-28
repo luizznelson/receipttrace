@@ -24,6 +24,9 @@ ocr = [
 llm = [
     "openai>=2,<3",
 ]
+gemini = [
+    "httpx>=0.28,<1",
+]
 
 [tool.ruff]
 target-version = "py314"
@@ -38,7 +41,7 @@ strict = true
 files = ["src"]
 
 [[tool.mypy.overrides]]
-module = ["pyarrow", "pyarrow.*", "rapidocr", "rapidocr.*", "openai", "openai.*"]
+module = ["pyarrow", "pyarrow.*", "rapidocr", "rapidocr.*", "openai", "openai.*", "httpx", "httpx.*"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]

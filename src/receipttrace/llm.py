@@ -34,6 +34,34 @@ def request(
     prompt_text: str | None = None,
     schema: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
+    if config.provider == "gemini-free":
+        return {
+            "systemInstruction": {
+                "parts": [{"text": prompt() if prompt_text is None else prompt_text}]
+            },
+            "contents": [
+                {
+                    "role": "user",
+                    "parts": [
+                        {"text": "Extract this receipt. Return null for unknown fields."},
+                        {
+                            "inlineData": {
+                                "mimeType": "image/png",
+                                "data": base64.b64encode(image).decode("ascii"),
+                            }
+                        },
+                    ],
+                }
+            ],
+            "generationConfig": {
+                "maxOutputTokens": config.max_output_tokens,
+                "candidateCount": 1,
+                "responseMimeType": "application/json",
+                "responseJsonSchema": extraction_schema(config.provider)
+                if schema is None
+                else schema,
+            },
+        }
     return {
         "model": config.model,
         "instructions": prompt() if prompt_text is None else prompt_text,
@@ -59,7 +87,7 @@ def request(
                 "type": "json_schema",
                 "name": "receipt_extraction_v1",
                 "strict": True,
-                "schema": extraction_schema() if schema is None else schema,
+                "schema": extraction_schema(config.provider) if schema is None else schema,
             }
         },
     }
@@ -128,7 +156,7 @@ def plan(inputs: Path, config: LLMConfig) -> dict[str, Any]:
             decoded.verify()
         records.append({"id": image.stem, "image_sha256": sha256(image)})
     prompt_text = prompt()
-    schema = extraction_schema()
+    schema = extraction_schema(config.provider)
     return {
         "mode": "offline-plan",
         "prompt": prompt_text,
@@ -167,7 +195,14 @@ def run(
         raise FileExistsError(f"Output already exists: {output}")
     prepared = plan(inputs, config)
     initialized = time.perf_counter()
-    engine = provider if provider is not None else OpenAIProvider()
+    if provider is not None:
+        engine = provider
+    elif config.provider == "gemini-free":
+        from receipttrace.gemini import GeminiProvider
+
+        engine = GeminiProvider(config)
+    else:
+        engine = OpenAIProvider()
     initialization = time.perf_counter() - initialized
     try:
         output.mkdir(parents=True)
@@ -180,7 +215,9 @@ def run(
     unknown_usage = 0
     halted = False
     try:
-        for document in prepared["documents"]:
+        for index, document in enumerate(prepared["documents"]):
+            if index and config.min_interval_seconds and not halted:
+                time.sleep(config.min_interval_seconds)
             started = time.perf_counter()
             record: dict[str, Any] = {
                 "id": document["id"],
@@ -190,7 +227,7 @@ def run(
             usage_known = False
             try:
                 if halted:
-                    raise ValueError("StoppedAfterUncertainRequest")
+                    raise ValueError("StoppedAfterProviderHalt")
                 image = (inputs / (document["id"] + ".png")).read_bytes()
                 if hashlib.sha256(image).hexdigest() != document["image_sha256"]:
                     raise ValueError("InputChangedAfterPlan")
@@ -242,7 +279,7 @@ def run(
                     "InputChangedAfterPlan",
                     "UsageExceededReservation",
                     "MissingUsage",
-                    "StoppedAfterUncertainRequest",
+                    "StoppedAfterProviderHalt",
                     "InvalidExtractionContract",
                 }
                 reason = (
@@ -251,6 +288,8 @@ def run(
                     else type(error).__name__
                 )
                 record.update({"status": "error", "error_type": reason})
+                if type(error).__name__ == "GeminiQuotaExceeded":
+                    halted = True
                 if sent and not usage_known:
                     unknown_usage += 1
                     halted = True
@@ -280,12 +319,14 @@ def run(
         "rules_version": "llm-extraction-1",
         "plan": prepared,
         "engine": {
-            "provider": "openai-responses",
+            "provider": config.provider,
             "requested_model": config.model,
-            "sdk": version("openai") if provider is None else "injected-test-provider",
-            "store": False,
+            "sdk": (version("httpx") if config.provider == "gemini-free" else version("openai"))
+            if provider is None
+            else "injected-test-provider",
+            "store": False if config.provider == "openai" else None,
             "max_retries": 0,
-            "image_detail": "high",
+            "image_detail": "high" if config.provider == "openai" else "provider-default",
         },
         "created_at_utc": datetime.now(UTC).isoformat(),
         "python": platform.python_version(),
@@ -303,6 +344,9 @@ def run(
             "estimated_known_usage_usd": str(measured),
             "requests_with_unknown_usage": unknown_usage,
             "not_an_invoice": True,
+            "free_tier_condition": "User-confirmed Free Tier without billing; not verified by API"
+            if config.provider == "gemini-free"
+            else None,
             "config": config.model_dump(),
         },
     }

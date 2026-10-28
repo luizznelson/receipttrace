@@ -64,3 +64,7 @@ OCR local em CPU e avaliação independente implementados. [Como executar e limi
 ## Integração com IA
 
 Extração por visão com saída estruturada, planejamento offline, reserva de orçamento e comparação com o OCR implementados. [Configuração e limites](docs/llm.md). A execução real está pendente de chave, modelo e orçamento; não há resultado medido de IA.
+
+## IA com API gratuita
+
+O caminho recomendado agora é Gemini 2.5 Flash, usando um projeto Free Tier **sem faturamento ativado**. [Configuração e execução](docs/gemini.md). A configuração de exemplo já usa Gemini e valores zero; é necessário confirmar o plano gratuito e configurar GEMINI_API_KEY localmente. Sem fallback pago. Ainda não há medição real de Gemini.

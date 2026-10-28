@@ -64,3 +64,7 @@ Local CPU OCR and independent evaluation are implemented. [Execution and limitat
 ## LLM integration
 
 Vision extraction with structured output, offline planning, budget reservation and OCR comparison are implemented. [Configuration and limitations (Portuguese)](docs/llm.md). Live inference still requires credentials, model selection and budget; no LLM performance result is claimed.
+
+## Free-tier vision API
+
+The recommended path is now Gemini 2.5 Flash with a dedicated Free Tier project **without billing enabled**. [Setup and execution (Portuguese)](docs/gemini.md). The example selects Gemini with zero rates; confirm the account tier and configure GEMINI_API_KEY locally. No paid-provider fallback. No live Gemini benchmark has been measured yet.

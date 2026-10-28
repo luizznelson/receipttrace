@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        extras: ["", "--extra llm"]
+        extras: ["", "--extra llm", "--extra gemini"]
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6

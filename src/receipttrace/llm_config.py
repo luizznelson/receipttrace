@@ -2,9 +2,9 @@
 
 from datetime import date
 from decimal import Decimal, InvalidOperation, localcontext
-from typing import Any
+from typing import Any, Literal, Self
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 from receipttrace.domain import RawReceipt
 
@@ -12,6 +12,9 @@ from receipttrace.domain import RawReceipt
 class LLMConfig(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True, frozen=True)
 
+    provider: Literal["openai", "gemini-free"] = "openai"
+    free_tier_confirmed: bool = False
+    min_interval_seconds: int = Field(default=0, ge=0, le=120)
     model: str = Field(min_length=1, max_length=200)
     max_requests: int = Field(ge=1, le=100)
     max_output_tokens: int = Field(ge=256, le=4096)
@@ -35,8 +38,8 @@ class LLMConfig(BaseModel):
             number = Decimal(value)
         except InvalidOperation as error:
             raise ValueError("Expected a decimal string") from error
-        if not number.is_finite() or number <= 0 or len(value) > 32:
-            raise ValueError("Expected a finite positive decimal string")
+        if not number.is_finite() or number < 0 or len(value) > 32:
+            raise ValueError("Expected a finite nonnegative decimal string")
         return value
 
     @field_validator("pricing_as_of")
@@ -44,6 +47,18 @@ class LLMConfig(BaseModel):
     def dated_pricing(cls, value: str) -> str:
         date.fromisoformat(value)
         return value
+
+    @model_validator(mode="after")
+    def provider_pricing(self) -> Self:
+        amounts = (self.max_budget_usd, self.input_usd_per_million, self.output_usd_per_million)
+        if self.provider == "gemini-free":
+            if self.model not in {"gemini-2.5-flash", "gemini-3.8-flash"}:
+                raise ValueError("Model not in the verified Gemini free-tier allowlist")
+            if any(Decimal(value) != 0 for value in amounts):
+                raise ValueError("Gemini free-tier configuration must use zero prices and budget")
+        elif any(Decimal(value) <= 0 for value in amounts):
+            raise ValueError("OpenAI requires positive budget and prices")
+        return self
 
     def estimate(self, input_tokens: int, output_tokens: int) -> Decimal:
         if input_tokens < 0 or output_tokens < 0:
@@ -56,7 +71,7 @@ class LLMConfig(BaseModel):
             ) / Decimal(1_000_000)
 
 
-def extraction_schema() -> dict[str, Any]:
+def extraction_schema(provider: str = "openai") -> dict[str, Any]:
     schema = RawReceipt.model_json_schema()
     del schema["properties"]["document_id"]
 
@@ -73,4 +88,7 @@ def extraction_schema() -> dict[str, Any]:
                 strict(value)
 
     strict(schema)
+    if provider == "gemini-free":
+        # Gemini only unrolls cyclic references through non-required properties.
+        schema["$defs"]["RawItem"]["required"].remove("children")
     return schema

@@ -231,3 +231,20 @@ def test_cli_offline_plan_and_generic_evaluation_command(
     with pytest.raises(SystemExit) as stopped:
         main()
     assert stopped.value.code == 0
+
+
+def test_gemini_quota_halts_the_batch_without_fallback(tmp_path: Path) -> None:
+    from receipttrace.gemini import GeminiQuotaExceeded
+
+    class QuotaProvider(FakeProvider):
+        counts = 0
+
+        def count(self, payload: dict[str, object]) -> int:
+            self.counts += 1
+            raise GeminiQuotaExceeded("synthetic quota")
+
+    provider = QuotaProvider()
+    manifest = run(images(tmp_path, 2), tmp_path / "run", config(), provider)
+    assert provider.counts == 1
+    assert provider.calls == 0
+    assert all(row["status"] == "error" for row in manifest["records"])
