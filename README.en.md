@@ -5,7 +5,7 @@ Receipt extraction with traceable evaluation and human review.
 [Português brasileiro](README.md)
 
 ## Status
-Specification stage. No extractor, benchmark, API, or interface is implemented yet. No performance results are claimed.
+Data acquisition and inspection stage. No extractor, benchmark, API, or interface is implemented yet. No performance results are claimed.
 
 ## Purpose
 Turn receipt images into structured records, validate supported arithmetic relationships, and preserve evidence for human review. Initial evaluation targets the public CORD v2 benchmark, not Brazilian fiscal compliance or invoice–purchase order matching.
@@ -21,7 +21,7 @@ Image → extraction → schema validation → arithmetic checks → human revie
 - [Milestones and commits](docs/roadmap.md)
 
 ## Reproducibility
-Runtime, dependencies and executable commands will be documented and locked when the first data pipeline is implemented. The foundation currently requires only a Markdown reader.
+Runtime and dependencies are locked in uv.lock. Acquisition and verification commands are documented below.
 
 ## Data sources
 - https://github.com/clovaai/cord
@@ -31,3 +31,18 @@ CORD is attributed to its original authors and published under CC BY 4.0. Datase
 
 ## Engineering transparency
 AI assistance must be disclosed in the case study. Maintainers remain responsible for reviewing, testing and understanding every contribution. Implementation and benchmark claims require linked evidence.
+
+## Development and data
+
+Python 3.14 and uv. Install the locked environment with `uv sync --locked`.
+
+```powershell
+uv run receipttrace prepare-cord
+uv run receipttrace verify-sample
+```
+
+Acquisition downloads approximately 490 MB. Initial inspection only uses the first training shard; validation and test remain reserved. [Development instructions (Portuguese)](docs/development.md).
+
+Implemented: revision-pinned and checksum-verified acquisition, deterministic sampling, provenance manifests, offline verification and integrity tests. Extraction, API and UI remain pending.
+
+[Initial data inspection report (Portuguese)](docs/reports/cord-inspection.md).

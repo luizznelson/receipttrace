@@ -1,7 +1,5 @@
-# Verificação da fundação
+# Verificação da fundação — registro histórico
 
-Esta entrega contém documentação e regras de exclusão do Git. Não contém código de produto, dados baixados, dependências instaladas ou métricas medidas.
+A fundação foi entregue inicialmente como documentação e depois colocada neste repositório. Links locais e integridade do pacote foram verificados naquela etapa. Nenhum resultado de extração foi alegado.
 
-Verificações desta entrega: integridade do ZIP, presença dos arquivos esperados e resolução dos links Markdown relativos. Testes de software não se aplicam nesta etapa.
-
-Nenhum repositório Git ou commit foi criado. Próximo passo: colocar receipttrace no diretório escolhido, revisar a especificação e iniciar o pipeline de dados.
+O projeto avançou para aquisição dos dados. Consulte `development.md` para executar a implementação atual e `reports/` para evidências revisadas. O histórico de commits é mantido pelo proprietário; este documento não declara o estado atual do Git.

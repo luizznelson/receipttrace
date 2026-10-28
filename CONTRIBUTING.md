@@ -11,7 +11,7 @@ Mudanças pequenas e explicáveis. Diagnóstico antes de correção. Nenhum resu
 - Atualizar documentação quando o comportamento mudar.
 
 ## Qualidade planejada
-Com a primeira implementação: configurar formatação/lint, checagem de tipos e testes automatizados. Fixar dependências em arquivo de lock e executar as mesmas verificações em CI. Essas verificações ainda não estão configuradas nesta fundação.
+Formatação/lint (Ruff), checagem de tipos (mypy) e testes (pytest) estão configurados. Dependências estão fixadas no uv.lock. O workflow de CI executa as mesmas verificações; sua execução remota depende do envio ao GitHub. Consulte docs/development.md.
 
 Testes devem cobrir regras e falhas relevantes: precisão monetária, ausências, descontos/taxas suportados, saída inválida, timeout e preservação do histórico. Avaliação probabilística da IA é separada dos testes determinísticos.
 

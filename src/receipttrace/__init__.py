@@ -1,0 +1,1 @@
+"""ReceiptTrace: auditable receipt processing."""
