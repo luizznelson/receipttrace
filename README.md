@@ -1,33 +1,33 @@
 # ReceiptTrace
 
-Receipt extraction with traceable evaluation and human review.
+Extração de recibos com avaliação rastreável e revisão humana.
 
-[Português brasileiro](README.pt-BR.md)
+[English](README.en.md)
 
-## Status
-Specification stage. No extractor, benchmark, API, or interface is implemented yet. No performance results are claimed.
+## Estado atual
+Etapa de especificação. Extrator, benchmark, API e interface ainda não foram implementados. Não há resultados de desempenho medidos.
 
-## Purpose
-Turn receipt images into structured records, validate supported arithmetic relationships, and preserve evidence for human review. Initial evaluation targets the public CORD v2 benchmark, not Brazilian fiscal compliance or invoice–purchase order matching.
+## Objetivo
+Converter imagens de recibos em registros estruturados, validar relações aritméticas suportadas e preservar evidências para revisão humana. A avaliação inicial usará o CORD v2 público; não comprova suporte a documentos fiscais brasileiros nem conferência entre nota e pedido.
 
-## Planned workflow
-Image → extraction → schema validation → arithmetic checks → human review → export.
+## Fluxo planejado
+Imagem → extração → validação do formato → verificações aritméticas → revisão humana → exportação.
 
-## Documentation
-- [Scope and acceptance criteria](docs/scope.md)
-- [Architecture decision](docs/architecture.md)
-- [Data provenance and evaluation protocol](docs/evaluation.md)
-- [Engineering and contribution rules](CONTRIBUTING.md)
-- [Milestones and commits](docs/roadmap.md)
+## Documentação
+- [Escopo e critérios de aceite](docs/scope.md)
+- [Decisão de arquitetura](docs/architecture.md)
+- [Proveniência e avaliação](docs/evaluation.md)
+- [Regras de engenharia e contribuição](CONTRIBUTING.md)
+- [Etapas e commits](docs/roadmap.md)
 
-## Reproducibility
-Runtime, dependencies and executable commands will be documented and locked when the first data pipeline is implemented. The foundation currently requires only a Markdown reader.
+## Reprodução
+Ambiente, dependências e comandos executáveis serão documentados e fixados com o primeiro pipeline de dados. Esta fundação requer apenas um leitor de Markdown.
 
-## Data sources
+## Fontes dos dados
 - https://github.com/clovaai/cord
 - https://huggingface.co/datasets/naver-clova-ix/cord-v2
 
-CORD is attributed to its original authors and published under CC BY 4.0. Dataset licensing is separate from this project's code licensing. No dataset files are bundled here.
+O CORD pertence aos autores originais e é publicado sob CC BY 4.0. A licença dos dados é distinta da licença do código. Este pacote não contém os dados.
 
-## Engineering transparency
-AI assistance must be disclosed in the case study. Maintainers remain responsible for reviewing, testing and understanding every contribution. Implementation and benchmark claims require linked evidence.
+## Transparência
+O estudo de caso deverá declarar a assistência de IA. Toda contribuição precisa ser compreendida, revisada e verificada pelo responsável pelo projeto. Resultados e alegações de implementação exigem evidências.
