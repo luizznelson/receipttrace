@@ -1,11 +1,14 @@
 # ReceiptTrace
 
+**API key setup:** edit the root `.env`, set `GEMINI_API_KEY`, and save. It is read automatically and excluded from Git. [Gemini guide (Portuguese)](docs/gemini.md).
+
+
 Receipt extraction with traceable evaluation and human review.
 
 [Português brasileiro](README.md)
 
 ## Status
-Data acquisition and domain validation implemented. Initial OCR and totals evaluation are implemented. LLM integration is available but unmeasured; application API and UI remain pending. No performance results are claimed.
+Data acquisition, domain validation, local OCR and Gemini extraction are implemented and evaluated on 20 real CORD v2 receipts. Per-document results and execution evidence are published. The application API, human review and UI remain pending.
 
 ## Purpose
 Turn receipt images into structured records, validate supported arithmetic relationships, and preserve evidence for human review. Initial evaluation targets the public CORD v2 benchmark, not Brazilian fiscal compliance or invoice–purchase order matching.
@@ -43,7 +46,7 @@ uv run receipttrace verify-sample
 
 Acquisition downloads approximately 490 MB. Initial inspection only uses the first training shard; validation and test remain reserved. [Development instructions (Portuguese)](docs/development.md).
 
-Implemented: revision-pinned and checksum-verified acquisition, deterministic sampling, provenance manifests, offline verification and integrity tests. LLM integration is available but unmeasured; application API and UI remain pending.
+Implemented: revision-pinned and checksum-verified acquisition, deterministic sampling, provenance manifests, offline verification and integrity tests. OCR and Gemini have been evaluated on the same development sample; application API and UI remain pending.
 
 [Initial data inspection report (Portuguese)](docs/reports/cord-inspection.md).
 
@@ -55,7 +58,7 @@ Strict input contracts, original text preservation and Decimal arithmetic checks
 uv run receipttrace validate-receipt examples/synthetic-receipt.json --policy idr-grouped
 ```
 
-This command validates structured data; image extraction is not implemented yet.
+This command validates structured data. Images are extracted using the OCR or Gemini commands documented below.
 
 ## OCR extraction and initial measurement
 
@@ -63,8 +66,22 @@ Local CPU OCR and independent evaluation are implemented. [Execution and limitat
 
 ## LLM integration
 
-Vision extraction with structured output, offline planning, budget reservation and OCR comparison are implemented. [Configuration and limitations (Portuguese)](docs/llm.md). Live inference still requires credentials, model selection and budget; no LLM performance result is claimed.
+Vision extraction with structured output, offline planning, budget reservation and OCR comparison are implemented. [Configuration and limitations (Portuguese)](docs/llm.md). Gemini Flash-Lite has been evaluated on all 20 development documents. [Report and reproduction (Portuguese)](docs/reports/gemini-development-20.md).
 
 ## Free-tier vision API
 
-The recommended path is now Gemini 2.5 Flash with a dedicated Free Tier project **without billing enabled**. [Setup and execution (Portuguese)](docs/gemini.md). The example selects Gemini with zero rates; confirm the account tier and configure GEMINI_API_KEY locally. No paid-provider fallback. No live Gemini benchmark has been measured yet.
+The recommended path is now Gemini 3.5 Flash-Lite with a dedicated Free Tier project **without billing enabled**. [Setup and execution (Portuguese)](docs/gemini.md). The example selects Gemini with zero rates; confirm the account tier and configure GEMINI_API_KEY locally. No paid-provider fallback. The 20-receipt development evaluation is complete; its results are shown below.
+
+## Real-data results
+
+The same 20 public receipts were used for local OCR and Gemini 3.5 Flash-Lite. Counts are exact matches over valid annotated references.
+
+| Field | Local OCR | Gemini |
+|---|---:|---:|
+| total | 14/19 | 19/19 |
+| subtotal | 9/14 | 14/14 |
+| tax | 7/11 | 11/11 |
+
+Gemini: 20/20 technically completed extractions; this does not certify all fields as correct. Latency p50 8.33 s and p95 22.52 s include remote token pre-counting and inference, excluding inter-document pauses. Known estimated API cost: USD 0 under the confirmed Free Tier configuration without billing enabled; this is not an invoice.
+
+This is a small training sample, not a held-out benchmark, and item accuracy is not measured. Service has only one annotated reference; discount has none. [Report, errors, limitations and reproduction (Portuguese)](docs/reports/gemini-development-20.md) · [Per-document results](docs/reports/gemini-development-20.json) · [OCR/Gemini comparison](docs/reports/ocr-vs-gemini-development-20.json). Saved evidence allows offline metric reproduction without API calls.

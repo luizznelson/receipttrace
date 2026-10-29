@@ -1,0 +1,448 @@
+{
+  "id": "cord-train-shard0-row0028",
+  "image_sha256": "5da9b3d83615078fc320a822109a2bb9976bae31114e90016e58795c679fadb5",
+  "status": "ok",
+  "lines": [
+    {
+      "text": "AFUNG",
+      "score": 0.99992,
+      "box": [
+        [
+          787.0,
+          0.0
+        ],
+        [
+          855.0,
+          0.0
+        ],
+        [
+          863.0,
+          253.0
+        ],
+        [
+          800.0,
+          257.0
+        ]
+      ]
+    },
+    {
+      "text": "FUNG",
+      "score": 0.99922,
+      "box": [
+        [
+          797.0,
+          230.0
+        ],
+        [
+          863.0,
+          228.0
+        ],
+        [
+          863.0,
+          555.0
+        ],
+        [
+          805.0,
+          556.0
+        ]
+      ]
+    },
+    {
+      "text": "18.000",
+      "score": 0.99328,
+      "box": [
+        [
+          426.0,
+          837.0
+        ],
+        [
+          592.0,
+          832.0
+        ],
+        [
+          593.0,
+          880.0
+        ],
+        [
+          427.0,
+          885.0
+        ]
+      ]
+    },
+    {
+      "text": "8.000",
+      "score": 0.96225,
+      "box": [
+        [
+          687.0,
+          829.0
+        ],
+        [
+          797.0,
+          826.0
+        ],
+        [
+          798.0,
+          877.0
+        ],
+        [
+          688.0,
+          880.0
+        ]
+      ]
+    },
+    {
+      "text": "A.MINERAL BOTOL",
+      "score": 0.97302,
+      "box": [
+        [
+          50.0,
+          849.0
+        ],
+        [
+          340.0,
+          839.0
+        ],
+        [
+          341.0,
+          886.0
+        ],
+        [
+          51.0,
+          897.0
+        ]
+      ]
+    },
+    {
+      "text": "8.000",
+      "score": 0.99291,
+      "box": [
+        [
+          687.0,
+          882.0
+        ],
+        [
+          796.0,
+          880.0
+        ],
+        [
+          797.0,
+          930.0
+        ],
+        [
+          688.0,
+          933.0
+        ]
+      ]
+    },
+    {
+      "text": "TOTAL",
+      "score": 0.99944,
+      "box": [
+        [
+          50.0,
+          903.0
+        ],
+        [
+          161.0,
+          899.0
+        ],
+        [
+          163.0,
+          950.0
+        ],
+        [
+          52.0,
+          954.0
+        ]
+      ]
+    },
+    {
+      "text": "800",
+      "score": 0.99985,
+      "box": [
+        [
+          723.0,
+          988.0
+        ],
+        [
+          795.0,
+          985.0
+        ],
+        [
+          797.0,
+          1032.0
+        ],
+        [
+          725.0,
+          1035.0
+        ]
+      ]
+    },
+    {
+      "text": "TAX 10.00 %",
+      "score": 0.9087,
+      "box": [
+        [
+          53.0,
+          1013.0
+        ],
+        [
+          276.0,
+          1004.0
+        ],
+        [
+          278.0,
+          1051.0
+        ],
+        [
+          55.0,
+          1061.0
+        ]
+      ]
+    },
+    {
+      "text": "8.800",
+      "score": 0.94245,
+      "box": [
+        [
+          687.0,
+          1038.0
+        ],
+        [
+          796.0,
+          1034.0
+        ],
+        [
+          797.0,
+          1082.0
+        ],
+        [
+          688.0,
+          1086.0
+        ]
+      ]
+    },
+    {
+      "text": "GRAND TOTAL",
+      "score": 0.99515,
+      "box": [
+        [
+          58.0,
+          1064.0
+        ],
+        [
+          277.0,
+          1056.0
+        ],
+        [
+          278.0,
+          1101.0
+        ],
+        [
+          59.0,
+          1109.0
+        ]
+      ]
+    },
+    {
+      "text": "10.000",
+      "score": 0.97144,
+      "box": [
+        [
+          670.0,
+          1087.0
+        ],
+        [
+          790.0,
+          1082.0
+        ],
+        [
+          792.0,
+          1125.0
+        ],
+        [
+          672.0,
+          1130.0
+        ]
+      ]
+    },
+    {
+      "text": "TUNAI",
+      "score": 0.99902,
+      "box": [
+        [
+          59.0,
+          1112.0
+        ],
+        [
+          164.0,
+          1108.0
+        ],
+        [
+          166.0,
+          1155.0
+        ],
+        [
+          61.0,
+          1159.0
+        ]
+      ]
+    },
+    {
+      "text": "1,200",
+      "score": 0.95779,
+      "box": [
+        [
+          684.0,
+          1130.0
+        ],
+        [
+          788.0,
+          1124.0
+        ],
+        [
+          791.0,
+          1168.0
+        ],
+        [
+          687.0,
+          1173.0
+        ]
+      ]
+    },
+    {
+      "text": "KEMBALI",
+      "score": 0.99789,
+      "box": [
+        [
+          66.0,
+          1158.0
+        ],
+        [
+          206.0,
+          1153.0
+        ],
+        [
+          207.0,
+          1194.0
+        ],
+        [
+          67.0,
+          1199.0
+        ]
+      ]
+    }
+  ],
+  "evidence": {
+    "rows": [
+      "AFUNG",
+      "FUNG",
+      "A.MINERAL BOTOL 18.000 8.000",
+      "TOTAL 8.000",
+      "TAX 10.00 % 800",
+      "GRAND TOTAL 8.800",
+      "10.000",
+      "TUNAI 1,200",
+      "KEMBALI"
+    ],
+    "item_rows": [],
+    "total": {
+      "candidates": [
+        [
+          2,
+          "8.800",
+          "GRAND TOTAL 8.800"
+        ]
+      ],
+      "ambiguous": false
+    },
+    "tax": {
+      "candidates": [
+        [
+          1,
+          "800",
+          "TAX 10.00 % 800"
+        ]
+      ],
+      "ambiguous": false
+    }
+  },
+  "validation": {
+    "schema_version": "1",
+    "rules_version": "1",
+    "numeric_policy": "idr-grouped",
+    "quantity_policy": "decimal-dot-optional-x",
+    "tolerance": "0",
+    "raw": {
+      "document_id": "cord-train-shard0-row0028",
+      "currency": null,
+      "items": [],
+      "items_complete": false,
+      "subtotal": null,
+      "discount": null,
+      "tax": "800",
+      "service": null,
+      "total": "8.800"
+    },
+    "normalized": {
+      "document_id": "cord-train-shard0-row0028",
+      "currency": null,
+      "items": [],
+      "items_complete": false,
+      "subtotal": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "discount": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "tax": {
+        "raw": "800",
+        "value": "800",
+        "status": "parsed",
+        "reason": null
+      },
+      "service": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "total": {
+        "raw": "8.800",
+        "value": "8800",
+        "status": "parsed",
+        "reason": null
+      }
+    },
+    "checks": [
+      {
+        "code": "subtotal",
+        "path": "subtotal",
+        "status": "skipped",
+        "reason": "incomplete_or_nested_items",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "receipt_total",
+        "path": "total",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      }
+    ],
+    "has_findings": false,
+    "has_skipped_checks": true
+  },
+  "seconds": 0.9728149000002304
+}

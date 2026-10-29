@@ -1,0 +1,184 @@
+{
+  "id": "cord-train-shard0-row0188",
+  "image_sha256": "8f30ea9476cb58a1161f3ac26d10c11337d8da76022d08883527b2cac52dc60a",
+  "counted_input_tokens": 1331,
+  "reserved_usd": "0",
+  "response": {
+    "status": "completed",
+    "model": "gemini-3.5-flash-lite",
+    "id": null,
+    "usage": {
+      "input_tokens": 1332,
+      "output_tokens": 141
+    },
+    "output": [],
+    "gemini_response": {
+      "status": "completed",
+      "usage": {
+        "total_tokens": 1473,
+        "total_input_tokens": 1332,
+        "input_tokens_by_modality": [
+          {
+            "modality": "image",
+            "tokens": 1100
+          },
+          {
+            "modality": "text",
+            "tokens": 232
+          }
+        ],
+        "total_cached_tokens": 0,
+        "total_output_tokens": 141,
+        "total_tool_use_tokens": 0,
+        "total_thought_tokens": 0,
+        "initial_input_tokens": 2590
+      },
+      "created": "2026-10-29T19:22:37Z",
+      "updated": "2026-10-29T19:22:37Z",
+      "service_tier": "standard",
+      "steps": [
+        {
+          "signature": "EmAKXgFpFH0TRxVGnU1a7BL6PxYrlMUarGIfHIEsagKUFm30Vv/ptZs7uSE0sRFRV7jo9DtyAZx5c4GiDWKKYd45yl/Vzv2liiQCAsISi4ZCROWaETvPH0m3YVzl3+PgXVs=",
+          "type": "thought"
+        },
+        {
+          "content": [
+            {
+              "text": "{\n  \"currency\": null,\n  \"items\": [\n    {\n      \"description\": \"Smoke Beef + Aqua\",\n      \"quantity\": \"1\",\n      \"unit_price\": null,\n      \"amount\": \"21,818\",\n      \"discount\": null,\n      \"children\": []\n    }\n  ],\n  \"items_complete\": false,\n  \"subtotal\": \"21,818\",\n  \"discount\": null,\n  \"tax\": \"2,182\",\n  \"service\": null,\n  \"total\": \"24,000\"\n}",
+              "type": "text"
+            }
+          ],
+          "type": "model_output"
+        }
+      ],
+      "object": "interaction",
+      "model": "gemini-3.5-flash-lite"
+    }
+  },
+  "estimated_cost_usd": "0",
+  "status": "ok",
+  "validation": {
+    "schema_version": "1",
+    "rules_version": "1",
+    "numeric_policy": "idr-grouped",
+    "quantity_policy": "decimal-dot-optional-x",
+    "tolerance": "0",
+    "raw": {
+      "document_id": "cord-train-shard0-row0188",
+      "currency": null,
+      "items": [
+        {
+          "description": "Smoke Beef + Aqua",
+          "quantity": "1",
+          "unit_price": null,
+          "amount": "21,818",
+          "discount": null,
+          "children": []
+        }
+      ],
+      "items_complete": false,
+      "subtotal": "21,818",
+      "discount": null,
+      "tax": "2,182",
+      "service": null,
+      "total": "24,000"
+    },
+    "normalized": {
+      "document_id": "cord-train-shard0-row0188",
+      "currency": null,
+      "items": [
+        {
+          "description": "Smoke Beef + Aqua",
+          "quantity": {
+            "raw": "1",
+            "value": "1",
+            "status": "parsed",
+            "reason": null
+          },
+          "unit_price": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "amount": {
+            "raw": "21,818",
+            "value": "21818",
+            "status": "parsed",
+            "reason": null
+          },
+          "discount": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "children": []
+        }
+      ],
+      "items_complete": false,
+      "subtotal": {
+        "raw": "21,818",
+        "value": "21818",
+        "status": "parsed",
+        "reason": null
+      },
+      "discount": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "tax": {
+        "raw": "2,182",
+        "value": "2182",
+        "status": "parsed",
+        "reason": null
+      },
+      "service": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "total": {
+        "raw": "24,000",
+        "value": "24000",
+        "status": "parsed",
+        "reason": null
+      }
+    },
+    "checks": [
+      {
+        "code": "item_total",
+        "path": "items[0]",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "subtotal",
+        "path": "subtotal",
+        "status": "skipped",
+        "reason": "incomplete_or_nested_items",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "receipt_total",
+        "path": "total",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      }
+    ],
+    "has_findings": false,
+    "has_skipped_checks": true
+  },
+  "seconds": 8.333050900000671
+}

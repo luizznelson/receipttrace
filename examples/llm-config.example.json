@@ -1,6 +1,6 @@
 {
   "provider": "gemini-free",
-  "model": "gemini-2.5-flash",
+  "model": "gemini-3.5-flash-lite",
   "free_tier_confirmed": false,
   "min_interval_seconds": 15,
   "max_requests": 20,
@@ -9,5 +9,6 @@
   "max_budget_usd": "0",
   "input_usd_per_million": "0",
   "output_usd_per_million": "0",
-  "pricing_as_of": "2026-10-28"
+  "pricing_as_of": "2026-10-28",
+  "thinking_level": "minimal"
 }

@@ -1,0 +1,401 @@
+{
+  "id": "cord-train-shard0-row0059",
+  "image_sha256": "40a0b12c648fa31f510c73bbc071a2ac1814d3de400eaa2af161a6c55fe11530",
+  "status": "ok",
+  "lines": [
+    {
+      "text": "CHICKEN KATSU",
+      "score": 0.99919,
+      "box": [
+        [
+          66.0,
+          736.0
+        ],
+        [
+          341.0,
+          733.0
+        ],
+        [
+          341.0,
+          769.0
+        ],
+        [
+          66.0,
+          773.0
+        ]
+      ]
+    },
+    {
+      "text": "1",
+      "score": 0.99844,
+      "box": [
+        [
+          612.0,
+          732.0
+        ],
+        [
+          640.0,
+          732.0
+        ],
+        [
+          640.0,
+          767.0
+        ],
+        [
+          612.0,
+          767.0
+        ]
+      ]
+    },
+    {
+      "text": "12,727",
+      "score": 0.99952,
+      "box": [
+        [
+          704.0,
+          728.0
+        ],
+        [
+          823.0,
+          728.0
+        ],
+        [
+          823.0,
+          770.0
+        ],
+        [
+          704.0,
+          770.0
+        ]
+      ]
+    },
+    {
+      "text": "TORI NASU HASAMI AGE",
+      "score": 0.964,
+      "box": [
+        [
+          65.0,
+          773.0
+        ],
+        [
+          465.0,
+          768.0
+        ],
+        [
+          465.0,
+          805.0
+        ],
+        [
+          65.0,
+          809.0
+        ]
+      ]
+    },
+    {
+      "text": "1",
+      "score": 0.99816,
+      "box": [
+        [
+          615.0,
+          770.0
+        ],
+        [
+          640.0,
+          770.0
+        ],
+        [
+          640.0,
+          801.0
+        ],
+        [
+          615.0,
+          801.0
+        ]
+      ]
+    },
+    {
+      "text": "10,000",
+      "score": 0.99923,
+      "box": [
+        [
+          707.0,
+          766.0
+        ],
+        [
+          827.0,
+          766.0
+        ],
+        [
+          827.0,
+          805.0
+        ],
+        [
+          707.0,
+          805.0
+        ]
+      ]
+    },
+    {
+      "text": "SUB.TOTAL",
+      "score": 0.99791,
+      "box": [
+        [
+          304.0,
+          917.0
+        ],
+        [
+          505.0,
+          917.0
+        ],
+        [
+          505.0,
+          955.0
+        ],
+        [
+          304.0,
+          955.0
+        ]
+      ]
+    },
+    {
+      "text": "22,727",
+      "score": 0.99977,
+      "box": [
+        [
+          688.0,
+          914.0
+        ],
+        [
+          810.0,
+          914.0
+        ],
+        [
+          810.0,
+          957.0
+        ],
+        [
+          688.0,
+          957.0
+        ]
+      ]
+    },
+    {
+      "text": "RESTAURANT TAX",
+      "score": 0.99541,
+      "box": [
+        [
+          210.0,
+          962.0
+        ],
+        [
+          510.0,
+          959.0
+        ],
+        [
+          510.0,
+          999.0
+        ],
+        [
+          210.0,
+          1003.0
+        ]
+      ]
+    },
+    {
+      "text": "2,273",
+      "score": 0.99991,
+      "box": [
+        [
+          708.0,
+          958.0
+        ],
+        [
+          813.0,
+          958.0
+        ],
+        [
+          813.0,
+          1000.0
+        ],
+        [
+          708.0,
+          1000.0
+        ]
+      ]
+    },
+    {
+      "text": "GRAND TOTAL",
+      "score": 0.99889,
+      "box": [
+        [
+          290.0,
+          1058.0
+        ],
+        [
+          535.0,
+          1055.0
+        ],
+        [
+          535.0,
+          1095.0
+        ],
+        [
+          290.0,
+          1099.0
+        ]
+      ]
+    },
+    {
+      "text": "~CASH [25,000]",
+      "score": 0.9651,
+      "box": [
+        [
+          256.0,
+          1095.0
+        ],
+        [
+          535.0,
+          1090.0
+        ],
+        [
+          536.0,
+          1138.0
+        ],
+        [
+          257.0,
+          1142.0
+        ]
+      ]
+    },
+    {
+      "text": "25,000",
+      "score": 0.99981,
+      "box": [
+        [
+          630.0,
+          1087.0
+        ],
+        [
+          816.0,
+          1087.0
+        ],
+        [
+          816.0,
+          1140.0
+        ],
+        [
+          630.0,
+          1140.0
+        ]
+      ]
+    }
+  ],
+  "evidence": {
+    "rows": [
+      "CHICKEN KATSU 1 12,727",
+      "TORI NASU HASAMI AGE 1 10,000",
+      "SUB.TOTAL 22,727",
+      "RESTAURANT TAX 2,273",
+      "GRAND TOTAL",
+      "~CASH [25,000] 25,000"
+    ],
+    "item_rows": [],
+    "total": {
+      "candidates": [
+        [
+          1,
+          "22,727",
+          "SUB.TOTAL 22,727"
+        ]
+      ],
+      "ambiguous": false
+    },
+    "tax": {
+      "candidates": [
+        [
+          1,
+          "2,273",
+          "RESTAURANT TAX 2,273"
+        ]
+      ],
+      "ambiguous": false
+    }
+  },
+  "validation": {
+    "schema_version": "1",
+    "rules_version": "1",
+    "numeric_policy": "idr-grouped",
+    "quantity_policy": "decimal-dot-optional-x",
+    "tolerance": "0",
+    "raw": {
+      "document_id": "cord-train-shard0-row0059",
+      "currency": null,
+      "items": [],
+      "items_complete": false,
+      "subtotal": null,
+      "discount": null,
+      "tax": "2,273",
+      "service": null,
+      "total": "22,727"
+    },
+    "normalized": {
+      "document_id": "cord-train-shard0-row0059",
+      "currency": null,
+      "items": [],
+      "items_complete": false,
+      "subtotal": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "discount": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "tax": {
+        "raw": "2,273",
+        "value": "2273",
+        "status": "parsed",
+        "reason": null
+      },
+      "service": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "total": {
+        "raw": "22,727",
+        "value": "22727",
+        "status": "parsed",
+        "reason": null
+      }
+    },
+    "checks": [
+      {
+        "code": "subtotal",
+        "path": "subtotal",
+        "status": "skipped",
+        "reason": "incomplete_or_nested_items",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "receipt_total",
+        "path": "total",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      }
+    ],
+    "has_findings": false,
+    "has_skipped_checks": true
+  },
+  "seconds": 0.9989138999990246
+}

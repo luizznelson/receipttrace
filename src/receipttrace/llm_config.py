@@ -13,6 +13,7 @@ class LLMConfig(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True, frozen=True)
 
     provider: Literal["openai", "gemini-free"] = "openai"
+    thinking_level: Literal["minimal", "low", "medium", "high"] = "low"
     free_tier_confirmed: bool = False
     min_interval_seconds: int = Field(default=0, ge=0, le=120)
     model: str = Field(min_length=1, max_length=200)
@@ -52,8 +53,10 @@ class LLMConfig(BaseModel):
     def provider_pricing(self) -> Self:
         amounts = (self.max_budget_usd, self.input_usd_per_million, self.output_usd_per_million)
         if self.provider == "gemini-free":
-            if self.model not in {"gemini-2.5-flash", "gemini-3.8-flash"}:
+            if self.model not in {"gemini-2.5-flash", "gemini-3.8-flash", "gemini-3.5-flash-lite"}:
                 raise ValueError("Model not in the verified Gemini free-tier allowlist")
+            if self.model == "gemini-3.8-flash" and self.thinking_level == "minimal":
+                raise ValueError("Gemini 3.8 Flash requires low, medium or high thinking")
             if any(Decimal(value) != 0 for value in amounts):
                 raise ValueError("Gemini free-tier configuration must use zero prices and budget")
         elif any(Decimal(value) <= 0 for value in amounts):
@@ -91,4 +94,18 @@ def extraction_schema(provider: str = "openai") -> dict[str, Any]:
     if provider == "gemini-free":
         # Gemini only unrolls cyclic references through non-required properties.
         schema["$defs"]["RawItem"]["required"].remove("children")
+
+        def simplify_transport(node: Any) -> None:
+            if isinstance(node, dict):
+                # Large nested array bounds explode the provider's constrained decoder states.
+                # RawReceipt retains these limits when validating the returned JSON locally.
+                node.pop("maxItems", None)
+                node.pop("minItems", None)
+                for value in node.values():
+                    simplify_transport(value)
+            elif isinstance(node, list):
+                for value in node:
+                    simplify_transport(value)
+
+        simplify_transport(schema)
     return schema

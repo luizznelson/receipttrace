@@ -15,11 +15,11 @@ Copy-Item examples/openai-config.example.json runs/llm-config.json
 ```
 Edite `runs/llm-config.json`: substitua todos os SET_ por modelo, teto em USD e tarifas por milhão de tokens. Atualize pricing_as_of. Os placeholders falham antes de qualquer envio. Não inclua a chave nesse arquivo.
 
-O CLI lê OPENAI_API_KEY do ambiente do processo. `.env.example` é referência; não há carregamento automático de `.env`. Nunca envie a chave ao chat, Git ou linha de comando com valor literal no histórico. Em PowerShell, uma opção é:
-```powershell
-$receiptTraceSecret = Read-Host 'Chave da API' -AsSecureString
-$env:OPENAI_API_KEY = [Net.NetworkCredential]::new('', $receiptTraceSecret).Password
+A credencial opcional OpenAI também pode ficar no arquivo `.env` da raiz:
+```dotenv
+OPENAI_API_KEY=sua_chave_aqui
 ```
+O arquivo é lido automaticamente, sem alterar o ambiente global. Variáveis existentes no processo têm prioridade. Não coloque segredos em JSON, chat ou Git. Para Gemini use GEMINI_API_KEY e as instruções em gemini.md.
 
 ## Planejamento sem rede
 ```powershell

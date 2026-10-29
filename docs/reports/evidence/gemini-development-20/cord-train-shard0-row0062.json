@@ -1,0 +1,231 @@
+{
+  "id": "cord-train-shard0-row0062",
+  "image_sha256": "3dfba6b1e12cb68df13a674240d245c87c228fce6883cfc2a3a9b36c9651e0aa",
+  "counted_input_tokens": 1331,
+  "reserved_usd": "0",
+  "response": {
+    "status": "completed",
+    "model": "gemini-3.5-flash-lite",
+    "id": null,
+    "usage": {
+      "input_tokens": 1332,
+      "output_tokens": 202
+    },
+    "output": [],
+    "gemini_response": {
+      "status": "completed",
+      "usage": {
+        "total_tokens": 1534,
+        "total_input_tokens": 1332,
+        "input_tokens_by_modality": [
+          {
+            "modality": "image",
+            "tokens": 1100
+          },
+          {
+            "modality": "text",
+            "tokens": 232
+          }
+        ],
+        "total_cached_tokens": 0,
+        "total_output_tokens": 202,
+        "total_tool_use_tokens": 0,
+        "total_thought_tokens": 0,
+        "initial_input_tokens": 2590
+      },
+      "created": "2026-10-29T19:19:34Z",
+      "updated": "2026-10-29T19:19:34Z",
+      "service_tier": "standard",
+      "steps": [
+        {
+          "signature": "EmAKXgFpFH0TqF0VNRrHAYe0es+04BWkF/FK/UarYiVIu/XC1+Jhn/ahzSaobQjhGKUnEeVQhzoD81hDiokQvYkkstHmQW6zSBf5cfm1mQNue7Cp1o827QWC2Wk011CQeO0=",
+          "type": "thought"
+        },
+        {
+          "content": [
+            {
+              "text": "{\n  \"currency\": null,\n  \"items\": [\n    {\n      \"description\": \"RALPH BREAKS THE INTERNET : WR\",\n      \"quantity\": null,\n      \"unit_price\": null,\n      \"amount\": \"3.600.000\",\n      \"discount\": null,\n      \"children\": [\n        {\n          \"description\": \"TIKET\",\n          \"quantity\": \"60\",\n          \"unit_price\": \"60.000\",\n          \"amount\": null,\n          \"discount\": null,\n          \"children\": []\n        }\n      ]\n    }\n  ],\n  \"items_complete\": false,\n  \"subtotal\": null,\n  \"discount\": null,\n  \"tax\": null,\n  \"service\": null,\n  \"total\": \"3.600.000\"\n}",
+              "type": "text"
+            }
+          ],
+          "type": "model_output"
+        }
+      ],
+      "object": "interaction",
+      "model": "gemini-3.5-flash-lite"
+    }
+  },
+  "estimated_cost_usd": "0",
+  "status": "ok",
+  "validation": {
+    "schema_version": "1",
+    "rules_version": "1",
+    "numeric_policy": "idr-grouped",
+    "quantity_policy": "decimal-dot-optional-x",
+    "tolerance": "0",
+    "raw": {
+      "document_id": "cord-train-shard0-row0062",
+      "currency": null,
+      "items": [
+        {
+          "description": "RALPH BREAKS THE INTERNET : WR",
+          "quantity": null,
+          "unit_price": null,
+          "amount": "3.600.000",
+          "discount": null,
+          "children": [
+            {
+              "description": "TIKET",
+              "quantity": "60",
+              "unit_price": "60.000",
+              "amount": null,
+              "discount": null,
+              "children": []
+            }
+          ]
+        }
+      ],
+      "items_complete": false,
+      "subtotal": null,
+      "discount": null,
+      "tax": null,
+      "service": null,
+      "total": "3.600.000"
+    },
+    "normalized": {
+      "document_id": "cord-train-shard0-row0062",
+      "currency": null,
+      "items": [
+        {
+          "description": "RALPH BREAKS THE INTERNET : WR",
+          "quantity": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "unit_price": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "amount": {
+            "raw": "3.600.000",
+            "value": "3600000",
+            "status": "parsed",
+            "reason": null
+          },
+          "discount": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "children": [
+            {
+              "description": "TIKET",
+              "quantity": {
+                "raw": "60",
+                "value": "60",
+                "status": "parsed",
+                "reason": null
+              },
+              "unit_price": {
+                "raw": "60.000",
+                "value": "60000",
+                "status": "parsed",
+                "reason": null
+              },
+              "amount": {
+                "raw": null,
+                "value": null,
+                "status": "missing",
+                "reason": null
+              },
+              "discount": {
+                "raw": null,
+                "value": null,
+                "status": "missing",
+                "reason": null
+              },
+              "children": []
+            }
+          ]
+        }
+      ],
+      "items_complete": false,
+      "subtotal": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "discount": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "tax": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "service": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "total": {
+        "raw": "3.600.000",
+        "value": "3600000",
+        "status": "parsed",
+        "reason": null
+      }
+    },
+    "checks": [
+      {
+        "code": "item_total",
+        "path": "items[0]",
+        "status": "skipped",
+        "reason": "nested_item_semantics_unknown",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "item_total",
+        "path": "items[0].children[0]",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "subtotal",
+        "path": "subtotal",
+        "status": "skipped",
+        "reason": "incomplete_or_nested_items",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "receipt_total",
+        "path": "total",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      }
+    ],
+    "has_findings": false,
+    "has_skipped_checks": true
+  },
+  "seconds": 5.777947299997322
+}

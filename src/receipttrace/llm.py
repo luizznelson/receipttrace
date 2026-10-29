@@ -3,7 +3,6 @@
 import base64
 import hashlib
 import json
-import os
 import platform
 import subprocess
 import time
@@ -18,6 +17,7 @@ from typing import Any, Protocol
 from PIL import Image
 
 from receipttrace.cli_serialization import decimal_json
+from receipttrace.credentials import api_key
 from receipttrace.data import sha256
 from receipttrace.domain import RawReceipt, report
 from receipttrace.llm_config import LLMConfig, extraction_schema
@@ -36,30 +36,25 @@ def request(
 ) -> dict[str, Any]:
     if config.provider == "gemini-free":
         return {
-            "systemInstruction": {
-                "parts": [{"text": prompt() if prompt_text is None else prompt_text}]
-            },
-            "contents": [
+            "model": config.model,
+            "store": False,
+            "system_instruction": prompt() if prompt_text is None else prompt_text,
+            "input": [
+                {"type": "text", "text": "Extract this receipt. Return null for unknown fields."},
                 {
-                    "role": "user",
-                    "parts": [
-                        {"text": "Extract this receipt. Return null for unknown fields."},
-                        {
-                            "inlineData": {
-                                "mimeType": "image/png",
-                                "data": base64.b64encode(image).decode("ascii"),
-                            }
-                        },
-                    ],
-                }
+                    "type": "image",
+                    "mime_type": "image/png",
+                    "data": base64.b64encode(image).decode("ascii"),
+                },
             ],
-            "generationConfig": {
-                "maxOutputTokens": config.max_output_tokens,
-                "candidateCount": 1,
-                "responseMimeType": "application/json",
-                "responseJsonSchema": extraction_schema(config.provider)
-                if schema is None
-                else schema,
+            "generation_config": {
+                "max_output_tokens": config.max_output_tokens,
+                "thinking_level": config.thinking_level,
+            },
+            "response_format": {
+                "type": "text",
+                "mime_type": "application/json",
+                "schema": extraction_schema(config.provider) if schema is None else schema,
             },
         }
     return {
@@ -107,8 +102,7 @@ class Provider(Protocol):
 
 class OpenAIProvider:
     def __init__(self) -> None:
-        if not os.environ.get("OPENAI_API_KEY"):
-            raise ValueError("Configure OPENAI_API_KEY locally; never put it in chat or Git")
+        key = api_key("OPENAI_API_KEY")
         try:
             from openai import OpenAI
         except ImportError as error:
@@ -116,7 +110,7 @@ class OpenAIProvider:
                 "Install optional dependencies: uv sync --locked --extra llm"
             ) from error
         self.client = OpenAI(
-            api_key=os.environ["OPENAI_API_KEY"],
+            api_key=key,
             base_url="https://api.openai.com/v1",
             max_retries=0,
             timeout=60,
@@ -288,7 +282,12 @@ def run(
                     else type(error).__name__
                 )
                 record.update({"status": "error", "error_type": reason})
-                if type(error).__name__ == "GeminiQuotaExceeded":
+                if type(error).__name__ in {
+                    "GeminiQuotaExceeded",
+                    "GeminiFreeTierUnavailable",
+                    "GeminiModelUnavailable",
+                    "GeminiSchemaTooComplex",
+                }:
                     halted = True
                 if sent and not usage_known:
                     unknown_usage += 1
@@ -308,6 +307,11 @@ def run(
                     "seconds": record["seconds"],
                 }
             )
+            print(
+                f"{document['id']}: {record['status']}"
+                + (f" ({record['error_type']})" if record["status"] == "error" else ""),
+                flush=True,
+            )
     finally:
         engine.close()
     git = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, check=False)
@@ -324,7 +328,12 @@ def run(
             "sdk": (version("httpx") if config.provider == "gemini-free" else version("openai"))
             if provider is None
             else "injected-test-provider",
-            "store": False if config.provider == "openai" else None,
+            "store": False,
+            "api": "interactions-v1beta" if config.provider == "gemini-free" else "responses",
+            "thinking_level": config.thinking_level if config.provider == "gemini-free" else None,
+            "counting_scope": "countTokens preflight; actual usage from Interactions"
+            if config.provider == "gemini-free"
+            else "Responses input token counting",
             "max_retries": 0,
             "image_detail": "high" if config.provider == "openai" else "provider-default",
         },

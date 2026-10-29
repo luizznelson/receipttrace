@@ -1,0 +1,229 @@
+{
+  "id": "cord-train-shard0-row0059",
+  "image_sha256": "40a0b12c648fa31f510c73bbc071a2ac1814d3de400eaa2af161a6c55fe11530",
+  "counted_input_tokens": 1311,
+  "reserved_usd": "0",
+  "response": {
+    "status": "completed",
+    "model": "gemini-3.5-flash-lite",
+    "id": null,
+    "usage": {
+      "input_tokens": 1312,
+      "output_tokens": 205
+    },
+    "output": [],
+    "gemini_response": {
+      "status": "completed",
+      "usage": {
+        "total_tokens": 1517,
+        "total_input_tokens": 1312,
+        "input_tokens_by_modality": [
+          {
+            "modality": "text",
+            "tokens": 232
+          },
+          {
+            "modality": "image",
+            "tokens": 1080
+          }
+        ],
+        "total_cached_tokens": 0,
+        "total_output_tokens": 205,
+        "total_tool_use_tokens": 0,
+        "total_thought_tokens": 0,
+        "initial_input_tokens": 2570
+      },
+      "created": "2026-10-29T19:19:13Z",
+      "updated": "2026-10-29T19:19:13Z",
+      "service_tier": "standard",
+      "steps": [
+        {
+          "signature": "EmAKXgFpFH0TrWEIsXcf1CSat9PxBnD5ctvEVLcnudEwUP7liInOMrwuqMrgRPnt10u4jNpzzkYWXYY2ix55QsxgrGo6NshysWdkL6f7D1Z5o1KZxzdKJ/zCmZ3F8Ki5XXM=",
+          "type": "thought"
+        },
+        {
+          "content": [
+            {
+              "text": "{\n  \"currency\": null,\n  \"items\": [\n    {\n      \"description\": \"CHICKEN KATSU\",\n      \"quantity\": \"1\",\n      \"unit_price\": null,\n      \"amount\": \"12,727\",\n      \"discount\": null,\n      \"children\": []\n    },\n    {\n      \"description\": \"TORI NASU HASAMI AGE\",\n      \"quantity\": \"1\",\n      \"unit_price\": null,\n      \"amount\": \"10,000\",\n      \"discount\": null,\n      \"children\": []\n    }\n  ],\n  \"items_complete\": false,\n  \"subtotal\": \"22,727\",\n  \"discount\": null,\n  \"tax\": \"2,273\",\n  \"service\": null,\n  \"total\": \"25,000\"\n}",
+              "type": "text"
+            }
+          ],
+          "type": "model_output"
+        }
+      ],
+      "object": "interaction",
+      "model": "gemini-3.5-flash-lite"
+    }
+  },
+  "estimated_cost_usd": "0",
+  "status": "ok",
+  "validation": {
+    "schema_version": "1",
+    "rules_version": "1",
+    "numeric_policy": "idr-grouped",
+    "quantity_policy": "decimal-dot-optional-x",
+    "tolerance": "0",
+    "raw": {
+      "document_id": "cord-train-shard0-row0059",
+      "currency": null,
+      "items": [
+        {
+          "description": "CHICKEN KATSU",
+          "quantity": "1",
+          "unit_price": null,
+          "amount": "12,727",
+          "discount": null,
+          "children": []
+        },
+        {
+          "description": "TORI NASU HASAMI AGE",
+          "quantity": "1",
+          "unit_price": null,
+          "amount": "10,000",
+          "discount": null,
+          "children": []
+        }
+      ],
+      "items_complete": false,
+      "subtotal": "22,727",
+      "discount": null,
+      "tax": "2,273",
+      "service": null,
+      "total": "25,000"
+    },
+    "normalized": {
+      "document_id": "cord-train-shard0-row0059",
+      "currency": null,
+      "items": [
+        {
+          "description": "CHICKEN KATSU",
+          "quantity": {
+            "raw": "1",
+            "value": "1",
+            "status": "parsed",
+            "reason": null
+          },
+          "unit_price": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "amount": {
+            "raw": "12,727",
+            "value": "12727",
+            "status": "parsed",
+            "reason": null
+          },
+          "discount": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "children": []
+        },
+        {
+          "description": "TORI NASU HASAMI AGE",
+          "quantity": {
+            "raw": "1",
+            "value": "1",
+            "status": "parsed",
+            "reason": null
+          },
+          "unit_price": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "amount": {
+            "raw": "10,000",
+            "value": "10000",
+            "status": "parsed",
+            "reason": null
+          },
+          "discount": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "children": []
+        }
+      ],
+      "items_complete": false,
+      "subtotal": {
+        "raw": "22,727",
+        "value": "22727",
+        "status": "parsed",
+        "reason": null
+      },
+      "discount": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "tax": {
+        "raw": "2,273",
+        "value": "2273",
+        "status": "parsed",
+        "reason": null
+      },
+      "service": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "total": {
+        "raw": "25,000",
+        "value": "25000",
+        "status": "parsed",
+        "reason": null
+      }
+    },
+    "checks": [
+      {
+        "code": "item_total",
+        "path": "items[0]",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "item_total",
+        "path": "items[1]",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "subtotal",
+        "path": "subtotal",
+        "status": "skipped",
+        "reason": "incomplete_or_nested_items",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "receipt_total",
+        "path": "total",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      }
+    ],
+    "has_findings": false,
+    "has_skipped_checks": true
+  },
+  "seconds": 4.640288000002329
+}

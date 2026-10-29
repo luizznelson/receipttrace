@@ -1,0 +1,434 @@
+{
+  "id": "cord-train-shard0-row0026",
+  "image_sha256": "973282ec60c140c6c1b971c458df9f0ad188905a36005dee50c8c57e09021311",
+  "status": "ok",
+  "lines": [
+    {
+      "text": "Pepenero Pastel",
+      "score": 0.99879,
+      "box": [
+        [
+          225.0,
+          727.0
+        ],
+        [
+          468.0,
+          727.0
+        ],
+        [
+          468.0,
+          767.0
+        ],
+        [
+          225.0,
+          767.0
+        ]
+      ]
+    },
+    {
+      "text": "1x",
+      "score": 0.8031,
+      "box": [
+        [
+          228.0,
+          769.0
+        ],
+        [
+          267.0,
+          769.0
+        ],
+        [
+          267.0,
+          803.0
+        ],
+        [
+          228.0,
+          803.0
+        ]
+      ]
+    },
+    {
+      "text": "15.000",
+      "score": 0.99999,
+      "box": [
+        [
+          321.0,
+          766.0
+        ],
+        [
+          423.0,
+          766.0
+        ],
+        [
+          423.0,
+          808.0
+        ],
+        [
+          321.0,
+          808.0
+        ]
+      ]
+    },
+    {
+      "text": "15.000",
+      "score": 0.99998,
+      "box": [
+        [
+          632.0,
+          771.0
+        ],
+        [
+          733.0,
+          773.0
+        ],
+        [
+          732.0,
+          814.0
+        ],
+        [
+          631.0,
+          811.0
+        ]
+      ]
+    },
+    {
+      "text": "Subtotal",
+      "score": 0.99866,
+      "box": [
+        [
+          224.0,
+          846.0
+        ],
+        [
+          357.0,
+          849.0
+        ],
+        [
+          357.0,
+          888.0
+        ],
+        [
+          223.0,
+          885.0
+        ]
+      ]
+    },
+    {
+      "text": "Rp 15.000",
+      "score": 0.99042,
+      "box": [
+        [
+          579.0,
+          850.0
+        ],
+        [
+          731.0,
+          853.0
+        ],
+        [
+          731.0,
+          895.0
+        ],
+        [
+          579.0,
+          892.0
+        ]
+      ]
+    },
+    {
+      "text": "Tax (10.0%)",
+      "score": 0.95616,
+      "box": [
+        [
+          225.0,
+          889.0
+        ],
+        [
+          402.0,
+          889.0
+        ],
+        [
+          402.0,
+          929.0
+        ],
+        [
+          225.0,
+          929.0
+        ]
+      ]
+    },
+    {
+      "text": "Rp 1.500",
+      "score": 0.97552,
+      "box": [
+        [
+          594.0,
+          894.0
+        ],
+        [
+          731.0,
+          894.0
+        ],
+        [
+          731.0,
+          935.0
+        ],
+        [
+          594.0,
+          935.0
+        ]
+      ]
+    },
+    {
+      "text": "Total",
+      "score": 0.99991,
+      "box": [
+        [
+          222.0,
+          967.0
+        ],
+        [
+          313.0,
+          967.0
+        ],
+        [
+          313.0,
+          1010.0
+        ],
+        [
+          222.0,
+          1010.0
+        ]
+      ]
+    },
+    {
+      "text": "Rp 16.500",
+      "score": 0.95802,
+      "box": [
+        [
+          577.0,
+          974.0
+        ],
+        [
+          730.0,
+          974.0
+        ],
+        [
+          730.0,
+          1015.0
+        ],
+        [
+          577.0,
+          1015.0
+        ]
+      ]
+    },
+    {
+      "text": "Cash",
+      "score": 0.99994,
+      "box": [
+        [
+          221.0,
+          1048.0
+        ],
+        [
+          298.0,
+          1048.0
+        ],
+        [
+          298.0,
+          1089.0
+        ],
+        [
+          221.0,
+          1089.0
+        ]
+      ]
+    },
+    {
+      "text": "Rp 50.500",
+      "score": 0.99867,
+      "box": [
+        [
+          576.0,
+          1053.0
+        ],
+        [
+          729.0,
+          1055.0
+        ],
+        [
+          729.0,
+          1098.0
+        ],
+        [
+          576.0,
+          1095.0
+        ]
+      ]
+    },
+    {
+      "text": "Change",
+      "score": 0.99996,
+      "box": [
+        [
+          219.0,
+          1088.0
+        ],
+        [
+          328.0,
+          1091.0
+        ],
+        [
+          327.0,
+          1134.0
+        ],
+        [
+          218.0,
+          1131.0
+        ]
+      ]
+    },
+    {
+      "text": "Rp 34.000",
+      "score": 0.99537,
+      "box": [
+        [
+          574.0,
+          1093.0
+        ],
+        [
+          729.0,
+          1096.0
+        ],
+        [
+          729.0,
+          1140.0
+        ],
+        [
+          574.0,
+          1137.0
+        ]
+      ]
+    }
+  ],
+  "evidence": {
+    "rows": [
+      "Pepenero Pastel",
+      "1x 15.000 15.000",
+      "Subtotal Rp 15.000",
+      "Tax (10.0%) Rp 1.500",
+      "Total Rp 16.500",
+      "Cash Rp 50.500",
+      "Change Rp 34.000"
+    ],
+    "item_rows": [],
+    "subtotal": {
+      "candidates": [
+        [
+          1,
+          "Rp 15.000",
+          "Subtotal Rp 15.000"
+        ]
+      ],
+      "ambiguous": false
+    },
+    "tax": {
+      "candidates": [
+        [
+          1,
+          "Rp 1.500",
+          "Tax (10.0%) Rp 1.500"
+        ]
+      ],
+      "ambiguous": false
+    },
+    "total": {
+      "candidates": [
+        [
+          1,
+          "Rp 16.500",
+          "Total Rp 16.500"
+        ]
+      ],
+      "ambiguous": false
+    }
+  },
+  "validation": {
+    "schema_version": "1",
+    "rules_version": "1",
+    "numeric_policy": "idr-grouped",
+    "quantity_policy": "decimal-dot-optional-x",
+    "tolerance": "0",
+    "raw": {
+      "document_id": "cord-train-shard0-row0026",
+      "currency": null,
+      "items": [],
+      "items_complete": false,
+      "subtotal": "Rp 15.000",
+      "discount": null,
+      "tax": "Rp 1.500",
+      "service": null,
+      "total": "Rp 16.500"
+    },
+    "normalized": {
+      "document_id": "cord-train-shard0-row0026",
+      "currency": null,
+      "items": [],
+      "items_complete": false,
+      "subtotal": {
+        "raw": "Rp 15.000",
+        "value": "15000",
+        "status": "parsed",
+        "reason": null
+      },
+      "discount": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "tax": {
+        "raw": "Rp 1.500",
+        "value": "1500",
+        "status": "parsed",
+        "reason": null
+      },
+      "service": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "total": {
+        "raw": "Rp 16.500",
+        "value": "16500",
+        "status": "parsed",
+        "reason": null
+      }
+    },
+    "checks": [
+      {
+        "code": "subtotal",
+        "path": "subtotal",
+        "status": "skipped",
+        "reason": "incomplete_or_nested_items",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "receipt_total",
+        "path": "total",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      }
+    ],
+    "has_findings": false,
+    "has_skipped_checks": true
+  },
+  "seconds": 1.3843195000008564
+}

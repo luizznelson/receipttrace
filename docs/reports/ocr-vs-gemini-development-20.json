@@ -1,0 +1,169 @@
+{
+  "comparison_version": "1",
+  "baseline_sha256": "85f8115b8a97570c0b9ff1030076846873b34deacd8d1ff5634f6fd657a8db54",
+  "candidate_sha256": "4888f0d649c932157876c4a1a26be1fd3a3d6c68ec2490c24940d2b08ed5b4e0",
+  "metrics": {
+    "total": {
+      "baseline": {
+        "correct": 14,
+        "wrong_value": 2,
+        "missed": 3,
+        "invalid_reference": 0,
+        "unannotated_prediction": 0,
+        "unannotated_abstention": 1,
+        "annotated_documents": 19,
+        "exact_match_recall": 0.7368421052631579,
+        "precision_on_annotated_answers": 0.875
+      },
+      "candidate": {
+        "correct": 19,
+        "wrong_value": 0,
+        "missed": 0,
+        "invalid_reference": 0,
+        "unannotated_prediction": 0,
+        "unannotated_abstention": 1,
+        "annotated_documents": 19,
+        "exact_match_recall": 1.0,
+        "precision_on_annotated_answers": 1.0
+      },
+      "correct_difference": 5
+    },
+    "subtotal": {
+      "baseline": {
+        "correct": 9,
+        "wrong_value": 0,
+        "missed": 5,
+        "invalid_reference": 0,
+        "unannotated_prediction": 0,
+        "unannotated_abstention": 6,
+        "annotated_documents": 14,
+        "exact_match_recall": 0.6428571428571429,
+        "precision_on_annotated_answers": 1.0
+      },
+      "candidate": {
+        "correct": 14,
+        "wrong_value": 0,
+        "missed": 0,
+        "invalid_reference": 0,
+        "unannotated_prediction": 0,
+        "unannotated_abstention": 6,
+        "annotated_documents": 14,
+        "exact_match_recall": 1.0,
+        "precision_on_annotated_answers": 1.0
+      },
+      "correct_difference": 5
+    },
+    "tax": {
+      "baseline": {
+        "correct": 7,
+        "wrong_value": 0,
+        "missed": 4,
+        "invalid_reference": 0,
+        "unannotated_prediction": 0,
+        "unannotated_abstention": 9,
+        "annotated_documents": 11,
+        "exact_match_recall": 0.6363636363636364,
+        "precision_on_annotated_answers": 1.0
+      },
+      "candidate": {
+        "correct": 11,
+        "wrong_value": 0,
+        "missed": 0,
+        "invalid_reference": 0,
+        "unannotated_prediction": 0,
+        "unannotated_abstention": 9,
+        "annotated_documents": 11,
+        "exact_match_recall": 1.0,
+        "precision_on_annotated_answers": 1.0
+      },
+      "correct_difference": 4
+    },
+    "service": {
+      "baseline": {
+        "correct": 1,
+        "wrong_value": 0,
+        "missed": 0,
+        "invalid_reference": 0,
+        "unannotated_prediction": 0,
+        "unannotated_abstention": 19,
+        "annotated_documents": 1,
+        "exact_match_recall": 1.0,
+        "precision_on_annotated_answers": 1.0
+      },
+      "candidate": {
+        "correct": 1,
+        "wrong_value": 0,
+        "missed": 0,
+        "invalid_reference": 0,
+        "unannotated_prediction": 0,
+        "unannotated_abstention": 19,
+        "annotated_documents": 1,
+        "exact_match_recall": 1.0,
+        "precision_on_annotated_answers": 1.0
+      },
+      "correct_difference": 0
+    },
+    "discount": {
+      "baseline": {
+        "correct": 0,
+        "wrong_value": 0,
+        "missed": 0,
+        "invalid_reference": 0,
+        "unannotated_prediction": 0,
+        "unannotated_abstention": 20,
+        "annotated_documents": 0,
+        "exact_match_recall": null,
+        "precision_on_annotated_answers": null
+      },
+      "candidate": {
+        "correct": 0,
+        "wrong_value": 0,
+        "missed": 0,
+        "invalid_reference": 0,
+        "unannotated_prediction": 1,
+        "unannotated_abstention": 19,
+        "annotated_documents": 0,
+        "exact_match_recall": null,
+        "precision_on_annotated_answers": null
+      },
+      "correct_difference": 0
+    }
+  },
+  "baseline_latency": {
+    "p50_seconds": 1.0429670000012266,
+    "p95_seconds": 1.67272960000264,
+    "method": "nearest rank, includes first lazy inference; excludes engine init",
+    "initialization_seconds": 0.9209645000009914
+  },
+  "candidate_latency": {
+    "p50_seconds": 8.333050900000671,
+    "p95_seconds": 22.524167999999918,
+    "method": "nearest rank",
+    "scope": "image + token-count API + inference + validation; excludes output IO",
+    "initialization_seconds": 0.47427649999735877
+  },
+  "baseline_cost": null,
+  "candidate_cost": {
+    "currency": "USD",
+    "reserved_usd": "0",
+    "estimated_known_usage_usd": "0",
+    "requests_with_unknown_usage": 0,
+    "not_an_invoice": true,
+    "free_tier_condition": "User-confirmed Free Tier without billing; not verified by API",
+    "config": {
+      "provider": "gemini-free",
+      "thinking_level": "minimal",
+      "free_tier_confirmed": true,
+      "min_interval_seconds": 15,
+      "model": "gemini-3.5-flash-lite",
+      "max_requests": 20,
+      "max_output_tokens": 4096,
+      "max_input_tokens": 20000,
+      "max_budget_usd": "0",
+      "input_usd_per_million": "0",
+      "output_usd_per_million": "0",
+      "pricing_as_of": "2026-10-28"
+    }
+  },
+  "note": "Development comparison; different latency scopes must be considered"
+}

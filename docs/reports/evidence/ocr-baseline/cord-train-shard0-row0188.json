@@ -1,0 +1,402 @@
+{
+  "id": "cord-train-shard0-row0188",
+  "image_sha256": "8f30ea9476cb58a1161f3ac26d10c11337d8da76022d08883527b2cac52dc60a",
+  "status": "ok",
+  "lines": [
+    {
+      "text": "rm ete",
+      "score": 0.69082,
+      "box": [
+        [
+          598.0,
+          443.0
+        ],
+        [
+          646.0,
+          443.0
+        ],
+        [
+          646.0,
+          461.0
+        ],
+        [
+          598.0,
+          461.0
+        ]
+      ]
+    },
+    {
+      "text": "Smoke Beef + Aqua",
+      "score": 0.99064,
+      "box": [
+        [
+          201.0,
+          923.0
+        ],
+        [
+          537.0,
+          928.0
+        ],
+        [
+          537.0,
+          975.0
+        ],
+        [
+          200.0,
+          970.0
+        ]
+      ]
+    },
+    {
+      "text": "21,819",
+      "score": 0.85838,
+      "box": [
+        [
+          764.0,
+          920.0
+        ],
+        [
+          907.0,
+          926.0
+        ],
+        [
+          905.0,
+          996.0
+        ],
+        [
+          762.0,
+          990.0
+        ]
+      ]
+    },
+    {
+      "text": "SubTotal:",
+      "score": 0.98734,
+      "box": [
+        [
+          426.0,
+          1022.0
+        ],
+        [
+          606.0,
+          1026.0
+        ],
+        [
+          605.0,
+          1074.0
+        ],
+        [
+          424.0,
+          1070.0
+        ]
+      ]
+    },
+    {
+      "text": "21,818",
+      "score": 0.99151,
+      "box": [
+        [
+          747.0,
+          1026.0
+        ],
+        [
+          882.0,
+          1026.0
+        ],
+        [
+          882.0,
+          1083.0
+        ],
+        [
+          747.0,
+          1083.0
+        ]
+      ]
+    },
+    {
+      "text": "PB1:",
+      "score": 0.66604,
+      "box": [
+        [
+          517.0,
+          1071.0
+        ],
+        [
+          605.0,
+          1075.0
+        ],
+        [
+          603.0,
+          1128.0
+        ],
+        [
+          515.0,
+          1124.0
+        ]
+      ]
+    },
+    {
+      "text": "2,182",
+      "score": 0.99887,
+      "box": [
+        [
+          760.0,
+          1076.0
+        ],
+        [
+          881.0,
+          1076.0
+        ],
+        [
+          881.0,
+          1137.0
+        ],
+        [
+          760.0,
+          1137.0
+        ]
+      ]
+    },
+    {
+      "text": "Total:",
+      "score": 0.97237,
+      "box": [
+        [
+          403.0,
+          1170.0
+        ],
+        [
+          571.0,
+          1170.0
+        ],
+        [
+          571.0,
+          1266.0
+        ],
+        [
+          403.0,
+          1266.0
+        ]
+      ]
+    },
+    {
+      "text": "24,000",
+      "score": 0.99754,
+      "box": [
+        [
+          725.0,
+          1170.0
+        ],
+        [
+          900.0,
+          1177.0
+        ],
+        [
+          895.0,
+          1283.0
+        ],
+        [
+          720.0,
+          1276.0
+        ]
+      ]
+    },
+    {
+      "text": "cash:",
+      "score": 0.99933,
+      "box": [
+        [
+          525.0,
+          1273.0
+        ],
+        [
+          630.0,
+          1273.0
+        ],
+        [
+          630.0,
+          1320.0
+        ],
+        [
+          525.0,
+          1320.0
+        ]
+      ]
+    },
+    {
+      "text": "25,00p",
+      "score": 0.93401,
+      "box": [
+        [
+          771.0,
+          1268.0
+        ],
+        [
+          909.0,
+          1270.0
+        ],
+        [
+          907.0,
+          1340.0
+        ],
+        [
+          770.0,
+          1338.0
+        ]
+      ]
+    },
+    {
+      "text": "Change:",
+      "score": 0.97848,
+      "box": [
+        [
+          468.0,
+          1318.0
+        ],
+        [
+          618.0,
+          1324.0
+        ],
+        [
+          616.0,
+          1381.0
+        ],
+        [
+          466.0,
+          1375.0
+        ]
+      ]
+    },
+    {
+      "text": "1,000",
+      "score": 0.99949,
+      "box": [
+        [
+          774.0,
+          1325.0
+        ],
+        [
+          892.0,
+          1325.0
+        ],
+        [
+          892.0,
+          1383.0
+        ],
+        [
+          774.0,
+          1383.0
+        ]
+      ]
+    }
+  ],
+  "evidence": {
+    "rows": [
+      "rm ete",
+      "Smoke Beef + Aqua 21,819",
+      "SubTotal: 21,818",
+      "PB1: 2,182",
+      "Total: 24,000",
+      "cash: 25,00p",
+      "Change: 1,000"
+    ],
+    "item_rows": [],
+    "subtotal": {
+      "candidates": [
+        [
+          1,
+          "21,818",
+          "SubTotal: 21,818"
+        ]
+      ],
+      "ambiguous": false
+    },
+    "total": {
+      "candidates": [
+        [
+          1,
+          "24,000",
+          "Total: 24,000"
+        ]
+      ],
+      "ambiguous": false
+    }
+  },
+  "validation": {
+    "schema_version": "1",
+    "rules_version": "1",
+    "numeric_policy": "idr-grouped",
+    "quantity_policy": "decimal-dot-optional-x",
+    "tolerance": "0",
+    "raw": {
+      "document_id": "cord-train-shard0-row0188",
+      "currency": null,
+      "items": [],
+      "items_complete": false,
+      "subtotal": "21,818",
+      "discount": null,
+      "tax": null,
+      "service": null,
+      "total": "24,000"
+    },
+    "normalized": {
+      "document_id": "cord-train-shard0-row0188",
+      "currency": null,
+      "items": [],
+      "items_complete": false,
+      "subtotal": {
+        "raw": "21,818",
+        "value": "21818",
+        "status": "parsed",
+        "reason": null
+      },
+      "discount": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "tax": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "service": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "total": {
+        "raw": "24,000",
+        "value": "24000",
+        "status": "parsed",
+        "reason": null
+      }
+    },
+    "checks": [
+      {
+        "code": "subtotal",
+        "path": "subtotal",
+        "status": "skipped",
+        "reason": "incomplete_or_nested_items",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "receipt_total",
+        "path": "total",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      }
+    ],
+    "has_findings": false,
+    "has_skipped_checks": true
+  },
+  "seconds": 1.64368160000231
+}

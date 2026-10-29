@@ -1,0 +1,370 @@
+{
+  "id": "cord-train-shard0-row0008",
+  "image_sha256": "a2071158a469ec678f67c70e29c9c8ab600a1f905167000c0106b2beac408530",
+  "status": "ok",
+  "lines": [
+    {
+      "text": "1×36.000",
+      "score": 0.9632,
+      "box": [
+        [
+          86.0,
+          480.0
+        ],
+        [
+          280.0,
+          480.0
+        ],
+        [
+          280.0,
+          540.0
+        ],
+        [
+          86.0,
+          540.0
+        ]
+      ]
+    },
+    {
+      "text": "36.000",
+      "score": 0.99999,
+      "box": [
+        [
+          525.0,
+          482.0
+        ],
+        [
+          663.0,
+          482.0
+        ],
+        [
+          663.0,
+          543.0
+        ],
+        [
+          525.0,
+          543.0
+        ]
+      ]
+    },
+    {
+      "text": "Kimchi p",
+      "score": 0.99065,
+      "box": [
+        [
+          78.0,
+          531.0
+        ],
+        [
+          260.0,
+          531.0
+        ],
+        [
+          260.0,
+          590.0
+        ],
+        [
+          78.0,
+          590.0
+        ]
+      ]
+    },
+    {
+      "text": "1×0.000",
+      "score": 0.94662,
+      "box": [
+        [
+          80.0,
+          582.0
+        ],
+        [
+          259.0,
+          582.0
+        ],
+        [
+          259.0,
+          645.0
+        ],
+        [
+          80.0,
+          645.0
+        ]
+      ]
+    },
+    {
+      "text": "RP0.000",
+      "score": 0.94796,
+      "box": [
+        [
+          503.0,
+          584.0
+        ],
+        [
+          665.0,
+          587.0
+        ],
+        [
+          664.0,
+          647.0
+        ],
+        [
+          502.0,
+          645.0
+        ]
+      ]
+    },
+    {
+      "text": "Fre ice grentea",
+      "score": 0.9986,
+      "box": [
+        [
+          78.0,
+          637.0
+        ],
+        [
+          397.0,
+          640.0
+        ],
+        [
+          397.0,
+          695.0
+        ],
+        [
+          78.0,
+          691.0
+        ]
+      ]
+    },
+    {
+      "text": "***TOTAL",
+      "score": 0.99889,
+      "box": [
+        [
+          73.0,
+          748.0
+        ],
+        [
+          248.0,
+          753.0
+        ],
+        [
+          247.0,
+          813.0
+        ],
+        [
+          72.0,
+          807.0
+        ]
+      ]
+    },
+    {
+      "text": "36.000",
+      "score": 0.99998,
+      "box": [
+        [
+          400.0,
+          755.0
+        ],
+        [
+          666.0,
+          755.0
+        ],
+        [
+          666.0,
+          817.0
+        ],
+        [
+          400.0,
+          817.0
+        ]
+      ]
+    },
+    {
+      "text": "CASH",
+      "score": 0.99996,
+      "box": [
+        [
+          73.0,
+          802.0
+        ],
+        [
+          193.0,
+          802.0
+        ],
+        [
+          193.0,
+          865.0
+        ],
+        [
+          73.0,
+          865.0
+        ]
+      ]
+    },
+    {
+      "text": "Rp51.000",
+      "score": 0.94417,
+      "box": [
+        [
+          481.0,
+          810.0
+        ],
+        [
+          672.0,
+          812.0
+        ],
+        [
+          671.0,
+          875.0
+        ],
+        [
+          480.0,
+          873.0
+        ]
+      ]
+    },
+    {
+      "text": "CHANGE",
+      "score": 0.99995,
+      "box": [
+        [
+          71.0,
+          856.0
+        ],
+        [
+          209.0,
+          856.0
+        ],
+        [
+          209.0,
+          920.0
+        ],
+        [
+          71.0,
+          920.0
+        ]
+      ]
+    },
+    {
+      "text": "15.000",
+      "score": 0.99997,
+      "box": [
+        [
+          526.0,
+          864.0
+        ],
+        [
+          673.0,
+          867.0
+        ],
+        [
+          672.0,
+          932.0
+        ],
+        [
+          525.0,
+          929.0
+        ]
+      ]
+    }
+  ],
+  "evidence": {
+    "rows": [
+      "1×36.000 36.000",
+      "Kimchi p",
+      "1×0.000 RP0.000",
+      "Fre ice grentea",
+      "***TOTAL 36.000",
+      "CASH Rp51.000",
+      "CHANGE 15.000"
+    ],
+    "item_rows": [],
+    "total": {
+      "candidates": [
+        [
+          1,
+          "36.000",
+          "***TOTAL 36.000"
+        ]
+      ],
+      "ambiguous": false
+    }
+  },
+  "validation": {
+    "schema_version": "1",
+    "rules_version": "1",
+    "numeric_policy": "idr-grouped",
+    "quantity_policy": "decimal-dot-optional-x",
+    "tolerance": "0",
+    "raw": {
+      "document_id": "cord-train-shard0-row0008",
+      "currency": null,
+      "items": [],
+      "items_complete": false,
+      "subtotal": null,
+      "discount": null,
+      "tax": null,
+      "service": null,
+      "total": "36.000"
+    },
+    "normalized": {
+      "document_id": "cord-train-shard0-row0008",
+      "currency": null,
+      "items": [],
+      "items_complete": false,
+      "subtotal": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "discount": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "tax": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "service": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "total": {
+        "raw": "36.000",
+        "value": "36000",
+        "status": "parsed",
+        "reason": null
+      }
+    },
+    "checks": [
+      {
+        "code": "subtotal",
+        "path": "subtotal",
+        "status": "skipped",
+        "reason": "incomplete_or_nested_items",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "receipt_total",
+        "path": "total",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      }
+    ],
+    "has_findings": false,
+    "has_skipped_checks": true
+  },
+  "seconds": 0.8624151999974856
+}

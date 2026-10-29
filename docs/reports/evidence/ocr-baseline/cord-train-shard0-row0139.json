@@ -1,0 +1,356 @@
+{
+  "id": "cord-train-shard0-row0139",
+  "image_sha256": "56cdf5959fd9c0d2b93b211d32c04fe2375333dcdd889b0fd85d340e550c8fb0",
+  "status": "ok",
+  "lines": [
+    {
+      "text": "Sesame Toast",
+      "score": 0.99955,
+      "box": [
+        [
+          168.0,
+          696.0
+        ],
+        [
+          361.0,
+          696.0
+        ],
+        [
+          361.0,
+          736.0
+        ],
+        [
+          168.0,
+          736.0
+        ]
+      ]
+    },
+    {
+      "text": "22,500",
+      "score": 0.99984,
+      "box": [
+        [
+          615.0,
+          695.0
+        ],
+        [
+          717.0,
+          695.0
+        ],
+        [
+          717.0,
+          737.0
+        ],
+        [
+          615.0,
+          737.0
+        ]
+      ]
+    },
+    {
+      "text": "22,500",
+      "score": 0.99994,
+      "box": [
+        [
+          794.0,
+          695.0
+        ],
+        [
+          897.0,
+          695.0
+        ],
+        [
+          897.0,
+          738.0
+        ],
+        [
+          794.0,
+          738.0
+        ]
+      ]
+    },
+    {
+      "text": "Sub Total",
+      "score": 0.99971,
+      "box": [
+        [
+          166.0,
+          767.0
+        ],
+        [
+          315.0,
+          767.0
+        ],
+        [
+          315.0,
+          811.0
+        ],
+        [
+          166.0,
+          811.0
+        ]
+      ]
+    },
+    {
+      "text": "22,500",
+      "score": 0.99993,
+      "box": [
+        [
+          794.0,
+          768.0
+        ],
+        [
+          897.0,
+          766.0
+        ],
+        [
+          899.0,
+          810.0
+        ],
+        [
+          795.0,
+          813.0
+        ]
+      ]
+    },
+    {
+      "text": "GRAND TOTAL",
+      "score": 0.99988,
+      "box": [
+        [
+          468.0,
+          841.0
+        ],
+        [
+          643.0,
+          841.0
+        ],
+        [
+          643.0,
+          883.0
+        ],
+        [
+          468.0,
+          883.0
+        ]
+      ]
+    },
+    {
+      "text": "22,500",
+      "score": 0.9998,
+      "box": [
+        [
+          797.0,
+          839.0
+        ],
+        [
+          904.0,
+          839.0
+        ],
+        [
+          904.0,
+          886.0
+        ],
+        [
+          797.0,
+          886.0
+        ]
+      ]
+    },
+    {
+      "text": "CASH",
+      "score": 0.99996,
+      "box": [
+        [
+          237.0,
+          917.0
+        ],
+        [
+          315.0,
+          917.0
+        ],
+        [
+          315.0,
+          961.0
+        ],
+        [
+          237.0,
+          961.0
+        ]
+      ]
+    },
+    {
+      "text": "50,000",
+      "score": 0.99983,
+      "box": [
+        [
+          800.0,
+          916.0
+        ],
+        [
+          908.0,
+          916.0
+        ],
+        [
+          908.0,
+          962.0
+        ],
+        [
+          800.0,
+          962.0
+        ]
+      ]
+    },
+    {
+      "text": "CHANGE",
+      "score": 0.99987,
+      "box": [
+        [
+          541.0,
+          1031.0
+        ],
+        [
+          647.0,
+          1031.0
+        ],
+        [
+          647.0,
+          1077.0
+        ],
+        [
+          541.0,
+          1077.0
+        ]
+      ]
+    },
+    {
+      "text": "27,500",
+      "score": 0.99989,
+      "box": [
+        [
+          806.0,
+          1033.0
+        ],
+        [
+          912.0,
+          1033.0
+        ],
+        [
+          912.0,
+          1080.0
+        ],
+        [
+          806.0,
+          1080.0
+        ]
+      ]
+    }
+  ],
+  "evidence": {
+    "rows": [
+      "Sesame Toast 22,500 22,500",
+      "Sub Total 22,500",
+      "GRAND TOTAL 22,500",
+      "CASH 50,000",
+      "CHANGE 27,500"
+    ],
+    "item_rows": [],
+    "subtotal": {
+      "candidates": [
+        [
+          1,
+          "22,500",
+          "Sub Total 22,500"
+        ]
+      ],
+      "ambiguous": false
+    },
+    "total": {
+      "candidates": [
+        [
+          2,
+          "22,500",
+          "GRAND TOTAL 22,500"
+        ]
+      ],
+      "ambiguous": false
+    }
+  },
+  "validation": {
+    "schema_version": "1",
+    "rules_version": "1",
+    "numeric_policy": "idr-grouped",
+    "quantity_policy": "decimal-dot-optional-x",
+    "tolerance": "0",
+    "raw": {
+      "document_id": "cord-train-shard0-row0139",
+      "currency": null,
+      "items": [],
+      "items_complete": false,
+      "subtotal": "22,500",
+      "discount": null,
+      "tax": null,
+      "service": null,
+      "total": "22,500"
+    },
+    "normalized": {
+      "document_id": "cord-train-shard0-row0139",
+      "currency": null,
+      "items": [],
+      "items_complete": false,
+      "subtotal": {
+        "raw": "22,500",
+        "value": "22500",
+        "status": "parsed",
+        "reason": null
+      },
+      "discount": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "tax": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "service": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "total": {
+        "raw": "22,500",
+        "value": "22500",
+        "status": "parsed",
+        "reason": null
+      }
+    },
+    "checks": [
+      {
+        "code": "subtotal",
+        "path": "subtotal",
+        "status": "skipped",
+        "reason": "incomplete_or_nested_items",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "receipt_total",
+        "path": "total",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      }
+    ],
+    "has_findings": false,
+    "has_skipped_checks": true
+  },
+  "seconds": 1.0694966999981261
+}

@@ -1,0 +1,416 @@
+{
+  "id": "cord-train-shard0-row0055",
+  "image_sha256": "181d2f5f037b3d57f4ac92caeec2b2b8d5f95390ee22999de617b5935fb2ca42",
+  "status": "ok",
+  "lines": [
+    {
+      "text": "THAI ICED TEA (L)",
+      "score": 0.9926,
+      "box": [
+        [
+          329.14288330078125,
+          2052.12890625
+        ],
+        [
+          1016.2286376953125,
+          2066.58056640625
+        ],
+        [
+          1014.1715087890625,
+          2171.870849609375
+        ],
+        [
+          327.0857238769531,
+          2157.419189453125
+        ]
+      ]
+    },
+    {
+      "text": "1 x",
+      "score": 0.73768,
+      "box": [
+        [
+          592.4571533203125,
+          2161.54833984375
+        ],
+        [
+          798.1714477539062,
+          2161.54833984375
+        ],
+        [
+          798.1714477539062,
+          2266.838623046875
+        ],
+        [
+          592.4571533203125,
+          2266.838623046875
+        ]
+      ]
+    },
+    {
+      "text": "16,363",
+      "score": 0.99889,
+      "box": [
+        [
+          1024.4571533203125,
+          2163.61279296875
+        ],
+        [
+          1291.8857421875,
+          2159.48388671875
+        ],
+        [
+          1293.94287109375,
+          2277.1611328125
+        ],
+        [
+          1026.514404296875,
+          2281.290283203125
+        ]
+      ]
+    },
+    {
+      "text": "16,363",
+      "score": 0.99965,
+      "box": [
+        [
+          1567.54296875,
+          2167.741943359375
+        ],
+        [
+          1834.9715576171875,
+          2167.741943359375
+        ],
+        [
+          1834.9715576171875,
+          2285.419189453125
+        ],
+        [
+          1567.54296875,
+          2285.419189453125
+        ]
+      ]
+    },
+    {
+      "text": "Jumlah Item",
+      "score": 0.97368,
+      "box": [
+        [
+          300.3428649902344,
+          2374.193359375
+        ],
+        [
+          773.4857788085938,
+          2378.322509765625
+        ],
+        [
+          773.4857788085938,
+          2477.419189453125
+        ],
+        [
+          300.3428649902344,
+          2473.290283203125
+        ]
+      ]
+    },
+    {
+      "text": "Sub Total",
+      "score": 0.94789,
+      "box": [
+        [
+          300.3428649902344,
+          2481.54833984375
+        ],
+        [
+          697.3714599609375,
+          2481.54833984375
+        ],
+        [
+          697.3714599609375,
+          2586.838623046875
+        ],
+        [
+          300.3428649902344,
+          2586.838623046875
+        ]
+      ]
+    },
+    {
+      "text": "16,363",
+      "score": 0.99945,
+      "box": [
+        [
+          1567.54296875,
+          2471.225830078125
+        ],
+        [
+          1834.9715576171875,
+          2471.225830078125
+        ],
+        [
+          1834.9715576171875,
+          2588.903076171875
+        ],
+        [
+          1567.54296875,
+          2588.903076171875
+        ]
+      ]
+    },
+    {
+      "text": "Pajak Resto",
+      "score": 0.99929,
+      "box": [
+        [
+          279.7714538574219,
+          2595.0966796875
+        ],
+        [
+          767.3143310546875,
+          2588.903076171875
+        ],
+        [
+          769.3714599609375,
+          2700.386962890625
+        ],
+        [
+          281.8285827636719,
+          2706.58056640625
+        ]
+      ]
+    },
+    {
+      "text": "1,636",
+      "score": 0.99885,
+      "box": [
+        [
+          1590.1715087890625,
+          2580.64501953125
+        ],
+        [
+          1826.742919921875,
+          2570.322509765625
+        ],
+        [
+          1832.9144287109375,
+          2690.064453125
+        ],
+        [
+          1596.3428955078125,
+          2700.386962890625
+        ]
+      ]
+    },
+    {
+      "text": "17,999",
+      "score": 0.99968,
+      "box": [
+        [
+          1571.6572265625,
+          2681.806396484375
+        ],
+        [
+          1834.9715576171875,
+          2669.419189453125
+        ],
+        [
+          1841.1429443359375,
+          2797.419189453125
+        ],
+        [
+          1577.82861328125,
+          2809.806396484375
+        ]
+      ]
+    },
+    {
+      "text": "Grand Total",
+      "score": 0.99548,
+      "box": [
+        [
+          288.0000305175781,
+          2704.51611328125
+        ],
+        [
+          761.1428833007812,
+          2698.322509765625
+        ],
+        [
+          763.2000732421875,
+          2803.61279296875
+        ],
+        [
+          290.0571594238281,
+          2809.806396484375
+        ]
+      ]
+    }
+  ],
+  "evidence": {
+    "rows": [
+      "THAI ICED TEA (L)",
+      "1 x 16,363 16,363",
+      "Jumlah Item",
+      "Sub Total 16,363",
+      "Pajak Resto 1,636",
+      "Grand Total 17,999"
+    ],
+    "item_rows": [
+      "1 x 16,363 16,363"
+    ],
+    "subtotal": {
+      "candidates": [
+        [
+          1,
+          "16,363",
+          "Sub Total 16,363"
+        ]
+      ],
+      "ambiguous": false
+    },
+    "tax": {
+      "candidates": [
+        [
+          1,
+          "1,636",
+          "Pajak Resto 1,636"
+        ]
+      ],
+      "ambiguous": false
+    },
+    "total": {
+      "candidates": [
+        [
+          2,
+          "17,999",
+          "Grand Total 17,999"
+        ]
+      ],
+      "ambiguous": false
+    }
+  },
+  "validation": {
+    "schema_version": "1",
+    "rules_version": "1",
+    "numeric_policy": "idr-grouped",
+    "quantity_policy": "decimal-dot-optional-x",
+    "tolerance": "0",
+    "raw": {
+      "document_id": "cord-train-shard0-row0055",
+      "currency": null,
+      "items": [
+        {
+          "description": "x 16,363",
+          "quantity": "1",
+          "unit_price": null,
+          "amount": "16,363",
+          "discount": null,
+          "children": []
+        }
+      ],
+      "items_complete": false,
+      "subtotal": "16,363",
+      "discount": null,
+      "tax": "1,636",
+      "service": null,
+      "total": "17,999"
+    },
+    "normalized": {
+      "document_id": "cord-train-shard0-row0055",
+      "currency": null,
+      "items": [
+        {
+          "description": "x 16,363",
+          "quantity": {
+            "raw": "1",
+            "value": "1",
+            "status": "parsed",
+            "reason": null
+          },
+          "unit_price": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "amount": {
+            "raw": "16,363",
+            "value": "16363",
+            "status": "parsed",
+            "reason": null
+          },
+          "discount": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "children": []
+        }
+      ],
+      "items_complete": false,
+      "subtotal": {
+        "raw": "16,363",
+        "value": "16363",
+        "status": "parsed",
+        "reason": null
+      },
+      "discount": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "tax": {
+        "raw": "1,636",
+        "value": "1636",
+        "status": "parsed",
+        "reason": null
+      },
+      "service": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "total": {
+        "raw": "17,999",
+        "value": "17999",
+        "status": "parsed",
+        "reason": null
+      }
+    },
+    "checks": [
+      {
+        "code": "item_total",
+        "path": "items[0]",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "subtotal",
+        "path": "subtotal",
+        "status": "skipped",
+        "reason": "incomplete_or_nested_items",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "receipt_total",
+        "path": "total",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      }
+    ],
+    "has_findings": false,
+    "has_skipped_checks": true
+  },
+  "seconds": 1.764214799997717
+}

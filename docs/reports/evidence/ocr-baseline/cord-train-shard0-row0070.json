@@ -1,0 +1,575 @@
+{
+  "id": "cord-train-shard0-row0070",
+  "image_sha256": "8867317b5c79de72188d1708a7c98290018348115fabd3d5e947121098f8fdd2",
+  "status": "ok",
+  "lines": [
+    {
+      "text": "1 CAPTAIN HOOK",
+      "score": 0.99779,
+      "box": [
+        [
+          514.2857666015625,
+          2200.774169921875
+        ],
+        [
+          1016.2286376953125,
+          2204.903076171875
+        ],
+        [
+          1016.2286376953125,
+          2293.67724609375
+        ],
+        [
+          514.2857666015625,
+          2289.54833984375
+        ]
+      ]
+    },
+    {
+      "text": "75,000",
+      "score": 0.99985,
+      "box": [
+        [
+          1546.9715576171875,
+          2202.838623046875
+        ],
+        [
+          1795.8858642578125,
+          2202.838623046875
+        ],
+        [
+          1795.8858642578125,
+          2312.258056640625
+        ],
+        [
+          1546.9715576171875,
+          2312.258056640625
+        ]
+      ]
+    },
+    {
+      "text": "IZZY PINK ZIGZAG",
+      "score": 0.98475,
+      "box": [
+        [
+          678.857177734375,
+          2285.419189453125
+        ],
+        [
+          1258.9715576171875,
+          2291.61279296875
+        ],
+        [
+          1258.9715576171875,
+          2382.45166015625
+        ],
+        [
+          678.857177734375,
+          2376.258056640625
+        ]
+      ]
+    },
+    {
+      "text": "1 PIRATES TREASURE",
+      "score": 0.9997,
+      "box": [
+        [
+          512.2285766601562,
+          2372.12890625
+        ],
+        [
+          1154.0572509765625,
+          2378.322509765625
+        ],
+        [
+          1154.0572509765625,
+          2467.0966796875
+        ],
+        [
+          512.2285766601562,
+          2460.903076171875
+        ]
+      ]
+    },
+    {
+      "text": "75,000",
+      "score": 0.99976,
+      "box": [
+        [
+          1549.0286865234375,
+          2374.193359375
+        ],
+        [
+          1795.8858642578125,
+          2378.322509765625
+        ],
+        [
+          1793.82861328125,
+          2487.741943359375
+        ],
+        [
+          1546.9715576171875,
+          2483.61279296875
+        ]
+      ]
+    },
+    {
+      "text": "BILLY BROWN SMALL",
+      "score": 0.99932,
+      "box": [
+        [
+          672.6857299804688,
+          2458.838623046875
+        ],
+        [
+          1289.82861328125,
+          2467.0966796875
+        ],
+        [
+          1289.82861328125,
+          2555.870849609375
+        ],
+        [
+          672.6857299804688,
+          2547.61279296875
+        ]
+      ]
+    },
+    {
+      "text": "** KIDS MEAL",
+      "score": 0.97185,
+      "box": [
+        [
+          427.8857421875,
+          2539.354736328125
+        ],
+        [
+          1182.857177734375,
+          2549.67724609375
+        ],
+        [
+          1182.857177734375,
+          2646.709716796875
+        ],
+        [
+          427.8857421875,
+          2636.386962890625
+        ]
+      ]
+    },
+    {
+      "text": "150,000",
+      "score": 0.99989,
+      "box": [
+        [
+          1413.2572021484375,
+          2553.806396484375
+        ],
+        [
+          1684.800048828125,
+          2553.806396484375
+        ],
+        [
+          1684.800048828125,
+          2654.9677734375
+        ],
+        [
+          1413.2572021484375,
+          2654.9677734375
+        ]
+      ]
+    },
+    {
+      "text": "SUBTTL",
+      "score": 0.99992,
+      "box": [
+        [
+          565.7142944335938,
+          2632.258056640625
+        ],
+        [
+          802.2857666015625,
+          2632.258056640625
+        ],
+        [
+          802.2857666015625,
+          2727.225830078125
+        ],
+        [
+          565.7142944335938,
+          2727.225830078125
+        ]
+      ]
+    },
+    {
+      "text": "150,000",
+      "score": 0.99988,
+      "box": [
+        [
+          1522.2857666015625,
+          2642.58056640625
+        ],
+        [
+          1795.8858642578125,
+          2642.58056640625
+        ],
+        [
+          1795.8858642578125,
+          2743.741943359375
+        ],
+        [
+          1522.2857666015625,
+          2743.741943359375
+        ]
+      ]
+    },
+    {
+      "text": "Service Charge",
+      "score": 0.99994,
+      "box": [
+        [
+          561.6000366210938,
+          2718.9677734375
+        ],
+        [
+          1080.0,
+          2725.1611328125
+        ],
+        [
+          1080.0,
+          2822.193359375
+        ],
+        [
+          561.6000366210938,
+          2816.0
+        ]
+      ]
+    },
+    {
+      "text": "12,000",
+      "score": 0.9999,
+      "box": [
+        [
+          1553.1429443359375,
+          2729.290283203125
+        ],
+        [
+          1795.8858642578125,
+          2729.290283203125
+        ],
+        [
+          1795.8858642578125,
+          2832.51611328125
+        ],
+        [
+          1553.1429443359375,
+          2832.51611328125
+        ]
+      ]
+    },
+    {
+      "text": "TAX",
+      "score": 0.99996,
+      "box": [
+        [
+          565.7142944335938,
+          2805.67724609375
+        ],
+        [
+          701.4857788085938,
+          2805.67724609375
+        ],
+        [
+          701.4857788085938,
+          2902.70947265625
+        ],
+        [
+          565.7142944335938,
+          2902.70947265625
+        ]
+      ]
+    },
+    {
+      "text": "16,200",
+      "score": 0.99992,
+      "box": [
+        [
+          1555.2000732421875,
+          2816.0
+        ],
+        [
+          1793.82861328125,
+          2820.12890625
+        ],
+        [
+          1791.771484375,
+          2923.354736328125
+        ],
+        [
+          1553.1429443359375,
+          2919.225830078125
+        ]
+      ]
+    },
+    {
+      "text": "TOTAL",
+      "score": 0.99997,
+      "box": [
+        [
+          567.771484375,
+          2972.903076171875
+        ],
+        [
+          936.0000610351562,
+          2981.1611328125
+        ],
+        [
+          933.9429321289062,
+          3078.193359375
+        ],
+        [
+          565.7142944335938,
+          3069.935302734375
+        ]
+      ]
+    },
+    {
+      "text": "178,200",
+      "score": 0.99447,
+      "box": [
+        [
+          1277.48583984375,
+          2985.290283203125
+        ],
+        [
+          1783.54296875,
+          2991.48388671875
+        ],
+        [
+          1783.54296875,
+          3088.51611328125
+        ],
+        [
+          1277.48583984375,
+          3082.322509765625
+        ]
+      ]
+    }
+  ],
+  "evidence": {
+    "rows": [
+      "1 CAPTAIN HOOK 75,000",
+      "IZZY PINK ZIGZAG",
+      "1 PIRATES TREASURE 75,000",
+      "BILLY BROWN SMALL",
+      "** KIDS MEAL 150,000",
+      "SUBTTL 150,000",
+      "Service Charge 12,000",
+      "TAX 16,200",
+      "TOTAL 178,200"
+    ],
+    "item_rows": [
+      "1 CAPTAIN HOOK 75,000",
+      "1 PIRATES TREASURE 75,000"
+    ],
+    "service": {
+      "candidates": [
+        [
+          1,
+          "12,000",
+          "Service Charge 12,000"
+        ]
+      ],
+      "ambiguous": false
+    },
+    "tax": {
+      "candidates": [
+        [
+          1,
+          "16,200",
+          "TAX 16,200"
+        ]
+      ],
+      "ambiguous": false
+    },
+    "total": {
+      "candidates": [
+        [
+          1,
+          "178,200",
+          "TOTAL 178,200"
+        ]
+      ],
+      "ambiguous": false
+    }
+  },
+  "validation": {
+    "schema_version": "1",
+    "rules_version": "1",
+    "numeric_policy": "idr-grouped",
+    "quantity_policy": "decimal-dot-optional-x",
+    "tolerance": "0",
+    "raw": {
+      "document_id": "cord-train-shard0-row0070",
+      "currency": null,
+      "items": [
+        {
+          "description": "CAPTAIN HOOK",
+          "quantity": "1",
+          "unit_price": null,
+          "amount": "75,000",
+          "discount": null,
+          "children": []
+        },
+        {
+          "description": "PIRATES TREASURE",
+          "quantity": "1",
+          "unit_price": null,
+          "amount": "75,000",
+          "discount": null,
+          "children": []
+        }
+      ],
+      "items_complete": false,
+      "subtotal": null,
+      "discount": null,
+      "tax": "16,200",
+      "service": "12,000",
+      "total": "178,200"
+    },
+    "normalized": {
+      "document_id": "cord-train-shard0-row0070",
+      "currency": null,
+      "items": [
+        {
+          "description": "CAPTAIN HOOK",
+          "quantity": {
+            "raw": "1",
+            "value": "1",
+            "status": "parsed",
+            "reason": null
+          },
+          "unit_price": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "amount": {
+            "raw": "75,000",
+            "value": "75000",
+            "status": "parsed",
+            "reason": null
+          },
+          "discount": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "children": []
+        },
+        {
+          "description": "PIRATES TREASURE",
+          "quantity": {
+            "raw": "1",
+            "value": "1",
+            "status": "parsed",
+            "reason": null
+          },
+          "unit_price": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "amount": {
+            "raw": "75,000",
+            "value": "75000",
+            "status": "parsed",
+            "reason": null
+          },
+          "discount": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "children": []
+        }
+      ],
+      "items_complete": false,
+      "subtotal": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "discount": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "tax": {
+        "raw": "16,200",
+        "value": "16200",
+        "status": "parsed",
+        "reason": null
+      },
+      "service": {
+        "raw": "12,000",
+        "value": "12000",
+        "status": "parsed",
+        "reason": null
+      },
+      "total": {
+        "raw": "178,200",
+        "value": "178200",
+        "status": "parsed",
+        "reason": null
+      }
+    },
+    "checks": [
+      {
+        "code": "item_total",
+        "path": "items[0]",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "item_total",
+        "path": "items[1]",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "subtotal",
+        "path": "subtotal",
+        "status": "skipped",
+        "reason": "incomplete_or_nested_items",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "receipt_total",
+        "path": "total",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      }
+    ],
+    "has_findings": false,
+    "has_skipped_checks": true
+  },
+  "seconds": 1.67272960000264
+}

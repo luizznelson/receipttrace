@@ -1,0 +1,325 @@
+{
+  "id": "cord-train-shard0-row0022",
+  "image_sha256": "94957704e9e5a5e983ab404485c3a3eb84338ebe63745558d98b265c73391704",
+  "status": "ok",
+  "lines": [
+    {
+      "text": "22.000",
+      "score": 0.99997,
+      "box": [
+        [
+          542.0,
+          481.0
+        ],
+        [
+          667.0,
+          481.0
+        ],
+        [
+          667.0,
+          535.0
+        ],
+        [
+          542.0,
+          535.0
+        ]
+      ]
+    },
+    {
+      "text": "1× 22.000",
+      "score": 0.95292,
+      "box": [
+        [
+          148.0,
+          491.0
+        ],
+        [
+          323.0,
+          489.0
+        ],
+        [
+          323.0,
+          538.0
+        ],
+        [
+          148.0,
+          541.0
+        ]
+      ]
+    },
+    {
+      "text": "Ice t grentea",
+      "score": 0.98935,
+      "box": [
+        [
+          147.0,
+          538.0
+        ],
+        [
+          396.0,
+          534.0
+        ],
+        [
+          396.0,
+          582.0
+        ],
+        [
+          147.0,
+          585.0
+        ]
+      ]
+    },
+    {
+      "text": "ITEMS 1Q",
+      "score": 0.98181,
+      "box": [
+        [
+          146.0,
+          632.0
+        ],
+        [
+          307.0,
+          630.0
+        ],
+        [
+          308.0,
+          685.0
+        ],
+        [
+          147.0,
+          688.0
+        ]
+      ]
+    },
+    {
+      "text": "***TOTAL",
+      "score": 0.9988,
+      "box": [
+        [
+          148.0,
+          677.0
+        ],
+        [
+          306.0,
+          677.0
+        ],
+        [
+          306.0,
+          730.0
+        ],
+        [
+          148.0,
+          730.0
+        ]
+      ]
+    },
+    {
+      "text": "22.000",
+      "score": 0.99995,
+      "box": [
+        [
+          436.0,
+          672.0
+        ],
+        [
+          669.0,
+          669.0
+        ],
+        [
+          670.0,
+          725.0
+        ],
+        [
+          437.0,
+          728.0
+        ]
+      ]
+    },
+    {
+      "text": "CASH",
+      "score": 0.99996,
+      "box": [
+        [
+          148.0,
+          724.0
+        ],
+        [
+          257.0,
+          722.0
+        ],
+        [
+          258.0,
+          778.0
+        ],
+        [
+          149.0,
+          781.0
+        ]
+      ]
+    },
+    {
+      "text": "100.000",
+      "score": 0.99994,
+      "box": [
+        [
+          532.0,
+          720.0
+        ],
+        [
+          674.0,
+          720.0
+        ],
+        [
+          674.0,
+          774.0
+        ],
+        [
+          532.0,
+          774.0
+        ]
+      ]
+    },
+    {
+      "text": "CHANGE",
+      "score": 0.99997,
+      "box": [
+        [
+          148.0,
+          773.0
+        ],
+        [
+          273.0,
+          769.0
+        ],
+        [
+          274.0,
+          824.0
+        ],
+        [
+          149.0,
+          828.0
+        ]
+      ]
+    },
+    {
+      "text": "78.000",
+      "score": 0.99997,
+      "box": [
+        [
+          548.0,
+          766.0
+        ],
+        [
+          675.0,
+          766.0
+        ],
+        [
+          675.0,
+          820.0
+        ],
+        [
+          548.0,
+          820.0
+        ]
+      ]
+    }
+  ],
+  "evidence": {
+    "rows": [
+      "1× 22.000 22.000",
+      "Ice t grentea",
+      "ITEMS 1Q",
+      "***TOTAL 22.000",
+      "CASH 100.000",
+      "CHANGE 78.000"
+    ],
+    "item_rows": [],
+    "total": {
+      "candidates": [
+        [
+          1,
+          "22.000",
+          "***TOTAL 22.000"
+        ]
+      ],
+      "ambiguous": false
+    }
+  },
+  "validation": {
+    "schema_version": "1",
+    "rules_version": "1",
+    "numeric_policy": "idr-grouped",
+    "quantity_policy": "decimal-dot-optional-x",
+    "tolerance": "0",
+    "raw": {
+      "document_id": "cord-train-shard0-row0022",
+      "currency": null,
+      "items": [],
+      "items_complete": false,
+      "subtotal": null,
+      "discount": null,
+      "tax": null,
+      "service": null,
+      "total": "22.000"
+    },
+    "normalized": {
+      "document_id": "cord-train-shard0-row0022",
+      "currency": null,
+      "items": [],
+      "items_complete": false,
+      "subtotal": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "discount": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "tax": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "service": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "total": {
+        "raw": "22.000",
+        "value": "22000",
+        "status": "parsed",
+        "reason": null
+      }
+    },
+    "checks": [
+      {
+        "code": "subtotal",
+        "path": "subtotal",
+        "status": "skipped",
+        "reason": "incomplete_or_nested_items",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "receipt_total",
+        "path": "total",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      }
+    ],
+    "has_findings": false,
+    "has_skipped_checks": true
+  },
+  "seconds": 0.8293233000003966
+}

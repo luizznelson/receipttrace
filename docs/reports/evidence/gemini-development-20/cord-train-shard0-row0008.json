@@ -1,0 +1,229 @@
+{
+  "id": "cord-train-shard0-row0008",
+  "image_sha256": "a2071158a469ec678f67c70e29c9c8ab600a1f905167000c0106b2beac408530",
+  "counted_input_tokens": 1311,
+  "reserved_usd": "0",
+  "response": {
+    "status": "completed",
+    "model": "gemini-3.5-flash-lite",
+    "id": null,
+    "usage": {
+      "input_tokens": 1312,
+      "output_tokens": 200
+    },
+    "output": [],
+    "gemini_response": {
+      "status": "completed",
+      "usage": {
+        "total_tokens": 1512,
+        "total_input_tokens": 1312,
+        "input_tokens_by_modality": [
+          {
+            "modality": "image",
+            "tokens": 1080
+          },
+          {
+            "modality": "text",
+            "tokens": 232
+          }
+        ],
+        "total_cached_tokens": 0,
+        "total_output_tokens": 200,
+        "total_tool_use_tokens": 0,
+        "total_thought_tokens": 0,
+        "initial_input_tokens": 2570
+      },
+      "created": "2026-10-29T19:15:42Z",
+      "updated": "2026-10-29T19:15:42Z",
+      "service_tier": "standard",
+      "steps": [
+        {
+          "signature": "EmAKXgFpFH0TEir0UTtmXMvdFLx3t9mFpWsVeS8/rj+T+Emxdj12c48doZDVXdfxCGeEFvzRtSxPQX4LnR6b5XgIJBHjVY/kZaY1yHeDLiabImHgKGSltX4KBF4EbMzHV/0=",
+          "type": "thought"
+        },
+        {
+          "content": [
+            {
+              "text": "{\n  \"currency\": \"Rp\",\n  \"items\": [\n    {\n      \"description\": \"Kimchi p\",\n      \"quantity\": \"1\",\n      \"unit_price\": \"36.000\",\n      \"amount\": \"36.000\",\n      \"discount\": null,\n      \"children\": []\n    },\n    {\n      \"description\": \"Fre ice grentea\",\n      \"quantity\": \"1\",\n      \"unit_price\": \"0.000\",\n      \"amount\": \"0.000\",\n      \"discount\": null,\n      \"children\": []\n    }\n  ],\n  \"items_complete\": false,\n  \"subtotal\": null,\n  \"discount\": null,\n  \"tax\": null,\n  \"service\": null,\n  \"total\": \"36.000\"\n}",
+              "type": "text"
+            }
+          ],
+          "type": "model_output"
+        }
+      ],
+      "object": "interaction",
+      "model": "gemini-3.5-flash-lite"
+    }
+  },
+  "estimated_cost_usd": "0",
+  "status": "ok",
+  "validation": {
+    "schema_version": "1",
+    "rules_version": "1",
+    "numeric_policy": "idr-grouped",
+    "quantity_policy": "decimal-dot-optional-x",
+    "tolerance": "0",
+    "raw": {
+      "document_id": "cord-train-shard0-row0008",
+      "currency": "Rp",
+      "items": [
+        {
+          "description": "Kimchi p",
+          "quantity": "1",
+          "unit_price": "36.000",
+          "amount": "36.000",
+          "discount": null,
+          "children": []
+        },
+        {
+          "description": "Fre ice grentea",
+          "quantity": "1",
+          "unit_price": "0.000",
+          "amount": "0.000",
+          "discount": null,
+          "children": []
+        }
+      ],
+      "items_complete": false,
+      "subtotal": null,
+      "discount": null,
+      "tax": null,
+      "service": null,
+      "total": "36.000"
+    },
+    "normalized": {
+      "document_id": "cord-train-shard0-row0008",
+      "currency": "Rp",
+      "items": [
+        {
+          "description": "Kimchi p",
+          "quantity": {
+            "raw": "1",
+            "value": "1",
+            "status": "parsed",
+            "reason": null
+          },
+          "unit_price": {
+            "raw": "36.000",
+            "value": "36000",
+            "status": "parsed",
+            "reason": null
+          },
+          "amount": {
+            "raw": "36.000",
+            "value": "36000",
+            "status": "parsed",
+            "reason": null
+          },
+          "discount": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "children": []
+        },
+        {
+          "description": "Fre ice grentea",
+          "quantity": {
+            "raw": "1",
+            "value": "1",
+            "status": "parsed",
+            "reason": null
+          },
+          "unit_price": {
+            "raw": "0.000",
+            "value": "0",
+            "status": "parsed",
+            "reason": null
+          },
+          "amount": {
+            "raw": "0.000",
+            "value": "0",
+            "status": "parsed",
+            "reason": null
+          },
+          "discount": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "children": []
+        }
+      ],
+      "items_complete": false,
+      "subtotal": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "discount": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "tax": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "service": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "total": {
+        "raw": "36.000",
+        "value": "36000",
+        "status": "parsed",
+        "reason": null
+      }
+    },
+    "checks": [
+      {
+        "code": "item_total",
+        "path": "items[0]",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "item_total",
+        "path": "items[1]",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "subtotal",
+        "path": "subtotal",
+        "status": "skipped",
+        "reason": "incomplete_or_nested_items",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "receipt_total",
+        "path": "total",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      }
+    ],
+    "has_findings": false,
+    "has_skipped_checks": true
+  },
+  "seconds": 7.203151900001103
+}

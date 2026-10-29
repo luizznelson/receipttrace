@@ -1,0 +1,816 @@
+{
+  "evaluation_version": "1",
+  "scope": "development sample, first CORD training shard",
+  "sample_manifest_sha256": "cdb84a8f3901eeb25905942b054560529287c1cea2e0e88f8bf2a8af0cd5c863",
+  "run_manifest_sha256": "9d544d536f82758bdb2b7d60793217377f1a60dacde29daf13d99a66737d4897",
+  "document_count": 20,
+  "engine": {
+    "provider": "gemini-free",
+    "requested_model": "gemini-3.5-flash-lite",
+    "sdk": "0.28.1",
+    "store": false,
+    "api": "interactions-v1beta",
+    "thinking_level": "minimal",
+    "counting_scope": "countTokens preflight; actual usage from Interactions",
+    "max_retries": 0,
+    "image_detail": "provider-default"
+  },
+  "run_git_commit": "4723d50ad0fde0c8e2966fffdc54d77196ac921f",
+  "run_git_dirty": true,
+  "source_hashes": {
+    "src\\receipttrace\\__init__.py": "21532f779ce8ff8fddf7edbe11e597e4d09508431bed75cf72afee922ce83107",
+    "src\\receipttrace\\cli.py": "a38f27232335243990687b79c236316b1d826c0f17ce9db9befd8529b3df987a",
+    "src\\receipttrace\\cli_serialization.py": "0b8b445796fd8da55329ce9d000ebdb7b64f501b029d670f32283cb0bb19faa9",
+    "src\\receipttrace\\credentials.py": "7183495e061cf819e79203511c2167ee3956f2ba4cb6311d273f860f474f75e7",
+    "src\\receipttrace\\data.py": "a8699f5cd89726aee1dd63a23608f01424c17ec8be6e56c811b67d05289f79ec",
+    "src\\receipttrace\\domain.py": "82b5eac8463c1556a2bb5cda5fdcd79213ece823b5fb91868bb6d7dc04d7f8bd",
+    "src\\receipttrace\\evaluation.py": "cb9a42ef8a38d649a4f556052d7893c4ba6e34611b6b37f1ab1740fddb1b4e87",
+    "src\\receipttrace\\gemini.py": "510b962e126b8752e966d3ecb4899031b7ee6018d050199fdcb3b5e2ae4adfe5",
+    "src\\receipttrace\\llm.py": "0fd3d958d7511971cb7a342ffa7c40e46e4269c7ad83273f24c827a877c710cc",
+    "src\\receipttrace\\llm_config.py": "5da3f81170e2b54fda77649912b165ccb54968735bcbb636c64b7a4dc6c6324c",
+    "src\\receipttrace\\money.py": "d220cd37d065509c5c8bb45d80e905fb318f89fdb6cc7dd52ed153bb18095e6c",
+    "src\\receipttrace\\ocr.py": "1a678efdc33c5330379997be712501c515725d551a27c42ad5f5824ff7fe703d",
+    "src\\receipttrace\\ocr_rules.py": "b5989e5ec4b2f85872f29cdba8e00271bb93a4d90558eb06d00fa5dab9b3ec2b"
+  },
+  "lock_sha256": "ab2aa5da9c460569e258fa5092ebbaace494e17c75b19e9710218bd3de627d8c",
+  "statuses": {
+    "ok": 20,
+    "empty": 0,
+    "error": 0
+  },
+  "metrics": {
+    "total": {
+      "correct": 19,
+      "wrong_value": 0,
+      "missed": 0,
+      "invalid_reference": 0,
+      "unannotated_prediction": 0,
+      "unannotated_abstention": 1,
+      "annotated_documents": 19,
+      "exact_match_recall": 1.0,
+      "precision_on_annotated_answers": 1.0
+    },
+    "subtotal": {
+      "correct": 14,
+      "wrong_value": 0,
+      "missed": 0,
+      "invalid_reference": 0,
+      "unannotated_prediction": 0,
+      "unannotated_abstention": 6,
+      "annotated_documents": 14,
+      "exact_match_recall": 1.0,
+      "precision_on_annotated_answers": 1.0
+    },
+    "tax": {
+      "correct": 11,
+      "wrong_value": 0,
+      "missed": 0,
+      "invalid_reference": 0,
+      "unannotated_prediction": 0,
+      "unannotated_abstention": 9,
+      "annotated_documents": 11,
+      "exact_match_recall": 1.0,
+      "precision_on_annotated_answers": 1.0
+    },
+    "service": {
+      "correct": 1,
+      "wrong_value": 0,
+      "missed": 0,
+      "invalid_reference": 0,
+      "unannotated_prediction": 0,
+      "unannotated_abstention": 19,
+      "annotated_documents": 1,
+      "exact_match_recall": 1.0,
+      "precision_on_annotated_answers": 1.0
+    },
+    "discount": {
+      "correct": 0,
+      "wrong_value": 0,
+      "missed": 0,
+      "invalid_reference": 0,
+      "unannotated_prediction": 1,
+      "unannotated_abstention": 19,
+      "annotated_documents": 0,
+      "exact_match_recall": null,
+      "precision_on_annotated_answers": null
+    }
+  },
+  "latency": {
+    "p50_seconds": 8.333050900000671,
+    "p95_seconds": 22.524167999999918,
+    "method": "nearest rank",
+    "scope": "image + token-count API + inference + validation; excludes output IO",
+    "initialization_seconds": 0.47427649999735877
+  },
+  "limitations": [
+    "No item matching metrics yet",
+    "Unannotated fields are not negatives",
+    "Not a held-out benchmark",
+    "OCR scores are not calibrated probabilities",
+    "Costs use run-specific metadata; CPU/hosting cost not estimated"
+  ],
+  "documents": [
+    {
+      "id": "cord-train-shard0-row0006",
+      "image_sha256": "ad04e4f531ad5f58a944cd30d166d2373d518101bd0efaa4e82a257c33255c83",
+      "result_sha256": "8fb0c91a917f971267204616a11172ba98f8197cf16fb19625c58b07ff3c7456",
+      "status": "ok",
+      "seconds": 11.210063499998796,
+      "fields": {
+        "total": {
+          "expected": "61,799",
+          "predicted": "61,799",
+          "outcome": "correct"
+        },
+        "subtotal": {
+          "expected": "56,181",
+          "predicted": "56,181",
+          "outcome": "correct"
+        },
+        "tax": {
+          "expected": "5,618",
+          "predicted": "5,618",
+          "outcome": "correct"
+        },
+        "service": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "discount": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        }
+      }
+    },
+    {
+      "id": "cord-train-shard0-row0007",
+      "image_sha256": "b2ee6dafc47fe6d597ea2e3c0df1e2e36c3df14082af2807ea0719f2b2635585",
+      "result_sha256": "be817d36b520b749f594611999ccec7c018132892cc7fe6025c9ee3fc9b0f07c",
+      "status": "ok",
+      "seconds": 9.816376700000546,
+      "fields": {
+        "total": {
+          "expected": "36,300",
+          "predicted": "36,300",
+          "outcome": "correct"
+        },
+        "subtotal": {
+          "expected": "33,000",
+          "predicted": "33,000",
+          "outcome": "correct"
+        },
+        "tax": {
+          "expected": "3,300",
+          "predicted": "3,300",
+          "outcome": "correct"
+        },
+        "service": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "discount": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        }
+      }
+    },
+    {
+      "id": "cord-train-shard0-row0008",
+      "image_sha256": "a2071158a469ec678f67c70e29c9c8ab600a1f905167000c0106b2beac408530",
+      "result_sha256": "e13dc1896652282069c25c988761dfd4abc5a07db96036eadab829cafe230e74",
+      "status": "ok",
+      "seconds": 7.203151900001103,
+      "fields": {
+        "total": {
+          "expected": "36.000",
+          "predicted": "36.000",
+          "outcome": "correct"
+        },
+        "subtotal": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "tax": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "service": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "discount": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        }
+      }
+    },
+    {
+      "id": "cord-train-shard0-row0022",
+      "image_sha256": "94957704e9e5a5e983ab404485c3a3eb84338ebe63745558d98b265c73391704",
+      "result_sha256": "343338d77aacb0051da784edd3ab321d70198adfeb913c8dd01925ec8de31272",
+      "status": "ok",
+      "seconds": 4.540695499999856,
+      "fields": {
+        "total": {
+          "expected": "22.000",
+          "predicted": "22.000",
+          "outcome": "correct"
+        },
+        "subtotal": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "tax": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "service": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "discount": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        }
+      }
+    },
+    {
+      "id": "cord-train-shard0-row0023",
+      "image_sha256": "a532b281b2f3227af7d03e5d617c85b03868d454a3c0da6b9469ddda53e7219f",
+      "result_sha256": "2320ee81750ecdbf66a225247d70cb88a8fa4e25e1f28b76476bfc0cd84caa95",
+      "status": "ok",
+      "seconds": 22.524167999999918,
+      "fields": {
+        "total": {
+          "expected": "21,000",
+          "predicted": "21,000",
+          "outcome": "correct"
+        },
+        "subtotal": {
+          "expected": "21,000",
+          "predicted": "21,000",
+          "outcome": "correct"
+        },
+        "tax": {
+          "expected": "0",
+          "predicted": "0",
+          "outcome": "correct"
+        },
+        "service": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "discount": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        }
+      }
+    },
+    {
+      "id": "cord-train-shard0-row0026",
+      "image_sha256": "973282ec60c140c6c1b971c458df9f0ad188905a36005dee50c8c57e09021311",
+      "result_sha256": "90af12d6f8e10bd8130a4a23c23bcacaa2ba5029fa5fca25a11bf6ccad3df175",
+      "status": "ok",
+      "seconds": 6.304033399999753,
+      "fields": {
+        "total": {
+          "expected": "Rp 16.500",
+          "predicted": "16.500",
+          "outcome": "correct"
+        },
+        "subtotal": {
+          "expected": "Rp 15.000",
+          "predicted": "15.000",
+          "outcome": "correct"
+        },
+        "tax": {
+          "expected": "Rp 1.500",
+          "predicted": "1.500",
+          "outcome": "correct"
+        },
+        "service": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "discount": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        }
+      }
+    },
+    {
+      "id": "cord-train-shard0-row0028",
+      "image_sha256": "5da9b3d83615078fc320a822109a2bb9976bae31114e90016e58795c679fadb5",
+      "result_sha256": "4b4a86183157ea5dc9666ede93127f6a8ada7c39e602985477fab9ffc41b9fd6",
+      "status": "ok",
+      "seconds": 26.788588899999013,
+      "fields": {
+        "total": {
+          "expected": "8,800",
+          "predicted": "8,800",
+          "outcome": "correct"
+        },
+        "subtotal": {
+          "expected": "8.000",
+          "predicted": "8,000",
+          "outcome": "correct"
+        },
+        "tax": {
+          "expected": "800",
+          "predicted": "800",
+          "outcome": "correct"
+        },
+        "service": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "discount": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        }
+      }
+    },
+    {
+      "id": "cord-train-shard0-row0035",
+      "image_sha256": "e42d403454e6e3fc2b0bb76ff1212a46218a16ca68850831467ec2f1c82695e0",
+      "result_sha256": "a1f8b8ce9ca520f89f0d9a9bc71962b6fe839e79f30d054f17569d230f3ef80a",
+      "status": "ok",
+      "seconds": 4.440116300000227,
+      "fields": {
+        "total": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "subtotal": {
+          "expected": "289000",
+          "predicted": "289000",
+          "outcome": "correct"
+        },
+        "tax": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "service": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "discount": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        }
+      }
+    },
+    {
+      "id": "cord-train-shard0-row0055",
+      "image_sha256": "181d2f5f037b3d57f4ac92caeec2b2b8d5f95390ee22999de617b5935fb2ca42",
+      "result_sha256": "6e2d2cecf4d9592bc02500ef6cc9c45401479753fab6e7c0810776723d501d81",
+      "status": "ok",
+      "seconds": 6.548527200000535,
+      "fields": {
+        "total": {
+          "expected": "17,999",
+          "predicted": "17,999",
+          "outcome": "correct"
+        },
+        "subtotal": {
+          "expected": "16,363",
+          "predicted": "16,363",
+          "outcome": "correct"
+        },
+        "tax": {
+          "expected": "1,636",
+          "predicted": "1,636",
+          "outcome": "correct"
+        },
+        "service": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "discount": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        }
+      }
+    },
+    {
+      "id": "cord-train-shard0-row0057",
+      "image_sha256": "ddd0d628f90771e545e05d3d67832f40f232d1e21d2af746b82846e70cb23e19",
+      "result_sha256": "13014dbf57aed2de5e2ac731cc3556f1d7264a478398954df30cce700d94e65f",
+      "status": "ok",
+      "seconds": 14.707759299999452,
+      "fields": {
+        "total": {
+          "expected": "39,000",
+          "predicted": "39,000",
+          "outcome": "correct"
+        },
+        "subtotal": {
+          "expected": "39,000",
+          "predicted": "39,000",
+          "outcome": "correct"
+        },
+        "tax": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "service": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "discount": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        }
+      }
+    },
+    {
+      "id": "cord-train-shard0-row0059",
+      "image_sha256": "40a0b12c648fa31f510c73bbc071a2ac1814d3de400eaa2af161a6c55fe11530",
+      "result_sha256": "e8c55637e525ad403808d48c2268745f04efc1beabaa0e8aeb536d76019be37d",
+      "status": "ok",
+      "seconds": 4.640288000002329,
+      "fields": {
+        "total": {
+          "expected": "25,000",
+          "predicted": "25,000",
+          "outcome": "correct"
+        },
+        "subtotal": {
+          "expected": "22,727",
+          "predicted": "22,727",
+          "outcome": "correct"
+        },
+        "tax": {
+          "expected": "2,273",
+          "predicted": "2,273",
+          "outcome": "correct"
+        },
+        "service": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "discount": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        }
+      }
+    },
+    {
+      "id": "cord-train-shard0-row0062",
+      "image_sha256": "3dfba6b1e12cb68df13a674240d245c87c228fce6883cfc2a3a9b36c9651e0aa",
+      "result_sha256": "d3fb7e29247a3eab6f86968858ff511ca8e18717d24271aaa5fd72dbc6eaefdc",
+      "status": "ok",
+      "seconds": 5.777947299997322,
+      "fields": {
+        "total": {
+          "expected": "3.600.000",
+          "predicted": "3.600.000",
+          "outcome": "correct"
+        },
+        "subtotal": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "tax": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "service": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "discount": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        }
+      }
+    },
+    {
+      "id": "cord-train-shard0-row0070",
+      "image_sha256": "8867317b5c79de72188d1708a7c98290018348115fabd3d5e947121098f8fdd2",
+      "result_sha256": "78f637dbd25abab937ccb7b8fe49f116d1d7f5715b8978d767fac9e4d31417a0",
+      "status": "ok",
+      "seconds": 12.671362999997655,
+      "fields": {
+        "total": {
+          "expected": "178,200",
+          "predicted": "178,200",
+          "outcome": "correct"
+        },
+        "subtotal": {
+          "expected": "150,000",
+          "predicted": "150,000",
+          "outcome": "correct"
+        },
+        "tax": {
+          "expected": "16,200",
+          "predicted": "16,200",
+          "outcome": "correct"
+        },
+        "service": {
+          "expected": "12,000",
+          "predicted": "12,000",
+          "outcome": "correct"
+        },
+        "discount": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        }
+      }
+    },
+    {
+      "id": "cord-train-shard0-row0108",
+      "image_sha256": "4ab262e4ef4c1a7ef75e85b7a28a29120bf2cb758d7a2d4d017c11cf4692e696",
+      "result_sha256": "b7a5bb1119c56bdd482c7f84efa010f5ae5df686853a46eb796c640eb2373d08",
+      "status": "ok",
+      "seconds": 6.976179400000547,
+      "fields": {
+        "total": {
+          "expected": "30,000",
+          "predicted": "30,000",
+          "outcome": "correct"
+        },
+        "subtotal": {
+          "expected": "30,000",
+          "predicted": "30,000",
+          "outcome": "correct"
+        },
+        "tax": {
+          "expected": "0",
+          "predicted": "0",
+          "outcome": "correct"
+        },
+        "service": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "discount": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        }
+      }
+    },
+    {
+      "id": "cord-train-shard0-row0139",
+      "image_sha256": "56cdf5959fd9c0d2b93b211d32c04fe2375333dcdd889b0fd85d340e550c8fb0",
+      "result_sha256": "7f13dec4a2e181f4d11bb732122c6b26962d744236e574ff7d1d1fbe42b06c3a",
+      "status": "ok",
+      "seconds": 20.30112989999907,
+      "fields": {
+        "total": {
+          "expected": "22,500",
+          "predicted": "22,500",
+          "outcome": "correct"
+        },
+        "subtotal": {
+          "expected": "22,500",
+          "predicted": "22,500",
+          "outcome": "correct"
+        },
+        "tax": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "service": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "discount": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        }
+      }
+    },
+    {
+      "id": "cord-train-shard0-row0151",
+      "image_sha256": "d85b90a89d581aeb4b3bfeffe3fd8848144e4a069dd8bfeadafba76361ee7d3a",
+      "result_sha256": "5b60dc57d099598d4900cd9c0d2ab6d8322ffb16566093fd16fdd5e80e66a86e",
+      "status": "ok",
+      "seconds": 8.089252699999633,
+      "fields": {
+        "total": {
+          "expected": "22.000",
+          "predicted": "22.000",
+          "outcome": "correct"
+        },
+        "subtotal": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "tax": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "service": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "discount": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        }
+      }
+    },
+    {
+      "id": "cord-train-shard0-row0163",
+      "image_sha256": "8388e130546db433089e21400622106f103e5b77fdab014b83c53a4b07d91277",
+      "result_sha256": "dd6171a70da1a4a7f516fce15835289241481bb75045d3b99b7bfd6fdff3e48c",
+      "status": "ok",
+      "seconds": 12.657474699997692,
+      "fields": {
+        "total": {
+          "expected": "13.200",
+          "predicted": "13.200",
+          "outcome": "correct"
+        },
+        "subtotal": {
+          "expected": "12.000",
+          "predicted": "12.000",
+          "outcome": "correct"
+        },
+        "tax": {
+          "expected": "1.200",
+          "predicted": "1.200",
+          "outcome": "correct"
+        },
+        "service": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "discount": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        }
+      }
+    },
+    {
+      "id": "cord-train-shard0-row0173",
+      "image_sha256": "8f4f2eb2b757e0ce34afd523a6c32a1042fffc387353bcfc97942398844cb8b0",
+      "result_sha256": "744fe0ced6b124830f7bd086cdf01fba5639567668b47686bd1d41c67b8fcb07",
+      "status": "ok",
+      "seconds": 8.709079000000202,
+      "fields": {
+        "total": {
+          "expected": "346,500",
+          "predicted": "346,500",
+          "outcome": "correct"
+        },
+        "subtotal": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "tax": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "service": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "discount": {
+          "expected": null,
+          "predicted": "-38,500",
+          "outcome": "unannotated_prediction"
+        }
+      }
+    },
+    {
+      "id": "cord-train-shard0-row0188",
+      "image_sha256": "8f30ea9476cb58a1161f3ac26d10c11337d8da76022d08883527b2cac52dc60a",
+      "result_sha256": "9310d32b33c4bba93dbc45cd03e3b3d7f1acce38ce4c2d77faf2c891cfdd2e57",
+      "status": "ok",
+      "seconds": 8.333050900000671,
+      "fields": {
+        "total": {
+          "expected": "24,000",
+          "predicted": "24,000",
+          "outcome": "correct"
+        },
+        "subtotal": {
+          "expected": "21,818",
+          "predicted": "21,818",
+          "outcome": "correct"
+        },
+        "tax": {
+          "expected": "2,182",
+          "predicted": "2,182",
+          "outcome": "correct"
+        },
+        "service": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "discount": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        }
+      }
+    },
+    {
+      "id": "cord-train-shard0-row0189",
+      "image_sha256": "845fce416425105530c4c5b18f2ec5c7c2d19587a2603ef316cf59b55c1e009a",
+      "result_sha256": "d41904ae61e4cf3f4f18e474b345891b3133b11bb7efe25baaed6aec6b7359e6",
+      "status": "ok",
+      "seconds": 8.413424799997301,
+      "fields": {
+        "total": {
+          "expected": "24,000",
+          "predicted": "24,000",
+          "outcome": "correct"
+        },
+        "subtotal": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "tax": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "service": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        },
+        "discount": {
+          "expected": null,
+          "predicted": null,
+          "outcome": "unannotated_abstention"
+        }
+      }
+    }
+  ],
+  "cost_summary": {
+    "currency": "USD",
+    "reserved_usd": "0",
+    "estimated_known_usage_usd": "0",
+    "requests_with_unknown_usage": 0,
+    "not_an_invoice": true,
+    "free_tier_condition": "User-confirmed Free Tier without billing; not verified by API",
+    "config": {
+      "provider": "gemini-free",
+      "thinking_level": "minimal",
+      "free_tier_confirmed": true,
+      "min_interval_seconds": 15,
+      "model": "gemini-3.5-flash-lite",
+      "max_requests": 20,
+      "max_output_tokens": 4096,
+      "max_input_tokens": 20000,
+      "max_budget_usd": "0",
+      "input_usd_per_million": "0",
+      "output_usd_per_million": "0",
+      "pricing_as_of": "2026-10-28"
+    }
+  }
+}

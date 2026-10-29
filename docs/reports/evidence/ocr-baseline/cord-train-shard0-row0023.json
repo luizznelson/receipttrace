@@ -1,0 +1,496 @@
+{
+  "id": "cord-train-shard0-row0023",
+  "image_sha256": "a532b281b2f3227af7d03e5d617c85b03868d454a3c0da6b9469ddda53e7219f",
+  "status": "ok",
+  "lines": [
+    {
+      "text": "1X S-Lemon Macchiato",
+      "score": 0.99117,
+      "box": [
+        [
+          77.0,
+          324.0
+        ],
+        [
+          303.0,
+          322.0
+        ],
+        [
+          303.0,
+          352.0
+        ],
+        [
+          78.0,
+          353.0
+        ]
+      ]
+    },
+    {
+      "text": "@21,000",
+      "score": 0.99887,
+      "box": [
+        [
+          325.0,
+          319.0
+        ],
+        [
+          415.0,
+          317.0
+        ],
+        [
+          416.0,
+          351.0
+        ],
+        [
+          326.0,
+          353.0
+        ]
+      ]
+    },
+    {
+      "text": "21,000",
+      "score": 0.99991,
+      "box": [
+        [
+          451.0,
+          316.0
+        ],
+        [
+          530.0,
+          316.0
+        ],
+        [
+          530.0,
+          350.0
+        ],
+        [
+          451.0,
+          350.0
+        ]
+      ]
+    },
+    {
+      "text": "Less Ice",
+      "score": 0.94774,
+      "box": [
+        [
+          95.0,
+          352.0
+        ],
+        [
+          194.0,
+          350.0
+        ],
+        [
+          195.0,
+          381.0
+        ],
+        [
+          96.0,
+          383.0
+        ]
+      ]
+    },
+    {
+      "text": "50%",
+      "score": 0.99994,
+      "box": [
+        [
+          96.0,
+          378.0
+        ],
+        [
+          139.0,
+          376.0
+        ],
+        [
+          140.0,
+          408.0
+        ],
+        [
+          97.0,
+          410.0
+        ]
+      ]
+    },
+    {
+      "text": "PB1:",
+      "score": 0.99464,
+      "box": [
+        [
+          283.0,
+          428.0
+        ],
+        [
+          337.0,
+          430.0
+        ],
+        [
+          336.0,
+          463.0
+        ],
+        [
+          281.0,
+          461.0
+        ]
+      ]
+    },
+    {
+      "text": "0",
+      "score": 0.99844,
+      "box": [
+        [
+          512.0,
+          431.0
+        ],
+        [
+          531.0,
+          431.0
+        ],
+        [
+          531.0,
+          457.0
+        ],
+        [
+          512.0,
+          457.0
+        ]
+      ]
+    },
+    {
+      "text": "Subtotal:",
+      "score": 0.99949,
+      "box": [
+        [
+          230.0,
+          457.0
+        ],
+        [
+          337.0,
+          457.0
+        ],
+        [
+          337.0,
+          491.0
+        ],
+        [
+          230.0,
+          491.0
+        ]
+      ]
+    },
+    {
+      "text": "21,000",
+      "score": 0.9999,
+      "box": [
+        [
+          454.0,
+          456.0
+        ],
+        [
+          533.0,
+          456.0
+        ],
+        [
+          533.0,
+          490.0
+        ],
+        [
+          454.0,
+          490.0
+        ]
+      ]
+    },
+    {
+      "text": "Total:",
+      "score": 0.99976,
+      "box": [
+        [
+          263.0,
+          484.0
+        ],
+        [
+          337.0,
+          484.0
+        ],
+        [
+          337.0,
+          519.0
+        ],
+        [
+          263.0,
+          519.0
+        ]
+      ]
+    },
+    {
+      "text": "21,000",
+      "score": 0.99964,
+      "box": [
+        [
+          455.0,
+          485.0
+        ],
+        [
+          534.0,
+          485.0
+        ],
+        [
+          534.0,
+          519.0
+        ],
+        [
+          455.0,
+          519.0
+        ]
+      ]
+    },
+    {
+      "text": "Cash:",
+      "score": 0.99966,
+      "box": [
+        [
+          273.0,
+          514.0
+        ],
+        [
+          337.0,
+          514.0
+        ],
+        [
+          337.0,
+          546.0
+        ],
+        [
+          273.0,
+          546.0
+        ]
+      ]
+    },
+    {
+      "text": "21,000",
+      "score": 0.99985,
+      "box": [
+        [
+          455.0,
+          514.0
+        ],
+        [
+          535.0,
+          514.0
+        ],
+        [
+          535.0,
+          548.0
+        ],
+        [
+          455.0,
+          548.0
+        ]
+      ]
+    },
+    {
+      "text": "CHANGE:",
+      "score": 0.9998,
+      "box": [
+        [
+          253.0,
+          569.0
+        ],
+        [
+          338.0,
+          569.0
+        ],
+        [
+          338.0,
+          602.0
+        ],
+        [
+          253.0,
+          602.0
+        ]
+      ]
+    },
+    {
+      "text": "0",
+      "score": 0.99475,
+      "box": [
+        [
+          515.0,
+          573.0
+        ],
+        [
+          534.0,
+          573.0
+        ],
+        [
+          534.0,
+          599.0
+        ],
+        [
+          515.0,
+          599.0
+        ]
+      ]
+    }
+  ],
+  "evidence": {
+    "rows": [
+      "1X S-Lemon Macchiato @21,000 21,000",
+      "Less Ice",
+      "50%",
+      "PB1: 0",
+      "Subtotal: 21,000",
+      "Total: 21,000",
+      "Cash: 21,000",
+      "CHANGE: 0"
+    ],
+    "item_rows": [
+      "1X S-Lemon Macchiato @21,000 21,000"
+    ],
+    "subtotal": {
+      "candidates": [
+        [
+          1,
+          "21,000",
+          "Subtotal: 21,000"
+        ]
+      ],
+      "ambiguous": false
+    },
+    "total": {
+      "candidates": [
+        [
+          1,
+          "21,000",
+          "Total: 21,000"
+        ]
+      ],
+      "ambiguous": false
+    }
+  },
+  "validation": {
+    "schema_version": "1",
+    "rules_version": "1",
+    "numeric_policy": "idr-grouped",
+    "quantity_policy": "decimal-dot-optional-x",
+    "tolerance": "0",
+    "raw": {
+      "document_id": "cord-train-shard0-row0023",
+      "currency": null,
+      "items": [
+        {
+          "description": "S-Lemon Macchiato @21,000",
+          "quantity": "1X",
+          "unit_price": null,
+          "amount": "21,000",
+          "discount": null,
+          "children": []
+        }
+      ],
+      "items_complete": false,
+      "subtotal": "21,000",
+      "discount": null,
+      "tax": null,
+      "service": null,
+      "total": "21,000"
+    },
+    "normalized": {
+      "document_id": "cord-train-shard0-row0023",
+      "currency": null,
+      "items": [
+        {
+          "description": "S-Lemon Macchiato @21,000",
+          "quantity": {
+            "raw": "1X",
+            "value": "1",
+            "status": "parsed",
+            "reason": null
+          },
+          "unit_price": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "amount": {
+            "raw": "21,000",
+            "value": "21000",
+            "status": "parsed",
+            "reason": null
+          },
+          "discount": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "children": []
+        }
+      ],
+      "items_complete": false,
+      "subtotal": {
+        "raw": "21,000",
+        "value": "21000",
+        "status": "parsed",
+        "reason": null
+      },
+      "discount": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "tax": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "service": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "total": {
+        "raw": "21,000",
+        "value": "21000",
+        "status": "parsed",
+        "reason": null
+      }
+    },
+    "checks": [
+      {
+        "code": "item_total",
+        "path": "items[0]",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "subtotal",
+        "path": "subtotal",
+        "status": "skipped",
+        "reason": "incomplete_or_nested_items",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "receipt_total",
+        "path": "total",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      }
+    ],
+    "has_findings": false,
+    "has_skipped_checks": true
+  },
+  "seconds": 0.9545345000005909
+}

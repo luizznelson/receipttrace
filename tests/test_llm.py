@@ -167,6 +167,7 @@ def test_unconfigured_live_run_never_creates_result(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     monkeypatch.delenv("OPENAI_API_KEY", raising=False)
+    monkeypatch.chdir(tmp_path)
     output = tmp_path / "run"
     with pytest.raises(ValueError, match="OPENAI_API_KEY"):
         run(images(tmp_path), output, config())
