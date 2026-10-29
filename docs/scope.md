@@ -18,10 +18,12 @@ A primeira versão deve permitir discutir se a IA extrai melhor que o OCR, quant
 | Extração | OCR e IA geram campos estruturados a partir das imagens | Implementada e avaliada em amostra de desenvolvimento |
 | Validação | Formato dos campos e regras monetárias explícitas | Implementada; cobertura aritmética limitada nos dados reais |
 | Avaliação | Comparação por campo, tempo, falhas e uso da API | Implementada para cinco campos de totais |
-| Revisão | Correções com valor anterior, novo valor, momento e motivo | Pendente |
+| Revisão | Correções com valor anterior, novo valor, momento e motivo | Implementada localmente; interface pendente |
 | Apresentação | API, interface e exportação para demonstração | Pendente |
 
 Os campos previstos incluem descrição, quantidade, preço do item, subtotal, desconto, imposto, serviço e total. A avaliação atual mede somente os cinco campos de totais; itens ainda não têm métrica de qualidade. [Resultados e limites](reports/gemini-development-20.md).
+
+O [fluxo de revisão](review.md) preserva a extração original em SQLite e reabre a revisão quando há nova correção. A conclusão exige ciência explícita de verificações puladas ou com achados. Não equivale a aprovação financeira.
 
 ## O que fica fora desta versão
 

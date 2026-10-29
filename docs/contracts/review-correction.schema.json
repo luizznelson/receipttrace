@@ -1,0 +1,56 @@
+{
+  "$defs": {
+    "Correction": {
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "maxLength": 500,
+          "minLength": 2,
+          "title": "Path",
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/$defs/JsonValue"
+        }
+      },
+      "required": [
+        "path",
+        "value"
+      ],
+      "title": "Correction",
+      "type": "object"
+    },
+    "JsonValue": {}
+  },
+  "additionalProperties": false,
+  "properties": {
+    "actor": {
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Actor",
+      "type": "string"
+    },
+    "reason": {
+      "maxLength": 2000,
+      "minLength": 1,
+      "title": "Reason",
+      "type": "string"
+    },
+    "changes": {
+      "items": {
+        "$ref": "#/$defs/Correction"
+      },
+      "maxItems": 100,
+      "minItems": 1,
+      "title": "Changes",
+      "type": "array"
+    }
+  },
+  "required": [
+    "actor",
+    "reason",
+    "changes"
+  ],
+  "title": "CorrectionRequest",
+  "type": "object"
+}

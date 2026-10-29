@@ -10,16 +10,16 @@ O desenvolvimento avança por entregas que possam ser revisadas e demonstradas. 
 | OCR | Referência local para comparar qualidade e tempo | Executada em 20 documentos |
 | IA | Integração com resposta estruturada e tratamento de falhas | Gemini executado em 20 documentos |
 | Avaliação | Resultados por campo e evidências reproduzíveis | Publicados para a amostra de desenvolvimento |
-| Revisão | Corrigir campos preservando o original e o motivo da mudança | Pendente |
+| Revisão | Corrigir campos preservando o original e o motivo da mudança | Implementada localmente e testada |
 | API e interface | Demonstrar o processamento e a revisão em PT-BR e inglês | Pendente |
 | Empacotamento | Execução, Docker e integração contínua verificados | Ambiente e workflow existentes; Docker e validação remota pendentes |
 | Apresentação | Estudo de caso e demonstração pública | README bilíngue atualizado; demonstração pendente |
 
-## Próxima entrega: revisão humana
+## Revisão entregue e próxima etapa
 
-A revisão deve mostrar a imagem, os valores extraídos e os limites da validação. Uma correção precisa registrar o valor anterior, o novo valor, o momento e o motivo, sem alterar a extração original. Verificação aritmética pulada deve ser apresentada como “não verificada”, sem sugerir aprovação.
+O [fluxo local de revisão](review.md) preserva a origem, registra alterações com responsável e motivo, exige versão esperada e separa revisão de verificação aritmética. Corrigir após a conclusão reabre a revisão. A verificação está documentada no [relatório da etapa](reports/review-verification.md).
 
-Depois desse fluxo, a API e a interface poderão expor uma demonstração completa. A avaliação em dados reservados ainda precisa de planejamento e execução antes de qualquer alegação de generalização.
+A próxima entrega é expor esse fluxo pela API da aplicação e pela interface bilíngue, mostrando imagem, valores e histórico. Regras de revisão e validação devem ser reutilizadas. A avaliação com pessoas e em dados reservados continua pendente.
 
 ## Orientação para a apresentação
 

@@ -4,7 +4,7 @@
 
 Uma pessoa deve entender qual problema o ReceiptTrace trata, ver um exemplo real e localizar a evidência dos resultados. A primeira leitura deve servir a quem avalia o valor do projeto; detalhes de implementação ficam disponíveis para quem precisa investigar.
 
-Este documento é a orientação para a interface futura. Nenhuma tela ou funcionalidade descrita aqui é declarada como implementada. A base de conteúdo é o [caso de negócio](business-case.md).
+Este documento orienta a interface futura, ainda não implementada. O [fluxo local de revisão](review.md) já fornece persistência, estados e histórico por comandos; sua apresentação visual continua pendente. A base de conteúdo é o [caso de negócio](business-case.md).
 
 ## Estrutura da apresentação pública
 
@@ -14,7 +14,7 @@ Este documento é a orientação para a interface futura. Nenhuma tela ou funcio
 | 2 | Um exemplo de recibo | Como a imagem se transforma em campos conferíveis | Imagem ao lado dos valores extraídos, origem e situação das verificações |
 | 3 | Perguntas e resultados | O que melhorou e o que custou mais tempo | Comparação OCR/IA, contagens e tempo de processamento |
 | 4 | Como conferir | Por que o resultado pode ser investigado | Documento, resposta original e evidência da avaliação |
-| 5 | Limites e estágio | O que já funciona e o que continua pendente | Amostra de desenvolvimento, itens não avaliados e revisão ainda pendente |
+| 5 | Limites e estágio | O que já funciona e o que continua pendente | Amostra de desenvolvimento, itens não avaliados e interface de revisão ainda pendente |
 | 6 | Implementação e reprodução | Como o trabalho foi construído e pode ser verificado | Link para repositório, documentação e relatório detalhado |
 
 ### Texto inicial proposto
@@ -77,7 +77,7 @@ O estado técnico de processamento, o acerto em relação ao gabarito, a valida�
 | Número inválido para a regra | Valor inválido para verificação | Invalid value for check |
 | Revisão ainda não feita | Revisão pendente | Review pending |
 
-Esses textos são a proposta de apresentação. O estado “Revisão concluída” só poderá existir depois de haver um evento de revisão persistido; não pode ser inferido da ausência de alertas.
+Esses textos são a proposta de apresentação. O estado “Revisão concluída” deve vir de um evento de conclusão persistido pelo fluxo local, nunca da ausência de alertas. A interface deve mostrar a revisão atual e reenviá-la como versão esperada ao corrigir ou concluir; em conflito, precisa solicitar nova conferência.
 
 ## Apresentação visual e acessibilidade
 

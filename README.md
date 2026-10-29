@@ -20,7 +20,7 @@ O cenário proposto é uma equipe administrativa ou financeira que organiza comp
 | Quanto tempo leva? | Mediana de 8,33 s com IA e 1,04 s com OCR, com escopos de medição diferentes. |
 | Quanto custou a API neste lote? | US$ 0 estimados sob a configuração gratuita usada; não é custo operacional completo. |
 | Podemos dispensar a conferência humana? | Não há evidência para isso. Itens e consistência aritmética não foram certificados. |
-| Podemos conferir a origem de um resultado? | Sim, por meio das respostas, configurações e hashes preservados. O histórico de correções humanas ainda será implementado. |
+| Podemos conferir a origem de um resultado? | Sim, por meio das respostas, configurações e hashes preservados. O histórico de correções já está implementado localmente, com responsável e motivo declarados. |
 | Já foi comprovada economia de trabalho? | Não. É necessário medir digitação, conferência e correção em uma avaliação própria. |
 
 [Problema, perguntas de negócio e próximos indicadores](docs/business-case.md).
@@ -52,8 +52,9 @@ O custo estimado conhecido da API foi de **US$ 0**, sob a configuração Free Ti
 - Validação do formato, preservação do texto original e regras monetárias explícitas.
 - Avaliação independente, com falhas e campos sem resposta incluídos nos resultados.
 - Preservação de respostas, configurações e hashes para auditoria.
+- Revisão local com valores originais preservados, correções e conclusão registradas em histórico.
 
-A operação atual é por linha de comando. A revisão humana, a API da aplicação e a interface ainda serão implementadas. O fluxo planejado é: imagem → extração → validação → revisão → exportação.
+A operação atual, incluindo a revisão, é por linha de comando. A API da aplicação e a interface ainda serão implementadas. O fluxo planejado é: imagem → extração → validação → revisão → exportação.
 
 ## Como conferir os resultados sem usar uma API
 
@@ -70,6 +71,12 @@ A preparação baixa aproximadamente 490 MB e seleciona os 20 documentos com sem
 
 Para extrair novas respostas, siga o [guia de configuração do Gemini](docs/gemini.md). A chave fica no arquivo `.env`, fora do Git. O [OCR local](docs/ocr.md) pode ser executado sem API externa. As versões das dependências estão fixadas em `uv.lock`.
 
+## Como revisar um resultado
+
+O [guia de revisão](docs/review.md) explica como abrir uma extração salva, corrigir campos e registrar a conclusão. As ações são enviadas por arquivos JSON; não é necessária chave de API. Cada evento registra responsável, motivo, data e valores antes/depois em um banco SQLite local. Uma alteração posterior reabre a revisão.
+
+O estado de revisão é separado do sucesso da extração e das verificações aritméticas. Concluir a revisão não aprova pagamento nem cálculos que ficaram sem verificação. A identidade do responsável é declarada localmente, sem autenticação.
+
 ## Como o projeto pode ser auditado
 
 Cada execução registra a imagem de origem, a configuração, o prompt, a resposta, o tempo e os hashes dos arquivos. O avaliador confere a integridade e compara os valores extraídos com as anotações oficiais. O extrator recebe apenas imagens; as respostas esperadas são usadas separadamente na avaliação.
@@ -83,6 +90,7 @@ Os resultados salvos permitem recalcular as métricas sem novas chamadas de IA. 
 - [Escopo e critérios de entrega](docs/scope.md)
 - [Arquitetura e responsabilidades](docs/architecture.md)
 - [Dados e método de avaliação](docs/evaluation.md)
+- [Revisão e histórico de correções](docs/review.md)
 - [Campos, números e verificações aritméticas](docs/domain.md)
 - [Ambiente e verificações de qualidade](docs/development.md)
 - [Etapas de implementação](docs/roadmap.md)

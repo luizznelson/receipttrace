@@ -1,0 +1,10 @@
+{
+  "actor": "example-reviewer",
+  "reason": "Exemplo: conferi o total na imagem; substitua pelo motivo real.",
+  "changes": [
+    {
+      "path": "/total",
+      "value": "61,799"
+    }
+  ]
+}

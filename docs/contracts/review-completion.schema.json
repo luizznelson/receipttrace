@@ -1,0 +1,33 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "actor": {
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Actor",
+      "type": "string"
+    },
+    "reason": {
+      "maxLength": 2000,
+      "minLength": 1,
+      "title": "Reason",
+      "type": "string"
+    },
+    "acknowledge_findings": {
+      "default": false,
+      "title": "Acknowledge Findings",
+      "type": "boolean"
+    },
+    "acknowledge_unverified": {
+      "default": false,
+      "title": "Acknowledge Unverified",
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "actor",
+    "reason"
+  ],
+  "title": "CompletionRequest",
+  "type": "object"
+}

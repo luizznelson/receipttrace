@@ -20,7 +20,7 @@ The proposed use case is an administrative or finance team organizing receipts a
 | How long does processing take? | Median of 8.33 s with AI and 1.04 s with OCR, with different timing scopes. |
 | What was the API cost for this batch? | Estimated USD 0 under the free configuration used; this is not a complete operating cost. |
 | Can human checking be removed? | There is no evidence for that. Items and arithmetic consistency have not been certified. |
-| Can a result be traced to its source? | Yes, through saved responses, settings and hashes. Human correction history remains to be implemented. |
+| Can a result be traced to its source? | Yes, through saved responses, settings and hashes. Local correction history is implemented, with a declared reviewer and reason. |
 | Has a reduction in manual work been established? | No. Data entry, checking and correction need a separate evaluation. |
 
 [Business case, questions and proposed measurements (Portuguese)](docs/business-case.md).
@@ -52,8 +52,9 @@ Known estimated API cost was **USD 0** under the confirmed Free Tier configurati
 - Schema validation, original text preservation and explicit monetary rules.
 - Independent evaluation that includes failures and unanswered fields.
 - Saved responses, settings and file hashes for auditing.
+- Local review with preserved original values and recorded corrections and completion.
 
-The current application runs through a command line. Human review, the application API and the user interface remain to be implemented. The planned workflow is: image → extraction → validation → review → export.
+The current application, including review, runs through a command line. The application API and user interface remain to be implemented. The planned workflow is: image → extraction → validation → review → export.
 
 ## Check the results without an API
 
@@ -70,6 +71,12 @@ Preparation downloads about 490 MB and selects 20 documents using seed 42. If th
 
 To generate new extractions, follow the [Gemini setup guide (Portuguese)](docs/gemini.md). Credentials belong in the root `.env`, excluded from Git. [Local OCR (Portuguese)](docs/ocr.md) requires no external inference API. Dependency versions are locked in `uv.lock`.
 
+## Review a result
+
+The [review guide (Portuguese)](docs/review.md) explains how to open a saved extraction, correct fields and explicitly complete a review. Actions use JSON request files; no API key is required. Each event records the declared reviewer, reason, timestamp and before/after values in a local SQLite database. A later correction reopens the review.
+
+Review status is separate from extraction success and arithmetic checks. Completing a review does not approve payment or unverified calculations. Reviewer identities are declared locally and are not authenticated.
+
 ## How to audit the project
 
 Each run records the source image, configuration, prompt, response, processing time and file hashes. The evaluator verifies integrity and compares extracted values with official annotations. Extractors receive only images; expected answers are used separately during evaluation.
@@ -83,6 +90,7 @@ Saved results allow metrics to be recalculated without new AI calls. New inferen
 - [Scope and acceptance criteria](docs/scope.md)
 - [Architecture and responsibilities](docs/architecture.md)
 - [Data and evaluation protocol](docs/evaluation.md)
+- [Review and correction history](docs/review.md)
 - [Fields, numbers and arithmetic checks](docs/domain.md)
 - [Environment and quality checks](docs/development.md)
 - [Implementation milestones](docs/roadmap.md)

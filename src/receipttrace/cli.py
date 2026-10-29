@@ -3,6 +3,7 @@
 import argparse
 import hashlib
 import json
+import sqlite3
 import sys
 from datetime import UTC, datetime
 from decimal import Decimal, InvalidOperation
@@ -63,8 +64,37 @@ def main() -> int:
     comparison.add_argument("--baseline", type=Path, required=True)
     comparison.add_argument("--candidate", type=Path, required=True)
     comparison.add_argument("--output", type=Path, required=True)
+    for name in ("review-start", "review-show", "review-correct", "review-complete"):
+        review = commands.add_parser(
+            name, help="Preserve, inspect or update a local receipt review"
+        )
+        review.add_argument("--database", type=Path, default=Path("runs/reviews.sqlite3"))
+        if name == "review-start":
+            review.add_argument("--run", type=Path, required=True)
+            review.add_argument("--document-id", required=True)
+        else:
+            review.add_argument("--review-id", required=True)
+        if name in ("review-correct", "review-complete"):
+            review.add_argument("--expected-revision", type=int, required=True)
+            review.add_argument("--request", type=Path, required=True)
     args = parser.parse_args()
     try:
+        if args.command.startswith("review-"):
+            from receipttrace.review import CompletionRequest, CorrectionRequest, ReviewStore
+
+            store = ReviewStore(args.database)
+            if args.command == "review-start":
+                state = store.start(args.run, args.document_id)
+            elif args.command == "review-show":
+                state = store.view(args.review_id)
+            elif args.command == "review-correct":
+                correction = CorrectionRequest.model_validate_json(args.request.read_bytes())
+                state = store.correct(args.review_id, args.expected_revision, correction)
+            else:
+                completion = CompletionRequest.model_validate_json(args.request.read_bytes())
+                state = store.complete(args.review_id, args.expected_revision, completion)
+            print(json.dumps(state, ensure_ascii=False, indent=2, default=decimal_json))
+            return 0
         if args.command == "compare-extractions":
             from receipttrace.evaluation import compare_reports
 
@@ -135,7 +165,7 @@ def main() -> int:
         manifest = inspect(source, args.output, args.size, args.seed)
         print(json.dumps({"sample_size": manifest["sample_size"], "output": str(args.output)}))
         return 0
-    except (OSError, ValueError, URLError, InvalidOperation, RuntimeError) as error:
+    except (OSError, ValueError, URLError, InvalidOperation, RuntimeError, sqlite3.Error) as error:
         print(f"Error: {error}", file=sys.stderr)
         return 1
 

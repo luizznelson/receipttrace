@@ -1,0 +1,187 @@
+{
+  "scope": "Automated technical demonstration, not a human review or productivity measurement",
+  "source_run": "docs/reports/evidence/ocr-baseline",
+  "source_result_sha256": "3b9e9a61b3b9d8b7c22ecc08afaff595d732a0f2c01d50078268a64a5490dee1",
+  "source_files_unchanged": true,
+  "stale_revision_rejected": true,
+  "initial_revision": 0,
+  "corrected_revision": 1,
+  "completed_revision": 2,
+  "result": {
+    "schema_version": 1,
+    "review_id": "39099707-2bb0-4a6f-b8ab-f060a80a1422",
+    "document_id": "cord-train-shard0-row0006",
+    "image_sha256": "ad04e4f531ad5f58a944cd30d166d2373d518101bd0efaa4e82a257c33255c83",
+    "created_at_utc": "2026-10-29T19:54:49.079775+00:00",
+    "revision": 2,
+    "extraction_status": "ok",
+    "review_status": "completed",
+    "arithmetic": {
+      "status": "not_checked",
+      "passed": 0,
+      "mismatched": 0,
+      "invalid": 0,
+      "skipped": 2
+    },
+    "original_raw": {
+      "document_id": "cord-train-shard0-row0006",
+      "currency": null,
+      "items": [],
+      "items_complete": false,
+      "subtotal": null,
+      "discount": null,
+      "tax": null,
+      "service": null,
+      "total": "62,000"
+    },
+    "current_raw": {
+      "document_id": "cord-train-shard0-row0006",
+      "currency": null,
+      "items": [],
+      "items_complete": false,
+      "subtotal": null,
+      "discount": null,
+      "tax": null,
+      "service": null,
+      "total": "61,799"
+    },
+    "validation": {
+      "schema_version": "1",
+      "rules_version": "1",
+      "numeric_policy": "idr-grouped",
+      "quantity_policy": "decimal-dot-optional-x",
+      "tolerance": "0",
+      "raw": {
+        "document_id": "cord-train-shard0-row0006",
+        "currency": null,
+        "items": [],
+        "items_complete": false,
+        "subtotal": null,
+        "discount": null,
+        "tax": null,
+        "service": null,
+        "total": "61,799"
+      },
+      "normalized": {
+        "document_id": "cord-train-shard0-row0006",
+        "currency": null,
+        "items": [],
+        "items_complete": false,
+        "subtotal": {
+          "raw": null,
+          "value": null,
+          "status": "missing",
+          "reason": null
+        },
+        "discount": {
+          "raw": null,
+          "value": null,
+          "status": "missing",
+          "reason": null
+        },
+        "tax": {
+          "raw": null,
+          "value": null,
+          "status": "missing",
+          "reason": null
+        },
+        "service": {
+          "raw": null,
+          "value": null,
+          "status": "missing",
+          "reason": null
+        },
+        "total": {
+          "raw": "61,799",
+          "value": "61799",
+          "status": "parsed",
+          "reason": null
+        }
+      },
+      "checks": [
+        {
+          "code": "subtotal",
+          "path": "subtotal",
+          "status": "skipped",
+          "reason": "incomplete_or_nested_items",
+          "expected": null,
+          "observed": null,
+          "difference": null
+        },
+        {
+          "code": "receipt_total",
+          "path": "total",
+          "status": "skipped",
+          "reason": "missing_or_invalid_component",
+          "expected": null,
+          "observed": null,
+          "difference": null
+        }
+      ],
+      "has_findings": false,
+      "has_skipped_checks": true
+    },
+    "events": [
+      {
+        "actor": "automated-workflow-demo",
+        "reason": "Demonstração automatizada com valor já documentado no exemplo público; não é revisão humana.",
+        "revision": 1,
+        "kind": "corrected",
+        "created_at_utc": "2026-10-29T19:54:49.310697+00:00",
+        "previous_hash": "f2d2bc64158063c9bfa6f6ab8da29f8eb63f8c867a145bd878c91f3f9a661109",
+        "changes": [
+          {
+            "path": "/total",
+            "before": "62,000",
+            "after": "61,799"
+          }
+        ],
+        "acknowledge_findings": false,
+        "acknowledge_unverified": false,
+        "event_hash": "9cd51bd871e81da40390d44e7d355ed6db933e5bde360ac67102e2891b4133c6"
+      },
+      {
+        "actor": "automated-workflow-demo",
+        "reason": "Teste automatizado da conclusão explícita e persistência; cálculos não verificados, sem aprovação financeira ou revisão por uma pessoa.",
+        "revision": 2,
+        "kind": "completed",
+        "created_at_utc": "2026-10-29T19:54:50.060296+00:00",
+        "previous_hash": "9cd51bd871e81da40390d44e7d355ed6db933e5bde360ac67102e2891b4133c6",
+        "changes": [],
+        "acknowledge_findings": false,
+        "acknowledge_unverified": true,
+        "event_hash": "8520a84086216a2c2ca617ee32439ffc9edffdce9108b71ac635b032b1b2e085"
+      }
+    ],
+    "source": {
+      "result_sha256": "3b9e9a61b3b9d8b7c22ecc08afaff595d732a0f2c01d50078268a64a5490dee1",
+      "manifest_sha256": "19cd382648074904e868332c21efd15e128cb2e92b169ba3f3edcf1f48c1eff1",
+      "snapshot_sha256": "f2d2bc64158063c9bfa6f6ab8da29f8eb63f8c867a145bd878c91f3f9a661109",
+      "engine": {
+        "rapidocr": "3.10.0",
+        "onnxruntime": "1.31.1",
+        "config_sha256": "06623941e188461a0bc263fe16175cb5e5f6f6b01f4387e546d3a741569fc021",
+        "models": {
+          "Det": {
+            "file": "PP-OCRv6_det_small.onnx",
+            "sha256": "090f04abcd9d9a7498bc4ebf677e4cb9bdce1fe4197ddb7e529f1ef44e1ff94f"
+          },
+          "Cls": {
+            "file": "ch_ppocr_mobile_v2.0_cls_mobile.onnx",
+            "sha256": "e47acedf663230f8863ff1ab0e64dd2d82b838fceb5957146dab185a89d6215c"
+          },
+          "Rec": {
+            "file": "PP-OCRv6_rec_small.onnx",
+            "sha256": "6f327246b50388f3c176ae304bd95767ea6dc0c9ae92153ef8cbe210b3c14884"
+          }
+        },
+        "threads": 1,
+        "provider": "CPU",
+        "text_score": 0.5
+      },
+      "numeric_policy": "idr-grouped",
+      "tolerance": "0"
+    },
+    "head_sha256": "8520a84086216a2c2ca617ee32439ffc9edffdce9108b71ac635b032b1b2e085"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "actor": "example-reviewer",
+  "reason": "Exemplo: descreva o que foi conferido e as limitações reconhecidas.",
+  "acknowledge_findings": false,
+  "acknowledge_unverified": false
+}

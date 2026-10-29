@@ -4,7 +4,7 @@
 
 Uma imagem de recibo não é um registro pronto para consulta ou conferência. Alguém precisa identificar os valores, transcrevê-los e resolver dúvidas: o número representa o total, o dinheiro entregue ou o troco? Um campo está ausente ou apenas ilegível?
 
-O ReceiptTrace trata essa passagem da imagem para dados estruturados, preservando a origem do resultado. A demonstração compara duas formas de extração e prepara as informações para revisão humana. O fluxo de revisão ainda será implementado.
+O ReceiptTrace trata essa passagem da imagem para dados estruturados, preservando a origem do resultado. A demonstração compara duas formas de extração e prepara as informações para revisão humana. O fluxo de revisão local já está implementado; a interface permanece pendente.
 
 ## Quem se beneficiaria e em qual tarefa
 
@@ -19,7 +19,7 @@ Esse cenário orienta o produto; não representa uma empresa cliente nem uma imp
 | Organização | Valores disponíveis apenas em uma imagem | Extrair campos identificados e preservar o texto original | Saídas estruturadas para 20 recibos |
 | Qualidade | Transcrição ou leitura pode confundir valores | Comparar OCR e IA com referências conhecidas | Gemini recuperou cinco totais que o OCR errou ou não respondeu |
 | Conferência | Um resultado sem origem é difícil de investigar | Associar cada resultado ao documento e à configuração | Respostas, hashes e resultados por documento preservados |
-| Correção | Alterações podem apagar o valor originalmente extraído | Registrar antes, depois, momento e motivo | Fluxo de revisão ainda pendente |
+| Correção | Alterações podem apagar o valor originalmente extraído | Registrar antes, depois, momento e motivo | Histórico implementado em SQLite; uso por pessoas ainda não medido |
 | Produtividade | Digitação e conferência consomem trabalho | Apoiar a revisão com campos preenchidos | Economia de tempo humano ainda não medida |
 
 ## Perguntas de negócio e respostas disponíveis
@@ -30,13 +30,13 @@ Esse cenário orienta o produto; não representa uma empresa cliente nem uma imp
 | Quanto tempo leva para processar um recibo? | Mediana de 8,33 s para Gemini e 1,04 s para OCR, com etapas de medição diferentes. | O OCR foi mais rápido e a IA recuperou mais campos. Tempo de revisão humana e espera total ainda precisam ser medidos. |
 | Quanto custa usar a API? | Estimativa conhecida de US$ 0 no lote, sob Free Tier confirmado e sem faturamento ativado. Computação e hospedagem não foram estimadas. | O experimento coube na configuração gratuita usada. Não há custo operacional completo nem projeção validada em escala. |
 | É possível confiar automaticamente nos resultados? | O formato foi validado, mas itens não foram pontuados e as 76 verificações aritméticas foram puladas. | Não há evidência para aprovação automática. Exibir campos e verificações pendentes para revisão. |
-| É possível investigar um resultado depois? | Resposta original, configuração, hashes e avaliação por documento estão publicados. | A extração já pode ser auditada. O histórico de correções depende do fluxo de revisão. |
+| É possível investigar um resultado depois? | Resposta original, configuração, hashes e avaliação por documento estão publicados. | A extração já pode ser auditada. O histórico de correções está implementado localmente. A identidade é declarada, sem autenticação. |
 | A solução reduz trabalho manual? | Não houve comparação com pessoas nem medição de esforço operacional. | Medir tempo de digitação, conferência e correção antes e depois, no mesmo tipo de tarefa. |
 | Funciona em outros recibos ou em documentos brasileiros? | Só a amostra de desenvolvimento do CORD foi avaliada. | Testar dados reservados e definir outro estudo para documentos brasileiros. |
 
 As respostas acima devem orientar o README, a apresentação e os indicadores da interface. Toda alegação deve apontar para uma medição ou ser identificada como hipótese.
 
-## O que medir quando houver revisão humana
+## O que medir quando houver uso da revisão por pessoas
 
 Estas são propostas de medição, ainda sem resultados:
 
@@ -56,6 +56,6 @@ Metas de ganho ou critérios de aprovação deverão ser definidos antes da aval
 
 **Resultado:** a IA recuperou cinco totais adicionais nesta amostra, com maior tempo de processamento. A solução preserva evidências para conferência.
 
-**Limite e evolução:** isso ainda não prova ganho de produtividade nem autoriza aprovação automática. O próximo passo é implementar revisão humana e depois medir sua contribuição.
+**Limite e evolução:** isso ainda não prova ganho de produtividade nem autoriza aprovação automática. A revisão local foi implementada. O próximo passo é expô-la pela aplicação e medir sua contribuição com pessoas.
 
 [Resultados completos](reports/gemini-development-20.md) · [Escopo](scope.md) · [Roteiro da apresentação e da interface](presentation.md)
