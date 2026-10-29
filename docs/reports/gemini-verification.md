@@ -1,5 +1,11 @@
 # Verificação Gemini — 28/10/2026
 
+## Resultado desta etapa
+
+A primeira implementação do Gemini passou nos testes simulados e no planejamento dos 20 documentos. Isso verificou o comportamento local, mas ainda não comprovava compatibilidade real da conta ou do modelo. A integração foi corrigida e avaliada posteriormente.
+
+Registro histórico: descreve o que foi verificado nesta etapa. O [relatório comparativo atual](gemini-development-20.md) apresenta os resultados posteriores de OCR e Gemini.
+
 - Adaptador REST Gemini com formatos nativos de contagem e geração implementado.
 - Configuração principal: Gemini 2.5 Flash, preços zero, confirmação de Free Tier exigida para chamada real.
 - Nenhuma alternativa automática para provedor pago.

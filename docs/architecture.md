@@ -1,23 +1,33 @@
-# ADR-001 — separação de responsabilidades
+# ADR-001 — separar extração, validação e avaliação
 
-Estado: proposta inicial, sujeita à inspeção dos dados.
+## Decisão e motivo
 
-## Decisão
-Começar com um pipeline Python executável localmente. Adicionar API e interface após validar extração e avaliação. Escolher provedores e bibliotecas após um experimento pequeno e documentado.
+O projeto começa com comandos Python executados localmente. A extração e a avaliação vêm antes da API e da interface, para verificar a qualidade da solução antes de ampliar a aplicação.
 
-## Responsabilidades previstas
-- Dados: aquisição, manifesto, revisão e seleção de documentos.
-- Domínio: representação dos campos, normalização monetária e regras de validação.
-- Extração: adaptadores intercambiáveis para OCR/regras e modelo de IA.
-- Aplicação: coordenação do processamento e da revisão.
-- Avaliação: comparação independente com anotações esperadas.
-- Persistência: resultados originais, erros e eventos de correção.
-- API/interface: apresentação e entrada, sem duplicar regras do domínio.
+Separar essas responsabilidades permite comparar OCR e IA nos mesmos documentos, revisar as regras de negócio de forma independente e reaproveitar a lógica quando a interface for implementada. O fluxo local já está implementado; API, revisão humana e interface continuam pendentes.
 
-## Limites
-O extrator recebe somente imagem e parâmetros autorizados. Anotações de referência pertencem ao avaliador e não entram no prompt nem na entrada do extrator. Saídas extraídas são dados não confiáveis e passam por validação.
+## Responsabilidades
 
-Não criar filas, microsserviços ou camadas genéricas sem necessidade demonstrada. Banco de dados, frontend e hospedagem ainda não estão escolhidos.
+| Área | Responsabilidade | Implementação atual |
+|---|---|---|
+| Dados | Obter o CORD, selecionar documentos e verificar integridade | `data.py` |
+| Domínio | Representar os campos, interpretar números e verificar relações aritméticas | `domain.py`, `money.py` |
+| OCR | Reconhecer texto e aplicar regras de extração | `ocr.py`, `ocr_rules.py` |
+| IA | Preparar solicitações, aplicar limites e preservar respostas | `llm.py`, `llm_config.py`, `gemini.py` |
+| Credenciais | Ler a chave local sem incluí-la nos resultados | `credentials.py` |
+| Avaliação | Comparar resultados salvos com as anotações oficiais | `evaluation.py` |
+| Entrada de comandos | Receber parâmetros e coordenar a execução | `cli.py` |
 
-## Alternativas
-Uma aplicação única com regras na interface acelera o protótipo, mas dificulta avaliação isolada. Um sistema distribuído aumenta o custo operacional cedo demais. A proposta permite testes locais e evolução incremental.
+O adaptador OpenAI permanece opcional e não possui avaliação real publicada. O caminho de IA medido usa Gemini. Os resultados atuais são arquivos JSON; a persistência de correções humanas ainda será definida.
+
+## Separação dos dados de referência
+
+O extrator recebe apenas imagens e parâmetros autorizados. As anotações oficiais ficam em uma pasta separada e são lidas pelo avaliador depois da extração. Elas não entram no prompt.
+
+A saída de um modelo pode estar no formato correto e ainda conter valores errados. Por isso, Pydantic valida o contrato, as regras do domínio verificam o que for possível e o avaliador mede acertos contra a referência. São três verificações diferentes.
+
+## Alternativas consideradas
+
+Colocar as regras diretamente na interface simplificaria o primeiro protótipo, mas dificultaria os testes isolados e a comparação dos extratores. Distribuir o processamento em serviços separados aumentaria a operação antes de haver demanda comprovada. O fluxo local mantém a implementação pequena e permite evolução gradual.
+
+Banco de dados, interface e hospedagem ainda não têm implementação consolidada neste registro. Filas, microsserviços e abstrações genéricas só devem ser adicionados quando resolverem uma necessidade demonstrada.

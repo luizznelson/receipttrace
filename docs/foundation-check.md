@@ -1,5 +1,9 @@
 # Verificação da fundação — registro histórico
 
-A fundação foi entregue inicialmente como documentação e depois colocada neste repositório. Links locais e integridade do pacote foram verificados naquela etapa. Nenhum resultado de extração foi alegado.
+## Resultado da etapa
 
-O projeto avançou para aquisição dos dados. Consulte `development.md` para executar a implementação atual e `reports/` para evidências revisadas. O histórico de commits é mantido pelo proprietário; este documento não declara o estado atual do Git.
+A primeira entrega definiu o problema, o escopo e o método de avaliação. O pacote de documentação e seus links locais foram conferidos antes da implementação. Naquela etapa, não houve medição de extração.
+
+O projeto avançou para aquisição dos dados e comparação entre OCR e Gemini. O [relatório atual](reports/gemini-development-20.md) apresenta os resultados medidos; o [guia de desenvolvimento](development.md) explica como preparar o ambiente.
+
+Este registro preserva o contexto da fundação. O histórico de commits é mantido pelo proprietário e não é descrito como estado atual nesta página.

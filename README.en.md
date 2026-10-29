@@ -1,87 +1,97 @@
 # ReceiptTrace
 
-**API key setup:** edit the root `.env`, set `GEMINI_API_KEY`, and save. It is read automatically and excluded from Git. [Gemini guide (Portuguese)](docs/gemini.md).
-
-
-Receipt extraction with traceable evaluation and human review.
+Turns receipt images into structured data and preserves evidence for checking each result.
 
 [Português brasileiro](README.md)
 
-## Status
-Data acquisition, domain validation, local OCR and Gemini extraction are implemented and evaluated on 20 real CORD v2 receipts. Per-document results and execution evidence are published. The application API, human review and UI remain pending.
+## Problem and approach
 
-## Purpose
-Turn receipt images into structured records, validate supported arithmetic relationships, and preserve evidence for human review. Initial evaluation targets the public CORD v2 benchmark, not Brazilian fiscal compliance or invoice–purchase order matching.
+Entering receipt data by hand takes attention: a payment amount can be mistaken for the total, and an unreadable field can go unnoticed. ReceiptTrace explores how automated extraction, validation and review evidence can support this task.
 
-## Planned workflow
-Image → extraction → schema validation → arithmetic checks → human review → export.
+The project compares two approaches on the same documents: local OCR, which recognizes text and applies rules, and Gemini, which interprets the image to extract fields. The goal is to assess quality, processing time and cost before choosing an approach. A reduction in manual work has not yet been measured in a real operation.
 
-## Documentation
-- [Scope and acceptance criteria](docs/scope.md)
-- [Architecture decision](docs/architecture.md)
-- [Data provenance and evaluation protocol](docs/evaluation.md)
-- [Engineering and contribution rules](CONTRIBUTING.md)
-- [Milestones and commits](docs/roadmap.md)
+## Intended users and business decisions
 
-## Reproducibility
-Runtime and dependencies are locked in uv.lock. Acquisition and verification commands are documented below.
+The proposed use case is an administrative or finance team organizing receipts and checking values before using them in another process. Reviewers need to identify uncertain fields; managers need to assess whether extraction quality justifies its processing time and cost. This is a proposed scenario, not a company deployment.
 
-## Data sources
-- https://github.com/clovaai/cord
-- https://huggingface.co/datasets/naver-clova-ix/cord-v2
+| Business question | Available answer |
+|---|---|
+| Does AI recover more correct values than OCR? | It recovered five additional totals in this sample. |
+| How long does processing take? | Median of 8.33 s with AI and 1.04 s with OCR, with different timing scopes. |
+| What was the API cost for this batch? | Estimated USD 0 under the free configuration used; this is not a complete operating cost. |
+| Can human checking be removed? | There is no evidence for that. Items and arithmetic consistency have not been certified. |
+| Can a result be traced to its source? | Yes, through saved responses, settings and hashes. Human correction history remains to be implemented. |
+| Has a reduction in manual work been established? | No. Data entry, checking and correction need a separate evaluation. |
 
-CORD is attributed to its original authors and published under CC BY 4.0. Dataset licensing is separate from this project's code licensing. No dataset files are bundled here.
+[Business case, questions and proposed measurements (Portuguese)](docs/business-case.md).
 
-## Engineering transparency
-AI assistance must be disclosed in the case study. Maintainers remain responsible for reviewing, testing and understanding every contribution. Implementation and benchmark claims require linked evidence.
+## Results on 20 real receipts
 
-## Development and data
+On the CORD v2 development sample, Gemini correctly recovered five totals that OCR had either misread or left unanswered.
 
-Python 3.14 and uv. Install the locked environment with `uv sync --locked`.
+| Information | Local OCR: correct | Gemini: correct |
+|---|---:|---:|
+| Receipt total | 14 of 19 | 19 of 19 |
+| Subtotal | 9 of 14 | 14 of 14 |
+| Tax | 7 of 11 | 11 of 11 |
+
+Denominators differ because not every receipt has every field annotated for comparison. Both methods processed the same 20 documents.
+
+Gemini completed all 20 extractions without technical failures. Median processing time per receipt was **8.33 seconds**, with a **22.52-second** 95th percentile. Local OCR was faster, with a 1.04-second median. The timing scopes differ and are explained in the report.
+
+Known estimated API cost was **USD 0** under the confirmed Free Tier configuration with billing disabled. This is not an invoice and excludes computing and hosting costs.
+
+**Limits:** this is a small training sample already used during development. It does not establish performance on unseen documents. Item accuracy has not been measured. All 76 arithmetic checks were skipped because required components were missing; correct field extraction therefore does not certify financial consistency.
+
+[Report and reproduction instructions (Portuguese)](docs/reports/gemini-development-20.md) · [Per-document results](docs/reports/gemini-development-20.json) · [Detailed comparison](docs/reports/ocr-vs-gemini-development-20.json)
+
+## What works today
+
+- Public data acquisition and file integrity verification.
+- Local OCR and Gemini 3.5 Flash-Lite extraction.
+- Schema validation, original text preservation and explicit monetary rules.
+- Independent evaluation that includes failures and unanswered fields.
+- Saved responses, settings and file hashes for auditing.
+
+The current application runs through a command line. Human review, the application API and the user interface remain to be implemented. The planned workflow is: image → extraction → validation → review → export.
+
+## Check the results without an API
+
+Requirements: Python 3.14 and uv. From the repository root:
 
 ```powershell
+uv sync --locked
 uv run receipttrace prepare-cord
 uv run receipttrace verify-sample
+uv run receipttrace evaluate-extraction --sample data/processed/cord-inspection --run docs/reports/evidence/gemini-development-20 --output runs/gemini-replay.json
 ```
 
-Acquisition downloads approximately 490 MB. Initial inspection only uses the first training shard; validation and test remain reserved. [Development instructions (Portuguese)](docs/development.md).
+Preparation downloads about 490 MB and selects 20 documents using seed 42. If the sample already exists, run only verification and evaluation. Choose a new output file. This evaluation uses saved responses: it requires no API key and sends no images to a provider.
 
-Implemented: revision-pinned and checksum-verified acquisition, deterministic sampling, provenance manifests, offline verification and integrity tests. OCR and Gemini have been evaluated on the same development sample; application API and UI remain pending.
+To generate new extractions, follow the [Gemini setup guide (Portuguese)](docs/gemini.md). Credentials belong in the root `.env`, excluded from Git. [Local OCR (Portuguese)](docs/ocr.md) requires no external inference API. Dependency versions are locked in `uv.lock`.
 
-[Initial data inspection report (Portuguese)](docs/reports/cord-inspection.md).
+## How to audit the project
 
-## Schema and validation
+Each run records the source image, configuration, prompt, response, processing time and file hashes. The evaluator verifies integrity and compares extracted values with official annotations. Extractors receive only images; expected answers are used separately during evaluation.
 
-Strict input contracts, original text preservation and Decimal arithmetic checks are implemented. [Policies and limitations (Portuguese)](docs/domain.md).
+Saved results allow metrics to be recalculated without new AI calls. New inference may produce different responses. The [report (Portuguese)](docs/reports/gemini-development-20.md) explains the measurement conditions and descriptive metadata differences when replaying the historical OCR evaluation.
 
-```powershell
-uv run receipttrace validate-receipt examples/synthetic-receipt.json --policy idr-grouped
-```
+## Product and technical documentation
 
-This command validates structured data. Images are extracted using the OCR or Gemini commands documented below.
+- [Problem and business questions](docs/business-case.md)
+- [Presentation and future interface plan](docs/presentation.md)
+- [Scope and acceptance criteria](docs/scope.md)
+- [Architecture and responsibilities](docs/architecture.md)
+- [Data and evaluation protocol](docs/evaluation.md)
+- [Fields, numbers and arithmetic checks](docs/domain.md)
+- [Environment and quality checks](docs/development.md)
+- [Implementation milestones](docs/roadmap.md)
+- [Contribution and writing standards](CONTRIBUTING.md)
 
-## OCR extraction and initial measurement
+The detailed technical guides are currently in Portuguese; this README provides the English project overview.
 
-Local CPU OCR and independent evaluation are implemented. [Execution and limitations (Portuguese)](docs/ocr.md). On the development sample, total amount was correct in 14 of 19 annotated documents. This is not a held-out result or an all-fields accuracy score. [Full report (Portuguese)](docs/reports/ocr-baseline.md).
+## Data, attribution and transparency
 
-## LLM integration
+Receipts come from the [public CORD v2 dataset](https://huggingface.co/datasets/naver-clova-ix/cord-v2), by the [CORD authors](https://github.com/clovaai/cord), under CC BY 4.0. Images and annotations are not bundled in this repository; published evidence contains derived extraction results. Dataset licensing is separate from code licensing.
 
-Vision extraction with structured output, offline planning, budget reservation and OCR comparison are implemented. [Configuration and limitations (Portuguese)](docs/llm.md). Gemini Flash-Lite has been evaluated on all 20 development documents. [Report and reproduction (Portuguese)](docs/reports/gemini-development-20.md).
-
-## Free-tier vision API
-
-The recommended path is now Gemini 3.5 Flash-Lite with a dedicated Free Tier project **without billing enabled**. [Setup and execution (Portuguese)](docs/gemini.md). The example selects Gemini with zero rates; confirm the account tier and configure GEMINI_API_KEY locally. No paid-provider fallback. The 20-receipt development evaluation is complete; its results are shown below.
-
-## Real-data results
-
-The same 20 public receipts were used for local OCR and Gemini 3.5 Flash-Lite. Counts are exact matches over valid annotated references.
-
-| Field | Local OCR | Gemini |
-|---|---:|---:|
-| total | 14/19 | 19/19 |
-| subtotal | 9/14 | 14/14 |
-| tax | 7/11 | 11/11 |
-
-Gemini: 20/20 technically completed extractions; this does not certify all fields as correct. Latency p50 8.33 s and p95 22.52 s include remote token pre-counting and inference, excluding inter-document pauses. Known estimated API cost: USD 0 under the confirmed Free Tier configuration without billing enabled; this is not an invoice.
-
-This is a small training sample, not a held-out benchmark, and item accuracy is not measured. Service has only one annotated reference; discount has none. [Report, errors, limitations and reproduction (Portuguese)](docs/reports/gemini-development-20.md) · [Per-document results](docs/reports/gemini-development-20.json) · [OCR/Gemini comparison](docs/reports/ocr-vs-gemini-development-20.json). Saved evidence allows offline metric reproduction without API calls.
+The project does not yet establish support for Brazilian fiscal documents or invoice–purchase order matching. AI assisted development and documentation. The maintainer remains responsible for understanding, reviewing and verifying the work.

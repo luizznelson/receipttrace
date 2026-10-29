@@ -1,25 +1,42 @@
-# Escopo inicial — proposta v0.1
+# Escopo e critérios de entrega
 
-## Usuário e tarefa
-Uma pessoa revisora precisa transformar recibos em registros utilizáveis, verificar campos e corrigir falhas sem perder o resultado original.
+## Quem o projeto pretende ajudar
 
-## Recorte
-- Entrada inicial: imagens do CORD v2, identificadas individualmente.
-- Campos candidatos: descrição, quantidade, preço de item, subtotal, descontos, taxas e total. A inspeção dos dados determinará quais possuem cobertura suficiente.
-- Saída: registro estruturado, alertas de validação e referência à origem.
-- Revisão: registrar antes/depois, momento e motivo, preservando a extração original.
+Uma pessoa responsável por conferir recibos precisa transformar imagens em registros, identificar campos duvidosos e corrigir erros sem perder o resultado original. O objetivo do ReceiptTrace é apoiar esse processo e permitir que cada decisão seja conferida depois.
 
-## Fora da primeira versão
-NF-e brasileira, XML fiscal, conciliação com pedidos reais, pagamento, agentes autônomos, treinamento de modelos e processamento irrestrito de uploads públicos.
+A primeira versão usa recibos públicos do CORD v2. Isso permite avaliar a extração com respostas de referência conhecidas, sem depender de documentos privados de uma empresa.
 
-## Critérios de aceite finais
-1. Documentos aceitos possuem resultado ou erro explícito; falhas não desaparecem do relatório.
-2. Valores monetários usam Decimal e regras explícitas de separadores e arredondamento, nunca float para comparação financeira.
-3. Campo ausente permanece ausente; o sistema não inventa quantidade, moeda ou preço unitário.
-4. Cada resultado referencia arquivo, hash, configuração e versão do extrator.
-5. Correção humana não altera o resultado original nem o gabarito de avaliação.
-6. Avaliação reproduzível inclui denominadores, exclusões e exemplos de falha.
-7. Uma pessoa consegue executar a demonstração a partir da documentação.
-8. Interface e estudo de caso terão PT-BR e inglês; os dados originais não serão traduzidos para calcular métricas.
+## Perguntas que orientam a entrega
 
-Não há meta numérica de acurácia definida antes da primeira referência medida. Metas serão registradas antes da avaliação final.
+A primeira versão deve permitir discutir se a IA extrai melhor que o OCR, quanto tempo leva, qual foi o uso conhecido da API e como conferir cada resultado. Economia de trabalho humano e uso em novos documentos exigem avaliações posteriores. O [caso de negócio](business-case.md) relaciona cada pergunta à evidência disponível.
+
+## O que faz parte da primeira versão
+
+| Etapa | Entrega | Situação atual |
+|---|---|---|
+| Dados | Imagens identificadas, origem documentada e integridade verificável | Implementada |
+| Extração | OCR e IA geram campos estruturados a partir das imagens | Implementada e avaliada em amostra de desenvolvimento |
+| Validação | Formato dos campos e regras monetárias explícitas | Implementada; cobertura aritmética limitada nos dados reais |
+| Avaliação | Comparação por campo, tempo, falhas e uso da API | Implementada para cinco campos de totais |
+| Revisão | Correções com valor anterior, novo valor, momento e motivo | Pendente |
+| Apresentação | API, interface e exportação para demonstração | Pendente |
+
+Os campos previstos incluem descrição, quantidade, preço do item, subtotal, desconto, imposto, serviço e total. A avaliação atual mede somente os cinco campos de totais; itens ainda não têm métrica de qualidade. [Resultados e limites](reports/gemini-development-20.md).
+
+## O que fica fora desta versão
+
+NF-e brasileira, XML fiscal, conciliação com pedidos reais, pagamentos, agentes autônomos, treinamento de modelos e uploads públicos sem restrição não fazem parte da primeira entrega.
+
+## Como avaliar a entrega final
+
+1. Cada documento aceito tem um resultado ou erro explícito. Falhas permanecem no relatório.
+2. Valores monetários usam `Decimal` e políticas explícitas de separadores e tolerância; comparações financeiras não usam `float`.
+3. Campos ausentes continuam ausentes. A extração não deve completar quantidade, moeda ou preço por suposição.
+4. Cada resultado identifica a imagem, o hash, a configuração e a versão do extrator.
+5. A revisão humana preserva a extração original e não altera o gabarito usado na avaliação.
+6. A avaliação informa documentos elegíveis, acertos, erros, campos sem resposta e exemplos verificáveis.
+7. Outra pessoa consegue executar a demonstração seguindo a documentação.
+8. A interface e o estudo de caso terão PT-BR e inglês. Os dados originais não serão traduzidos para calcular métricas.
+9. A apresentação explica problema, público, perguntas de negócio, resultados e limites antes dos detalhes técnicos. Os indicadores têm evidência e o estado de revisão não é confundido com extração concluída. Veja o [roteiro da interface](presentation.md).
+
+Ainda não foi definida uma meta de qualidade para a avaliação final. Essa meta deve ser registrada antes de usar o conjunto de teste reservado. O resultado atual é uma referência de desenvolvimento, não uma aprovação para operação financeira.

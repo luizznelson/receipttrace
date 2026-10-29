@@ -1,7 +1,8 @@
-# Ambiente e aquisição dos dados
+# Ambiente, dados e verificações locais
 
-## Requisitos
-Python 3.14 e uv. A versão exata de cada dependência está no uv.lock. Execute na raiz do repositório:
+## Preparar o ambiente
+
+Use Python 3.14 e uv. O arquivo `uv.lock` fixa as versões das dependências. Na raiz do projeto:
 
 ```powershell
 uv sync --locked
@@ -11,25 +12,38 @@ uv run mypy
 uv run pytest
 ```
 
-Os testes são locais, usam fixtures sintéticas explícitas e não baixam o CORD nem fazem chamadas de IA.
+Ruff verifica formatação e estilo; mypy verifica tipos; pytest executa os testes. Os testes usam exemplos sintéticos identificados e não baixam o CORD nem fazem chamadas de IA. A medição da qualidade dos extratores é uma etapa separada.
 
-## Aquisição e inspeção reais
+Para gerar novas extrações, instale a dependência opcional indicada no [guia OCR](ocr.md) ou no [guia Gemini](gemini.md). Reavaliar as respostas já publicadas não exige uma chave de API.
+
+## Obter a amostra real
 
 ```powershell
 uv run receipttrace prepare-cord
 uv run receipttrace verify-sample
 ```
 
-O primeiro comando baixa aproximadamente 490 MB, verifica o SHA-256 oficial do primeiro arquivo de treino e seleciona 20 linhas com semente 42. Não baixa validação ou teste. A revisão e o hash da fonte estão fixados no código; atualizar a fonte exige revisão explícita.
+O primeiro comando baixa aproximadamente 490 MB, confere o SHA-256 oficial e seleciona 20 documentos do primeiro arquivo de treino com semente 42. Não baixa validação ou teste. A revisão e o hash da origem estão fixados no código; atualizar a fonte exige uma mudança explícita.
 
-`data/raw/cord/download.json` registra a aquisição. `data/processed/cord-inspection/manifest.json` registra IDs, hashes, campos e amostragem. `inputs/` contém somente imagens; `reference/` contém anotações para avaliação, que não devem entrar no extrator. A amostra é de apenas um arquivo do treino: não representa toda a base e não mede qualidade de extração.
+| Caminho | Conteúdo |
+|---|---|
+| `data/raw/cord/download.json` | Registro da aquisição |
+| `data/processed/cord-inspection/manifest.json` | Origem, IDs, hashes e seleção da amostra |
+| `data/processed/cord-inspection/inputs/` | Imagens recebidas pelos extratores |
+| `data/processed/cord-inspection/reference/` | Anotações lidas somente pelo avaliador |
 
-O diretório de saída deve ser novo. Uma repetição pode usar `--output data/processed/cord-repeat`; o arquivo original já verificado é reutilizado. Datas variam, mas IDs e hashes da amostra são estáveis. Arquivos corrompidos provocam erro explícito. Downloads interrompidos não são publicados como completos; a próxima tentativa recomeça o download.
+Se a amostra já existir, use `verify-sample`. Para repetir a preparação, escolha outra saída com `--output data/processed/cord-repeat`. O arquivo original já verificado é reutilizado. Os IDs e os hashes dos documentos permanecem iguais; datas e hash do manifesto podem mudar.
 
-## Dados e atribuição
-Fonte: NAVER CLOVA, CORD v2, https://huggingface.co/datasets/naver-clova-ix/cord-v2
-Repositório e autores: https://github.com/clovaai/cord
-Licença declarada pelos autores: CC BY 4.0, https://creativecommons.org/licenses/by/4.0/
-Imagens são preservadas byte a byte. Anotações são serializadas novamente em JSON, sem alteração semântica. Os dados não entram no Git. Relatórios agregados revisados ficam em `docs/reports/`.
+Uma corrupção de arquivo gera erro explícito. Um download interrompido não é apresentado como concluído; a próxima tentativa recomeça o download. O manifesto ajuda a detectar alterações, mas não é uma assinatura digital.
 
-O manifesto detecta alterações locais acidentais; ele não é uma assinatura digital. Duplicatas são verificadas apenas dentro da amostra. Duplicação entre divisões, revisão visual completa e avaliação do extrator permanecem pendentes.
+## Conferir os resultados publicados
+
+Siga os comandos do [relatório comparativo](reports/gemini-development-20.md). Eles avaliam os arquivos salvos e não enviam novas solicitações ao Gemini. Use saídas novas para preservar o histórico.
+
+Os recibos foram avaliados como amostra de desenvolvimento. A revisão visual integral, a pesquisa de duplicatas entre divisões e a avaliação em teste reservado continuam pendentes.
+
+## Origem e publicação dos dados
+
+Fonte: [CORD v2](https://huggingface.co/datasets/naver-clova-ix/cord-v2), dos [autores do CORD](https://github.com/clovaai/cord), sob [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+
+As imagens são preservadas byte a byte. As anotações são serializadas novamente em JSON sem alteração de conteúdo. Imagens, gabaritos e execuções de trabalho ficam fora do Git. Relatórios e cópias revisadas de resultados derivados ficam em `docs/reports/`, com atribuição da origem.

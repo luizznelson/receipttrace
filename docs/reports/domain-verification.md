@@ -1,5 +1,11 @@
 # Verificação do domínio — 28/10/2026
 
+## Resultado desta etapa
+
+As regras de valores monetários e do contrato de entrada foram verificadas: 56 testes passaram e o exemplo sintético aprovou três relações aritméticas. Isso demonstrou o funcionamento das regras em testes, sem medir extração de imagens reais.
+
+Registro histórico: descreve o que foi verificado nesta etapa. O [relatório comparativo atual](gemini-development-20.md) apresenta os resultados posteriores de OCR e Gemini.
+
 Ambiente: Windows, Python 3.14.3, dependências fixadas no uv.lock.
 
 - `uv sync --locked`: ambiente sincronizado com Pydantic.

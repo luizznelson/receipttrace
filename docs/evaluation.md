@@ -1,36 +1,52 @@
-# Dados e protocolo de avaliação
+# Dados e método de avaliação
 
-## Fonte e aquisição
-CORD v2 oficial: https://huggingface.co/datasets/naver-clova-ix/cord-v2
-Repositório dos autores: https://github.com/clovaai/cord
-Licença declarada: CC BY 4.0. Conferir atribuição e termos na revisão exata adquirida.
+## O que a avaliação responde
 
-Não confundir a coleção total descrita no artigo com o subconjunto público. Registrar as contagens efetivamente obtidas por divisão na inspeção.
+A avaliação mede quais valores foram extraídos corretamente, em quais documentos houve erro e quanto tempo cada abordagem levou. Ela permite comparar OCR e IA sob as mesmas condições. Ainda não mede redução de trabalho humano nem qualidade em uma operação de empresa.
 
-## Manifesto obrigatório
-Dataset, revisão imutável, URL de origem, data UTC de aquisição, divisão original, ID, SHA-256 do arquivo, licença e alterações locais. Preservar originais; dados derivados devem apontar para eles.
+O [experimento atual](reports/gemini-development-20.md) usa 20 recibos de desenvolvimento. A avaliação final em dados reservados continua pendente.
 
-## Primeiro experimento
-Inspecionar uma amostra determinística de 20 documentos de desenvolvimento, com IDs e semente registrados. Verificar cobertura das anotações, separadores numéricos, itens agrupados, legibilidade e campos ausentes. Isso é descoberta do formato, não benchmark final.
+## Origem dos dados
 
-## Separação
-Usar treino para desenvolvimento, validação para seleção de configuração e teste para avaliação final. Não ajustar prompts pelo teste. Verificar duplicatas antes de comparar abordagens e documentar qualquer desvio das divisões oficiais.
+O projeto usa o [CORD v2 público](https://huggingface.co/datasets/naver-clova-ix/cord-v2), dos [autores do CORD](https://github.com/clovaai/cord), sob CC BY 4.0. A quantidade de documentos deve ser conferida na revisão adquirida; não se deve assumir que a coleção descrita no artigo inteiro está disponível no subconjunto público.
 
-## Comparação justa
-Mesmos documentos e campos elegíveis para OCR/regras e IA. Baseline OCR não recebe transcrições anotadas. Transformações que usam OCR de referência são experimentos separados, explicitamente identificados. Definir correspondência de itens e normalização antes de medir.
+O manifesto registra dataset, revisão imutável, origem, data UTC, divisão, IDs, hashes SHA-256, licença e transformações locais. As imagens originais são preservadas. Resultados derivados apontam para a origem.
 
-## Métricas propostas
-- Acerto por campo após normalização documentada e taxa de falha por documento.
-- Precisão, revocação e F1 de itens com algoritmo de correspondência publicado.
-- Resultado de verificações aritméticas em casos aplicáveis, distinto de acerto da extração.
-- Latência p50/p95 por documento, com ambiente e política de cache.
-- Custo por documento, incluindo tentativas, modelo, tokens e preços datados.
-- Frequência de revisão: medida por regras explícitas, sem confundir autoconfiança do modelo com probabilidade calibrada.
+## Separação entre desenvolvimento e avaliação final
 
-Incluir tamanho da amostra e contagens brutas. Reportar ausências, exclusões e erros. Ausência de resultado não deve melhorar artificialmente as métricas. Rótulos podem conter erros: correções curadas ficam versionadas e resultados oficiais e curados são apresentados separadamente.
+O treino é usado para desenvolver a solução; a validação, para escolher configurações; e o teste, para a avaliação final. Prompts e regras não devem ser ajustados pelo resultado do teste reservado. Duplicatas entre divisões devem ser investigadas antes da comparação final.
 
-## Registro por execução
-run_id, data UTC, commit, estado de alterações locais, revisão dos dados, IDs avaliados, versão/hash do prompt, provedor/modelo e identificador exato disponível, parâmetros, dependências, resultado, erros, tentativas, duração e uso/custo. Variação do provedor pode impedir igualdade exata; preservar as saídas observadas e documentar essa limitação.
+A amostra atual contém 20 documentos do primeiro arquivo de treino, com semente 42. Foi usada para conhecer os layouts e desenvolver a integração. Portanto, seus resultados não estimam de forma independente o desempenho em documentos novos.
 
-## Evidência
-Resultados agregados, saídas por documento e exemplos de erro devem acompanhar o relatório. Gabaritos não são acessíveis ao extrator. Segredos nunca fazem parte dos registros.
+## Como tornar a comparação justa
+
+OCR e IA recebem as mesmas imagens. As respostas esperadas ficam disponíveis somente ao avaliador. O método de normalização e os campos avaliados precisam ser iguais nas duas abordagens.
+
+Atualmente são avaliados total, subtotal, imposto, serviço e desconto. A comparação exige mesmo manifesto de amostra, IDs, hashes de imagem e quantidade de referências válidas por campo. Um documento que falha continua contado nos campos em que existe uma referência válida.
+
+## Como interpretar os indicadores
+
+| Indicador | Cálculo ou significado | Pergunta respondida |
+|---|---|---|
+| Acertos sobre referências válidas (`exact_match_recall`) | Corretos ÷ campos com referência numérica válida | Quanto do que podia ser conferido foi recuperado corretamente? |
+| Precisão das respostas anotadas | Corretos ÷ (corretos + valores incorretos) | Entre os valores respondidos que podiam ser conferidos, quantos estavam certos? |
+| Falhas por documento | Quantidade de resultados com erro técnico | O processamento terminou? |
+| Mediana, ou p50 | Valor central dos tempos ordenados | Qual foi o tempo típico observado? |
+| Percentil 95, ou p95 | Tempo na posição de 95% da amostra, por nearest rank | Até quanto demorou a maioria dos documentos? |
+| Uso e custo estimado da API | Tokens informados e tarifas da configuração | Qual foi o uso conhecido e a estimativa sob essas tarifas? |
+
+A comparação monetária é exata após normalização, sem tolerância, com a política `idr-grouped`. Descontos são comparados por magnitude. Campos sem anotação não contam como erros nem acertos; previsões nesses campos são informadas separadamente. Referências numéricas inválidas também são separadas do denominador válido.
+
+Não há uma métrica geral de acerto do recibo. A qualidade dos itens ainda não foi implementada. Precisão, revocação e F1 de itens exigirão um método de correspondência definido antes da medição. A frequência e o tempo de revisão humana também permanecem pendentes.
+
+## O que preservar em cada execução
+
+Registre data UTC, commit, alterações locais, revisão dos dados, IDs, hashes do prompt e do esquema, provedor, modelo solicitado e identificador retornado quando disponível, parâmetros, dependências, resultados, erros, tentativas, duração e uso/custo. Registre também o escopo da medição de tempo: as etapas do OCR local e da API são diferentes.
+
+Preserve as respostas observadas, pois uma nova inferência pode variar. Não trate estimativa de custo como fatura, nem um campo de confiança do modelo como probabilidade calibrada de acerto.
+
+## Publicação e correções
+
+O relatório apresenta contagens, resultados por documento, exemplos de falha e limitações. A ausência de resposta não pode melhorar artificialmente o resultado. Credenciais ficam fora dos registros.
+
+Se uma anotação parecer errada ou incompleta, documente o caso. Correções revisadas devem ser versionadas separadamente, com resultados oficiais e corrigidos apresentados de forma distinta. O gabarito não deve ser alterado para favorecer o extrator.
