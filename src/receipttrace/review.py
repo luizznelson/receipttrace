@@ -24,6 +24,10 @@ class ReviewNotFound(ValueError):
     """The requested review is not in this store."""
 
 
+class ReviewStorageError(ValueError):
+    """Database configuration or schema is incompatible with this store."""
+
+
 class ReviewConflict(ValueError):
     """The caller edited a revision that is no longer current."""
 
@@ -258,7 +262,7 @@ class ReviewStore:
             version = self._version(connection)
             if version == 0:
                 if connection.execute("SELECT name FROM sqlite_master").fetchone() is not None:
-                    raise ValueError("Refusing to initialize an unrelated database")
+                    raise ReviewStorageError("Refusing to initialize an unrelated database")
                 for statement in _TABLES:
                     connection.execute(statement)
                 for table in ("reviews", "review_events"):
@@ -270,7 +274,7 @@ class ReviewStore:
                         )
                 connection.execute("PRAGMA user_version = 1")
             elif version != 1:
-                raise ValueError("Unsupported review database version")
+                raise ReviewStorageError("Unsupported review database version")
             yield connection
             connection.commit()
         except BaseException:
@@ -336,7 +340,7 @@ class ReviewStore:
         try:
             connection.execute("BEGIN")
             if self._version(connection) != 1:
-                raise ValueError("Unsupported review database version")
+                raise ReviewStorageError("Unsupported review database version")
             return self._view(connection, review_id)
         finally:
             connection.close()

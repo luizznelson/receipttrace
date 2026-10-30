@@ -6,7 +6,7 @@
     "node": ">=22"
   },
   "scripts": {
-    "test": "node --test tests/web/ui.test.mjs",
+    "test": "node --test tests/web/ui.test.mjs tests/web/api.test.mjs",
     "format": "prettier --write \"src/receipttrace/static/**/*.{html,css,js}\" \"tests/web/**/*.mjs\" \"scripts/*.mjs\" package.json .prettierrc.json",
     "format:check": "prettier --check \"src/receipttrace/static/**/*.{html,css,js}\" \"tests/web/**/*.mjs\" \"scripts/*.mjs\" package.json .prettierrc.json"
   },

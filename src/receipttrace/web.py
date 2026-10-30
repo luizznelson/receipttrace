@@ -2,7 +2,7 @@
 
 import json
 import sqlite3
-from collections.abc import Awaitable, Callable
+from collections.abc import Callable
 from pathlib import Path
 from typing import Any, Literal
 from uuid import UUID
@@ -12,17 +12,28 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.responses import FileResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, ConfigDict, Field
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from receipttrace.cli_serialization import decimal_json
-from receipttrace.demo_catalog import DemoCatalog, ExampleNotFound, Method
+from receipttrace.demo_catalog import DemoCatalog, DemoIntegrityError, ExampleNotFound, Method
 from receipttrace.review import (
     CompletionRequest,
     CorrectionRequest,
     ReviewConflict,
     ReviewIntegrityError,
     ReviewNotFound,
+    ReviewStorageError,
     ReviewStore,
 )
+from receipttrace.web_boundary import WebBoundary
+
+
+class ReadOnlyReviewError(Exception):
+    """Public instances do not expose local review storage."""
+
+
+class ReviewActionRejected(ValueError):
+    """A valid HTTP request failed a review-domain precondition."""
 
 
 class ExactJSONResponse(JSONResponse):
@@ -72,31 +83,7 @@ def create_app(
         openapi_url="/api/openapi.json",
     )
 
-    @app.middleware("http")
-    async def same_origin(
-        request: Request, call_next: Callable[[Request], Awaitable[Response]]
-    ) -> Response:
-        if not read_only and request.url.hostname not in {"127.0.0.1", "localhost", "::1"}:
-            return _error(403, "host_rejected", "Local review requires a loopback host")
-        if request.method in ("POST", "PUT", "PATCH", "DELETE"):
-            if read_only:
-                return _error(403, "read_only", "This instance is a read-only demonstration")
-            origin = request.headers.get("origin")
-            if origin is not None and origin.rstrip("/") != str(request.base_url).rstrip("/"):
-                return _error(403, "origin_rejected", "Cross-origin changes are not allowed")
-            if request.headers.get("content-type", "").split(";")[0] != "application/json":
-                return _error(415, "json_required", "Use an application/json request")
-        response = await call_next(request)
-        response.headers["X-Content-Type-Options"] = "nosniff"
-        response.headers["Referrer-Policy"] = "no-referrer"
-        response.headers["Content-Security-Policy"] = (
-            "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; "
-            "connect-src 'self'; object-src 'none'; base-uri 'none'; "
-            "frame-ancestors 'none'; form-action 'self'"
-        )
-        if request.url.path.startswith("/api/reviews"):
-            response.headers["Cache-Control"] = "no-store"
-        return response
+    app.add_middleware(WebBoundary, read_only=read_only)
 
     @app.exception_handler(RequestValidationError)
     async def invalid_request(request: Request, error: RequestValidationError) -> Response:
@@ -117,23 +104,46 @@ def create_app(
     async def integrity(request: Request, error: ReviewIntegrityError) -> Response:
         return _error(500, "integrity_error", "Review evidence could not be verified")
 
-    @app.exception_handler(ValueError)
+    @app.exception_handler(ReviewActionRejected)
     async def rejected(request: Request, error: ValueError) -> Response:
         return _error(
             400, "invalid_action", "Check the fields, reason and required acknowledgements"
         )
 
+    @app.exception_handler(ReviewStorageError)
     @app.exception_handler(sqlite3.Error)
     async def storage(request: Request, error: sqlite3.Error) -> Response:
         return _error(503, "storage_unavailable", "Local review storage is unavailable")
 
     def require_review() -> None:
         if read_only:
-            raise PermissionError("Read-only instance")
+            raise ReadOnlyReviewError("Read-only instance")
 
-    @app.exception_handler(PermissionError)
-    async def readonly(request: Request, error: PermissionError) -> Response:
+    @app.exception_handler(ReadOnlyReviewError)
+    async def readonly(request: Request, error: ReadOnlyReviewError) -> Response:
         return _error(403, "read_only", "This instance is a read-only demonstration")
+
+    @app.exception_handler(DemoIntegrityError)
+    async def demo_integrity(request: Request, error: DemoIntegrityError) -> Response:
+        return _error(500, "integrity_error", "Demonstration evidence could not be verified")
+
+    @app.exception_handler(StarletteHTTPException)
+    async def http_error(request: Request, error: StarletteHTTPException) -> Response:
+        codes = {404: "not_found", 405: "method_not_allowed"}
+        response = _error(
+            error.status_code, codes.get(error.status_code, "request_rejected"), "Request rejected"
+        )
+        if error.status_code == 405 and error.headers and "Allow" in error.headers:
+            response.headers["Allow"] = error.headers["Allow"]
+        return response
+
+    def review_action(operation: Callable[[], dict[str, Any]]) -> Response:
+        try:
+            return ExactJSONResponse(operation())
+        except ReviewConflict, ReviewIntegrityError, ReviewNotFound, ReviewStorageError:
+            raise
+        except ValueError as error:
+            raise ReviewActionRejected("Review action rejected") from error
 
     @app.get("/api/health")
     def health() -> Response:
@@ -160,22 +170,24 @@ def create_app(
     @app.get("/api/evidence/{name}")
     def evidence(name: str) -> Response:
         files = {
-            "ocr": catalog.root / "reports/ocr-baseline.json",
-            "gemini": catalog.root / "reports/gemini-development-20.json",
-            "comparison": catalog.root / "reports/ocr-vs-gemini-development-20.json",
-            "sample": catalog.root / "reports/cord-inspection.manifest.json",
-            "attribution": catalog.root / "ATTRIBUTION.md",
+            "ocr": "reports/ocr-baseline.json",
+            "gemini": "reports/gemini-development-20.json",
+            "comparison": "reports/ocr-vs-gemini-development-20.json",
+            "sample": "reports/cord-inspection.manifest.json",
+            "attribution": "ATTRIBUTION.md",
         }
         if name not in files:
             raise ExampleNotFound("Unknown evidence file")
         return FileResponse(
-            files[name], media_type="text/plain" if name == "attribution" else "application/json"
+            catalog.verified_asset(files[name]),
+            media_type="text/plain" if name == "attribution" else "application/json",
         )
 
     @app.post("/api/reviews")
     def start_review(body: StartRequest) -> Response:
         require_review()
         catalog.require_example(body.example_id)
+        catalog.detail(body.example_id, body.method)
         return ExactJSONResponse(store.start(catalog.run(body.method), body.example_id))
 
     @app.get("/api/reviews/{review_id}")
@@ -190,8 +202,8 @@ def create_app(
         require_review()
         if not database.exists():
             raise ReviewNotFound("Review not found")
-        return ExactJSONResponse(
-            store.correct(str(review_id), body.expected_revision, body.correction)
+        return review_action(
+            lambda: store.correct(str(review_id), body.expected_revision, body.correction)
         )
 
     @app.post("/api/reviews/{review_id}/completion")
@@ -199,8 +211,8 @@ def create_app(
         require_review()
         if not database.exists():
             raise ReviewNotFound("Review not found")
-        return ExactJSONResponse(
-            store.complete(str(review_id), body.expected_revision, body.completion)
+        return review_action(
+            lambda: store.complete(str(review_id), body.expected_revision, body.completion)
         )
 
     @app.get("/api/reviews/{review_id}/export")

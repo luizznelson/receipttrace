@@ -101,7 +101,7 @@ uv run --no-sync ruff check .
 uv run --no-sync mypy
 uv run --no-sync pytest
 node scripts/check-web.mjs
-node --test tests/web/ui.test.mjs
+node --test tests/web/ui.test.mjs tests/web/api.test.mjs
 npm.cmd ci --ignore-scripts
 npm.cmd run format:check
 ```
@@ -111,3 +111,6 @@ Os dois comandos `npm.cmd` são para PowerShell no Windows; em Linux/macOS, use 
 O ambiente de checagem de tipos inclui o extra `web`. Os testes de API são ignorados quando esse extra não está instalado. A CI separa análise estática, matrizes de dependências opcionais, verificação do pacote e testes/formatação de JavaScript; execução remota precisa ser confirmada no GitHub.
 
 [Contrato OpenAPI exportado](contracts/web-openapi.json) · [Relatório de verificação](reports/web-verification.md) · [Atribuição dos dados incluídos](../src/receipttrace/webdata/ATTRIBUTION.md)
+
+
+Consulte também [segurança e tratamento de falhas](security.md) e o [relatório de revisão de 30/10/2026](reports/security-audit-2026-10-30.md).

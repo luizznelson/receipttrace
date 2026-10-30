@@ -38,4 +38,4 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: npm run format:check
       - run: node scripts/check-web.mjs
-      - run: node --test tests/web/ui.test.mjs
+      - run: npm test

@@ -1,4 +1,4 @@
-import { request, APIError } from "./api.js";
+import { request, APIError, requiresReload } from "./api.js";
 import { applyLanguage, messages, translate } from "./i18n.js";
 import {
   element as el,
@@ -44,6 +44,7 @@ function ensureEntry() {
       acknowledgeUnverified: false,
       acknowledgeFindings: false,
       conflict: false,
+      uncertain: false,
       message: null,
     });
   return state.entries.get(key);
@@ -369,6 +370,7 @@ function renderReview(current) {
   $("#findings-row").hidden =
     current.review.review_status === "completed" || !current.review.validation?.has_findings;
   $("#conflict-panel").hidden = !current.conflict;
+  $("#conflict-panel p").textContent = t(current.uncertain ? "uncertain_text" : "conflict_text");
   setText("#revision-label", t("revision", { n: current.review.revision }));
   renderHistory(current);
 }
@@ -430,6 +432,7 @@ function replaceReview(current, review) {
   current.acknowledgeUnverified = false;
   current.acknowledgeFindings = false;
   current.conflict = false;
+  current.uncertain = false;
   current.reason = "";
 }
 
@@ -445,7 +448,10 @@ async function action(operation, success) {
     if (success) current.message = { key: success, error: false };
   } catch (error) {
     const code = error instanceof APIError ? error.code : "generic";
-    if (code === "revision_conflict") current.conflict = true;
+    if (requiresReload(error, Boolean(current.review))) {
+      current.conflict = true;
+      current.uncertain = error.uncertain;
+    }
     current.message = {
       key: messages[state.language][`error_${code}`] ? `error_${code}` : "error_generic",
       error: true,

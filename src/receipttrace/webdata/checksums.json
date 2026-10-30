@@ -47,5 +47,6 @@
   "extractions/ocr/cord-train-shard0-row0173.json": "7b7230717a8a9e4428259276c0a869e53f5e04aa82c321d46b1839f4d6e7a768",
   "extractions/ocr/cord-train-shard0-row0188.json": "ff2abb38f36cccd17587800d0fafe41108d4e2cd2d73e428fa69361b84a0f04c",
   "extractions/ocr/cord-train-shard0-row0189.json": "442b4b3202446702f3ece50b285677ece364839a3dd95580384a9eb1e34747eb",
-  "extractions/ocr/manifest.json": "19cd382648074904e868332c21efd15e128cb2e92b169ba3f3edcf1f48c1eff1"
+  "extractions/ocr/manifest.json": "19cd382648074904e868332c21efd15e128cb2e92b169ba3f3edcf1f48c1eff1",
+  "ATTRIBUTION.md": "c8fdad1cb852422bbf84b9022d57c0e4c32c4dd470e238a416583f07ae60cb5e"
 }

@@ -12,6 +12,10 @@ EXAMPLE_IDS = tuple(f"cord-train-shard0-row{row:04d}" for row in (6, 59, 173))
 REPORT_NAMES = {"ocr": "ocr-baseline.json", "gemini": "gemini-development-20.json"}
 
 
+class DemoIntegrityError(ValueError):
+    """Trusted demonstration data is unavailable or no longer matches its checksum."""
+
+
 class ExampleNotFound(ValueError):
     """Only known public examples may be opened through the web application."""
 
@@ -24,10 +28,13 @@ class DemoCatalog:
     def __init__(self, root: Path) -> None:
         self.root = root
         checksums = json.loads((root / "checksums.json").read_bytes())
+        self.checksums = checksums
         for name, expected in checksums.items():
             path = (root / name).resolve()
             if not path.is_relative_to(root.resolve()) or digest(path) != expected:
-                raise ValueError("Bundled demonstration evidence failed integrity verification")
+                raise DemoIntegrityError(
+                    "Bundled demonstration evidence failed integrity verification"
+                )
         self.reports = {
             key: json.loads((root / "reports" / name).read_bytes())
             for key, name in REPORT_NAMES.items()
@@ -53,6 +60,15 @@ class DemoCatalog:
             if digest(self.image(document_id)) != image_record["image_sha256"]:
                 raise ValueError("Example image does not match the sample")
 
+    def verified_asset(self, name: str) -> Path:
+        try:
+            path = (self.root / name).resolve()
+            if not path.is_relative_to(self.root.resolve()) or digest(path) != self.checksums[name]:
+                raise DemoIntegrityError("Demonstration asset failed verification")
+            return path
+        except (OSError, KeyError) as error:
+            raise DemoIntegrityError("Demonstration asset is unavailable") from error
+
     def run(self, method: str) -> Path:
         if method not in REPORT_NAMES:
             raise ExampleNotFound("Unknown extraction method")
@@ -65,7 +81,7 @@ class DemoCatalog:
 
     def image(self, document_id: str) -> Path:
         self.require_example(document_id)
-        return self.root / "images" / (document_id + ".png")
+        return self.verified_asset("images/" + document_id + ".png")
 
     def summary(self) -> dict[str, Any]:
         after, before = self.reports["gemini"], self.reports["ocr"]
@@ -102,19 +118,19 @@ class DemoCatalog:
 
         self.require_example(document_id)
         folder = self.run(method)
-        manifest_path = folder / "manifest.json"
+        manifest_path = self.verified_asset(f"extractions/{method}/manifest.json")
         manifest = json.loads(manifest_path.read_bytes())
         record = next(row for row in manifest["records"] if row["id"] == document_id)
-        result_path = folder / record["file"]
+        result_path = self.verified_asset(f"extractions/{method}/" + record["file"])
         if (
             not result_path.resolve().is_relative_to(folder.resolve())
             or digest(result_path) != record["sha256"]
         ):
-            raise ValueError("Example result checksum mismatch")
+            raise DemoIntegrityError("Example result checksum mismatch")
         result = json.loads(result_path.read_bytes())
         source = next(row for row in self.manifest["records"] if row["id"] == document_id)
         if result["id"] != document_id or result["image_sha256"] != source["image_sha256"]:
-            raise ValueError("Example result does not match the source image")
+            raise DemoIntegrityError("Example result does not match the source image")
         evaluation = next(
             row for row in self.reports[method]["documents"] if row["id"] == document_id
         )
@@ -142,6 +158,6 @@ class DemoCatalog:
                 "image_sha256": result["image_sha256"],
                 "result_sha256": record["sha256"],
                 "run_manifest_sha256": digest(manifest_path),
-                "evaluation_sha256": digest(self.root / "reports" / REPORT_NAMES[method]),
+                "evaluation_sha256": digest(self.verified_asset("reports/" + REPORT_NAMES[method])),
             },
         }

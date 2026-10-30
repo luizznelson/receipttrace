@@ -104,6 +104,7 @@ Saved results allow metrics to be recalculated without new AI calls. New inferen
 - [Architecture and responsibilities](docs/architecture.md)
 - [Data and evaluation protocol](docs/evaluation.md)
 - [Web application and API](docs/web.md)
+- [Security, error handling and publication limits (Portuguese)](docs/security.md)
 - [Web architecture decision](docs/architecture-web.md)
 - [Review and correction history](docs/review.md)
 - [Fields, numbers and arithmetic checks](docs/domain.md)

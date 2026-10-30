@@ -104,6 +104,7 @@ Os resultados salvos permitem recalcular as métricas sem novas chamadas de IA. 
 - [Arquitetura e responsabilidades](docs/architecture.md)
 - [Dados e método de avaliação](docs/evaluation.md)
 - [Aplicação web e API](docs/web.md)
+- [Segurança, erros e limites de publicação](docs/security.md)
 - [Decisão da arquitetura web](docs/architecture-web.md)
 - [Revisão e histórico de correções](docs/review.md)
 - [Campos, números e verificações aritméticas](docs/domain.md)

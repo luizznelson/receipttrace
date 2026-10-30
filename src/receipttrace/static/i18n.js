@@ -1,5 +1,34 @@
 // Keep the same content in both languages; source receipt values are never translated.
 const phrases = {
+  uncertain_text: [
+    "Não foi possível confirmar se a alteração foi salva. Recarregue e confira o histórico antes de tentar novamente.",
+    "We could not confirm whether the change was saved. Reload and check the history before trying again.",
+  ],
+  error_request_timeout: [
+    "A solicitação excedeu o tempo de espera. Confira o estado da revisão antes de reenviar uma alteração.",
+    "The request timed out. Check the review state before resubmitting a change.",
+  ],
+  error_network_error: [
+    "A conexão falhou. Não foi possível confirmar o resultado da solicitação.",
+    "The connection failed. The request outcome could not be confirmed.",
+  ],
+  error_invalid_response: [
+    "O servidor enviou uma resposta inesperada. Confira a revisão antes de reenviar.",
+    "The server sent an unexpected response. Check the review before resubmitting.",
+  ],
+  error_internal_error: [
+    "O servidor encontrou um erro inesperado. Confira o histórico antes de reenviar uma alteração.",
+    "The server encountered an unexpected error. Check the history before resubmitting a change.",
+  ],
+  error_request_too_large: [
+    "O pedido excedeu o limite permitido. Reduza a quantidade de dados da correção.",
+    "The request exceeded the allowed size. Reduce the correction payload.",
+  ],
+  error_body_timeout: [
+    "O servidor não recebeu o pedido completo a tempo. A ação não foi iniciada.",
+    "The server did not receive the complete request in time. The action was not started.",
+  ],
+
   page_title: [
     "ReceiptTrace · Extração que você pode conferir",
     "ReceiptTrace · Extraction you can check",
