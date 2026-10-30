@@ -1,0 +1,3 @@
+# Os hashes em checksums.json valem para estes bytes exatos; não converter finais de linha.
+src/receipttrace/webdata/** -text
+docs/reports/** -text
