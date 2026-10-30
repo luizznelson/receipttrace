@@ -59,7 +59,8 @@
     },
     "/api/uploads": {
       "post": {
-        "summary": "Read a temporary receipt image using local OCR",
+        "summary": "Read a temporary receipt image with Gemini (opt-in) or local OCR",
+        "description": "engine=ocr (default) never leaves the server. engine=gemini sends a sanitized JPEG to the Google Gemini free tier and requires the header `x-provider-consent: google-gemini-free`. Any Gemini problem falls back to local OCR and the response carries `fallback.reason`.",
         "operationId": "upload_api_uploads_post",
         "parameters": [
           {
@@ -76,6 +77,20 @@
               "default": "brl-grouped",
               "title": "Policy"
             }
+          },
+          {
+            "name": "engine",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "ocr",
+                "gemini"
+              ],
+              "type": "string",
+              "default": "ocr",
+              "title": "Engine"
+            }
           }
         ],
         "responses": {
@@ -86,6 +101,9 @@
                 "schema": {}
               }
             }
+          },
+          "400": {
+            "description": "Consent missing for Gemini, or unknown engine"
           },
           "413": {
             "description": "Image exceeds the byte limit"

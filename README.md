@@ -51,6 +51,7 @@ Esta é uma amostra de treino já utilizada no desenvolvimento, sem teste reserv
 | Preservar texto e usar Decimal | Interpretar separadores explicitamente e evitar arredondamentos de ponto flutuante. | [Domínio e números](docs/domain.md) |
 | Usar transações e versão esperada | Preservar o original e impedir sobrescrita silenciosa de uma revisão. | [Revisão local](docs/review.md) |
 | Executar OCR em processo separado | Limitar duração e concorrência, sem salvar o material enviado. | [Envio temporário](docs/uploads.md) |
+| Oferecer IA só com consentimento, cotas e fallback | A imagem sai do servidor apenas por escolha; se a IA falha ou o limite acaba, o OCR local assume e a tela explica. | [Envio temporário](docs/uploads.md) · [Implantação](docs/deploy.md) |
 | Servir interface e API na mesma origem | Manter a execução reproduzível, com FastAPI e sem build de frontend. | [Arquitetura web](docs/architecture-web.md) |
 | Testar falhas e preservar evidências | Verificar entradas inválidas, conflitos, timeouts e integridade dos arquivos. | [Qualidade e reprodução](docs/quality.md) |
 
@@ -63,9 +64,9 @@ uv sync --locked --extra web --extra ocr
 uv run --no-sync receipttrace serve --uploads
 ```
 
-Abra [a demonstração local](http://127.0.0.1:8000). O caso pronto não exige nova inferência. O envio próprio usa OCR local e não consome chave Gemini. [Guia da interface](docs/web.md).
+Abra [a demonstração local](http://127.0.0.1:8000). O caso pronto não exige nova inferência. O envio próprio oferece duas leituras: **IA (Gemini, plano gratuito)**, com consentimento explícito e fallback automático, e **OCR local**. Sem chave configurada, só o OCR local aparece. [Guia da interface](docs/web.md).
 
-Para explorar apenas o exemplo pronto, instale o extra `web` e inicie com `receipttrace serve --read-only`. A conferência transitória de campos e o download continuam disponíveis, sem liberar o banco local. Publicação em hospedagem ainda está pendente.
+Para explorar apenas o exemplo pronto, instale o extra `web` e inicie com `receipttrace serve --read-only`. A conferência transitória de campos e o download continuam disponíveis, sem liberar o banco local. Publicação em hospedagem ainda está pendente; o roteiro está em [Implantação](docs/deploy.md).
 
 ## 6. Como investigar o repositório
 

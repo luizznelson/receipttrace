@@ -37,7 +37,7 @@ Os testes cobrem regras e falhas relevantes, como valores monetários, campos au
 
 ## Commits
 
-O proprietário revisa as entregas e faz os commits. Use mensagens claras em português, no imperativo, com os prefixos `docs:`, `feat:`, `fix:`, `test:` ou `chore:`. A mensagem deve descrever uma mudança real e coerente. Não crie commits vazios nem divida arquivos artificialmente para aparentar atividade.
+O proprietário revisa as entregas e faz os commits. Use mensagens claras em português, no imperativo, com os prefixos `docs:`, `feat:`, `fix:`, `test:` ou `chore:`. Os primeiros commits do repositório estão em inglês; o histórico já publicado não é reescrito, e a regra em português vale a partir de agora. Separe código de dados e evidências em commits distintos, para que a revisão mostre o que mudou na lógica. A mensagem deve descrever uma mudança real e coerente. Não crie commits vazios nem divida arquivos artificialmente para aparentar atividade.
 
 ## Licenciamento
 

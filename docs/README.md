@@ -6,6 +6,7 @@ A documentação acompanha a mesma história da aplicação: problema, experiên
 | --- | --- |
 | Qual problema motivou o projeto? | [Estudo de caso](case-study.md) e [perguntas de negócio](business-case.md) |
 | Como experimentar e conferir um recibo? | [Interface e API](web.md) e [teste temporário](uploads.md) |
+| Como publicar a demonstração? | [Implantação](deploy.md) |
 | O que melhorou com IA e quais são os limites? | [Relatório do experimento](reports/gemini-development-20.md) |
 | Como foram escolhidos os dados e calculados os acertos? | [Avaliação](evaluation.md) e [origem da amostra](reports/cord-inspection.md) |
 | Por que o código foi organizado assim? | [Arquitetura](architecture.md) e [decisão da interface web](architecture-web.md) |

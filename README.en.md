@@ -19,7 +19,7 @@ The proposed use case is an administrative team identifying uncertainty, checkin
 **Image → reading → checking → correction with a reason → export.**
 
 - Start with the guided case without a file or API key. Its saved reading is identified as a study example.
-- Upload PNG/JPG to run local OCR when uploads are enabled.
+- Upload PNG/JPG when uploads are enabled and choose how it is read: **Gemini AI** (free tier, explicit consent, automatic fallback to local OCR with the reason shown) or **local OCR**.
 - Check five fields beside the image. Conflicting values stay blank; missing components do not become zero.
 - Download a CSV table for spreadsheets or JSON with the full session record.
 
@@ -51,6 +51,7 @@ This training sample was already used during development; no held-out test was r
 | Preserve text and use Decimal | Interpret separators explicitly and avoid floating-point rounding. | [Domain rules](docs/domain.md) |
 | Use transactions and expected revisions | Preserve the original and prevent silent review overwrites. | [Local review](docs/review.md) |
 | Run OCR in a separate process | Bound duration and concurrency without saving uploaded material. | [Temporary uploads](docs/uploads.md) |
+| Offer AI only with consent, quotas and fallback | The image leaves the server only by choice; if AI fails or the limit is reached, local OCR takes over and the screen says why. | [Temporary uploads](docs/uploads.md) (Portuguese) · [Deployment](docs/deploy.md) |
 | Serve UI and API from one origin | Keep execution reproducible using FastAPI without a frontend build. | [Web architecture](docs/architecture-web.md) |
 | Test failures and retain evidence | Check invalid inputs, conflicts, timeouts and artifact integrity. | [Quality and reproduction](docs/quality.md) |
 
@@ -63,7 +64,7 @@ uv sync --locked --extra web --extra ocr
 uv run --no-sync receipttrace serve --uploads
 ```
 
-Open [the local demonstration](http://127.0.0.1:8000). The ready example requires no new inference. Personal-image testing uses local OCR without a Gemini key. [Interface guide](docs/web.md).
+Open [the local demonstration](http://127.0.0.1:8000). The ready example requires no new inference. Personal-image testing offers Gemini (only if the host configures a key) or local OCR; without a key only OCR appears. See [Deployment](docs/deploy.md). [Interface guide](docs/web.md).
 
 For the ready example alone, install the `web` extra and start `receipttrace serve --read-only`. Stateless field checks and downloads remain available without exposing local review storage. Hosted deployment remains pending.
 

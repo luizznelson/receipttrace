@@ -8,7 +8,7 @@ Os indicadores usam os resultados publicados dos 20 documentos de desenvolviment
 
 ## Testar uma imagem própria
 
-A jornada “Testar meu recibo” permite envio temporário, OCR local, conferência e download. Instale também o extra `ocr` e inicie com `--uploads`; veja o [guia completo](uploads.md). O envio é independente da revisão persistente dos exemplos e pode ser habilitado junto de `--read-only`.
+A jornada “Testar meu recibo” permite envio temporário, leitura por IA (Gemini, se a hospedagem a habilitar) ou OCR local, conferência e download. Instale também o extra `ocr` e inicie com `--uploads`; veja o [guia completo](uploads.md). O envio é independente da revisão persistente dos exemplos e pode ser habilitado junto de `--read-only`.
 
 ## Como abrir no computador
 

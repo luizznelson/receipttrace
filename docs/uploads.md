@@ -1,8 +1,26 @@
 # Testar um recibo próprio
 
-O envio permite testar a leitura de uma imagem nova sem chave de API. O OCR local procura cinco campos: total, subtotal, imposto, serviço e desconto. A tela mostra a imagem, a leitura original, as linhas usadas como evidência e campos para correção.
+O envio permite testar a leitura de uma imagem nova. Há dois métodos: **IA (Gemini, plano gratuito)**, quando a hospedagem a habilita, e **OCR local**, sempre disponível com `--uploads`. Os dois procuram cinco campos: total, subtotal, imposto, serviço e desconto. A tela mostra a imagem, a leitura original, as linhas usadas como evidência e campos para correção.
 
 Os novos testes não possuem gabarito e não entram nos indicadores do estudo CORD. “Campos identificados” é uma contagem de preenchimento, não uma nota de acerto.
+
+## Dois métodos de leitura
+
+| | IA (Gemini) | OCR local |
+| --- | --- | --- |
+| Onde a imagem é lida | Enviada ao Google, depois de remover metadados e reduzir o tamanho | Neste servidor, em processo separado |
+| Consentimento | Obrigatório; o cabeçalho `X-Provider-Consent: google-gemini-free` é exigido pela API | Aviso de privacidade local |
+| No estudo (20 recibos de desenvolvimento) | Total 19/19 | Total 14/19 |
+| Tempo típico | Alguns segundos | Cerca de 1 s, mais inicialização |
+| Disponibilidade | Limitada por cotas; pode ficar indisponível | Depende só do servidor |
+
+Os números do estudo vêm de uma amostra pequena de desenvolvimento e não garantem o mesmo resultado em recibos brasileiros ou fotos reais.
+
+**Fallback.** Se a leitura por IA não puder ser feita (limite diário, limite por visitante, limite por minuto, serviço ocupado, indisponível, tempo esgotado ou resposta inválida), o OCR local lê o recibo e a tela explica o motivo (`fallback.reason` na API). Falhas de autenticação ou de cota do provedor pausam a IA nesta instância por 1 hora. Imagem inválida continua sendo erro, não fallback.
+
+**Privacidade do plano gratuito.** Nos termos do plano gratuito do Gemini, o Google pode usar o conteúdo enviado para melhorar seus produtos. Por isso a IA só é oferecida com `RECEIPTTRACE_GEMINI_FREE_TIER=confirmed` (decisão de quem hospeda, depois de conferir os termos vigentes) e a pessoa precisa marcar o consentimento a cada leitura. O servidor não grava a imagem nem o resultado.
+
+**Itens e moeda.** A leitura por IA devolve os cinco campos; itens são descartados (`items_ignored` no registro) e a moeda não é presumida.
 
 ## Como iniciar
 
@@ -21,13 +39,29 @@ Para habilitar o teste temporário em uma instância pública, mantenha as revis
 uv run --no-sync receipttrace serve --read-only --uploads --host 0.0.0.0
 ```
 
-Esse comando não publica o projeto por conta própria. A hospedagem ainda precisa ser configurada e testada com HTTPS, limites de memória/CPU e tráfego. Não há cobrança por chamada de API neste fluxo; os recursos de computação e hospedagem têm condições próprias.
+Para oferecer também a leitura por IA, defina as variáveis abaixo (a chave nunca vai para o repositório nem para a conversa; veja [implantação](deploy.md)):
+
+| Variável | Função | Padrão |
+| --- | --- | --- |
+| `RECEIPTTRACE_UPLOAD_GEMINI` | `1` liga a opção de IA | desligado |
+| `RECEIPTTRACE_GEMINI_FREE_TIER` | `confirmed`: o responsável confirma que a chave é do plano gratuito e leu os termos | ausente |
+| `GEMINI_API_KEY` | Chave do Google AI Studio | ausente |
+| `RECEIPTTRACE_GEMINI_MODEL` | Modelo, dentre os permitidos em `llm_config` | `gemini-3.5-flash-lite` |
+| `RECEIPTTRACE_GEMINI_DAILY_LIMIT` | Leituras por IA por dia, no servidor (1–500) | 40 |
+| `RECEIPTTRACE_GEMINI_CLIENT_DAILY_LIMIT` | Leituras por IA por dia, por visitante (1–50) | 5 |
+| `RECEIPTTRACE_GEMINI_PER_MINUTE` | Leituras por IA por minuto (1–15) | 6 |
+| `RECEIPTTRACE_GEMINI_PAUSE_SECONDS` | Pausa após erro de cota/autenticação | 3600 |
+| `RECEIPTTRACE_PROXY_HOPS` | Quantos proxies confiáveis precedem o app (0–5), para identificar o visitante | 0 |
+
+Sem as três primeiras variáveis, a opção de IA não aparece e o comportamento é o do OCR local.
+
+Esse comando não publica o projeto por conta própria. A hospedagem ainda precisa ser configurada e testada com HTTPS, limites de memória/CPU e tráfego. O OCR local não tem cobrança por chamada; a IA usa o plano gratuito do Gemini, com cotas e termos próprios.
 
 ## Jornada da pessoa
 
 1. Escolher uma imagem PNG ou JPG, sem dados pessoais ou sensíveis.
 2. Escolher como os números aparecem no documento. O idioma da página não altera a interpretação dos valores.
-3. Confirmar o aviso e selecionar “Ler meu recibo”. A tela mostra o tempo decorrido durante o recebimento e a leitura, sem porcentagens fictícias.
+3. Escolher o método (IA ou OCR local), confirmar o aviso correspondente e selecionar “Ler meu recibo”. Trocar de método limpa a confirmação. A tela mostra o tempo decorrido durante o recebimento e a leitura, sem porcentagens fictícias.
 4. Conferir a imagem e os campos. Valores ausentes ou conflitantes ficam vazios; linhas reconhecidas podem ser consultadas.
 5. Corrigir os valores necessários e registrar o motivo. Selecionar “Conferir formato e cálculos” para avaliar a versão atual. O resultado mostra problemas de formato e divergências, além do que não pôde ser verificado.
 6. Baixar o JSON com a extração original, a versão atual, as alterações antes/depois, o motivo e os horários desta sessão. Usar “Limpar este teste” para remover o conteúdo da interface.
@@ -51,7 +85,8 @@ São convenções numéricas explícitas; não determinam a moeda do documento. 
 - Preparação: orientação EXIF aplicada, metadados removidos e redução proporcional para até 2.400 pixels por lado antes do OCR. A tela informa quando houve redução.
 - Recebimento: até 10 segundos; conferência transitória de campos: até 256 KiB, campos limitados a 64 caracteres, sem edição ou injeção de itens.
 - Execução: processo separado, uma imagem por vez e até 10 tentativas por minuto **por processo do servidor**, compartilhadas entre visitantes. O OCR é interrompido após 60 segundos. A interface aguarda até 70 segundos e não repete automaticamente a requisição.
-- O processo recebe somente as variáveis de ambiente necessárias; chaves Gemini/OpenAI não são herdadas. O código usa modelos locais já instalados e não acessa provedores de IA.
+- O processo de OCR recebe somente as variáveis de ambiente necessárias; chaves Gemini/OpenAI não são herdadas. Na leitura por IA, o mesmo processo apenas sanitiza a imagem e a devolve em JPEG; a chamada ao Gemini é feita pelo servidor, que é o único com a chave.
+- Cotas da IA (por dia, por visitante, por minuto, simultaneidade) ficam **em memória**: zeram quando o servidor reinicia ou volta de suspensão. O visitante é contado por um hash com sal por processo do endereço de rede; atrás de proxy, `RECEIPTTRACE_PROXY_HOPS` precisa estar correto, senão todos parecem um só visitante ou o cabeçalho pode ser forjado.
 - A aplicação não grava imagem nem texto recebido no sistema de arquivos, banco ou logs. O resultado é devolvido à mesma requisição e permanece na memória da aba. O JSON só é gravado no computador quando a pessoa solicita o download.
 - A imagem é identificada por SHA-256. O nome informado pelo visitante não vira caminho no servidor. Não há endpoint de consulta de imagens ou resultados enviados por outras pessoas.
 
@@ -68,10 +103,10 @@ Itens não são estruturados no teste ao vivo. A soma dos itens fica sem confer�
 | Rota | Uso |
 | --- | --- |
 | `GET /api/uploads/capabilities` | Disponibilidade e limites; não inicializa o motor OCR. |
-| `POST /api/uploads?policy=brl-grouped` | Corpo binário PNG/JPEG; devolve leitura, evidências e validação. |
+| `POST /api/uploads?policy=brl-grouped&engine=ocr\|gemini` | Corpo binário PNG/JPEG; `engine=gemini` exige o cabeçalho de consentimento (400 `consent_required` sem ele). Devolve leitura, evidências, validação e, se houve fallback, `fallback.reason`. |
 | `POST /api/uploads/validate` | JSON transitório com os cinco campos e política; reavalia sem salvar. |
 
-`upload_worker.py` verifica e prepara a imagem e executa o OCR. `upload_rules.py` seleciona campos de forma conservadora. `uploads.py` controla processo, concorrência e tempo. `web_boundary.py` aplica origem, formato e tamanho. `upload.js` apresenta a jornada, correções e exportação; `upload-client.js` contém o contrato de envio e as diferenças entre original e versão atual.
+`upload_worker.py` verifica e prepara a imagem e executa o OCR. `upload_rules.py` seleciona campos de forma conservadora. `uploads.py` controla processo, concorrência, tempo e a escolha do método com fallback. `upload_gemini.py` contém o leitor Gemini, as cotas e o mapeamento de erros para motivos de fallback. `web_boundary.py` aplica origem, formato e tamanho. `upload.js` apresenta a jornada, correções e exportação; `upload-client.js` contém o contrato de envio e as diferenças entre original e versão atual.
 
 O [contrato OpenAPI](contracts/web-openapi.json), os testes `test_uploads.py` e `upload-client.test.mjs` e o [relatório desta entrega](quality.md) permitem conferir a implementação.
 
