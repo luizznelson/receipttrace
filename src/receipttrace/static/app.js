@@ -1,3 +1,4 @@
+import { mountUploads } from "./upload.js";
 import { request, APIError, requiresReload } from "./api.js";
 import { applyLanguage, messages, translate } from "./i18n.js";
 import {
@@ -29,6 +30,7 @@ const state = {
   actor: "",
   hero: null,
 };
+const uploadWorkspace = mountUploads(language);
 const t = (key, values) => translate(state.language, key, values);
 const entry = () => state.entries.get(`${state.selected}:${state.method}`);
 
@@ -472,6 +474,7 @@ for (const button of document.querySelectorAll("[data-lang]"))
       /* Continue without persisted preference. */
     }
     applyLanguage(state.language);
+    uploadWorkspace.setLanguage(state.language);
     renderSummary();
     renderCases();
     renderWorkspace();

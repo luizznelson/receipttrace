@@ -49,11 +49,13 @@ class WebBoundary:
         app: ASGIApp,
         *,
         read_only: bool,
+        allow_uploads: bool = False,
         max_body_bytes: int = MAX_BODY_BYTES,
         body_timeout_seconds: float = BODY_TIMEOUT_SECONDS,
     ) -> None:
         self.app = app
         self.read_only = read_only
+        self.allow_uploads = allow_uploads
         self.max_body_bytes = max_body_bytes
         self.body_timeout_seconds = body_timeout_seconds
 
@@ -73,23 +75,35 @@ class WebBoundary:
                 headers["X-Content-Type-Options"] = "nosniff"
                 headers["Referrer-Policy"] = "no-referrer"
                 headers["Content-Security-Policy"] = (
-                    "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; "
+                    "default-src 'self'; script-src 'self'; style-src 'self'; "
+                    "img-src 'self' blob:; "
                     "connect-src 'self'; object-src 'none'; base-uri 'none'; "
                     "frame-ancestors 'none'; form-action 'self'"
                 )
                 if scope.get("path", "").startswith("/api/"):
                     headers["Cache-Control"] = "no-store"
+                else:
+                    headers["Cache-Control"] = "no-cache"
             await send(message)
 
         try:
             request = Request(scope)
+            uploading = (
+                self.allow_uploads and scope["path"] == "/api/uploads" and scope["method"] == "POST"
+            )
+            live_validation = (
+                self.allow_uploads
+                and scope["path"] == "/api/uploads/validate"
+                and scope["method"] == "POST"
+            )
+            limit = 8 * 1024 * 1024 if uploading else self.max_body_bytes
             if not self.read_only and request.url.hostname not in {"127.0.0.1", "localhost", "::1"}:
                 await failure(403, "host_rejected", "Local review requires a loopback host")(
                     scope, receive, protected_send
                 )
                 return
             if scope["method"] in {"POST", "PUT", "PATCH", "DELETE"}:
-                if self.read_only:
+                if self.read_only and not (uploading or live_validation):
                     await failure(403, "read_only", "This instance is read-only")(
                         scope, receive, protected_send
                     )
@@ -100,13 +114,14 @@ class WebBoundary:
                         scope, receive, protected_send
                     )
                     return
-                if (
-                    request.headers.get("content-type", "").split(";")[0].strip().lower()
-                    != "application/json"
-                ):
-                    await failure(415, "json_required", "Use an application/json request")(
-                        scope, receive, protected_send
-                    )
+                content_type = request.headers.get("content-type", "").split(";")[0].strip().lower()
+                accepted = {"image/png", "image/jpeg"} if uploading else {"application/json"}
+                if content_type not in accepted:
+                    await failure(
+                        415,
+                        "image_required" if uploading else "json_required",
+                        "Unsupported content type",
+                    )(scope, receive, protected_send)
                     return
                 declared = request.headers.get("content-length")
                 if declared is not None:
@@ -115,11 +130,11 @@ class WebBoundary:
                             scope, receive, protected_send
                         )
                         return
-                    if int(declared) > self.max_body_bytes:
+                    if int(declared) > limit:
                         raise BodyTooLarge
                 try:
                     body = await asyncio.wait_for(
-                        read_body(receive, self.max_body_bytes), timeout=self.body_timeout_seconds
+                        read_body(receive, limit), timeout=self.body_timeout_seconds
                     )
                 except TimeoutError:
                     await failure(408, "body_timeout", "Request body was not received in time")(
@@ -141,7 +156,7 @@ class WebBoundary:
             else:
                 await self.app(scope, receive, protected_send)
         except BodyTooLarge:
-            await failure(413, "request_too_large", "Request exceeds the 256 KiB limit")(
+            await failure(413, "request_too_large", "Request exceeds the allowed size")(
                 scope, receive, protected_send
             )
         except Exception as error:

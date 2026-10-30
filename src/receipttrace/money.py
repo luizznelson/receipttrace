@@ -5,8 +5,14 @@ from dataclasses import dataclass
 from decimal import Decimal
 from typing import Literal
 
-NumberPolicy = Literal["idr-grouped", "decimal-dot", "decimal-comma"]
-POLICIES: tuple[NumberPolicy, ...] = ("idr-grouped", "decimal-dot", "decimal-comma")
+NumberPolicy = Literal["idr-grouped", "decimal-dot", "decimal-comma", "brl-grouped", "usd-grouped"]
+POLICIES: tuple[NumberPolicy, ...] = (
+    "idr-grouped",
+    "decimal-dot",
+    "decimal-comma",
+    "brl-grouped",
+    "usd-grouped",
+)
 
 
 @dataclass(frozen=True)
@@ -29,6 +35,15 @@ def money(raw: str | None, policy: NumberPolicy, *, signed: bool = False) -> Num
         text = re.sub(r"^Rp\.?\s*", "", text, flags=re.IGNORECASE)
         pattern = r"-?(?:[0-9]{1,18}|[0-9]{1,3}(?:,[0-9]{3}){1,5}|[0-9]{1,3}(?:\.[0-9]{3}){1,5})"
         normalized = text.replace(",", "").replace(".", "")
+    elif policy in {"brl-grouped", "usd-grouped"}:
+        comma = policy == "brl-grouped"
+        text = re.sub(r"^R\$\s*" if comma else r"^\$\s*", "", text)
+        group, decimal = (".", ",") if comma else (",", ".")
+        pattern = (
+            rf"-?(?:[0-9]{{1,18}}|[0-9]{{1,3}}(?:{re.escape(group)}[0-9]{{3}}){{1,5}})"
+            rf"(?:{re.escape(decimal)}[0-9]{{1,4}})?"
+        )
+        normalized = text.replace(group, "").replace(decimal, ".")
     else:
         separator = "." if policy == "decimal-dot" else ","
         pattern = rf"-?[0-9]{{1,18}}(?:{re.escape(separator)}[0-9]{{1,4}})?"

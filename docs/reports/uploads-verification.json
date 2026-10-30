@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-30",
+  "scope": "temporary local OCR uploads and bilingual review journey",
+  "python_tests_passed": 232,
+  "javascript_tests_passed": 27,
+  "new_python_upload_tests": 34,
+  "new_javascript_upload_tests": 6,
+  "mypy_source_modules": 20,
+  "wheel_assets_verified": 50,
+  "public_cord_browser": {
+    "document": "cord-train-shard0-row0006",
+    "policy": "idr-grouped",
+    "original_total": "62,000",
+    "corrected_total": "61,799",
+    "seconds_including_initialization_observations": [
+      5.094,
+      2.923
+    ],
+    "accuracy_measurement": false,
+    "locale_switch_preserved_draft": true,
+    "download_content_verified": true,
+    "invalid_format_explanation_verified": true
+  },
+  "synthetic_api": {
+    "synthetic": true,
+    "api_status": 200,
+    "raw": {
+      "document_id": "upload-29b7d7cc5a8c4e74970c8f86c7e098a0",
+      "currency": null,
+      "items": [],
+      "items_complete": false,
+      "subtotal": "100,00",
+      "discount": "0,00",
+      "tax": "10,00",
+      "service": "5,00",
+      "total": "R$ 115,00"
+    },
+    "arithmetic": {
+      "status": "partial",
+      "passed": 1,
+      "mismatched": 0,
+      "invalid": 0,
+      "skipped": 1
+    },
+    "seconds": 2.872,
+    "source_sha256": "e814c9b63e3aeec3b76f5c74be19105b17fcdc7b84db6c52a3daadcbcc4d4352",
+    "shared_review_write_status": 403,
+    "database_created": false
+  },
+  "mobile": {
+    "viewport_width": 375,
+    "viewport_height": 812,
+    "document_width_observed": 360,
+    "horizontal_overflow": false
+  },
+  "private_database_created_by_public_qa": false,
+  "public_deployment_tested": false,
+  "ram_capacity_benchmarked": false,
+  "api_provider_called": false,
+  "benchmark_evidence_modified": false,
+  "identity_authenticated": false,
+  "dependency_lock_changed": false,
+  "implementation_limits": "../uploads.md"
+}

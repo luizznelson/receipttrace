@@ -23,7 +23,7 @@ O fluxo já está disponível na [aplicação web e API](web.md), com imagem, va
 
 ## Orientação para a apresentação
 
-A interface deve seguir o [roteiro de apresentação](presentation.md), com conteúdo apoiado nas [perguntas de negócio](business-case.md). A demonstração inicial proposta usa exemplos já processados: problema → exemplo real → resultados → evidências → limites. A primeira interface segue essa sequência e está disponível localmente.
+A interface deve seguir o [roteiro de apresentação](presentation.md), com conteúdo apoiado nas [perguntas de negócio](business-case.md). A jornada atual segue problema → teste com imagem própria → exemplos públicos → resultados → evidências e limites. Os exemplos prontos continuam disponíveis quando o envio está desativado.
 
 ## Como organizar os commits
 
@@ -35,3 +35,8 @@ Use uma mudança coerente por commit. Exemplos de mensagens para as próximas en
 - `docs: publish project case study and demo guide`
 
 Divida uma entrega quando houver alterações independentes, preservando o histórico real do desenvolvimento. Custos e hospedagem devem ser definidos antes das operações que dependem deles.
+
+
+## Entrega: teste com recibo próprio
+
+Implementados envio temporário PNG/JPG com OCR local, jornada PT-BR/EN, correções com evidências, validação dos campos e exportação com registro da sessão. O [relatório](reports/uploads-verification.md) descreve a verificação. Próxima etapa: validar a capacidade de uma hospedagem, configurar HTTPS e limites de infraestrutura e publicar uma demonstração com revisões do banco bloqueadas.

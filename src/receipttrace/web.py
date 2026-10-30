@@ -3,8 +3,9 @@
 import json
 import sqlite3
 from collections.abc import Callable
+from decimal import Decimal
 from pathlib import Path
-from typing import Any, Literal
+from typing import Any, Literal, cast
 from uuid import UUID
 
 from fastapi import FastAPI, Request
@@ -16,6 +17,8 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from receipttrace.cli_serialization import decimal_json
 from receipttrace.demo_catalog import DemoCatalog, DemoIntegrityError, ExampleNotFound, Method
+from receipttrace.domain import RawReceipt, report
+from receipttrace.money import NumberPolicy
 from receipttrace.review import (
     CompletionRequest,
     CorrectionRequest,
@@ -25,6 +28,7 @@ from receipttrace.review import (
     ReviewStorageError,
     ReviewStore,
 )
+from receipttrace.uploads import UploadRejected, UploadService
 from receipttrace.web_boundary import WebBoundary
 
 
@@ -61,6 +65,25 @@ class CompletionSubmission(BaseModel):
     completion: CompletionRequest
 
 
+class UploadedFields(BaseModel):
+    model_config = ConfigDict(extra="forbid", strict=True)
+    document_id: str = Field(min_length=1, max_length=200)
+    currency: None = None
+    items: list[Any] = Field(default_factory=list, max_length=0)
+    items_complete: Literal[False] = False
+    total: str | None = Field(default=None, max_length=64)
+    subtotal: str | None = Field(default=None, max_length=64)
+    tax: str | None = Field(default=None, max_length=64)
+    service: str | None = Field(default=None, max_length=64)
+    discount: str | None = Field(default=None, max_length=64)
+
+
+class UploadValidationRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid", strict=True)
+    raw: UploadedFields
+    policy: Literal["brl-grouped", "usd-grouped", "idr-grouped"]
+
+
 def _error(status: int, code: str, message: str) -> ExactJSONResponse:
     return ExactJSONResponse({"error": {"code": code, "message": message}}, status_code=status)
 
@@ -68,6 +91,7 @@ def _error(status: int, code: str, message: str) -> ExactJSONResponse:
 def create_app(
     *,
     read_only: bool = True,
+    allow_uploads: bool = False,
     database: Path = Path("runs/reviews.sqlite3"),
     data_root: Path | None = None,
 ) -> FastAPI:
@@ -75,6 +99,7 @@ def create_app(
     package = Path(__file__).parent
     catalog = DemoCatalog(data_root or package / "webdata")
     store = ReviewStore(database)
+    uploads = UploadService(allow_uploads)
     app = FastAPI(
         title="ReceiptTrace API",
         version="0.1.0",
@@ -83,7 +108,7 @@ def create_app(
         openapi_url="/api/openapi.json",
     )
 
-    app.add_middleware(WebBoundary, read_only=read_only)
+    app.add_middleware(WebBoundary, read_only=read_only, allow_uploads=allow_uploads)
 
     @app.exception_handler(RequestValidationError)
     async def invalid_request(request: Request, error: RequestValidationError) -> Response:
@@ -144,6 +169,53 @@ def create_app(
             raise
         except ValueError as error:
             raise ReviewActionRejected("Review action rejected") from error
+
+    @app.exception_handler(UploadRejected)
+    async def upload_error(request: Request, error: UploadRejected) -> Response:
+        response = _error(error.status, error.code, "Image processing could not be completed")
+        if error.status == 429:
+            response.headers["Retry-After"] = "60"
+        return response
+
+    @app.post("/api/uploads/validate")
+    def validate_upload(body: UploadValidationRequest) -> Response:
+        if not allow_uploads:
+            raise UploadRejected("ocr_unavailable", 503)
+        raw = RawReceipt.model_validate(body.raw.model_dump())
+        return ExactJSONResponse(report(raw, body.policy, Decimal(0)))
+
+    @app.get("/api/uploads/capabilities")
+    def upload_capabilities() -> Response:
+        return ExactJSONResponse(uploads.capabilities())
+
+    @app.post(
+        "/api/uploads",
+        summary="Read a temporary receipt image using local OCR",
+        responses={
+            413: {"description": "Image exceeds the byte limit"},
+            429: {"description": "OCR capacity or shared rate limit reached"},
+            503: {"description": "OCR unavailable or failed"},
+            504: {"description": "OCR worker exceeded its time limit"},
+        },
+        openapi_extra={
+            "requestBody": {
+                "required": True,
+                "content": {
+                    "image/png": {"schema": {"type": "string", "format": "binary"}},
+                    "image/jpeg": {"schema": {"type": "string", "format": "binary"}},
+                },
+            }
+        },
+    )
+    async def upload(
+        request: Request,
+        policy: Literal["brl-grouped", "usd-grouped", "idr-grouped"] = "brl-grouped",
+    ) -> Response:
+        content_type = request.headers.get("content-type", "").split(";")[0].strip().lower()
+        result = await uploads.extract(
+            await request.body(), cast(NumberPolicy, policy), content_type
+        )
+        return ExactJSONResponse(result)
 
     @app.get("/api/health")
     def health() -> Response:

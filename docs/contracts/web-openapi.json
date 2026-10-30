@@ -5,6 +5,130 @@
     "version": "0.1.0"
   },
   "paths": {
+    "/api/uploads/validate": {
+      "post": {
+        "summary": "Validate Upload",
+        "operationId": "validate_upload_api_uploads_validate_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UploadValidationRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/uploads/capabilities": {
+      "get": {
+        "summary": "Upload Capabilities",
+        "operationId": "upload_capabilities_api_uploads_capabilities_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/uploads": {
+      "post": {
+        "summary": "Read a temporary receipt image using local OCR",
+        "operationId": "upload_api_uploads_post",
+        "parameters": [
+          {
+            "name": "policy",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "brl-grouped",
+                "usd-grouped",
+                "idr-grouped"
+              ],
+              "type": "string",
+              "default": "brl-grouped",
+              "title": "Policy"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "413": {
+            "description": "Image exceeds the byte limit"
+          },
+          "429": {
+            "description": "OCR capacity or shared rate limit reached"
+          },
+          "503": {
+            "description": "OCR unavailable or failed"
+          },
+          "504": {
+            "description": "OCR worker exceeded its time limit"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "image/png": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            },
+            "image/jpeg": {
+              "schema": {
+                "type": "string",
+                "format": "binary"
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/health": {
       "get": {
         "summary": "Health",
@@ -551,6 +675,121 @@
           "method"
         ],
         "title": "StartRequest"
+      },
+      "UploadValidationRequest": {
+        "properties": {
+          "raw": {
+            "$ref": "#/components/schemas/UploadedFields"
+          },
+          "policy": {
+            "type": "string",
+            "enum": [
+              "brl-grouped",
+              "usd-grouped",
+              "idr-grouped"
+            ],
+            "title": "Policy"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "raw",
+          "policy"
+        ],
+        "title": "UploadValidationRequest"
+      },
+      "UploadedFields": {
+        "properties": {
+          "document_id": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Document Id"
+          },
+          "currency": {
+            "type": "null",
+            "title": "Currency"
+          },
+          "items": {
+            "items": {},
+            "type": "array",
+            "maxItems": 0,
+            "title": "Items"
+          },
+          "items_complete": {
+            "type": "boolean",
+            "const": false,
+            "title": "Items Complete",
+            "default": false
+          },
+          "total": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Total"
+          },
+          "subtotal": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Subtotal"
+          },
+          "tax": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tax"
+          },
+          "service": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Service"
+          },
+          "discount": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Discount"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "document_id"
+        ],
+        "title": "UploadedFields"
       },
       "ValidationError": {
         "properties": {

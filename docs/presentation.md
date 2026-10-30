@@ -1,4 +1,4 @@
-# Roteiro da apresentação e da futura interface
+# Jornada e apresentação do produto
 
 ## Objetivo da apresentação
 
@@ -6,11 +6,22 @@ Uma pessoa deve entender qual problema o ReceiptTrace trata, ver um exemplo real
 
 Este documento orienta a apresentação e sua evolução. A primeira interface está implementada com três exemplos, PT-BR/EN e revisão de cinco campos de totais. O [guia da aplicação](web.md) descreve o uso e os limites atuais. A base de conteúdo é o [caso de negócio](business-case.md).
 
+## Jornada atual: da proposta ao teste
+
+1. Entender o problema: ler o recibo não elimina a necessidade de conferir.
+2. Experimentar: escolher uma imagem própria ou seguir direto para exemplos prontos.
+3. Acompanhar: recebimento e OCR com estado de espera real, sem porcentagens inventadas.
+4. Conferir: imagem ao lado dos valores, trechos de origem e dúvidas explícitas.
+5. Levar o resultado: corrigir, registrar motivo, conferir formato/cálculos e baixar original mais versão atual.
+6. Investigar o estudo: explorar três casos públicos e consultar os resultados dos 20 documentos.
+
+O [teste de imagens próprias](uploads.md) está implementado em PT-BR e inglês. Sua contagem de campos não é apresentada como acurácia e seus resultados não modificam o estudo. O [relatório de verificação](reports/uploads-verification.md) separa testes reais no navegador de cenários sintéticos.
+
 ## Estrutura da apresentação pública
 
 | Ordem | Seção | O que a pessoa deve entender | Conteúdo ou ação sugerida |
 |---|---|---|---|
-| 1 | Problema e proposta | Para que serve o projeto e quem faria a conferência | Título claro, uma frase de contexto e ação “Ver exemplo real” |
+| 1 | Problema e proposta | Para que serve o projeto e quem faria a conferência | Título claro, uma frase de contexto e ação “Testar meu recibo”, com alternativa de exemplos prontos |
 | 2 | Um exemplo de recibo | Como a imagem se transforma em campos conferíveis | Imagem ao lado dos valores extraídos, origem e situação das verificações |
 | 3 | Perguntas e resultados | O que melhorou e o que custou mais tempo | Comparação OCR/IA, contagens e tempo de processamento |
 | 4 | Como conferir | Por que o resultado pode ser investigado | Documento, resposta original e evidência da avaliação |
@@ -27,7 +38,7 @@ Este documento orienta a apresentação e sua evolução. A primeira interface e
 
 **Apoio EN:** “Compare OCR and AI extraction, trace each value to its source, and see what still needs review.”
 
-As chamadas para ação da primeira demonstração devem abrir exemplos ou relatórios existentes. Não oferecer “Aprovar recibo”, “Salvar correção” ou “Exportar” antes de implementar e verificar os fluxos correspondentes.
+As ações disponíveis devem corresponder a fluxos implementados: envio temporário e exportação para novos recibos; revisão persistente apenas local para exemplos. Não oferecer aprovação fiscal ou de pagamento.
 
 ## Jornada da demonstração inicial
 

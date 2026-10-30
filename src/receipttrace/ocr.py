@@ -51,9 +51,12 @@ class Engine:
         self.engine = RapidOCR(params=params)
 
     def read(self, path: Path) -> list[Line]:
+        return self.read_image(str(path))
+
+    def read_image(self, image: str | bytes) -> list[Line]:
         from rapidocr.utils.output import RapidOCROutput
 
-        result = self.engine(str(path))
+        result = self.engine(image)
         if not isinstance(result, RapidOCROutput):
             raise ValueError("Expected complete detection/classification/recognition output")
         if result.txts is None:

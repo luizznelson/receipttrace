@@ -63,11 +63,11 @@ The application has a bilingual interface and API alongside local commands. The 
 Portuguese view shown; the interface also supports English.
 
 ```powershell
-uv sync --locked --extra web
-uv run --no-sync receipttrace serve
+uv sync --locked --extra web --extra ocr
+uv run --no-sync receipttrace serve --uploads
 ```
 
-Open [http://127.0.0.1:8000](http://127.0.0.1:8000). The bilingual interface lets you compare three real receipts, check fields and record reviews in Portuguese or English. It uses saved responses, with no API key or full-dataset download. [Application and API guide (Portuguese)](docs/web.md).
+Open [http://127.0.0.1:8000](http://127.0.0.1:8000). The bilingual interface lets you try your own image with local OCR and explore three saved public OCR/AI examples. Review and export results in Portuguese or English, with no API key or full-dataset download. [Application and API guide (Portuguese)](docs/web.md).
 
 ## Check the results without an API
 
@@ -99,11 +99,12 @@ Saved results allow metrics to be recalculated without new AI calls. New inferen
 ## Product and technical documentation
 
 - [Problem and business questions](docs/business-case.md)
-- [Presentation and future interface plan](docs/presentation.md)
+- [Product presentation and user journey](docs/presentation.md)
 - [Scope and acceptance criteria](docs/scope.md)
 - [Architecture and responsibilities](docs/architecture.md)
 - [Data and evaluation protocol](docs/evaluation.md)
 - [Web application and API](docs/web.md)
+- [Try your own receipt (Portuguese guide)](docs/uploads.md)
 - [Security, error handling and publication limits (Portuguese)](docs/security.md)
 - [Web architecture decision](docs/architecture-web.md)
 - [Review and correction history](docs/review.md)
@@ -119,3 +120,9 @@ The detailed technical guides are currently in Portuguese; this README provides 
 Receipts come from the [public CORD v2 dataset](https://huggingface.co/datasets/naver-clova-ix/cord-v2), by the [CORD authors](https://github.com/clovaai/cord), under CC BY 4.0. The demonstration bundles three unchanged original CORD images with attribution, alongside derived results. The complete dataset and reference files remain outside the repository. Dataset licensing is separate from code licensing.
 
 The project does not yet establish support for Brazilian fiscal documents or invoice–purchase order matching. AI assisted development and documentation. The maintainer remains responsible for understanding, reviewing and verifying the work.
+
+## Try your own receipt
+
+Upload a PNG or JPG image, follow local OCR, review five fields and download the original reading with corrections and the session record. No API key is required. Enable `--uploads` and install the `ocr` extra. The application processes image and text in memory without saving them on the server.
+
+Visitor tests remain separate from the study metrics and still require human checking. See the [usage, safeguards and limits guide (Portuguese)](docs/uploads.md).

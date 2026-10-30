@@ -4,7 +4,7 @@
 
 O projeto começa com comandos Python executados localmente. A extração e a avaliação vêm antes da API e da interface, para verificar a qualidade da solução antes de ampliar a aplicação.
 
-Separar essas responsabilidades permite comparar OCR e IA nos mesmos documentos, revisar as regras de negócio de forma independente e reaproveitar a lógica quando a interface for implementada. O fluxo local de extração, avaliação e revisão já está implementado, com API e interface bilíngue para os exemplos salvos.
+Separar essas responsabilidades permite comparar OCR e IA nos mesmos documentos, revisar as regras de negócio de forma independente e reaproveitar a lógica quando a interface for implementada. O fluxo local de extração, avaliação e revisão já está implementado, com API e interface bilíngue para os exemplos salvos e para o teste temporário de novas imagens com OCR local.
 
 ## Responsabilidades
 
@@ -17,6 +17,7 @@ Separar essas responsabilidades permite comparar OCR e IA nos mesmos documentos,
 | Credenciais | Ler a chave local sem incluí-la nos resultados | `credentials.py` |
 | Avaliação | Comparar resultados salvos com as anotações oficiais | `evaluation.py` |
 | Revisão | Preservar a extração e registrar correções e conclusão em SQLite | `review.py` |
+| Teste temporário | OCR de imagens novas, sem persistência, com limites de processamento | `uploads.py`, `upload_worker.py`, `upload_rules.py` |
 | Aplicação web | Servir exemplos, indicadores e ações da revisão na mesma origem | `web.py`, `demo_catalog.py`, `static/` |
 | Entrada de comandos | Receber parâmetros e coordenar a execução | `cli.py` |
 

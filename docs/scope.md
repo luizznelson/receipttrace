@@ -19,7 +19,7 @@ A primeira versão deve permitir discutir se a IA extrai melhor que o OCR, quant
 | Validação | Formato dos campos e regras monetárias explícitas | Implementada; cobertura aritmética limitada nos dados reais |
 | Avaliação | Comparação por campo, tempo, falhas e uso da API | Implementada para cinco campos de totais |
 | Revisão | Correções com valor anterior, novo valor, momento e motivo | Implementada por comandos e interface para cinco campos de totais |
-| Apresentação | API, interface PT-BR/EN e download da revisão em JSON | Implementada para três exemplos salvos; hospedagem pendente |
+| Apresentação | API, interface PT-BR/EN e download da revisão em JSON | Implementada para exemplos salvos e envio temporário de PNG/JPG; hospedagem pendente |
 
 Os campos previstos incluem descrição, quantidade, preço do item, subtotal, desconto, imposto, serviço e total. A avaliação atual mede somente os cinco campos de totais; itens ainda não têm métrica de qualidade. [Resultados e limites](reports/gemini-development-20.md).
 

@@ -22,6 +22,6 @@ Os resultados incluídos na aplicação ficam em `webdata/extractions/`, separad
 
 O modo público proposto é somente leitura. Revisão mutável é local, com identidade declarada e sem autenticação. Uma aplicação operacional com várias pessoas exigirá identidade, permissões e armazenamento adequado; os controles locais não substituem essas capacidades.
 
-A interface edita cinco campos de totais. Uploads, nova inferência pela web, edição visual de itens e avaliação de produtividade não fazem parte desta entrega. Não houve deploy.
+A interface edita cinco campos de totais. A etapa seguinte adicionou [envio temporário com OCR local](uploads.md), separado das revisões persistentes e dos indicadores do estudo. Inferência por provedores de IA na web, edição visual de itens e avaliação de produtividade continuam fora desta entrega. Não houve deploy.
 
 [Guia da aplicação](web.md) · [Arquitetura do domínio](architecture.md)

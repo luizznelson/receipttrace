@@ -63,11 +63,11 @@ A aplicação possui interface bilíngue e API, além dos comandos locais. A rev
 Interface em PT-BR; também disponível em inglês.
 
 ```powershell
-uv sync --locked --extra web
-uv run --no-sync receipttrace serve
+uv sync --locked --extra web --extra ocr
+uv run --no-sync receipttrace serve --uploads
 ```
 
-Abra [http://127.0.0.1:8000](http://127.0.0.1:8000). A interface permite comparar três recibos reais, conferir campos e registrar revisões em PT-BR ou inglês. Usa respostas salvas, sem chave de API e sem baixar o dataset completo. [Guia da aplicação e da API](docs/web.md).
+Abra [http://127.0.0.1:8000](http://127.0.0.1:8000). A interface permite testar uma imagem própria com OCR local e explorar três exemplos públicos com comparação OCR/IA. Oferece conferência e exportação em PT-BR e inglês, sem chave de API e sem baixar o dataset completo. [Guia da aplicação e da API](docs/web.md).
 
 ## Como conferir os resultados sem usar uma API
 
@@ -99,11 +99,12 @@ Os resultados salvos permitem recalcular as métricas sem novas chamadas de IA. 
 ## Documentação do produto e da implementação
 
 - [Problema e perguntas de negócio](docs/business-case.md)
-- [Roteiro da apresentação e da futura interface](docs/presentation.md)
+- [Jornada e apresentação do produto](docs/presentation.md)
 - [Escopo e critérios de entrega](docs/scope.md)
 - [Arquitetura e responsabilidades](docs/architecture.md)
 - [Dados e método de avaliação](docs/evaluation.md)
 - [Aplicação web e API](docs/web.md)
+- [Teste com seu próprio recibo](docs/uploads.md)
 - [Segurança, erros e limites de publicação](docs/security.md)
 - [Decisão da arquitetura web](docs/architecture-web.md)
 - [Revisão e histórico de correções](docs/review.md)
@@ -117,3 +118,11 @@ Os resultados salvos permitem recalcular as métricas sem novas chamadas de IA. 
 Os recibos vêm do [CORD v2 público](https://huggingface.co/datasets/naver-clova-ix/cord-v2), dos [autores do CORD](https://github.com/clovaai/cord), sob CC BY 4.0. A demonstração inclui três imagens originais do CORD, com atribuição, além dos resultados derivados. O dataset completo e os arquivos de gabarito permanecem fora do repositório. A licença dos dados é independente da licença do código.
 
 O projeto ainda não comprova suporte a documentos fiscais brasileiros nem conferência entre nota e pedido. Houve assistência de IA no desenvolvimento e na documentação. A responsabilidade por compreender, revisar e verificar as entregas é do mantenedor.
+
+## Teste com um recibo próprio
+
+A interface permite enviar PNG ou JPG, acompanhar o OCR local, conferir cinco campos e baixar o resultado com original, correções e registro da sessão. Não exige chave de API. O envio precisa ser habilitado com `--uploads` e requer o extra `ocr`. A aplicação processa imagem e texto em memória, sem gravá-los no servidor.
+
+Os testes enviados por visitantes ficam separados dos indicadores do estudo. A conferência humana continua necessária. Veja o [guia de uso, proteção e limites](docs/uploads.md).
+
+![Envio e conferência de um recibo](docs/images/receipttrace-upload.png)

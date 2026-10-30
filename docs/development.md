@@ -50,4 +50,4 @@ As imagens são preservadas byte a byte. As anotações são serializadas novame
 
 ## Verificações do frontend
 
-Com Node.js 22 ou superior, execute `node scripts/check-web.mjs` e `node --test tests/web/ui.test.mjs tests/web/api.test.mjs`. Os testes nativos não exigem pacotes JavaScript. Para conferir a formatação, instale o Prettier fixado com `npm.cmd ci --ignore-scripts` e execute `npm.cmd run format:check` (use `npm` em Linux/macOS). Para uso da aplicação, siga o [guia web](web.md).
+Com Node.js 22 ou superior, execute `node scripts/check-web.mjs` e `node --test tests/web/ui.test.mjs tests/web/api.test.mjs tests/web/upload-client.test.mjs`. Os testes nativos não exigem pacotes JavaScript. Para conferir a formatação, instale o Prettier fixado com `npm.cmd ci --ignore-scripts` e execute `npm.cmd run format:check` (use `npm` em Linux/macOS). Para uso da aplicação, siga o [guia web](web.md).

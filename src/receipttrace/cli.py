@@ -84,6 +84,7 @@ def main() -> int:
     server.add_argument("--port", type=int, default=8000)
     server.add_argument("--database", type=Path, default=Path("runs/reviews.sqlite3"))
     server.add_argument("--read-only", action="store_true")
+    server.add_argument("--uploads", action="store_true", help="Enable temporary local OCR uploads")
     args = parser.parse_args()
     try:
         if args.command == "serve":
@@ -100,7 +101,9 @@ def main() -> int:
                     "Install web dependencies: uv sync --locked --extra web"
                 ) from error
             uvicorn.run(
-                create_app(read_only=args.read_only, database=args.database),
+                create_app(
+                    read_only=args.read_only, database=args.database, allow_uploads=args.uploads
+                ),
                 host=args.host,
                 port=args.port,
             )

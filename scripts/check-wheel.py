@@ -21,7 +21,16 @@ def check(directory: Path) -> None:
             value = archive.read(prefix + name)
             if hashlib.sha256(value).hexdigest() != expected:
                 raise ValueError("Wheel asset checksum mismatch")
-        for name in ("app.js", "api.js", "i18n.js", "ui.js", "index.html", "styles.css"):
+        for name in (
+            "app.js",
+            "api.js",
+            "i18n.js",
+            "ui.js",
+            "index.html",
+            "styles.css",
+            "upload.js",
+            "upload-client.js",
+        ):
             if "receipttrace/static/" + name not in names:
                 raise ValueError("Frontend file missing from wheel")
         if prefix + "ATTRIBUTION.md" not in names:

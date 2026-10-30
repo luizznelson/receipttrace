@@ -6,6 +6,10 @@ A interface apresenta o problema, os resultados do experimento e três recibos r
 
 Os indicadores usam os resultados publicados dos 20 documentos de desenvolvimento. Os três exemplos foram escolhidos para ilustrar falhas do OCR; não são uma amostra independente ou representativa.
 
+## Testar uma imagem própria
+
+A jornada “Testar meu recibo” permite envio temporário, OCR local, conferência e download. Instale também o extra `ocr` e inicie com `--uploads`; veja o [guia completo](uploads.md). O envio é independente da revisão persistente dos exemplos e pode ser habilitado junto de `--read-only`.
+
 ## Como abrir no computador
 
 Na raiz do projeto:
@@ -46,7 +50,7 @@ A interface apresenta separadamente o processamento, a verificação aritmética
 uv run --no-sync receipttrace serve --read-only
 ```
 
-Esse modo serve apresentação, exemplos e evidências. Não cria banco nem permite ler ou alterar revisões. É a configuração adequada para uma demonstração pública com exemplos salvos.
+Esse modo serve apresentação, exemplos e evidências. Não cria banco nem permite ler ou alterar revisões. Com `--uploads`, também permite processar novas imagens e conferir seus campos de forma transitória, sem gravar no banco. É a configuração adequada para uma demonstração pública com exemplos salvos.
 
 O comando recusa revisão mutável com `--host 0.0.0.0`; essa vinculação exige `--read-only`. A fábrica `receipttrace.web:create_app` também inicia em somente leitura por padrão. O modo de revisão restringe os nomes de host a endereços locais e recusa origens diferentes. Esses controles não são autenticação para uma aplicação multiusuário.
 
@@ -101,7 +105,7 @@ uv run --no-sync ruff check .
 uv run --no-sync mypy
 uv run --no-sync pytest
 node scripts/check-web.mjs
-node --test tests/web/ui.test.mjs tests/web/api.test.mjs
+node --test tests/web/ui.test.mjs tests/web/api.test.mjs tests/web/upload-client.test.mjs
 npm.cmd ci --ignore-scripts
 npm.cmd run format:check
 ```

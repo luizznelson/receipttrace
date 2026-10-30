@@ -1,5 +1,224 @@
 // Keep the same content in both languages; source receipt values are never translated.
 const phrases = {
+  upload_invalid_field: [
+    "{field}: o formato é inválido para a convenção escolhida. Confira separadores, sinais e casas decimais.",
+    "{field}: the format is invalid for the chosen convention. Check separators, signs and decimal places.",
+  ],
+  upload_total_mismatch: [
+    "O cálculo resultou em {expected}, mas o total informado é {observed}. Confira subtotal, desconto, imposto, serviço e total.",
+    "The calculation gave {expected}, but the entered total is {observed}. Check subtotal, discount, tax, service and total.",
+  ],
+  upload_total_skipped: [
+    "A conferência exige cinco campos explícitos e válidos: subtotal, desconto, imposto, serviço e total. Campo em branco não significa zero.",
+    "To check the total, subtotal, discount, tax, service and total must be explicit and valid. A blank field does not mean zero.",
+  ],
+  nav_try: ["Testar meu recibo", "Try my receipt"],
+  upload_index: ["02 / TESTE COM SEU RECIBO", "02 / TRY YOUR OWN RECEIPT"],
+  upload_title: [
+    "Seu documento. Uma leitura que você acompanha.",
+    "Your document. A reading you can follow.",
+  ],
+  upload_description: [
+    "Envie uma imagem, veja o que foi encontrado e confira antes de usar.",
+    "Send an image, see what was found and check it before using the data.",
+  ],
+  upload_examples_link: ["Prefere começar por um exemplo?", "Prefer to start with an example?"],
+  upload_steps_label: ["Etapas do teste", "Test steps"],
+  upload_step_choose: ["Escolher", "Choose"],
+  upload_step_read: ["Ler", "Read"],
+  upload_step_review: ["Conferir", "Check"],
+  upload_step_export: ["Levar o resultado", "Take the result"],
+  upload_choose: ["Escolha a imagem do recibo", "Choose a receipt image"],
+  upload_no_file: ["Nenhuma imagem selecionada.", "No image selected."],
+  upload_formats: [
+    "PNG ou JPG · até 8 MB e 12 megapixels · uma imagem por vez.",
+    "PNG or JPG · up to 8 MB and 12 megapixels · one image at a time.",
+  ],
+  upload_policy: ["Como os números estão escritos?", "How are the numbers written?"],
+  upload_policy_brl: ["Vírgula decimal: 12,50 ou 1.234,56", "Decimal comma: 12,50 or 1.234,56"],
+  upload_policy_usd: ["Ponto decimal: 12.50 ou 1,234.56", "Decimal point: 12.50 or 1,234.56"],
+  upload_policy_idr: [
+    "Sem centavos: 61,799 ou 61.799 (CORD)",
+    "Whole amounts: 61,799 or 61.799 (CORD)",
+  ],
+  upload_policy_help: [
+    "Escolha pelo documento, não pelo idioma da página. A moeda não será presumida.",
+    "Choose based on the document, not the page language. Currency is not inferred.",
+  ],
+  upload_consent: [
+    "Estou enviando apenas um recibo sem dados pessoais ou sensíveis.",
+    "I am only sending a receipt without personal or sensitive information.",
+  ],
+  upload_read: ["Ler meu recibo", "Read my receipt"],
+  upload_reset: ["Limpar este teste", "Clear this test"],
+  upload_privacy: [
+    "OCR local no servidor, sem enviar a provedores de IA. Imagem e texto são processados em memória, sem gravação pela aplicação. O resultado fica nesta aba até você limpar ou fechar.",
+    "OCR runs locally on the server, without sending to AI providers. Image and text are processed in memory without being saved by the application. Results remain in this tab until you clear or close it.",
+  ],
+  upload_your_image: ["A imagem que você enviou", "The image you sent"],
+  upload_photo_tip: [
+    "Fotografe de frente, com boa luz e o recibo inteiro. Texto legível faz diferença.",
+    "Take a straight, well-lit photo of the entire receipt. Readable text makes a difference.",
+  ],
+  upload_preview_alt: ["Prévia do recibo enviado", "Preview of the uploaded receipt"],
+  upload_guide_label: ["O QUE VOCÊ VAI RECEBER", "WHAT YOU WILL GET"],
+  upload_guide_title: [
+    "Uma leitura inicial, com espaço para conferir.",
+    "An initial reading, with room to check.",
+  ],
+  upload_guide_body: [
+    "O sistema procura total, subtotal, imposto, serviço e desconto. Se não encontrar um valor com clareza, deixa o campo em branco. Você confere a imagem e decide o que corrigir.",
+    "The system looks for total, subtotal, tax, service and discount. When no clear value is found, the field stays blank. Check the image and decide what to correct.",
+  ],
+  upload_limit: [
+    "Recibos e idiomas diferentes podem exigir correção. Este teste ainda não valida documentos fiscais brasileiros nem mede acurácia.",
+    "Different receipts and languages may need corrections. This test does not validate Brazilian fiscal documents or measure accuracy.",
+  ],
+  upload_resized: [
+    "A imagem foi reduzida para limitar o processamento. Confira detalhes pequenos no original.",
+    "The image was resized to bound processing. Check small details in the original.",
+  ],
+  upload_reason: ["O que você corrigiu e por quê?", "What did you correct and why?"],
+  upload_reason_placeholder: [
+    "Ex.: o valor era do pagamento; corrigi pelo total na imagem.",
+    "E.g. the value was the payment; I corrected it using the image total.",
+  ],
+  upload_reason_required: [
+    "Descreva a correção para incluir o motivo no arquivo.",
+    "Describe your correction so the reason is included in the file.",
+  ],
+  upload_validate: ["Conferir formato e cálculos", "Check format and calculations"],
+  upload_download: ["Baixar resultado em JSON", "Download result as JSON"],
+  upload_check_limit: [
+    "Os itens não são estruturados neste teste, e sua soma não é conferida. Um formato válido não comprova que o valor foi lido corretamente.",
+    "Items are not structured in this test and their sum is not checked. A valid format does not prove the value was read correctly.",
+  ],
+  upload_text_title: ["Ver o texto que o OCR leu", "See the text OCR read"],
+  upload_history_title: ["Acompanhar este teste", "Follow this test"],
+  upload_history_note: [
+    "Registro desta aba, sem identidade autenticada. O download preserva a leitura original, as alterações e os horários. Nada é acrescentado aos indicadores do estudo.",
+    "A record of this tab, without authenticated identity. The download preserves the original reading, changes and timestamps. Nothing is added to the study indicators.",
+  ],
+  upload_connection: [
+    "Não foi possível verificar a disponibilidade. Recarregue a página ou explore os exemplos abaixo.",
+    "Availability could not be checked. Reload the page or explore the examples below.",
+  ],
+  upload_disabled: [
+    "O envio não está disponível nesta instância. Você pode explorar os exemplos e os resultados abaixo.",
+    "Uploads are unavailable on this instance. You can explore the examples and results below.",
+  ],
+  upload_wait: [
+    "Recebendo e lendo a imagem · {n} s. Pode levar até um minuto. Mantenha esta aba aberta.",
+    "Receiving and reading the image · {n} s. This may take up to one minute. Keep this tab open.",
+  ],
+  upload_found: [
+    "{n} DE 5 CAMPOS IDENTIFICADOS · ISSO NÃO É NOTA DE ACERTO",
+    "{n} OF 5 FIELDS IDENTIFIED · THIS IS NOT AN ACCURACY SCORE",
+  ],
+  upload_empty: [
+    "Não encontramos texto legível. Tente uma foto mais clara.",
+    "No readable text found. Try a clearer photo.",
+  ],
+  upload_needs_review: [
+    "Leitura pronta. Agora, confira a imagem.",
+    "Reading ready. Now check the image.",
+  ],
+  upload_edit: ["Seu recibo · {field}", "Your receipt · {field}"],
+  upload_original: ["Leitura original: {value}", "Original reading: {value}"],
+  upload_missing: ["Não identificado", "Not identified"],
+  upload_ambiguous: [
+    "Há valores conflitantes. Confira o texto reconhecido e preencha manualmente.",
+    "Conflicting values were found. Check the recognized text and enter the value manually.",
+  ],
+  upload_evidence: ["Encontrado em: {text}", "Found in: {text}"],
+  upload_no_evidence: [
+    "Sem leitura segura para este campo. Preencha apenas se conseguir conferir na imagem.",
+    "No clear reading for this field. Only fill it in if you can check it in the image.",
+  ],
+  upload_duration: [
+    "OCR local e regras de leitura · {n} s, incluindo inicialização.",
+    "Local OCR and reading rules · {n} s, including initialization.",
+  ],
+  upload_changed: [
+    "{n} campo(s) alterado(s). Confira o formato e registre o motivo antes de baixar.",
+    "{n} changed field(s). Check the format and record the reason before downloading.",
+  ],
+  upload_unchanged: [
+    "Nenhuma alteração em relação à leitura original.",
+    "No changes from the original reading.",
+  ],
+  upload_checks_summary: [
+    "{pass} cálculo(s) conferido(s) · {issues} problema(s) de formato ou cálculo · {skipped} verificação(ões) sem dados suficientes. Ainda é necessário conferir a imagem.",
+    "{pass} calculation(s) checked · {issues} format or calculation issue(s) · {skipped} check(s) without enough data. The image still needs to be checked.",
+  ],
+  upload_check_pending: [
+    "Os valores foram alterados. Confira o formato e os cálculos antes de baixar.",
+    "Values have changed. Check the format and calculations before downloading.",
+  ],
+  upload_downloaded: [
+    "Download solicitado. O arquivo inclui a leitura original, sua versão e o registro deste teste.",
+    "Download requested. The file includes the original reading, your version and this test record.",
+  ],
+  upload_event_selected: ["Imagem selecionada nesta aba", "Image selected in this tab"],
+  upload_event_started: ["Leitura iniciada", "Reading started"],
+  upload_event_read: [
+    "Leitura recebida; conferência necessária",
+    "Reading received; review needed",
+  ],
+  upload_event_failed: ["Leitura não concluída", "Reading not completed"],
+  upload_event_checked: [
+    "Formato e cálculos avaliados para os valores atuais",
+    "Format and calculations evaluated for current values",
+  ],
+  upload_event_exported: ["Download solicitado", "Download requested"],
+  upload_error_image_required: [
+    "Escolha uma imagem PNG ou JPG. PDF e outros formatos ainda não são aceitos.",
+    "Choose a PNG or JPG image. PDF and other formats are not supported yet.",
+  ],
+  upload_error_request_too_large: [
+    "A imagem está vazia ou excede 8 MB. Escolha outra ou reduza o arquivo.",
+    "The image is empty or exceeds 8 MB. Choose another image or reduce the file size.",
+  ],
+  upload_error_invalid_image: [
+    "A imagem está danificada ou não corresponde ao formato informado. Salve uma nova cópia em PNG ou JPG.",
+    "The image is damaged or does not match its stated format. Save a new PNG or JPG copy.",
+  ],
+  upload_error_image_dimensions: [
+    "Use uma imagem de até 12 megapixels, até 12.000 pixels por lado e com pelo menos 32 pixels em cada lado.",
+    "Use an image up to 12 megapixels, up to 12,000 pixels per side and at least 32 pixels on each side.",
+  ],
+  upload_error_image_too_complex: [
+    "A imagem contém texto demais para este teste. Envie apenas um recibo.",
+    "The image has too much text for this test. Send only one receipt.",
+  ],
+  upload_error_ocr_busy: [
+    "Outra imagem está sendo processada. Aguarde um minuto e tente novamente.",
+    "Another image is being processed. Wait a minute and try again.",
+  ],
+  upload_error_upload_rate_limited: [
+    "O limite de testes desta instância foi atingido. Aguarde um minuto e tente novamente.",
+    "This instance has reached its test limit. Wait a minute and try again.",
+  ],
+  upload_error_ocr_timeout: [
+    "A leitura excedeu o tempo disponível e foi interrompida. Tente uma imagem menor e mais nítida.",
+    "Reading exceeded the available time and was stopped. Try a smaller, clearer image.",
+  ],
+  upload_error_request_timeout: [
+    "A resposta demorou além do limite. Não houve reenvio automático. Aguarde antes de tentar novamente.",
+    "The response took too long. No automatic retry was made. Wait before trying again.",
+  ],
+  upload_error_network_error: [
+    "A conexão falhou. Seu arquivo continua selecionado; verifique a conexão antes de tentar novamente.",
+    "The connection failed. Your file remains selected; check your connection before trying again.",
+  ],
+  upload_error_ocr_unavailable: [
+    "A leitura está indisponível nesta instância. Explore os exemplos enquanto isso.",
+    "Reading is unavailable on this instance. Explore the examples meanwhile.",
+  ],
+  upload_error_generic: [
+    "Não foi possível concluir o teste. A imagem não foi salva pela aplicação. Tente novamente ou explore os exemplos.",
+    "The test could not be completed. The image was not saved by the application. Try again or explore the examples.",
+  ],
   uncertain_text: [
     "Não foi possível confirmar se a alteração foi salva. Recarregue e confira o histórico antes de tentar novamente.",
     "We could not confirm whether the change was saved. Reload and check the history before trying again.",
@@ -33,7 +252,7 @@ const phrases = {
     "ReceiptTrace · Extração que você pode conferir",
     "ReceiptTrace · Extraction you can check",
   ],
-  skip: ["Pular para o exemplo", "Skip to the example"],
+  skip: ["Pular para o teste", "Skip to the test"],
   navigation: ["Navegação principal", "Main navigation"],
   nav_approach: ["A proposta", "The approach"],
   nav_demo: ["Explorar exemplo", "Explore an example"],
@@ -42,14 +261,14 @@ const phrases = {
   hero_a: ["Da imagem do recibo", "From a receipt image"],
   hero_b: ["ao dado que você confere.", "to data you can check."],
   hero_description: [
-    "Leia os valores, compare OCR e IA e acompanhe cada correção. Um estudo com recibos reais, resultados verificáveis e limites claros.",
-    "Read the values, compare OCR and AI, and trace each correction. A study with real receipts, verifiable results, and clear limits.",
+    "Teste a leitura do seu recibo, confira os valores e leve o resultado com o registro das correções. Explore também o estudo que compara OCR e IA em documentos públicos.",
+    "Try reading your receipt, check the values and take the result with a record of corrections. Also explore the study comparing OCR and AI on public documents.",
   ],
-  explore: ["Explorar um recibo", "Explore a receipt"],
+  explore: ["Testar meu recibo", "Try my receipt"],
   see_results: ["Ver o que foi medido", "See what was measured"],
   hero_note: [
-    "Exemplos já processados. Não exige chave de API.",
-    "Saved examples. No API key required.",
+    "Teste com OCR local ou explore exemplos prontos. Não exige chave de API.",
+    "Try local OCR or explore saved examples. No API key required.",
   ],
   hero_visual: [
     "Exemplo real com total recuperado pela IA",
@@ -87,7 +306,7 @@ const phrases = {
     "Cenário proposto para equipes administrativas e financeiras. Ganho de produtividade ainda não foi medido.",
     "A proposed use case for administrative and finance teams. Productivity gains have not been measured.",
   ],
-  workspace_index: ["02 / EXPLORE UM CASO REAL", "02 / EXPLORE A REAL CASE"],
+  workspace_index: ["03 / ENTENDA COM EXEMPLOS", "03 / UNDERSTAND THROUGH EXAMPLES"],
   workspace_title: ["Da leitura à revisão.", "From extraction to review."],
   workspace_description: [
     "Escolha um exemplo e veja o que cada abordagem encontrou.",
@@ -191,7 +410,7 @@ const phrases = {
     "Campos da extração original, antes das correções:",
     "Original extraction fields, before corrections:",
   ],
-  results_index: ["03 / O QUE OS DADOS RESPONDEM", "03 / WHAT THE DATA TELLS US"],
+  results_index: ["04 / O QUE OS DADOS RESPONDEM", "04 / WHAT THE DATA TELLS US"],
   results_title: [
     "Mais valores corretos. Mais tempo por leitura.",
     "More correct values. More time per reading.",
@@ -222,8 +441,8 @@ const phrases = {
   ],
   limits_title: ["Resultado de um estudo de desenvolvimento.", "Results from a development study."],
   limits_body: [
-    "Não é teste em dados reservados, validação de documentos fiscais brasileiros ou medição de economia de trabalho. A demonstração usa respostas salvas e não faz novas chamadas de IA.",
-    "This is not a held-out test, validation of Brazilian fiscal documents, or a measurement of labor savings. The demonstration uses saved responses and makes no new AI calls.",
+    "Não é teste em dados reservados, validação de documentos fiscais brasileiros ou medição de economia de trabalho. Os exemplos usam respostas salvas. O envio de novos recibos usa OCR local, sem chamadas a provedores de IA.",
+    "This is not a held-out test, validation of Brazilian fiscal documents, or a measurement of labor savings. The examples use saved responses. New receipts use local OCR, without calls to AI providers.",
   ],
   footer_description: [
     "Engenharia de IA com resultados que podem ser conferidos.",
