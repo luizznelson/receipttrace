@@ -5,14 +5,14 @@
 Use Python 3.14 e uv. O arquivo `uv.lock` fixa as versões das dependências. Na raiz do projeto:
 
 ```powershell
-uv sync --locked
+uv sync --locked --extra web
 uv run ruff format --check .
 uv run ruff check .
 uv run mypy
 uv run pytest
 ```
 
-Ruff verifica formatação e estilo; mypy verifica tipos; pytest executa os testes. Os testes usam exemplos sintéticos identificados e não baixam o CORD nem fazem chamadas de IA. A medição da qualidade dos extratores é uma etapa separada.
+Ruff verifica formatação e estilo; mypy verifica tipos; pytest executa os testes. Os testes usam exemplos sintéticos identificados e as evidências públicas incluídas, sem baixar o CORD ou fazer chamadas de IA. O extra `web` fornece as bibliotecas para checar os tipos e executar os testes da API. A medição da qualidade dos extratores é uma etapa separada.
 
 Para gerar novas extrações, instale a dependência opcional indicada no [guia OCR](ocr.md) ou no [guia Gemini](gemini.md). Reavaliar as respostas já publicadas não exige uma chave de API.
 
@@ -46,4 +46,8 @@ Os recibos foram avaliados como amostra de desenvolvimento. A revisão visual in
 
 Fonte: [CORD v2](https://huggingface.co/datasets/naver-clova-ix/cord-v2), dos [autores do CORD](https://github.com/clovaai/cord), sob [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
-As imagens são preservadas byte a byte. As anotações são serializadas novamente em JSON sem alteração de conteúdo. Imagens, gabaritos e execuções de trabalho ficam fora do Git. Relatórios e cópias revisadas de resultados derivados ficam em `docs/reports/`, com atribuição da origem.
+As imagens são preservadas byte a byte. As anotações são serializadas novamente em JSON sem alteração de conteúdo. O dataset completo, os gabaritos e as execuções de trabalho ficam fora do Git. A aplicação inclui três imagens originais com atribuição para a demonstração independente de download. Relatórios e cópias revisadas de resultados derivados ficam em `docs/reports/`, com atribuição da origem.
+
+## Verificações do frontend
+
+Com Node.js 22 ou superior, execute `node scripts/check-web.mjs` e `node --test tests/web/ui.test.mjs`. Os testes nativos não exigem pacotes JavaScript. Para conferir a formatação, instale o Prettier fixado com `npm.cmd ci --ignore-scripts` e execute `npm.cmd run format:check` (use `npm` em Linux/macOS). Para uso da aplicação, siga o [guia web](web.md).

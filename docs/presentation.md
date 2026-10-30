@@ -4,7 +4,7 @@
 
 Uma pessoa deve entender qual problema o ReceiptTrace trata, ver um exemplo real e localizar a evidência dos resultados. A primeira leitura deve servir a quem avalia o valor do projeto; detalhes de implementação ficam disponíveis para quem precisa investigar.
 
-Este documento orienta a interface futura, ainda não implementada. O [fluxo local de revisão](review.md) já fornece persistência, estados e histórico por comandos; sua apresentação visual continua pendente. A base de conteúdo é o [caso de negócio](business-case.md).
+Este documento orienta a apresentação e sua evolução. A primeira interface está implementada com três exemplos, PT-BR/EN e revisão de cinco campos de totais. O [guia da aplicação](web.md) descreve o uso e os limites atuais. A base de conteúdo é o [caso de negócio](business-case.md).
 
 ## Estrutura da apresentação pública
 
@@ -14,7 +14,7 @@ Este documento orienta a interface futura, ainda não implementada. O [fluxo loc
 | 2 | Um exemplo de recibo | Como a imagem se transforma em campos conferíveis | Imagem ao lado dos valores extraídos, origem e situação das verificações |
 | 3 | Perguntas e resultados | O que melhorou e o que custou mais tempo | Comparação OCR/IA, contagens e tempo de processamento |
 | 4 | Como conferir | Por que o resultado pode ser investigado | Documento, resposta original e evidência da avaliação |
-| 5 | Limites e estágio | O que já funciona e o que continua pendente | Amostra de desenvolvimento, itens não avaliados e interface de revisão ainda pendente |
+| 5 | Limites e estágio | O que já funciona e o que continua pendente | Amostra de desenvolvimento, itens não avaliados e edição visual limitada a cinco campos de totais |
 | 6 | Implementação e reprodução | Como o trabalho foi construído e pode ser verificado | Link para repositório, documentação e relatório detalhado |
 
 ### Texto inicial proposto
@@ -37,7 +37,7 @@ As chamadas para ação da primeira demonstração devem abrir exemplos ou relat
 4. Entende quais verificações foram executadas, quais ficaram sem informação e o que não foi avaliado.
 5. Acessa o relatório do lote e os detalhes técnicos se quiser conferir o método.
 
-A primeira demonstração pública proposta usa resultados salvos. Isso permite apresentar o trabalho sem depender de novas chamadas ou de cota disponível no momento da visita. A preparação das imagens para a demonstração ainda precisa ser implementada com a atribuição do CORD; imagens e gabaritos não são incluídos automaticamente no Git. A chave nunca deve ir para o navegador.
+A primeira demonstração pública proposta usa resultados salvos. Isso permite apresentar o trabalho sem depender de novas chamadas ou de cota disponível no momento da visita. Três imagens originais fazem parte do pacote, com atribuição do CORD e hashes conferidos. O dataset completo e os arquivos de gabarito continuam fora do Git. A chave nunca deve ir para o navegador.
 
 ## Quais números mostrar e como explicá-los
 
@@ -99,4 +99,4 @@ Esses textos são a proposta de apresentação. O estado “Revisão concluída�
 6. Todos os botões têm uma ação implementada; não há promessa de revisão ou exportação ainda indisponível.
 7. O mesmo conteúdo essencial está disponível em PT-BR e inglês, com verificação em tela pequena e por teclado.
 
-Framework, desenho final e hospedagem serão definidos na implementação. O objetivo destas regras é manter a apresentação fiel ao produto e aos resultados existentes.
+A primeira implementação usa FastAPI e módulos JavaScript sem build, conforme a [ADR-002](architecture-web.md). O visual foi verificado em desktop e celular; hospedagem continua pendente. O objetivo destas regras é manter a apresentação fiel ao produto e aos resultados existentes.

@@ -1,0 +1,453 @@
+{
+  "id": "cord-train-shard0-row0108",
+  "image_sha256": "4ab262e4ef4c1a7ef75e85b7a28a29120bf2cb758d7a2d4d017c11cf4692e696",
+  "status": "ok",
+  "lines": [
+    {
+      "text": "30,000",
+      "score": 0.99985,
+      "box": [
+        [
+          1623.0858154296875,
+          1608.258056640625
+        ],
+        [
+          1839.0858154296875,
+          1608.258056640625
+        ],
+        [
+          1839.0858154296875,
+          1686.7095947265625
+        ],
+        [
+          1623.0858154296875,
+          1686.7095947265625
+        ]
+      ]
+    },
+    {
+      "text": "1X M-Ice Cream Milk Te @30,000",
+      "score": 0.97784,
+      "box": [
+        [
+          541.0286254882812,
+          1637.1612548828125
+        ],
+        [
+          1520.2286376953125,
+          1610.322509765625
+        ],
+        [
+          1522.2857666015625,
+          1684.6451416015625
+        ],
+        [
+          543.0857543945312,
+          1711.4837646484375
+        ]
+      ]
+    },
+    {
+      "text": "Fr Konjac",
+      "score": 0.99915,
+      "box": [
+        [
+          608.914306640625,
+          1701.1612548828125
+        ],
+        [
+          917.4857788085938,
+          1697.0322265625
+        ],
+        [
+          917.4857788085938,
+          1765.1612548828125
+        ],
+        [
+          608.914306640625,
+          1769.290283203125
+        ]
+      ]
+    },
+    {
+      "text": "70%",
+      "score": 0.99996,
+      "box": [
+        [
+          615.0857543945312,
+          1756.9031982421875
+        ],
+        [
+          738.5143432617188,
+          1756.9031982421875
+        ],
+        [
+          738.5143432617188,
+          1835.354736328125
+        ],
+        [
+          615.0857543945312,
+          1835.354736328125
+        ]
+      ]
+    },
+    {
+      "text": "Less Ice",
+      "score": 0.96995,
+      "box": [
+        [
+          615.0857543945312,
+          1829.1612548828125
+        ],
+        [
+          892.800048828125,
+          1829.1612548828125
+        ],
+        [
+          892.800048828125,
+          1913.806396484375
+        ],
+        [
+          615.0857543945312,
+          1913.806396484375
+        ]
+      ]
+    },
+    {
+      "text": "PB1:",
+      "score": 0.99489,
+      "box": [
+        [
+          1143.771484375,
+          1977.806396484375
+        ],
+        [
+          1293.94287109375,
+          1977.806396484375
+        ],
+        [
+          1293.94287109375,
+          2062.45166015625
+        ],
+        [
+          1143.771484375,
+          2062.45166015625
+        ]
+      ]
+    },
+    {
+      "text": "Subtotal:",
+      "score": 0.99981,
+      "box": [
+        [
+          995.6572265625,
+          2056.258056640625
+        ],
+        [
+          1293.94287109375,
+          2056.258056640625
+        ],
+        [
+          1293.94287109375,
+          2140.903076171875
+        ],
+        [
+          995.6572265625,
+          2140.903076171875
+        ]
+      ]
+    },
+    {
+      "text": "30,000",
+      "score": 0.99979,
+      "box": [
+        [
+          1608.685791015625,
+          2048.0
+        ],
+        [
+          1816.457275390625,
+          2043.870849609375
+        ],
+        [
+          1818.514404296875,
+          2132.64501953125
+        ],
+        [
+          1610.742919921875,
+          2136.774169921875
+        ]
+      ]
+    },
+    {
+      "text": "Total:",
+      "score": 0.9998,
+      "box": [
+        [
+          1086.1715087890625,
+          2128.51611328125
+        ],
+        [
+          1289.82861328125,
+          2128.51611328125
+        ],
+        [
+          1289.82861328125,
+          2215.225830078125
+        ],
+        [
+          1086.1715087890625,
+          2215.225830078125
+        ]
+      ]
+    },
+    {
+      "text": "30,000",
+      "score": 0.99982,
+      "box": [
+        [
+          1610.742919921875,
+          2122.322509765625
+        ],
+        [
+          1820.571533203125,
+          2122.322509765625
+        ],
+        [
+          1820.571533203125,
+          2209.0322265625
+        ],
+        [
+          1610.742919921875,
+          2209.0322265625
+        ]
+      ]
+    },
+    {
+      "text": "DEBIT:",
+      "score": 0.99951,
+      "box": [
+        [
+          1088.2286376953125,
+          2209.0322265625
+        ],
+        [
+          1291.8857421875,
+          2209.0322265625
+        ],
+        [
+          1291.8857421875,
+          2289.54833984375
+        ],
+        [
+          1088.2286376953125,
+          2289.54833984375
+        ]
+      ]
+    },
+    {
+      "text": "30,000",
+      "score": 0.99991,
+      "box": [
+        [
+          1612.800048828125,
+          2196.64501953125
+        ],
+        [
+          1826.742919921875,
+          2196.64501953125
+        ],
+        [
+          1826.742919921875,
+          2283.354736328125
+        ],
+        [
+          1612.800048828125,
+          2283.354736328125
+        ]
+      ]
+    },
+    {
+      "text": "CHANGE:",
+      "score": 0.99943,
+      "box": [
+        [
+          1059.4285888671875,
+          2361.806396484375
+        ],
+        [
+          1293.94287109375,
+          2361.806396484375
+        ],
+        [
+          1293.94287109375,
+          2442.322509765625
+        ],
+        [
+          1059.4285888671875,
+          2442.322509765625
+        ]
+      ]
+    }
+  ],
+  "evidence": {
+    "rows": [
+      "1X M-Ice Cream Milk Te @30,000 30,000",
+      "Fr Konjac",
+      "70%",
+      "Less Ice",
+      "PB1:",
+      "Subtotal: 30,000",
+      "Total: 30,000",
+      "DEBIT: 30,000",
+      "CHANGE:"
+    ],
+    "item_rows": [
+      "1X M-Ice Cream Milk Te @30,000 30,000"
+    ],
+    "subtotal": {
+      "candidates": [
+        [
+          1,
+          "30,000",
+          "Subtotal: 30,000"
+        ]
+      ],
+      "ambiguous": false
+    },
+    "total": {
+      "candidates": [
+        [
+          1,
+          "30,000",
+          "Total: 30,000"
+        ]
+      ],
+      "ambiguous": false
+    }
+  },
+  "validation": {
+    "schema_version": "1",
+    "rules_version": "1",
+    "numeric_policy": "idr-grouped",
+    "quantity_policy": "decimal-dot-optional-x",
+    "tolerance": "0",
+    "raw": {
+      "document_id": "cord-train-shard0-row0108",
+      "currency": null,
+      "items": [
+        {
+          "description": "M-Ice Cream Milk Te @30,000",
+          "quantity": "1X",
+          "unit_price": null,
+          "amount": "30,000",
+          "discount": null,
+          "children": []
+        }
+      ],
+      "items_complete": false,
+      "subtotal": "30,000",
+      "discount": null,
+      "tax": null,
+      "service": null,
+      "total": "30,000"
+    },
+    "normalized": {
+      "document_id": "cord-train-shard0-row0108",
+      "currency": null,
+      "items": [
+        {
+          "description": "M-Ice Cream Milk Te @30,000",
+          "quantity": {
+            "raw": "1X",
+            "value": "1",
+            "status": "parsed",
+            "reason": null
+          },
+          "unit_price": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "amount": {
+            "raw": "30,000",
+            "value": "30000",
+            "status": "parsed",
+            "reason": null
+          },
+          "discount": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "children": []
+        }
+      ],
+      "items_complete": false,
+      "subtotal": {
+        "raw": "30,000",
+        "value": "30000",
+        "status": "parsed",
+        "reason": null
+      },
+      "discount": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "tax": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "service": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "total": {
+        "raw": "30,000",
+        "value": "30000",
+        "status": "parsed",
+        "reason": null
+      }
+    },
+    "checks": [
+      {
+        "code": "item_total",
+        "path": "items[0]",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "subtotal",
+        "path": "subtotal",
+        "status": "skipped",
+        "reason": "incomplete_or_nested_items",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "receipt_total",
+        "path": "total",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      }
+    ],
+    "has_findings": false,
+    "has_skipped_checks": true
+  },
+  "seconds": 1.5391806999978144
+}

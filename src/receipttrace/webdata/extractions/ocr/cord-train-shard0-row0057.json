@@ -1,0 +1,645 @@
+{
+  "id": "cord-train-shard0-row0057",
+  "image_sha256": "ddd0d628f90771e545e05d3d67832f40f232d1e21d2af746b82846e70cb23e19",
+  "status": "ok",
+  "lines": [
+    {
+      "text": "1 PL. MUFFIN BLUEBERRY",
+      "score": 0.99335,
+      "box": [
+        [
+          65.0,
+          517.0
+        ],
+        [
+          319.0,
+          517.0
+        ],
+        [
+          319.0,
+          546.0
+        ],
+        [
+          65.0,
+          546.0
+        ]
+      ]
+    },
+    {
+      "text": "14,000",
+      "score": 0.99923,
+      "box": [
+        [
+          416.0,
+          515.0
+        ],
+        [
+          489.0,
+          517.0
+        ],
+        [
+          488.0,
+          551.0
+        ],
+        [
+          415.0,
+          549.0
+        ]
+      ]
+    },
+    {
+      "text": "1 RB. ABON AYAM",
+      "score": 0.97463,
+      "box": [
+        [
+          62.0,
+          545.0
+        ],
+        [
+          246.0,
+          543.0
+        ],
+        [
+          247.0,
+          575.0
+        ],
+        [
+          62.0,
+          577.0
+        ]
+      ]
+    },
+    {
+      "text": "9,000",
+      "score": 0.99974,
+      "box": [
+        [
+          425.0,
+          542.0
+        ],
+        [
+          490.0,
+          544.0
+        ],
+        [
+          489.0,
+          579.0
+        ],
+        [
+          424.0,
+          577.0
+        ]
+      ]
+    },
+    {
+      "text": "1 RB. COKLAT COFFEE",
+      "score": 0.99048,
+      "box": [
+        [
+          62.0,
+          575.0
+        ],
+        [
+          288.0,
+          572.0
+        ],
+        [
+          288.0,
+          603.0
+        ],
+        [
+          62.0,
+          607.0
+        ]
+      ]
+    },
+    {
+      "text": "8,000",
+      "score": 0.99981,
+      "box": [
+        [
+          426.0,
+          571.0
+        ],
+        [
+          491.0,
+          571.0
+        ],
+        [
+          491.0,
+          606.0
+        ],
+        [
+          426.0,
+          606.0
+        ]
+      ]
+    },
+    {
+      "text": "1 RB. RED BEAN",
+      "score": 0.98747,
+      "box": [
+        [
+          61.0,
+          605.0
+        ],
+        [
+          234.0,
+          601.0
+        ],
+        [
+          234.0,
+          634.0
+        ],
+        [
+          61.0,
+          637.0
+        ]
+      ]
+    },
+    {
+      "text": "8,000",
+      "score": 0.99951,
+      "box": [
+        [
+          425.0,
+          598.0
+        ],
+        [
+          492.0,
+          600.0
+        ],
+        [
+          491.0,
+          635.0
+        ],
+        [
+          424.0,
+          633.0
+        ]
+      ]
+    },
+    {
+      "text": "ITEM:4",
+      "score": 0.99971,
+      "box": [
+        [
+          19.0,
+          665.0
+        ],
+        [
+          105.0,
+          663.0
+        ],
+        [
+          106.0,
+          699.0
+        ],
+        [
+          20.0,
+          701.0
+        ]
+      ]
+    },
+    {
+      "text": "SUBTOTAL.",
+      "score": 0.96779,
+      "box": [
+        [
+          187.0,
+          658.0
+        ],
+        [
+          286.0,
+          655.0
+        ],
+        [
+          287.0,
+          691.0
+        ],
+        [
+          188.0,
+          694.0
+        ]
+      ]
+    },
+    {
+      "text": "39,000",
+      "score": 0.99981,
+      "box": [
+        [
+          415.0,
+          652.0
+        ],
+        [
+          493.0,
+          654.0
+        ],
+        [
+          492.0,
+          691.0
+        ],
+        [
+          414.0,
+          689.0
+        ]
+      ]
+    },
+    {
+      "text": "PCS 4",
+      "score": 0.90676,
+      "box": [
+        [
+          18.0,
+          696.0
+        ],
+        [
+          106.0,
+          696.0
+        ],
+        [
+          106.0,
+          732.0
+        ],
+        [
+          18.0,
+          732.0
+        ]
+      ]
+    },
+    {
+      "text": "DUE",
+      "score": 0.99993,
+      "box": [
+        [
+          186.0,
+          689.0
+        ],
+        [
+          231.0,
+          686.0
+        ],
+        [
+          233.0,
+          721.0
+        ],
+        [
+          187.0,
+          724.0
+        ]
+      ]
+    },
+    {
+      "text": "39,000",
+      "score": 0.99826,
+      "box": [
+        [
+          415.0,
+          680.0
+        ],
+        [
+          493.0,
+          682.0
+        ],
+        [
+          492.0,
+          719.0
+        ],
+        [
+          414.0,
+          717.0
+        ]
+      ]
+    },
+    {
+      "text": "39,000",
+      "score": 0.99992,
+      "box": [
+        [
+          415.0,
+          708.0
+        ],
+        [
+          493.0,
+          711.0
+        ],
+        [
+          492.0,
+          748.0
+        ],
+        [
+          414.0,
+          745.0
+        ]
+      ]
+    },
+    {
+      "text": "CASH",
+      "score": 0.99997,
+      "box": [
+        [
+          186.0,
+          718.0
+        ],
+        [
+          243.0,
+          718.0
+        ],
+        [
+          243.0,
+          751.0
+        ],
+        [
+          186.0,
+          751.0
+        ]
+      ]
+    }
+  ],
+  "evidence": {
+    "rows": [
+      "1 PL. MUFFIN BLUEBERRY 14,000",
+      "1 RB. ABON AYAM 9,000",
+      "1 RB. COKLAT COFFEE 8,000",
+      "1 RB. RED BEAN 8,000",
+      "ITEM:4 SUBTOTAL. 39,000",
+      "PCS 4 DUE 39,000",
+      "CASH 39,000"
+    ],
+    "item_rows": [
+      "1 PL. MUFFIN BLUEBERRY 14,000",
+      "1 RB. ABON AYAM 9,000",
+      "1 RB. COKLAT COFFEE 8,000",
+      "1 RB. RED BEAN 8,000"
+    ],
+    "subtotal": {
+      "candidates": [
+        [
+          1,
+          "39,000",
+          "ITEM:4 SUBTOTAL. 39,000"
+        ]
+      ],
+      "ambiguous": false
+    }
+  },
+  "validation": {
+    "schema_version": "1",
+    "rules_version": "1",
+    "numeric_policy": "idr-grouped",
+    "quantity_policy": "decimal-dot-optional-x",
+    "tolerance": "0",
+    "raw": {
+      "document_id": "cord-train-shard0-row0057",
+      "currency": null,
+      "items": [
+        {
+          "description": "PL. MUFFIN BLUEBERRY",
+          "quantity": "1",
+          "unit_price": null,
+          "amount": "14,000",
+          "discount": null,
+          "children": []
+        },
+        {
+          "description": "RB. ABON AYAM",
+          "quantity": "1",
+          "unit_price": null,
+          "amount": "9,000",
+          "discount": null,
+          "children": []
+        },
+        {
+          "description": "RB. COKLAT COFFEE",
+          "quantity": "1",
+          "unit_price": null,
+          "amount": "8,000",
+          "discount": null,
+          "children": []
+        },
+        {
+          "description": "RB. RED BEAN",
+          "quantity": "1",
+          "unit_price": null,
+          "amount": "8,000",
+          "discount": null,
+          "children": []
+        }
+      ],
+      "items_complete": false,
+      "subtotal": "39,000",
+      "discount": null,
+      "tax": null,
+      "service": null,
+      "total": null
+    },
+    "normalized": {
+      "document_id": "cord-train-shard0-row0057",
+      "currency": null,
+      "items": [
+        {
+          "description": "PL. MUFFIN BLUEBERRY",
+          "quantity": {
+            "raw": "1",
+            "value": "1",
+            "status": "parsed",
+            "reason": null
+          },
+          "unit_price": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "amount": {
+            "raw": "14,000",
+            "value": "14000",
+            "status": "parsed",
+            "reason": null
+          },
+          "discount": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "children": []
+        },
+        {
+          "description": "RB. ABON AYAM",
+          "quantity": {
+            "raw": "1",
+            "value": "1",
+            "status": "parsed",
+            "reason": null
+          },
+          "unit_price": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "amount": {
+            "raw": "9,000",
+            "value": "9000",
+            "status": "parsed",
+            "reason": null
+          },
+          "discount": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "children": []
+        },
+        {
+          "description": "RB. COKLAT COFFEE",
+          "quantity": {
+            "raw": "1",
+            "value": "1",
+            "status": "parsed",
+            "reason": null
+          },
+          "unit_price": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "amount": {
+            "raw": "8,000",
+            "value": "8000",
+            "status": "parsed",
+            "reason": null
+          },
+          "discount": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "children": []
+        },
+        {
+          "description": "RB. RED BEAN",
+          "quantity": {
+            "raw": "1",
+            "value": "1",
+            "status": "parsed",
+            "reason": null
+          },
+          "unit_price": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "amount": {
+            "raw": "8,000",
+            "value": "8000",
+            "status": "parsed",
+            "reason": null
+          },
+          "discount": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "children": []
+        }
+      ],
+      "items_complete": false,
+      "subtotal": {
+        "raw": "39,000",
+        "value": "39000",
+        "status": "parsed",
+        "reason": null
+      },
+      "discount": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "tax": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "service": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "total": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      }
+    },
+    "checks": [
+      {
+        "code": "item_total",
+        "path": "items[0]",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "item_total",
+        "path": "items[1]",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "item_total",
+        "path": "items[2]",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "item_total",
+        "path": "items[3]",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "subtotal",
+        "path": "subtotal",
+        "status": "skipped",
+        "reason": "incomplete_or_nested_items",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "receipt_total",
+        "path": "total",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      }
+    ],
+    "has_findings": false,
+    "has_skipped_checks": true
+  },
+  "seconds": 0.9096193999976094
+}

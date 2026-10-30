@@ -54,7 +54,20 @@ Known estimated API cost was **USD 0** under the confirmed Free Tier configurati
 - Saved responses, settings and file hashes for auditing.
 - Local review with preserved original values and recorded corrections and completion.
 
-The current application, including review, runs through a command line. The application API and user interface remain to be implemented. The planned workflow is: image → extraction → validation → review → export.
+The application has a bilingual interface and API alongside local commands. The visual review edits five totals fields and preserves their history. Hosted deployment remains pending. The planned workflow is: image → extraction → validation → review → export.
+
+## Open the local demonstration
+
+![ReceiptTrace local interface](docs/images/receipttrace-overview.jpg)
+
+Portuguese view shown; the interface also supports English.
+
+```powershell
+uv sync --locked --extra web
+uv run --no-sync receipttrace serve
+```
+
+Open [http://127.0.0.1:8000](http://127.0.0.1:8000). The bilingual interface lets you compare three real receipts, check fields and record reviews in Portuguese or English. It uses saved responses, with no API key or full-dataset download. [Application and API guide (Portuguese)](docs/web.md).
 
 ## Check the results without an API
 
@@ -90,6 +103,8 @@ Saved results allow metrics to be recalculated without new AI calls. New inferen
 - [Scope and acceptance criteria](docs/scope.md)
 - [Architecture and responsibilities](docs/architecture.md)
 - [Data and evaluation protocol](docs/evaluation.md)
+- [Web application and API](docs/web.md)
+- [Web architecture decision](docs/architecture-web.md)
 - [Review and correction history](docs/review.md)
 - [Fields, numbers and arithmetic checks](docs/domain.md)
 - [Environment and quality checks](docs/development.md)
@@ -100,6 +115,6 @@ The detailed technical guides are currently in Portuguese; this README provides 
 
 ## Data, attribution and transparency
 
-Receipts come from the [public CORD v2 dataset](https://huggingface.co/datasets/naver-clova-ix/cord-v2), by the [CORD authors](https://github.com/clovaai/cord), under CC BY 4.0. Images and annotations are not bundled in this repository; published evidence contains derived extraction results. Dataset licensing is separate from code licensing.
+Receipts come from the [public CORD v2 dataset](https://huggingface.co/datasets/naver-clova-ix/cord-v2), by the [CORD authors](https://github.com/clovaai/cord), under CC BY 4.0. The demonstration bundles three unchanged original CORD images with attribution, alongside derived results. The complete dataset and reference files remain outside the repository. Dataset licensing is separate from code licensing.
 
 The project does not yet establish support for Brazilian fiscal documents or invoice–purchase order matching. AI assisted development and documentation. The maintainer remains responsible for understanding, reviewing and verifying the work.

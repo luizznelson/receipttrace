@@ -1,0 +1,229 @@
+{
+  "id": "cord-train-shard0-row0006",
+  "image_sha256": "ad04e4f531ad5f58a944cd30d166d2373d518101bd0efaa4e82a257c33255c83",
+  "counted_input_tokens": 1311,
+  "reserved_usd": "0",
+  "response": {
+    "status": "completed",
+    "model": "gemini-3.5-flash-lite",
+    "id": null,
+    "usage": {
+      "input_tokens": 1312,
+      "output_tokens": 213
+    },
+    "output": [],
+    "gemini_response": {
+      "status": "completed",
+      "usage": {
+        "total_tokens": 1525,
+        "total_input_tokens": 1312,
+        "input_tokens_by_modality": [
+          {
+            "modality": "image",
+            "tokens": 1080
+          },
+          {
+            "modality": "text",
+            "tokens": 232
+          }
+        ],
+        "total_cached_tokens": 0,
+        "total_output_tokens": 213,
+        "total_tool_use_tokens": 0,
+        "total_thought_tokens": 0,
+        "initial_input_tokens": 2570
+      },
+      "created": "2026-10-29T19:14:55Z",
+      "updated": "2026-10-29T19:14:55Z",
+      "service_tier": "standard",
+      "steps": [
+        {
+          "signature": "EmAKXgFpFH0TDV+rEs+joZJMcTzdmtd1x9M1WIO1TaGi8883lzKRqpEIyR3qL0cQesnWytvQp10EKVDiwoQ3dYkEjA8d7Dy9envxf7+fwZjDqLLnuqQ2BpCvxFGpGGvTHWM=",
+          "type": "thought"
+        },
+        {
+          "content": [
+            {
+              "text": "{\n  \"currency\": null,\n  \"items\": [\n    {\n      \"description\": \"BASO TAHU\",\n      \"quantity\": \"1\",\n      \"unit_price\": \"43,181\",\n      \"amount\": \"43,181\",\n      \"discount\": null,\n      \"children\": []\n    },\n    {\n      \"description\": \"ES JERUK\",\n      \"quantity\": \"1\",\n      \"unit_price\": \"13,000\",\n      \"amount\": \"13,000\",\n      \"discount\": null,\n      \"children\": []\n    }\n  ],\n  \"items_complete\": false,\n  \"subtotal\": \"56,181\",\n  \"discount\": null,\n  \"tax\": \"5,618\",\n  \"service\": null,\n  \"total\": \"61,799\"\n}",
+              "type": "text"
+            }
+          ],
+          "type": "model_output"
+        }
+      ],
+      "object": "interaction",
+      "model": "gemini-3.5-flash-lite"
+    }
+  },
+  "estimated_cost_usd": "0",
+  "status": "ok",
+  "validation": {
+    "schema_version": "1",
+    "rules_version": "1",
+    "numeric_policy": "idr-grouped",
+    "quantity_policy": "decimal-dot-optional-x",
+    "tolerance": "0",
+    "raw": {
+      "document_id": "cord-train-shard0-row0006",
+      "currency": null,
+      "items": [
+        {
+          "description": "BASO TAHU",
+          "quantity": "1",
+          "unit_price": "43,181",
+          "amount": "43,181",
+          "discount": null,
+          "children": []
+        },
+        {
+          "description": "ES JERUK",
+          "quantity": "1",
+          "unit_price": "13,000",
+          "amount": "13,000",
+          "discount": null,
+          "children": []
+        }
+      ],
+      "items_complete": false,
+      "subtotal": "56,181",
+      "discount": null,
+      "tax": "5,618",
+      "service": null,
+      "total": "61,799"
+    },
+    "normalized": {
+      "document_id": "cord-train-shard0-row0006",
+      "currency": null,
+      "items": [
+        {
+          "description": "BASO TAHU",
+          "quantity": {
+            "raw": "1",
+            "value": "1",
+            "status": "parsed",
+            "reason": null
+          },
+          "unit_price": {
+            "raw": "43,181",
+            "value": "43181",
+            "status": "parsed",
+            "reason": null
+          },
+          "amount": {
+            "raw": "43,181",
+            "value": "43181",
+            "status": "parsed",
+            "reason": null
+          },
+          "discount": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "children": []
+        },
+        {
+          "description": "ES JERUK",
+          "quantity": {
+            "raw": "1",
+            "value": "1",
+            "status": "parsed",
+            "reason": null
+          },
+          "unit_price": {
+            "raw": "13,000",
+            "value": "13000",
+            "status": "parsed",
+            "reason": null
+          },
+          "amount": {
+            "raw": "13,000",
+            "value": "13000",
+            "status": "parsed",
+            "reason": null
+          },
+          "discount": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "children": []
+        }
+      ],
+      "items_complete": false,
+      "subtotal": {
+        "raw": "56,181",
+        "value": "56181",
+        "status": "parsed",
+        "reason": null
+      },
+      "discount": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "tax": {
+        "raw": "5,618",
+        "value": "5618",
+        "status": "parsed",
+        "reason": null
+      },
+      "service": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "total": {
+        "raw": "61,799",
+        "value": "61799",
+        "status": "parsed",
+        "reason": null
+      }
+    },
+    "checks": [
+      {
+        "code": "item_total",
+        "path": "items[0]",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "item_total",
+        "path": "items[1]",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "subtotal",
+        "path": "subtotal",
+        "status": "skipped",
+        "reason": "incomplete_or_nested_items",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "receipt_total",
+        "path": "total",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      }
+    ],
+    "has_findings": false,
+    "has_skipped_checks": true
+  },
+  "seconds": 11.210063499998796
+}

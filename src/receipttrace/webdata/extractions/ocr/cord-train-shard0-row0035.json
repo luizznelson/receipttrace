@@ -1,0 +1,293 @@
+{
+  "id": "cord-train-shard0-row0035",
+  "image_sha256": "e42d403454e6e3fc2b0bb76ff1212a46218a16ca68850831467ec2f1c82695e0",
+  "status": "ok",
+  "lines": [
+    {
+      "text": "Cuka Apel Moringa 1",
+      "score": 0.98691,
+      "box": [
+        [
+          30.0,
+          298.0
+        ],
+        [
+          244.0,
+          305.0
+        ],
+        [
+          243.0,
+          337.0
+        ],
+        [
+          29.0,
+          330.0
+        ]
+      ]
+    },
+    {
+      "text": "289000",
+      "score": 0.99999,
+      "box": [
+        [
+          29.0,
+          325.0
+        ],
+        [
+          114.0,
+          327.0
+        ],
+        [
+          114.0,
+          356.0
+        ],
+        [
+          28.0,
+          354.0
+        ]
+      ]
+    },
+    {
+      "text": "289000",
+      "score": 0.99998,
+      "box": [
+        [
+          261.0,
+          318.0
+        ],
+        [
+          341.0,
+          318.0
+        ],
+        [
+          341.0,
+          345.0
+        ],
+        [
+          261.0,
+          345.0
+        ]
+      ]
+    },
+    {
+      "text": "Sub Total",
+      "score": 0.98349,
+      "box": [
+        [
+          27.0,
+          390.0
+        ],
+        [
+          132.0,
+          392.0
+        ],
+        [
+          132.0,
+          422.0
+        ],
+        [
+          26.0,
+          420.0
+        ]
+      ]
+    },
+    {
+      "text": "289000",
+      "score": 0.99998,
+      "box": [
+        [
+          261.0,
+          405.0
+        ],
+        [
+          342.0,
+          405.0
+        ],
+        [
+          342.0,
+          435.0
+        ],
+        [
+          261.0,
+          435.0
+        ]
+      ]
+    },
+    {
+      "text": "Tunai",
+      "score": 0.99983,
+      "box": [
+        [
+          25.0,
+          471.0
+        ],
+        [
+          93.0,
+          471.0
+        ],
+        [
+          93.0,
+          503.0
+        ],
+        [
+          25.0,
+          503.0
+        ]
+      ]
+    },
+    {
+      "text": "300000",
+      "score": 0.99996,
+      "box": [
+        [
+          261.0,
+          482.0
+        ],
+        [
+          343.0,
+          482.0
+        ],
+        [
+          343.0,
+          513.0
+        ],
+        [
+          261.0,
+          513.0
+        ]
+      ]
+    },
+    {
+      "text": "Kembalian",
+      "score": 0.99962,
+      "box": [
+        [
+          21.0,
+          555.0
+        ],
+        [
+          144.0,
+          552.0
+        ],
+        [
+          145.0,
+          584.0
+        ],
+        [
+          22.0,
+          587.0
+        ]
+      ]
+    },
+    {
+      "text": "11000",
+      "score": 0.99995,
+      "box": [
+        [
+          277.0,
+          563.0
+        ],
+        [
+          344.0,
+          563.0
+        ],
+        [
+          344.0,
+          592.0
+        ],
+        [
+          277.0,
+          592.0
+        ]
+      ]
+    }
+  ],
+  "evidence": {
+    "rows": [
+      "Cuka Apel Moringa 1",
+      "289000 289000",
+      "Sub Total",
+      "289000",
+      "Tunai 300000",
+      "Kembalian 11000"
+    ],
+    "item_rows": []
+  },
+  "validation": {
+    "schema_version": "1",
+    "rules_version": "1",
+    "numeric_policy": "idr-grouped",
+    "quantity_policy": "decimal-dot-optional-x",
+    "tolerance": "0",
+    "raw": {
+      "document_id": "cord-train-shard0-row0035",
+      "currency": null,
+      "items": [],
+      "items_complete": false,
+      "subtotal": null,
+      "discount": null,
+      "tax": null,
+      "service": null,
+      "total": null
+    },
+    "normalized": {
+      "document_id": "cord-train-shard0-row0035",
+      "currency": null,
+      "items": [],
+      "items_complete": false,
+      "subtotal": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "discount": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "tax": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "service": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "total": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      }
+    },
+    "checks": [
+      {
+        "code": "subtotal",
+        "path": "subtotal",
+        "status": "skipped",
+        "reason": "incomplete_or_nested_items",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "receipt_total",
+        "path": "total",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      }
+    ],
+    "has_findings": false,
+    "has_skipped_checks": true
+  },
+  "seconds": 0.6550172999995993
+}

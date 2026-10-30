@@ -1,0 +1,184 @@
+{
+  "id": "cord-train-shard0-row0055",
+  "image_sha256": "181d2f5f037b3d57f4ac92caeec2b2b8d5f95390ee22999de617b5935fb2ca42",
+  "counted_input_tokens": 1331,
+  "reserved_usd": "0",
+  "response": {
+    "status": "completed",
+    "model": "gemini-3.5-flash-lite",
+    "id": null,
+    "usage": {
+      "input_tokens": 1332,
+      "output_tokens": 150
+    },
+    "output": [],
+    "gemini_response": {
+      "status": "completed",
+      "usage": {
+        "total_tokens": 1482,
+        "total_input_tokens": 1332,
+        "input_tokens_by_modality": [
+          {
+            "modality": "image",
+            "tokens": 1100
+          },
+          {
+            "modality": "text",
+            "tokens": 232
+          }
+        ],
+        "total_cached_tokens": 0,
+        "total_output_tokens": 150,
+        "total_tool_use_tokens": 0,
+        "total_thought_tokens": 0,
+        "initial_input_tokens": 2590
+      },
+      "created": "2026-10-29T19:18:24Z",
+      "updated": "2026-10-29T19:18:24Z",
+      "service_tier": "standard",
+      "steps": [
+        {
+          "signature": "EmAKXgFpFH0TkfCNNLEcZu0o7Sqp96F28uvyEMOHreVmSSzxomg6erCu5eqs6gSxVZfYRy+QQwMFZ91nG0DShVoIZOQ6QU/C60WDQFQumsg/0ru/AM9vZaXRh9QsZXjBRzs=",
+          "type": "thought"
+        },
+        {
+          "content": [
+            {
+              "text": "{\n  \"currency\": null,\n  \"items\": [\n    {\n      \"description\": \"THAI ICED TEA (L)\",\n      \"quantity\": \"1\",\n      \"unit_price\": \"16,363\",\n      \"amount\": \"16,363\",\n      \"discount\": null,\n      \"children\": []\n    }\n  ],\n  \"items_complete\": false,\n  \"subtotal\": \"16,363\",\n  \"discount\": null,\n  \"tax\": \"1,636\",\n  \"service\": null,\n  \"total\": \"17,999\"\n}",
+              "type": "text"
+            }
+          ],
+          "type": "model_output"
+        }
+      ],
+      "object": "interaction",
+      "model": "gemini-3.5-flash-lite"
+    }
+  },
+  "estimated_cost_usd": "0",
+  "status": "ok",
+  "validation": {
+    "schema_version": "1",
+    "rules_version": "1",
+    "numeric_policy": "idr-grouped",
+    "quantity_policy": "decimal-dot-optional-x",
+    "tolerance": "0",
+    "raw": {
+      "document_id": "cord-train-shard0-row0055",
+      "currency": null,
+      "items": [
+        {
+          "description": "THAI ICED TEA (L)",
+          "quantity": "1",
+          "unit_price": "16,363",
+          "amount": "16,363",
+          "discount": null,
+          "children": []
+        }
+      ],
+      "items_complete": false,
+      "subtotal": "16,363",
+      "discount": null,
+      "tax": "1,636",
+      "service": null,
+      "total": "17,999"
+    },
+    "normalized": {
+      "document_id": "cord-train-shard0-row0055",
+      "currency": null,
+      "items": [
+        {
+          "description": "THAI ICED TEA (L)",
+          "quantity": {
+            "raw": "1",
+            "value": "1",
+            "status": "parsed",
+            "reason": null
+          },
+          "unit_price": {
+            "raw": "16,363",
+            "value": "16363",
+            "status": "parsed",
+            "reason": null
+          },
+          "amount": {
+            "raw": "16,363",
+            "value": "16363",
+            "status": "parsed",
+            "reason": null
+          },
+          "discount": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "children": []
+        }
+      ],
+      "items_complete": false,
+      "subtotal": {
+        "raw": "16,363",
+        "value": "16363",
+        "status": "parsed",
+        "reason": null
+      },
+      "discount": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "tax": {
+        "raw": "1,636",
+        "value": "1636",
+        "status": "parsed",
+        "reason": null
+      },
+      "service": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "total": {
+        "raw": "17,999",
+        "value": "17999",
+        "status": "parsed",
+        "reason": null
+      }
+    },
+    "checks": [
+      {
+        "code": "item_total",
+        "path": "items[0]",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "subtotal",
+        "path": "subtotal",
+        "status": "skipped",
+        "reason": "incomplete_or_nested_items",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "receipt_total",
+        "path": "total",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      }
+    ],
+    "has_findings": false,
+    "has_skipped_checks": true
+  },
+  "seconds": 6.548527200000535
+}

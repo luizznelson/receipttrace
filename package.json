@@ -1,0 +1,16 @@
+{
+  "name": "receipttrace-web-checks",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test tests/web/ui.test.mjs",
+    "format": "prettier --write \"src/receipttrace/static/**/*.{html,css,js}\" \"tests/web/**/*.mjs\" \"scripts/*.mjs\" package.json .prettierrc.json",
+    "format:check": "prettier --check \"src/receipttrace/static/**/*.{html,css,js}\" \"tests/web/**/*.mjs\" \"scripts/*.mjs\" package.json .prettierrc.json"
+  },
+  "devDependencies": {
+    "prettier": "3.9.10"
+  }
+}

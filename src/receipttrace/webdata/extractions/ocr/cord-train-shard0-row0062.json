@@ -1,0 +1,292 @@
+{
+  "id": "cord-train-shard0-row0062",
+  "image_sha256": "3dfba6b1e12cb68df13a674240d245c87c228fce6883cfc2a3a9b36c9651e0aa",
+  "status": "ok",
+  "lines": [
+    {
+      "text": "RALPH BREAKS THE INTERNET : WR 3.600.000",
+      "score": 0.96636,
+      "box": [
+        [
+          66.0,
+          679.0
+        ],
+        [
+          783.0,
+          690.0
+        ],
+        [
+          782.0,
+          740.0
+        ],
+        [
+          65.0,
+          728.0
+        ]
+      ]
+    },
+    {
+      "text": "-TIKET",
+      "score": 0.99927,
+      "box": [
+        [
+          49.0,
+          729.0
+        ],
+        [
+          177.0,
+          729.0
+        ],
+        [
+          177.0,
+          783.0
+        ],
+        [
+          49.0,
+          783.0
+        ]
+      ]
+    },
+    {
+      "text": "60.000",
+      "score": 0.99995,
+      "box": [
+        [
+          410.0,
+          734.0
+        ],
+        [
+          528.0,
+          734.0
+        ],
+        [
+          528.0,
+          784.0
+        ],
+        [
+          410.0,
+          784.0
+        ]
+      ]
+    },
+    {
+      "text": "60",
+      "score": 0.99992,
+      "box": [
+        [
+          561.0,
+          739.0
+        ],
+        [
+          606.0,
+          739.0
+        ],
+        [
+          606.0,
+          784.0
+        ],
+        [
+          561.0,
+          784.0
+        ]
+      ]
+    },
+    {
+      "text": "Total(Qty=60",
+      "score": 0.99358,
+      "box": [
+        [
+          48.0,
+          834.0
+        ],
+        [
+          286.0,
+          832.0
+        ],
+        [
+          286.0,
+          885.0
+        ],
+        [
+          48.0,
+          887.0
+        ]
+      ]
+    },
+    {
+      "text": "3.600.000",
+      "score": 0.99991,
+      "box": [
+        [
+          625.0,
+          833.0
+        ],
+        [
+          785.0,
+          833.0
+        ],
+        [
+          785.0,
+          881.0
+        ],
+        [
+          625.0,
+          881.0
+        ]
+      ]
+    },
+    {
+      "text": "BCA(EDC) VISA(6.**-6468)",
+      "score": 0.94774,
+      "box": [
+        [
+          84.0,
+          983.0
+        ],
+        [
+          544.0,
+          976.0
+        ],
+        [
+          545.0,
+          1036.0
+        ],
+        [
+          85.0,
+          1042.0
+        ]
+      ]
+    },
+    {
+      "text": "3.600.000",
+      "score": 0.99992,
+      "box": [
+        [
+          625.0,
+          977.0
+        ],
+        [
+          784.0,
+          974.0
+        ],
+        [
+          785.0,
+          1023.0
+        ],
+        [
+          626.0,
+          1025.0
+        ]
+      ]
+    },
+    {
+      "text": "CINEMAS",
+      "score": 0.99993,
+      "box": [
+        [
+          164.0,
+          1094.0
+        ],
+        [
+          271.0,
+          1068.0
+        ],
+        [
+          280.0,
+          1102.0
+        ],
+        [
+          173.0,
+          1128.0
+        ]
+      ]
+    }
+  ],
+  "evidence": {
+    "rows": [
+      "RALPH BREAKS THE INTERNET : WR 3.600.000",
+      "-TIKET 60.000 60",
+      "Total(Qty=60 3.600.000",
+      "BCA(EDC) VISA(6.**-6468) 3.600.000",
+      "CINEMAS"
+    ],
+    "item_rows": []
+  },
+  "validation": {
+    "schema_version": "1",
+    "rules_version": "1",
+    "numeric_policy": "idr-grouped",
+    "quantity_policy": "decimal-dot-optional-x",
+    "tolerance": "0",
+    "raw": {
+      "document_id": "cord-train-shard0-row0062",
+      "currency": null,
+      "items": [],
+      "items_complete": false,
+      "subtotal": null,
+      "discount": null,
+      "tax": null,
+      "service": null,
+      "total": null
+    },
+    "normalized": {
+      "document_id": "cord-train-shard0-row0062",
+      "currency": null,
+      "items": [],
+      "items_complete": false,
+      "subtotal": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "discount": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "tax": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "service": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "total": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      }
+    },
+    "checks": [
+      {
+        "code": "subtotal",
+        "path": "subtotal",
+        "status": "skipped",
+        "reason": "incomplete_or_nested_items",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "receipt_total",
+        "path": "total",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      }
+    ],
+    "has_findings": false,
+    "has_skipped_checks": true
+  },
+  "seconds": 1.3539049999999406
+}

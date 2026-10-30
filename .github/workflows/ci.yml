@@ -3,18 +3,39 @@ on: [push, pull_request]
 permissions:
   contents: read
 jobs:
-  quality:
+  static:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.12.5"
+      - run: uv sync --locked --python 3.14 --extra web --extra llm --extra gemini
+      - run: uv run --no-sync ruff format --check .
+      - run: uv run --no-sync ruff check .
+      - run: uv run --no-sync mypy
+      - run: uv build --wheel --out-dir runs/package-ci
+      - run: uv run --no-sync python scripts/check-wheel.py runs/package-ci
+  tests:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        extras: ["", "--extra llm", "--extra gemini"]
+        extras: ["", "--extra llm", "--extra gemini", "--extra web"]
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
         with:
           version: "0.12.5"
       - run: uv sync --locked --python 3.14 ${{ matrix.extras }}
-      - run: uv run --no-sync ruff format --check .
-      - run: uv run --no-sync ruff check .
-      - run: uv run --no-sync mypy
       - run: uv run --no-sync pytest
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm ci --ignore-scripts
+      - run: npm run format:check
+      - run: node scripts/check-web.mjs
+      - run: node --test tests/web/ui.test.mjs

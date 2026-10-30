@@ -77,8 +77,34 @@ def main() -> int:
         if name in ("review-correct", "review-complete"):
             review.add_argument("--expected-revision", type=int, required=True)
             review.add_argument("--request", type=Path, required=True)
+    server = commands.add_parser("serve", help="Open the bilingual local web application")
+    server.add_argument(
+        "--host", choices=("127.0.0.1", "localhost", "::1", "0.0.0.0"), default="127.0.0.1"
+    )
+    server.add_argument("--port", type=int, default=8000)
+    server.add_argument("--database", type=Path, default=Path("runs/reviews.sqlite3"))
+    server.add_argument("--read-only", action="store_true")
     args = parser.parse_args()
     try:
+        if args.command == "serve":
+            if not 1 <= args.port <= 65535:
+                raise ValueError("Port must be between 1 and 65535")
+            if args.host == "0.0.0.0" and not args.read_only:
+                raise ValueError("Public binding requires --read-only; review is local only")
+            try:
+                import uvicorn
+
+                from receipttrace.web import create_app
+            except ImportError as error:
+                raise RuntimeError(
+                    "Install web dependencies: uv sync --locked --extra web"
+                ) from error
+            uvicorn.run(
+                create_app(read_only=args.read_only, database=args.database),
+                host=args.host,
+                port=args.port,
+            )
+            return 0
         if args.command.startswith("review-"):
             from receipttrace.review import CompletionRequest, CorrectionRequest, ReviewStore
 

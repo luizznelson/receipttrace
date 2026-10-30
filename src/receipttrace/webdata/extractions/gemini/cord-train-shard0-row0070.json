@@ -1,0 +1,368 @@
+{
+  "id": "cord-train-shard0-row0070",
+  "image_sha256": "8867317b5c79de72188d1708a7c98290018348115fabd3d5e947121098f8fdd2",
+  "counted_input_tokens": 1331,
+  "reserved_usd": "0",
+  "response": {
+    "status": "completed",
+    "model": "gemini-3.5-flash-lite",
+    "id": null,
+    "usage": {
+      "input_tokens": 1332,
+      "output_tokens": 386
+    },
+    "output": [],
+    "gemini_response": {
+      "status": "completed",
+      "usage": {
+        "total_tokens": 1718,
+        "total_input_tokens": 1332,
+        "input_tokens_by_modality": [
+          {
+            "modality": "image",
+            "tokens": 1100
+          },
+          {
+            "modality": "text",
+            "tokens": 232
+          }
+        ],
+        "total_cached_tokens": 0,
+        "total_output_tokens": 386,
+        "total_tool_use_tokens": 0,
+        "total_thought_tokens": 0,
+        "initial_input_tokens": 2590
+      },
+      "created": "2026-10-29T19:20:02Z",
+      "updated": "2026-10-29T19:20:02Z",
+      "service_tier": "standard",
+      "steps": [
+        {
+          "signature": "EmAKXgFpFH0TjtP4FRwmPU89/2Fldn2xrbFieiB0Xs25IbU1I21EjbHSEqrumqHzM7vySs3IXyTdAQ4+s5lG/D4mzxKo4EEy0KayqYx4vz6TQlf5RL+tVllws6ZUkiNwhwo=",
+          "type": "thought"
+        },
+        {
+          "content": [
+            {
+              "text": "{\n  \"currency\": null,\n  \"items\": [\n    {\n      \"description\": \"CAPTAIN HOOK\",\n      \"quantity\": \"1\",\n      \"unit_price\": null,\n      \"amount\": \"75,000\",\n      \"discount\": null,\n      \"children\": [\n        {\n          \"description\": \"IZZY PINK ZIGZAG\",\n          \"quantity\": null,\n          \"unit_price\": null,\n          \"amount\": null,\n          \"discount\": null,\n          \"children\": []\n        }\n      ]\n    },\n    {\n      \"description\": \"PIRATES TREASURE\",\n      \"quantity\": \"1\",\n      \"unit_price\": null,\n      \"amount\": \"75,000\",\n      \"discount\": null,\n      \"children\": [\n        {\n          \"description\": \"BILLY BROWN SMALL\",\n          \"quantity\": null,\n          \"unit_price\": null,\n          \"amount\": null,\n          \"discount\": null,\n          \"children\": []\n        }\n      ]\n    },\n    {\n      \"description\": \"** KIDS MEAL\",\n      \"quantity\": null,\n      \"unit_price\": null,\n      \"amount\": \"150,000\",\n      \"discount\": null,\n      \"children\": []\n    }\n  ],\n  \"items_complete\": false,\n  \"subtotal\": \"150,000\",\n  \"discount\": null,\n  \"tax\": \"16,200\",\n  \"service\": \"12,000\",\n  \"total\": \"178,200\"\n}",
+              "type": "text"
+            }
+          ],
+          "type": "model_output"
+        }
+      ],
+      "object": "interaction",
+      "model": "gemini-3.5-flash-lite"
+    }
+  },
+  "estimated_cost_usd": "0",
+  "status": "ok",
+  "validation": {
+    "schema_version": "1",
+    "rules_version": "1",
+    "numeric_policy": "idr-grouped",
+    "quantity_policy": "decimal-dot-optional-x",
+    "tolerance": "0",
+    "raw": {
+      "document_id": "cord-train-shard0-row0070",
+      "currency": null,
+      "items": [
+        {
+          "description": "CAPTAIN HOOK",
+          "quantity": "1",
+          "unit_price": null,
+          "amount": "75,000",
+          "discount": null,
+          "children": [
+            {
+              "description": "IZZY PINK ZIGZAG",
+              "quantity": null,
+              "unit_price": null,
+              "amount": null,
+              "discount": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "description": "PIRATES TREASURE",
+          "quantity": "1",
+          "unit_price": null,
+          "amount": "75,000",
+          "discount": null,
+          "children": [
+            {
+              "description": "BILLY BROWN SMALL",
+              "quantity": null,
+              "unit_price": null,
+              "amount": null,
+              "discount": null,
+              "children": []
+            }
+          ]
+        },
+        {
+          "description": "** KIDS MEAL",
+          "quantity": null,
+          "unit_price": null,
+          "amount": "150,000",
+          "discount": null,
+          "children": []
+        }
+      ],
+      "items_complete": false,
+      "subtotal": "150,000",
+      "discount": null,
+      "tax": "16,200",
+      "service": "12,000",
+      "total": "178,200"
+    },
+    "normalized": {
+      "document_id": "cord-train-shard0-row0070",
+      "currency": null,
+      "items": [
+        {
+          "description": "CAPTAIN HOOK",
+          "quantity": {
+            "raw": "1",
+            "value": "1",
+            "status": "parsed",
+            "reason": null
+          },
+          "unit_price": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "amount": {
+            "raw": "75,000",
+            "value": "75000",
+            "status": "parsed",
+            "reason": null
+          },
+          "discount": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "children": [
+            {
+              "description": "IZZY PINK ZIGZAG",
+              "quantity": {
+                "raw": null,
+                "value": null,
+                "status": "missing",
+                "reason": null
+              },
+              "unit_price": {
+                "raw": null,
+                "value": null,
+                "status": "missing",
+                "reason": null
+              },
+              "amount": {
+                "raw": null,
+                "value": null,
+                "status": "missing",
+                "reason": null
+              },
+              "discount": {
+                "raw": null,
+                "value": null,
+                "status": "missing",
+                "reason": null
+              },
+              "children": []
+            }
+          ]
+        },
+        {
+          "description": "PIRATES TREASURE",
+          "quantity": {
+            "raw": "1",
+            "value": "1",
+            "status": "parsed",
+            "reason": null
+          },
+          "unit_price": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "amount": {
+            "raw": "75,000",
+            "value": "75000",
+            "status": "parsed",
+            "reason": null
+          },
+          "discount": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "children": [
+            {
+              "description": "BILLY BROWN SMALL",
+              "quantity": {
+                "raw": null,
+                "value": null,
+                "status": "missing",
+                "reason": null
+              },
+              "unit_price": {
+                "raw": null,
+                "value": null,
+                "status": "missing",
+                "reason": null
+              },
+              "amount": {
+                "raw": null,
+                "value": null,
+                "status": "missing",
+                "reason": null
+              },
+              "discount": {
+                "raw": null,
+                "value": null,
+                "status": "missing",
+                "reason": null
+              },
+              "children": []
+            }
+          ]
+        },
+        {
+          "description": "** KIDS MEAL",
+          "quantity": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "unit_price": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "amount": {
+            "raw": "150,000",
+            "value": "150000",
+            "status": "parsed",
+            "reason": null
+          },
+          "discount": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "children": []
+        }
+      ],
+      "items_complete": false,
+      "subtotal": {
+        "raw": "150,000",
+        "value": "150000",
+        "status": "parsed",
+        "reason": null
+      },
+      "discount": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "tax": {
+        "raw": "16,200",
+        "value": "16200",
+        "status": "parsed",
+        "reason": null
+      },
+      "service": {
+        "raw": "12,000",
+        "value": "12000",
+        "status": "parsed",
+        "reason": null
+      },
+      "total": {
+        "raw": "178,200",
+        "value": "178200",
+        "status": "parsed",
+        "reason": null
+      }
+    },
+    "checks": [
+      {
+        "code": "item_total",
+        "path": "items[0]",
+        "status": "skipped",
+        "reason": "nested_item_semantics_unknown",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "item_total",
+        "path": "items[0].children[0]",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "item_total",
+        "path": "items[1]",
+        "status": "skipped",
+        "reason": "nested_item_semantics_unknown",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "item_total",
+        "path": "items[1].children[0]",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "item_total",
+        "path": "items[2]",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "subtotal",
+        "path": "subtotal",
+        "status": "skipped",
+        "reason": "incomplete_or_nested_items",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "receipt_total",
+        "path": "total",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      }
+    ],
+    "has_findings": false,
+    "has_skipped_checks": true
+  },
+  "seconds": 12.671362999997655
+}

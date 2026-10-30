@@ -1,0 +1,321 @@
+{
+  "id": "cord-train-shard0-row0108",
+  "image_sha256": "4ab262e4ef4c1a7ef75e85b7a28a29120bf2cb758d7a2d4d017c11cf4692e696",
+  "counted_input_tokens": 1331,
+  "reserved_usd": "0",
+  "response": {
+    "status": "completed",
+    "model": "gemini-3.5-flash-lite",
+    "id": null,
+    "usage": {
+      "input_tokens": 1332,
+      "output_tokens": 302
+    },
+    "output": [],
+    "gemini_response": {
+      "status": "completed",
+      "usage": {
+        "total_tokens": 1634,
+        "total_input_tokens": 1332,
+        "input_tokens_by_modality": [
+          {
+            "modality": "text",
+            "tokens": 232
+          },
+          {
+            "modality": "image",
+            "tokens": 1100
+          }
+        ],
+        "total_cached_tokens": 0,
+        "total_output_tokens": 302,
+        "total_tool_use_tokens": 0,
+        "total_thought_tokens": 0,
+        "initial_input_tokens": 2590
+      },
+      "created": "2026-10-29T19:20:24Z",
+      "updated": "2026-10-29T19:20:24Z",
+      "service_tier": "standard",
+      "steps": [
+        {
+          "signature": "EmAKXgFpFH0TrrvBdHIwQNEgetqpn0pC7sfqqxr4NjKNDf6Nfu+nc7wTgLU13G/a9thR238G52yL7VVMfedcHu3K6zme9dLaFBOGkE1meKckwqUTfvsUaapjaAWjp0OTDx4=",
+          "type": "thought"
+        },
+        {
+          "content": [
+            {
+              "text": "{\n  \"currency\": null,\n  \"items\": [\n    {\n      \"description\": \"M-Ice Cream Milk Te\",\n      \"quantity\": \"1\",\n      \"unit_price\": \"30,000\",\n      \"amount\": \"30,000\",\n      \"discount\": null,\n      \"children\": [\n        {\n          \"description\": \"Fr Konjac\",\n          \"quantity\": null,\n          \"unit_price\": null,\n          \"amount\": null,\n          \"discount\": null,\n          \"children\": []\n        },\n        {\n          \"description\": \"70%\",\n          \"quantity\": null,\n          \"unit_price\": null,\n          \"amount\": null,\n          \"discount\": null,\n          \"children\": []\n        },\n        {\n          \"description\": \"Less Ice\",\n          \"quantity\": null,\n          \"unit_price\": null,\n          \"amount\": null,\n          \"discount\": null,\n          \"children\": []\n        }\n      ]\n    }\n  ],\n  \"items_complete\": false,\n  \"subtotal\": \"30,000\",\n  \"discount\": null,\n  \"tax\": \"0\",\n  \"service\": null,\n  \"total\": \"30,000\"\n}",
+              "type": "text"
+            }
+          ],
+          "type": "model_output"
+        }
+      ],
+      "object": "interaction",
+      "model": "gemini-3.5-flash-lite"
+    }
+  },
+  "estimated_cost_usd": "0",
+  "status": "ok",
+  "validation": {
+    "schema_version": "1",
+    "rules_version": "1",
+    "numeric_policy": "idr-grouped",
+    "quantity_policy": "decimal-dot-optional-x",
+    "tolerance": "0",
+    "raw": {
+      "document_id": "cord-train-shard0-row0108",
+      "currency": null,
+      "items": [
+        {
+          "description": "M-Ice Cream Milk Te",
+          "quantity": "1",
+          "unit_price": "30,000",
+          "amount": "30,000",
+          "discount": null,
+          "children": [
+            {
+              "description": "Fr Konjac",
+              "quantity": null,
+              "unit_price": null,
+              "amount": null,
+              "discount": null,
+              "children": []
+            },
+            {
+              "description": "70%",
+              "quantity": null,
+              "unit_price": null,
+              "amount": null,
+              "discount": null,
+              "children": []
+            },
+            {
+              "description": "Less Ice",
+              "quantity": null,
+              "unit_price": null,
+              "amount": null,
+              "discount": null,
+              "children": []
+            }
+          ]
+        }
+      ],
+      "items_complete": false,
+      "subtotal": "30,000",
+      "discount": null,
+      "tax": "0",
+      "service": null,
+      "total": "30,000"
+    },
+    "normalized": {
+      "document_id": "cord-train-shard0-row0108",
+      "currency": null,
+      "items": [
+        {
+          "description": "M-Ice Cream Milk Te",
+          "quantity": {
+            "raw": "1",
+            "value": "1",
+            "status": "parsed",
+            "reason": null
+          },
+          "unit_price": {
+            "raw": "30,000",
+            "value": "30000",
+            "status": "parsed",
+            "reason": null
+          },
+          "amount": {
+            "raw": "30,000",
+            "value": "30000",
+            "status": "parsed",
+            "reason": null
+          },
+          "discount": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "children": [
+            {
+              "description": "Fr Konjac",
+              "quantity": {
+                "raw": null,
+                "value": null,
+                "status": "missing",
+                "reason": null
+              },
+              "unit_price": {
+                "raw": null,
+                "value": null,
+                "status": "missing",
+                "reason": null
+              },
+              "amount": {
+                "raw": null,
+                "value": null,
+                "status": "missing",
+                "reason": null
+              },
+              "discount": {
+                "raw": null,
+                "value": null,
+                "status": "missing",
+                "reason": null
+              },
+              "children": []
+            },
+            {
+              "description": "70%",
+              "quantity": {
+                "raw": null,
+                "value": null,
+                "status": "missing",
+                "reason": null
+              },
+              "unit_price": {
+                "raw": null,
+                "value": null,
+                "status": "missing",
+                "reason": null
+              },
+              "amount": {
+                "raw": null,
+                "value": null,
+                "status": "missing",
+                "reason": null
+              },
+              "discount": {
+                "raw": null,
+                "value": null,
+                "status": "missing",
+                "reason": null
+              },
+              "children": []
+            },
+            {
+              "description": "Less Ice",
+              "quantity": {
+                "raw": null,
+                "value": null,
+                "status": "missing",
+                "reason": null
+              },
+              "unit_price": {
+                "raw": null,
+                "value": null,
+                "status": "missing",
+                "reason": null
+              },
+              "amount": {
+                "raw": null,
+                "value": null,
+                "status": "missing",
+                "reason": null
+              },
+              "discount": {
+                "raw": null,
+                "value": null,
+                "status": "missing",
+                "reason": null
+              },
+              "children": []
+            }
+          ]
+        }
+      ],
+      "items_complete": false,
+      "subtotal": {
+        "raw": "30,000",
+        "value": "30000",
+        "status": "parsed",
+        "reason": null
+      },
+      "discount": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "tax": {
+        "raw": "0",
+        "value": "0",
+        "status": "parsed",
+        "reason": null
+      },
+      "service": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "total": {
+        "raw": "30,000",
+        "value": "30000",
+        "status": "parsed",
+        "reason": null
+      }
+    },
+    "checks": [
+      {
+        "code": "item_total",
+        "path": "items[0]",
+        "status": "skipped",
+        "reason": "nested_item_semantics_unknown",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "item_total",
+        "path": "items[0].children[0]",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "item_total",
+        "path": "items[0].children[1]",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "item_total",
+        "path": "items[0].children[2]",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "subtotal",
+        "path": "subtotal",
+        "status": "skipped",
+        "reason": "incomplete_or_nested_items",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "receipt_total",
+        "path": "total",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      }
+    ],
+    "has_findings": false,
+    "has_skipped_checks": true
+  },
+  "seconds": 6.976179400000547
+}

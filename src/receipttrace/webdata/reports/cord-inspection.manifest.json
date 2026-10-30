@@ -1,0 +1,333 @@
+{
+  "schema_version": 1,
+  "dataset": "naver-clova-ix/cord-v2",
+  "revision": "7f0115a4b758a71d6473b8d085751692da2fef98",
+  "source_url": "https://huggingface.co/datasets/naver-clova-ix/cord-v2/resolve/7f0115a4b758a71d6473b8d085751692da2fef98/data/train-00000-of-00004-b4aaeceff1d90ecb.parquet",
+  "source_sha256": "da3994eee1bf9bd3c57f0d53a72c3a6812c8696c5ba26245987949ddf73483cc",
+  "source_bytes": 490224630,
+  "license": "CC-BY-4.0",
+  "prepared_at_utc": "2026-10-28T18:05:34.508316+00:00",
+  "source_download_record": "data/raw/cord/download.json",
+  "split": "train",
+  "shard": "data/train-00000-of-00004-b4aaeceff1d90ecb.parquet",
+  "population_rows": 200,
+  "sample_size": 20,
+  "seed": 42,
+  "selected_indices": [
+    6,
+    7,
+    8,
+    22,
+    23,
+    26,
+    28,
+    35,
+    55,
+    57,
+    59,
+    62,
+    70,
+    108,
+    139,
+    151,
+    163,
+    173,
+    188,
+    189
+  ],
+  "sampling_scope": "first training shard only; not representative of all CORD",
+  "image_transformations": "none; original encoded bytes",
+  "reference_transformations": "JSON reserialization; semantic content preserved",
+  "duplicate_images_within_sample": 0,
+  "field_counts": {
+    "items.nm": 27,
+    "items.cnt": 25,
+    "items.unitprice": 15,
+    "items.price": 27,
+    "items.total": 27,
+    "documents.total_price": 19,
+    "documents.subtotal": 14
+  },
+  "records": [
+    {
+      "id": "cord-train-shard0-row0006",
+      "source_row": 6,
+      "source_image_id": 6,
+      "image": "inputs/cord-train-shard0-row0006.png",
+      "image_sha256": "ad04e4f531ad5f58a944cd30d166d2373d518101bd0efaa4e82a257c33255c83",
+      "reference": "reference/cord-train-shard0-row0006.json",
+      "reference_sha256": "d21f693eaef2e0072c2ad35aa9636f2aa7d799db8abacab865b1c2bef6763ce7",
+      "dimensions": [
+        864,
+        1296
+      ],
+      "item_count": 2
+    },
+    {
+      "id": "cord-train-shard0-row0007",
+      "source_row": 7,
+      "source_image_id": 7,
+      "image": "inputs/cord-train-shard0-row0007.png",
+      "image_sha256": "b2ee6dafc47fe6d597ea2e3c0df1e2e36c3df14082af2807ea0719f2b2635585",
+      "reference": "reference/cord-train-shard0-row0007.json",
+      "reference_sha256": "dee2decb2f9675e532df6422735d3b06ff5a55efc98d9a04631db471832ebb62",
+      "dimensions": [
+        864,
+        1296
+      ],
+      "item_count": 1
+    },
+    {
+      "id": "cord-train-shard0-row0008",
+      "source_row": 8,
+      "source_image_id": 8,
+      "image": "inputs/cord-train-shard0-row0008.png",
+      "image_sha256": "a2071158a469ec678f67c70e29c9c8ab600a1f905167000c0106b2beac408530",
+      "reference": "reference/cord-train-shard0-row0008.json",
+      "reference_sha256": "e20b8a2b4a21a1671845c8810ea3c2396f78c4cbdc1d5339dcd48d985c17bb75",
+      "dimensions": [
+        864,
+        1296
+      ],
+      "item_count": 2
+    },
+    {
+      "id": "cord-train-shard0-row0022",
+      "source_row": 22,
+      "source_image_id": 22,
+      "image": "inputs/cord-train-shard0-row0022.png",
+      "image_sha256": "94957704e9e5a5e983ab404485c3a3eb84338ebe63745558d98b265c73391704",
+      "reference": "reference/cord-train-shard0-row0022.json",
+      "reference_sha256": "9d19dd6159b471e7a03addd4c111297028f952de589f72f10992e79c9c9c2c1a",
+      "dimensions": [
+        864,
+        1296
+      ],
+      "item_count": 1
+    },
+    {
+      "id": "cord-train-shard0-row0023",
+      "source_row": 23,
+      "source_image_id": 23,
+      "image": "inputs/cord-train-shard0-row0023.png",
+      "image_sha256": "a532b281b2f3227af7d03e5d617c85b03868d454a3c0da6b9469ddda53e7219f",
+      "reference": "reference/cord-train-shard0-row0023.json",
+      "reference_sha256": "72562a6f587ce90a1aea91940afbd853fbe34b113d5268b8c1b36a9f7717219e",
+      "dimensions": [
+        576,
+        864
+      ],
+      "item_count": 1
+    },
+    {
+      "id": "cord-train-shard0-row0026",
+      "source_row": 26,
+      "source_image_id": 26,
+      "image": "inputs/cord-train-shard0-row0026.png",
+      "image_sha256": "973282ec60c140c6c1b971c458df9f0ad188905a36005dee50c8c57e09021311",
+      "reference": "reference/cord-train-shard0-row0026.json",
+      "reference_sha256": "b264d035411dd269ec70c688bb927d0bec8c8ee30ac61906031a9eb7a8e54aa4",
+      "dimensions": [
+        1108,
+        1478
+      ],
+      "item_count": 1
+    },
+    {
+      "id": "cord-train-shard0-row0028",
+      "source_row": 28,
+      "source_image_id": 28,
+      "image": "inputs/cord-train-shard0-row0028.png",
+      "image_sha256": "5da9b3d83615078fc320a822109a2bb9976bae31114e90016e58795c679fadb5",
+      "reference": "reference/cord-train-shard0-row0028.json",
+      "reference_sha256": "f21f7d368f0c59b5e035583c0aabc446ace1922573c28f0b7a540ba088b34339",
+      "dimensions": [
+        864,
+        1296
+      ],
+      "item_count": 1
+    },
+    {
+      "id": "cord-train-shard0-row0035",
+      "source_row": 35,
+      "source_image_id": 35,
+      "image": "inputs/cord-train-shard0-row0035.png",
+      "image_sha256": "e42d403454e6e3fc2b0bb76ff1212a46218a16ca68850831467ec2f1c82695e0",
+      "reference": "reference/cord-train-shard0-row0035.json",
+      "reference_sha256": "d10bd28caa78de9ee78480f364c5a6689facb8d1bb2dbbec030e145f9f0ee61f",
+      "dimensions": [
+        576,
+        864
+      ],
+      "item_count": 1
+    },
+    {
+      "id": "cord-train-shard0-row0055",
+      "source_row": 55,
+      "source_image_id": 55,
+      "image": "inputs/cord-train-shard0-row0055.png",
+      "image_sha256": "181d2f5f037b3d57f4ac92caeec2b2b8d5f95390ee22999de617b5935fb2ca42",
+      "reference": "reference/cord-train-shard0-row0055.json",
+      "reference_sha256": "0395e800c881cae96a8650498699abeb8e15bec1c444247ff246c74e7b04f63d",
+      "dimensions": [
+        2304,
+        4096
+      ],
+      "item_count": 1
+    },
+    {
+      "id": "cord-train-shard0-row0057",
+      "source_row": 57,
+      "source_image_id": 57,
+      "image": "inputs/cord-train-shard0-row0057.png",
+      "image_sha256": "ddd0d628f90771e545e05d3d67832f40f232d1e21d2af746b82846e70cb23e19",
+      "reference": "reference/cord-train-shard0-row0057.json",
+      "reference_sha256": "048520d1981c9f23f91c43dca94164c3ddda54c92bc44826480ef3750c8c7618",
+      "dimensions": [
+        576,
+        864
+      ],
+      "item_count": 4
+    },
+    {
+      "id": "cord-train-shard0-row0059",
+      "source_row": 59,
+      "source_image_id": 59,
+      "image": "inputs/cord-train-shard0-row0059.png",
+      "image_sha256": "40a0b12c648fa31f510c73bbc071a2ac1814d3de400eaa2af161a6c55fe11530",
+      "reference": "reference/cord-train-shard0-row0059.json",
+      "reference_sha256": "b89bbed057c907d28f2fd71bde17a976eb588ca8e05b1480032d4e0cf6f98a20",
+      "dimensions": [
+        864,
+        1296
+      ],
+      "item_count": 2
+    },
+    {
+      "id": "cord-train-shard0-row0062",
+      "source_row": 62,
+      "source_image_id": 62,
+      "image": "inputs/cord-train-shard0-row0062.png",
+      "image_sha256": "3dfba6b1e12cb68df13a674240d245c87c228fce6883cfc2a3a9b36c9651e0aa",
+      "reference": "reference/cord-train-shard0-row0062.json",
+      "reference_sha256": "ba6992c660c2e8d042767af5a91b53151f6214619db85cbd47caea9540223722",
+      "dimensions": [
+        960,
+        1706
+      ],
+      "item_count": 1
+    },
+    {
+      "id": "cord-train-shard0-row0070",
+      "source_row": 70,
+      "source_image_id": 70,
+      "image": "inputs/cord-train-shard0-row0070.png",
+      "image_sha256": "8867317b5c79de72188d1708a7c98290018348115fabd3d5e947121098f8fdd2",
+      "reference": "reference/cord-train-shard0-row0070.json",
+      "reference_sha256": "d4e08e6230be4dace4fa28f86d9596e968062ad4a20a9c784464346a84e1ac70",
+      "dimensions": [
+        2304,
+        4096
+      ],
+      "item_count": 2
+    },
+    {
+      "id": "cord-train-shard0-row0108",
+      "source_row": 108,
+      "source_image_id": 108,
+      "image": "inputs/cord-train-shard0-row0108.png",
+      "image_sha256": "4ab262e4ef4c1a7ef75e85b7a28a29120bf2cb758d7a2d4d017c11cf4692e696",
+      "reference": "reference/cord-train-shard0-row0108.json",
+      "reference_sha256": "7c0e3015c27ace17cd5ebb4398c57d08a48533860fb3f17e83802edd2858cf15",
+      "dimensions": [
+        2304,
+        4096
+      ],
+      "item_count": 1
+    },
+    {
+      "id": "cord-train-shard0-row0139",
+      "source_row": 139,
+      "source_image_id": 139,
+      "image": "inputs/cord-train-shard0-row0139.png",
+      "image_sha256": "56cdf5959fd9c0d2b93b211d32c04fe2375333dcdd889b0fd85d340e550c8fb0",
+      "reference": "reference/cord-train-shard0-row0139.json",
+      "reference_sha256": "d94f1845a4d61ecf0609551507661ababf81fd15c96ce6e427bbbe3320135269",
+      "dimensions": [
+        1108,
+        1478
+      ],
+      "item_count": 1
+    },
+    {
+      "id": "cord-train-shard0-row0151",
+      "source_row": 151,
+      "source_image_id": 151,
+      "image": "inputs/cord-train-shard0-row0151.png",
+      "image_sha256": "d85b90a89d581aeb4b3bfeffe3fd8848144e4a069dd8bfeadafba76361ee7d3a",
+      "reference": "reference/cord-train-shard0-row0151.json",
+      "reference_sha256": "975f8bc05df5a47a8afe8a6b70f442a38b31c32fc60d9a8f618ff1b832c17201",
+      "dimensions": [
+        576,
+        864
+      ],
+      "item_count": 1
+    },
+    {
+      "id": "cord-train-shard0-row0163",
+      "source_row": 163,
+      "source_image_id": 163,
+      "image": "inputs/cord-train-shard0-row0163.png",
+      "image_sha256": "8388e130546db433089e21400622106f103e5b77fdab014b83c53a4b07d91277",
+      "reference": "reference/cord-train-shard0-row0163.json",
+      "reference_sha256": "584cf7c5021593f4c3f3a1c4bb7c1068ce5a5a6b5e2af8b61e87e076cc9e32f7",
+      "dimensions": [
+        960,
+        1280
+      ],
+      "item_count": 1
+    },
+    {
+      "id": "cord-train-shard0-row0173",
+      "source_row": 173,
+      "source_image_id": 173,
+      "image": "inputs/cord-train-shard0-row0173.png",
+      "image_sha256": "8f4f2eb2b757e0ce34afd523a6c32a1042fffc387353bcfc97942398844cb8b0",
+      "reference": "reference/cord-train-shard0-row0173.json",
+      "reference_sha256": "6ed5ba3084d86d6dc307cdd18b2efd88326aec1e8dce4121f72783b4effd8438",
+      "dimensions": [
+        2304,
+        4096
+      ],
+      "item_count": 1
+    },
+    {
+      "id": "cord-train-shard0-row0188",
+      "source_row": 188,
+      "source_image_id": 188,
+      "image": "inputs/cord-train-shard0-row0188.png",
+      "image_sha256": "8f30ea9476cb58a1161f3ac26d10c11337d8da76022d08883527b2cac52dc60a",
+      "reference": "reference/cord-train-shard0-row0188.json",
+      "reference_sha256": "06ada238d0207cc5a508bac163f3bb9108d599e838cac4be70cdfcf46ce4229d",
+      "dimensions": [
+        1080,
+        1920
+      ],
+      "item_count": 1
+    },
+    {
+      "id": "cord-train-shard0-row0189",
+      "source_row": 189,
+      "source_image_id": 189,
+      "image": "inputs/cord-train-shard0-row0189.png",
+      "image_sha256": "845fce416425105530c4c5b18f2ec5c7c2d19587a2603ef316cf59b55c1e009a",
+      "reference": "reference/cord-train-shard0-row0189.json",
+      "reference_sha256": "46e8d6cbc20192ab8f6fe19d10e1a1cf3e0f13fe20c2543e16865a53948a1170",
+      "dimensions": [
+        2304,
+        4096
+      ],
+      "item_count": 1
+    }
+  ]
+}

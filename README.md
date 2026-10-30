@@ -54,7 +54,20 @@ O custo estimado conhecido da API foi de **US$ 0**, sob a configuração Free Ti
 - Preservação de respostas, configurações e hashes para auditoria.
 - Revisão local com valores originais preservados, correções e conclusão registradas em histórico.
 
-A operação atual, incluindo a revisão, é por linha de comando. A API da aplicação e a interface ainda serão implementadas. O fluxo planejado é: imagem → extração → validação → revisão → exportação.
+A aplicação possui interface bilíngue e API, além dos comandos locais. A revisão visual edita cinco campos de totais e preserva o histórico. A publicação em hospedagem continua pendente. O fluxo planejado é: imagem → extração → validação → revisão → exportação.
+
+## Abrir a demonstração local
+
+![Apresentação da interface local do ReceiptTrace](docs/images/receipttrace-overview.jpg)
+
+Interface em PT-BR; também disponível em inglês.
+
+```powershell
+uv sync --locked --extra web
+uv run --no-sync receipttrace serve
+```
+
+Abra [http://127.0.0.1:8000](http://127.0.0.1:8000). A interface permite comparar três recibos reais, conferir campos e registrar revisões em PT-BR ou inglês. Usa respostas salvas, sem chave de API e sem baixar o dataset completo. [Guia da aplicação e da API](docs/web.md).
 
 ## Como conferir os resultados sem usar uma API
 
@@ -90,6 +103,8 @@ Os resultados salvos permitem recalcular as métricas sem novas chamadas de IA. 
 - [Escopo e critérios de entrega](docs/scope.md)
 - [Arquitetura e responsabilidades](docs/architecture.md)
 - [Dados e método de avaliação](docs/evaluation.md)
+- [Aplicação web e API](docs/web.md)
+- [Decisão da arquitetura web](docs/architecture-web.md)
 - [Revisão e histórico de correções](docs/review.md)
 - [Campos, números e verificações aritméticas](docs/domain.md)
 - [Ambiente e verificações de qualidade](docs/development.md)
@@ -98,6 +113,6 @@ Os resultados salvos permitem recalcular as métricas sem novas chamadas de IA. 
 
 ## Dados, atribuição e transparência
 
-Os recibos vêm do [CORD v2 público](https://huggingface.co/datasets/naver-clova-ix/cord-v2), dos [autores do CORD](https://github.com/clovaai/cord), sob CC BY 4.0. As imagens e os gabaritos não estão incluídos no repositório; as evidências publicadas contêm resultados derivados. A licença dos dados é independente da licença do código.
+Os recibos vêm do [CORD v2 público](https://huggingface.co/datasets/naver-clova-ix/cord-v2), dos [autores do CORD](https://github.com/clovaai/cord), sob CC BY 4.0. A demonstração inclui três imagens originais do CORD, com atribuição, além dos resultados derivados. O dataset completo e os arquivos de gabarito permanecem fora do repositório. A licença dos dados é independente da licença do código.
 
 O projeto ainda não comprova suporte a documentos fiscais brasileiros nem conferência entre nota e pedido. Houve assistência de IA no desenvolvimento e na documentação. A responsabilidade por compreender, revisar e verificar as entregas é do mantenedor.

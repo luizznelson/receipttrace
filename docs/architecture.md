@@ -4,7 +4,7 @@
 
 O projeto começa com comandos Python executados localmente. A extração e a avaliação vêm antes da API e da interface, para verificar a qualidade da solução antes de ampliar a aplicação.
 
-Separar essas responsabilidades permite comparar OCR e IA nos mesmos documentos, revisar as regras de negócio de forma independente e reaproveitar a lógica quando a interface for implementada. O fluxo local de extração, avaliação e revisão já está implementado; API e interface continuam pendentes.
+Separar essas responsabilidades permite comparar OCR e IA nos mesmos documentos, revisar as regras de negócio de forma independente e reaproveitar a lógica quando a interface for implementada. O fluxo local de extração, avaliação e revisão já está implementado, com API e interface bilíngue para os exemplos salvos.
 
 ## Responsabilidades
 
@@ -17,6 +17,7 @@ Separar essas responsabilidades permite comparar OCR e IA nos mesmos documentos,
 | Credenciais | Ler a chave local sem incluí-la nos resultados | `credentials.py` |
 | Avaliação | Comparar resultados salvos com as anotações oficiais | `evaluation.py` |
 | Revisão | Preservar a extração e registrar correções e conclusão em SQLite | `review.py` |
+| Aplicação web | Servir exemplos, indicadores e ações da revisão na mesma origem | `web.py`, `demo_catalog.py`, `static/` |
 | Entrada de comandos | Receber parâmetros e coordenar a execução | `cli.py` |
 
 O adaptador OpenAI permanece opcional e não possui avaliação real publicada. O caminho de IA medido usa Gemini. As extrações continuam em arquivos JSON. A revisão usa SQLite, com snapshot da origem, eventos de acréscimo e controle de versão em transações. O [guia de revisão](review.md) descreve os limites de auditoria e identidade.
@@ -31,4 +32,4 @@ A saída de um modelo pode estar no formato correto e ainda conter valores errad
 
 Colocar as regras diretamente na interface simplificaria o primeiro protótipo, mas dificultaria os testes isolados e a comparação dos extratores. Distribuir o processamento em serviços separados aumentaria a operação antes de haver demanda comprovada. O fluxo local mantém a implementação pequena e permite evolução gradual.
 
-SQLite foi escolhido para a revisão local. Interface e hospedagem ainda não têm implementação consolidada neste registro. Filas, microsserviços e abstrações genéricas só devem ser adicionados quando resolverem uma necessidade demonstrada.
+SQLite foi escolhido para a revisão local. A interface e a API seguem a [ADR-002](architecture-web.md). A hospedagem continua pendente. Filas, microsserviços e abstrações genéricas só devem ser adicionados quando resolverem uma necessidade demonstrada.

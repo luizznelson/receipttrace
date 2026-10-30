@@ -1,0 +1,328 @@
+{
+  "id": "cord-train-shard0-row0189",
+  "image_sha256": "845fce416425105530c4c5b18f2ec5c7c2d19587a2603ef316cf59b55c1e009a",
+  "status": "ok",
+  "lines": [
+    {
+      "text": "24,000",
+      "score": 0.99988,
+      "box": [
+        [
+          1474.9715576171875,
+          2064.51611328125
+        ],
+        [
+          1674.514404296875,
+          2056.258056640625
+        ],
+        [
+          1678.628662109375,
+          2142.9677734375
+        ],
+        [
+          1479.0858154296875,
+          2151.225830078125
+        ]
+      ]
+    },
+    {
+      "text": "1 PREMIUM TOAST PAN BREAD",
+      "score": 0.98654,
+      "box": [
+        [
+          633.6000366210938,
+          2085.1611328125
+        ],
+        [
+          1361.82861328125,
+          2064.51611328125
+        ],
+        [
+          1363.8857421875,
+          2147.0966796875
+        ],
+        [
+          635.6571655273438,
+          2167.741943359375
+        ]
+      ]
+    },
+    {
+      "text": "TOTAL",
+      "score": 0.99984,
+      "box": [
+        [
+          682.9714965820312,
+          2213.1611328125
+        ],
+        [
+          1003.8857421875,
+          2209.0322265625
+        ],
+        [
+          1005.9429321289062,
+          2363.870849609375
+        ],
+        [
+          685.0286254882812,
+          2368.0
+        ]
+      ]
+    },
+    {
+      "text": "24,000",
+      "score": 0.99977,
+      "box": [
+        [
+          1296.0001220703125,
+          2198.709716796875
+        ],
+        [
+          1686.857177734375,
+          2186.322509765625
+        ],
+        [
+          1693.0286865234375,
+          2349.419189453125
+        ],
+        [
+          1302.1715087890625,
+          2361.806396484375
+        ]
+      ]
+    },
+    {
+      "text": "50,000",
+      "score": 0.99911,
+      "box": [
+        [
+          1481.1429443359375,
+          2310.193359375
+        ],
+        [
+          1686.857177734375,
+          2310.193359375
+        ],
+        [
+          1686.857177734375,
+          2407.225830078125
+        ],
+        [
+          1481.1429443359375,
+          2407.225830078125
+        ]
+      ]
+    },
+    {
+      "text": "CASH",
+      "score": 0.9966,
+      "box": [
+        [
+          693.2572021484375,
+          2341.1611328125
+        ],
+        [
+          837.2572021484375,
+          2337.0322265625
+        ],
+        [
+          839.3143310546875,
+          2421.67724609375
+        ],
+        [
+          695.3143310546875,
+          2425.806396484375
+        ]
+      ]
+    },
+    {
+      "text": "26,000",
+      "score": 0.99951,
+      "box": [
+        [
+          1304.2286376953125,
+          2374.193359375
+        ],
+        [
+          1699.2000732421875,
+          2374.193359375
+        ],
+        [
+          1699.2000732421875,
+          2543.48388671875
+        ],
+        [
+          1304.2286376953125,
+          2543.48388671875
+        ]
+      ]
+    },
+    {
+      "text": "CHANGE",
+      "score": 0.99944,
+      "box": [
+        [
+          680.914306640625,
+          2405.1611328125
+        ],
+        [
+          1063.54296875,
+          2388.64501953125
+        ],
+        [
+          1069.71435546875,
+          2541.419189453125
+        ],
+        [
+          687.0857543945312,
+          2557.935302734375
+        ]
+      ]
+    }
+  ],
+  "evidence": {
+    "rows": [
+      "1 PREMIUM TOAST PAN BREAD 24,000",
+      "TOTAL 24,000",
+      "CASH 50,000",
+      "CHANGE 26,000"
+    ],
+    "item_rows": [
+      "1 PREMIUM TOAST PAN BREAD 24,000"
+    ],
+    "total": {
+      "candidates": [
+        [
+          1,
+          "24,000",
+          "TOTAL 24,000"
+        ]
+      ],
+      "ambiguous": false
+    }
+  },
+  "validation": {
+    "schema_version": "1",
+    "rules_version": "1",
+    "numeric_policy": "idr-grouped",
+    "quantity_policy": "decimal-dot-optional-x",
+    "tolerance": "0",
+    "raw": {
+      "document_id": "cord-train-shard0-row0189",
+      "currency": null,
+      "items": [
+        {
+          "description": "PREMIUM TOAST PAN BREAD",
+          "quantity": "1",
+          "unit_price": null,
+          "amount": "24,000",
+          "discount": null,
+          "children": []
+        }
+      ],
+      "items_complete": false,
+      "subtotal": null,
+      "discount": null,
+      "tax": null,
+      "service": null,
+      "total": "24,000"
+    },
+    "normalized": {
+      "document_id": "cord-train-shard0-row0189",
+      "currency": null,
+      "items": [
+        {
+          "description": "PREMIUM TOAST PAN BREAD",
+          "quantity": {
+            "raw": "1",
+            "value": "1",
+            "status": "parsed",
+            "reason": null
+          },
+          "unit_price": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "amount": {
+            "raw": "24,000",
+            "value": "24000",
+            "status": "parsed",
+            "reason": null
+          },
+          "discount": {
+            "raw": null,
+            "value": null,
+            "status": "missing",
+            "reason": null
+          },
+          "children": []
+        }
+      ],
+      "items_complete": false,
+      "subtotal": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "discount": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "tax": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "service": {
+        "raw": null,
+        "value": null,
+        "status": "missing",
+        "reason": null
+      },
+      "total": {
+        "raw": "24,000",
+        "value": "24000",
+        "status": "parsed",
+        "reason": null
+      }
+    },
+    "checks": [
+      {
+        "code": "item_total",
+        "path": "items[0]",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "subtotal",
+        "path": "subtotal",
+        "status": "skipped",
+        "reason": "incomplete_or_nested_items",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      },
+      {
+        "code": "receipt_total",
+        "path": "total",
+        "status": "skipped",
+        "reason": "missing_or_invalid_component",
+        "expected": null,
+        "observed": null,
+        "difference": null
+      }
+    ],
+    "has_findings": false,
+    "has_skipped_checks": true
+  },
+  "seconds": 1.3511065999991843
+}

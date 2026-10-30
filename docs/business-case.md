@@ -4,7 +4,7 @@
 
 Uma imagem de recibo não é um registro pronto para consulta ou conferência. Alguém precisa identificar os valores, transcrevê-los e resolver dúvidas: o número representa o total, o dinheiro entregue ou o troco? Um campo está ausente ou apenas ilegível?
 
-O ReceiptTrace trata essa passagem da imagem para dados estruturados, preservando a origem do resultado. A demonstração compara duas formas de extração e prepara as informações para revisão humana. O fluxo de revisão local já está implementado; a interface permanece pendente.
+O ReceiptTrace trata essa passagem da imagem para dados estruturados, preservando a origem do resultado. A demonstração compara duas formas de extração e prepara as informações para revisão humana. O fluxo de revisão local já está implementado e disponível na interface para cinco campos de totais.
 
 ## Quem se beneficiaria e em qual tarefa
 
@@ -56,6 +56,6 @@ Metas de ganho ou critérios de aprovação deverão ser definidos antes da aval
 
 **Resultado:** a IA recuperou cinco totais adicionais nesta amostra, com maior tempo de processamento. A solução preserva evidências para conferência.
 
-**Limite e evolução:** isso ainda não prova ganho de produtividade nem autoriza aprovação automática. A revisão local foi implementada. O próximo passo é expô-la pela aplicação e medir sua contribuição com pessoas.
+**Limite e evolução:** isso ainda não prova ganho de produtividade nem autoriza aprovação automática. A revisão local foi implementada. A aplicação agora expõe esse fluxo. Ainda é necessário medir sua contribuição com pessoas.
 
 [Resultados completos](reports/gemini-development-20.md) · [Escopo](scope.md) · [Roteiro da apresentação e da interface](presentation.md)

@@ -1,8 +1,9 @@
 """Receipt input contracts and conservative arithmetic validation."""
 
+from collections import Counter
 from dataclasses import asdict, dataclass
 from decimal import Decimal, localcontext
-from typing import Literal
+from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -201,4 +202,25 @@ def report(raw: RawReceipt, policy: NumberPolicy, tolerance: Decimal) -> dict[st
         "checks": [asdict(check) for check in checks],
         "has_findings": any(check.status in ("invalid", "mismatch") for check in checks),
         "has_skipped_checks": any(check.status == "skipped" for check in checks),
+    }
+
+
+def summarize_validation(validation: dict[str, Any] | None) -> dict[str, Any]:
+    counts = Counter(check["status"] for check in validation["checks"]) if validation else Counter()
+    if validation is None:
+        state = "unavailable"
+    elif counts["invalid"] or counts["mismatch"]:
+        state = "findings"
+    elif not counts["pass"]:
+        state = "not_checked"
+    elif counts["skipped"]:
+        state = "partial"
+    else:
+        state = "passed"
+    return {
+        "status": state,
+        "passed": counts["pass"],
+        "mismatched": counts["mismatch"],
+        "invalid": counts["invalid"],
+        "skipped": counts["skipped"],
     }

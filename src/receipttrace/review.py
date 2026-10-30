@@ -5,7 +5,6 @@ import hashlib
 import json
 import re
 import sqlite3
-from collections import Counter
 from collections.abc import Iterator
 from contextlib import contextmanager
 from datetime import UTC, datetime
@@ -17,8 +16,12 @@ from uuid import uuid4
 from pydantic import BaseModel, ConfigDict, Field, JsonValue, field_validator
 
 from receipttrace.cli_serialization import decimal_json
-from receipttrace.domain import RawReceipt, report
+from receipttrace.domain import RawReceipt, report, summarize_validation
 from receipttrace.money import POLICIES, NumberPolicy
+
+
+class ReviewNotFound(ValueError):
+    """The requested review is not in this store."""
 
 
 class ReviewConflict(ValueError):
@@ -198,27 +201,6 @@ def _correct(raw: RawReceipt, changes: list[Correction]) -> tuple[RawReceipt, li
     return RawReceipt.model_validate(data), records
 
 
-def _summary(validation: dict[str, Any] | None) -> dict[str, Any]:
-    counts = Counter(check["status"] for check in validation["checks"]) if validation else Counter()
-    if validation is None:
-        state = "unavailable"
-    elif counts["invalid"] or counts["mismatch"]:
-        state = "findings"
-    elif not counts["pass"]:
-        state = "not_checked"
-    elif counts["skipped"]:
-        state = "partial"
-    else:
-        state = "passed"
-    return {
-        "status": state,
-        "passed": counts["pass"],
-        "mismatched": counts["mismatch"],
-        "invalid": counts["invalid"],
-        "skipped": counts["skipped"],
-    }
-
-
 def _completion(
     raw: RawReceipt | None,
     policy: NumberPolicy | None,
@@ -364,7 +346,7 @@ class ReviewStore:
             "SELECT * FROM reviews WHERE review_id = ?", (review_id,)
         ).fetchone()
         if stored is None:
-            raise ValueError("Review not found")
+            raise ReviewNotFound("Review not found")
         try:
             return self._materialize(connection, stored)
         except (ValueError, KeyError, TypeError, AttributeError) as error:
@@ -444,7 +426,7 @@ class ReviewStore:
             "revision": len(events),
             "extraction_status": source["extraction_status"],
             "review_status": status,
-            "arithmetic": _summary(validation),
+            "arithmetic": summarize_validation(validation),
             "original_raw": original,
             "current_raw": raw.model_dump(mode="json") if raw is not None else None,
             "validation": validation,

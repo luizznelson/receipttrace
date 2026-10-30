@@ -4,7 +4,7 @@
 
 Uma correção não deve apagar o que foi extraído. A revisão local permite conferir os campos e registrar alterações com responsável, motivo, data e valor anterior. Também registra a conclusão explícita da revisão, mesmo quando nenhuma correção é necessária.
 
-O fluxo está implementado por comandos e banco SQLite local. A interface e a API ainda serão construídas. A implementação não comprova redução de trabalho humano; isso precisa de uma avaliação própria.
+O fluxo está implementado por comandos e banco SQLite local. A [aplicação web](web.md) também permite revisar os cinco campos de totais pela interface e expõe o mesmo domínio por API. A implementação não comprova redução de trabalho humano; isso precisa de uma avaliação própria.
 
 ## Três estados que não devem ser confundidos
 
