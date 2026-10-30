@@ -91,11 +91,7 @@ class WebBoundary:
             uploading = (
                 self.allow_uploads and scope["path"] == "/api/uploads" and scope["method"] == "POST"
             )
-            live_validation = (
-                self.allow_uploads
-                and scope["path"] == "/api/uploads/validate"
-                and scope["method"] == "POST"
-            )
+            live_validation = scope["path"] == "/api/uploads/validate" and scope["method"] == "POST"
             limit = 8 * 1024 * 1024 if uploading else self.max_body_bytes
             if not self.read_only and request.url.hostname not in {"127.0.0.1", "localhost", "::1"}:
                 await failure(403, "host_rejected", "Local review requires a loopback host")(

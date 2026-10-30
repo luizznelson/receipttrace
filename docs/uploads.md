@@ -73,4 +73,12 @@ Itens não são estruturados no teste ao vivo. A soma dos itens fica sem confer�
 
 `upload_worker.py` verifica e prepara a imagem e executa o OCR. `upload_rules.py` seleciona campos de forma conservadora. `uploads.py` controla processo, concorrência e tempo. `web_boundary.py` aplica origem, formato e tamanho. `upload.js` apresenta a jornada, correções e exportação; `upload-client.js` contém o contrato de envio e as diferenças entre original e versão atual.
 
-O [contrato OpenAPI](contracts/web-openapi.json), os testes `test_uploads.py` e `upload-client.test.mjs` e o [relatório desta entrega](reports/uploads-verification.md) permitem conferir a implementação.
+O [contrato OpenAPI](contracts/web-openapi.json), os testes `test_uploads.py` e `upload-client.test.mjs` e o [relatório desta entrega](quality.md) permitem conferir a implementação.
+
+## Exemplo pronto e exportação
+
+“Usar recibo de exemplo” carrega uma leitura pública salva, identificada na tela, sem enviar arquivo nem executar OCR. O caso continua disponível com uploads desativados. A conferência transitória dos cinco campos não acessa o banco local e fica disponível para esse fluxo.
+
+CSV resume campo, original, valor revisado, motivo e hash da imagem; células potencialmente interpretadas como fórmulas são neutralizadas. JSON mantém a leitura e o registro completo. A opção de consultar disponibilidade novamente recupera uma falha de conexão sem exigir que a pessoa feche a página.
+
+![Imagem e valores durante a conferência](images/receipttrace-upload.jpg)

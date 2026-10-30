@@ -179,8 +179,6 @@ def create_app(
 
     @app.post("/api/uploads/validate")
     def validate_upload(body: UploadValidationRequest) -> Response:
-        if not allow_uploads:
-            raise UploadRejected("ocr_unavailable", 503)
         raw = RawReceipt.model_validate(body.raw.model_dump())
         return ExactJSONResponse(report(raw, body.policy, Decimal(0)))
 

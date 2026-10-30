@@ -1,5 +1,106 @@
 // Keep the same content in both languages; source receipt values are never translated.
 const phrases = {
+  csv_source: ["SHA-256 da imagem", "Image SHA-256"],
+  csv_reason: ["Motivo", "Reason"],
+  csv_reviewed: ["Sua revisão", "Your review"],
+  csv_original: ["Leitura original", "Original reading"],
+  csv_field: ["Informação", "Field"],
+  upload_saved_text: [
+    "Os campos vêm de uma extração salva; nenhuma nova leitura de texto foi executada neste teste.",
+    "Fields come from a saved extraction; no new text reading was run in this test.",
+  ],
+  upload_saved_field: [
+    "Valor preservado da extração de exemplo. Confira-o na imagem.",
+    "Value preserved from the sample extraction. Check it against the image.",
+  ],
+  technical_contract: ["Contrato técnico da API", "Technical API contract"],
+  nav_build: ["Como foi feito", "How it was built"],
+  upload_event_sample: [
+    "Exemplo público carregado com leitura salva",
+    "Public example loaded with a saved reading",
+  ],
+  upload_export_help: [
+    "CSV abre em planilhas e resume os valores. JSON inclui a leitura original, as evidências e o registro completo deste teste.",
+    "CSV opens in spreadsheets and summarizes the values. JSON includes the original reading, evidence and full test record.",
+  ],
+  upload_csv: ["Baixar tabela (CSV)", "Download table (CSV)"],
+  upload_sample_duration: [
+    "Leitura salva do estudo · original preservado.",
+    "Saved study reading · original preserved.",
+  ],
+  upload_sample_note: [
+    "Exemplo público com leitura salva do estudo. Nenhum arquivo seu foi enviado e nenhuma nova leitura foi executada. Você pode conferir, corrigir e baixar sua versão.",
+    "Public example with a saved study reading. No personal file was uploaded and no new reading was run. You can check, correct and download your version.",
+  ],
+  upload_retry: ["Verificar disponibilidade novamente", "Check availability again"],
+  upload_sample: ["Usar recibo de exemplo", "Use a sample receipt"],
+  build_next_body: [
+    "Desempenho em documentos novos e brasileiros, tempo de revisão por pessoas, consumo de recursos na hospedagem e uso com vários usuários ainda precisam de avaliação. Esta demonstração não aprova pagamentos nem valida documentos fiscais.",
+    "Performance on new and Brazilian documents, human review time, hosting resource use and multiuser operation still need evaluation. This demonstration does not approve payments or validate fiscal documents.",
+  ],
+  build_next: ["O que ainda precisa ser comprovado?", "What still needs to be established?"],
+  build_repo: ["Explorar o repositório", "Explore the repository"],
+  build_evidence_body: [
+    "O repositório conecta decisões, código, testes e relatórios. Houve assistência de IA; compreender e revisar a entrega é responsabilidade do mantenedor.",
+    "The repository connects decisions, code, tests and reports. AI assisted development; understanding and reviewing the result remains the maintainer’s responsibility.",
+  ],
+  build_evidence: ["Quer verificar a implementação?", "Want to inspect the implementation?"],
+  build_boundary_link: ["Conferir proteções e limites", "Review safeguards and limits"],
+  build_boundary_body: [
+    "FastAPI valida entradas. O envio tem limites de imagem, tempo e concorrência; erros recebem mensagens claras e o OCR roda em processo separado.",
+    "FastAPI validates inputs. Uploads have image, time and concurrency limits; errors have clear messages and OCR runs in a separate process.",
+  ],
+  build_boundary: ["Tratar falhas como parte do produto", "Treat failures as part of the product"],
+  build_trace_link: ["Entender o histórico de revisão", "Understand the review history"],
+  build_trace_body: [
+    "A revisão local usa transações SQLite e controle de versão. O teste nesta aba exporta original, alterações e motivo, sem misturar dados de visitantes com o estudo.",
+    "Local review uses SQLite transactions and revision checks. This tab exports the original, changes and reason without mixing visitor data with the study.",
+  ],
+  build_trace: ["Preservar o que mudou", "Preserve what changed"],
+  build_domain_link: ["Examinar as regras do domínio", "Inspect the domain rules"],
+  build_domain_body: [
+    "Os valores originais são preservados. Python e Decimal permitem conferir cálculos sem arredondamentos de ponto flutuante; um campo ausente não vira zero.",
+    "Original values are preserved. Python and Decimal support checks without floating-point rounding; a missing field does not become zero.",
+  ],
+  build_domain: ["Tratar dinheiro com regras explícitas", "Handle money with explicit rules"],
+  build_eval_link: ["Consultar o método de avaliação", "Read the evaluation method"],
+  build_eval_body: [
+    "OCR e Gemini foram comparados nos mesmos 20 documentos. Falhas e campos sem resposta entram na avaliação, sem selecionar só os acertos.",
+    "OCR and Gemini were compared on the same 20 documents. Failures and unanswered fields are included instead of selecting only successes.",
+  ],
+  build_eval: ["Avaliar antes de escolher", "Evaluate before choosing"],
+  build_intro: [
+    "Projeto de portfólio de Luiz. O trabalho conecta um problema de conferência a dados públicos, comparação de métodos, uma API e uma interface utilizável. Cada escolha tem uma evidência para você investigar.",
+    "A portfolio project by Luiz. It connects a review problem to public data, method comparison, an API and a usable interface. Each choice has evidence you can investigate.",
+  ],
+  build_title: ["As decisões por trás da demonstração.", "The decisions behind the demonstration."],
+  build_index: ["06 / COMO O PROJETO FOI CONSTRUÍDO", "06 / HOW THE PROJECT WAS BUILT"],
+  guided_numbers: [
+    "Os valores mantêm a escrita do recibo: 61,799 representa 61799 unidades, sem centavos nesta convenção. Não é uma conversão para reais.",
+    "Values preserve the receipt notation: 61,799 represents 61799 whole units in this convention. No currency conversion is applied.",
+  ],
+  guided_action: ["Experimentar este caso", "Try this case"],
+  guided_decide_body: [
+    "Conferir a imagem, corrigir o campo e registrar por que mudou. O original continua disponível.",
+    "Check the image, correct the field and record why it changed. The original stays available.",
+  ],
+  guided_decide: ["O que a pessoa precisa fazer", "What the reviewer needs to do"],
+  guided_compare_body: [
+    "A anotação oficial indica outro total. A leitura por Gemini recuperou esse valor.",
+    "The official annotation gives a different total. Gemini extraction recovered this value.",
+  ],
+  guided_compare: ["O que a referência mostra", "What the reference shows"],
+  guided_read_body: [
+    "O leitor de texto selecionou esse valor como total.",
+    "The text reader selected this value as the total.",
+  ],
+  guided_read: ["O que foi lido", "What was read"],
+  guided_intro: [
+    "Neste recibo público, a leitura automática confundiu dois valores. A diferença só fica clara quando você pode voltar ao documento.",
+    "In this public receipt, automatic reading confused two values. The difference becomes clear when you can return to the document.",
+  ],
+  guided_title: ["O pagamento não era o total.", "The payment was not the total."],
+  guided_index: ["02 / UM ERRO QUE EXPLICA O PROJETO", "02 / ONE ERROR THAT EXPLAINS THE PROJECT"],
   upload_invalid_field: [
     "{field}: o formato é inválido para a convenção escolhida. Confira separadores, sinais e casas decimais.",
     "{field}: the format is invalid for the chosen convention. Check separators, signs and decimal places.",
@@ -13,7 +114,7 @@ const phrases = {
     "To check the total, subtotal, discount, tax, service and total must be explicit and valid. A blank field does not mean zero.",
   ],
   nav_try: ["Testar meu recibo", "Try my receipt"],
-  upload_index: ["02 / TESTE COM SEU RECIBO", "02 / TRY YOUR OWN RECEIPT"],
+  upload_index: ["04 / EXPERIMENTE E CONFIRA", "04 / TRY AND CHECK"],
   upload_title: [
     "Seu documento. Uma leitura que você acompanha.",
     "Your document. A reading you can follow.",
@@ -88,7 +189,7 @@ const phrases = {
     "Describe your correction so the reason is included in the file.",
   ],
   upload_validate: ["Conferir formato e cálculos", "Check format and calculations"],
-  upload_download: ["Baixar resultado em JSON", "Download result as JSON"],
+  upload_download: ["Baixar registro completo (JSON)", "Download full record (JSON)"],
   upload_check_limit: [
     "Os itens não são estruturados neste teste, e sua soma não é conferida. Um formato válido não comprova que o valor foi lido corretamente.",
     "Items are not structured in this test and their sum is not checked. A valid format does not prove the value was read correctly.",
@@ -255,20 +356,20 @@ const phrases = {
   skip: ["Pular para o teste", "Skip to the test"],
   navigation: ["Navegação principal", "Main navigation"],
   nav_approach: ["A proposta", "The approach"],
-  nav_demo: ["Explorar exemplo", "Explore an example"],
+  nav_demo: ["Entender o caso", "Understand the case"],
   nav_results: ["Resultados", "Results"],
   eyebrow: ["IA aplicada, com evidências", "Applied AI, backed by evidence"],
   hero_a: ["Da imagem do recibo", "From a receipt image"],
   hero_b: ["ao dado que você confere.", "to data you can check."],
   hero_description: [
-    "Teste a leitura do seu recibo, confira os valores e leve o resultado com o registro das correções. Explore também o estudo que compara OCR e IA em documentos públicos.",
-    "Try reading your receipt, check the values and take the result with a record of corrections. Also explore the study comparing OCR and AI on public documents.",
+    "Para quem organiza comprovantes e precisa conferir os valores antes de usá-los. Veja como a leitura automática pode errar, acompanhe uma correção e teste com uma imagem sua.",
+    "For people organizing receipts who need to check values before using them. See how automatic reading can fail, follow a correction and try your own image.",
   ],
-  explore: ["Testar meu recibo", "Try my receipt"],
-  see_results: ["Ver o que foi medido", "See what was measured"],
+  explore: ["Entender com um exemplo", "Understand through an example"],
+  see_results: ["Testar meu recibo", "Try my receipt"],
   hero_note: [
-    "Teste com OCR local ou explore exemplos prontos. Não exige chave de API.",
-    "Try local OCR or explore saved examples. No API key required.",
+    "Comece com um exemplo pronto. Não precisa de arquivo nem chave de API.",
+    "Start with a ready example. No file or API key needed.",
   ],
   hero_visual: [
     "Exemplo real com total recuperado pela IA",
@@ -306,7 +407,7 @@ const phrases = {
     "Cenário proposto para equipes administrativas e financeiras. Ganho de produtividade ainda não foi medido.",
     "A proposed use case for administrative and finance teams. Productivity gains have not been measured.",
   ],
-  workspace_index: ["03 / ENTENDA COM EXEMPLOS", "03 / UNDERSTAND THROUGH EXAMPLES"],
+  workspace_index: ["03 / COMPARE AS DUAS LEITURAS", "03 / COMPARE THE TWO READINGS"],
   workspace_title: ["Da leitura à revisão.", "From extraction to review."],
   workspace_description: [
     "Escolha um exemplo e veja o que cada abordagem encontrou.",
@@ -331,8 +432,8 @@ const phrases = {
   enlarge: ["Ampliar", "Enlarge"],
   selected_alt: ["Imagem original do recibo selecionado", "Original image of the selected receipt"],
   method_label: ["Método de extração", "Extraction method"],
-  ocr: ["OCR local", "Local OCR"],
-  ai: ["Gemini · IA", "Gemini · AI"],
+  ocr: ["Leitura de texto (OCR)", "Text reading (OCR)"],
+  ai: ["Leitura por IA (Gemini)", "AI reading (Gemini)"],
   field_note: [
     "Valores como foram escritos no recibo. A moeda não foi presumida.",
     "Values as written on the receipt. Currency has not been assumed.",
@@ -410,7 +511,7 @@ const phrases = {
     "Campos da extração original, antes das correções:",
     "Original extraction fields, before corrections:",
   ],
-  results_index: ["04 / O QUE OS DADOS RESPONDEM", "04 / WHAT THE DATA TELLS US"],
+  results_index: ["05 / O QUE O ESTUDO DEMONSTROU", "05 / WHAT THE STUDY SHOWED"],
   results_title: [
     "Mais valores corretos. Mais tempo por leitura.",
     "More correct values. More time per reading.",

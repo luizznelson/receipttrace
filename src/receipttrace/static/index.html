@@ -14,17 +14,17 @@
     <script type="module" src="/assets/app.js"></script>
   </head>
   <body id="top">
-    <a class="skip-link" href="#try" data-i18n="skip">Pular para o exemplo</a>
+    <a class="skip-link" href="#try" data-i18n="skip">Pular para o teste</a>
     <header class="site-header wrap">
       <a class="brand" href="#top" aria-label="ReceiptTrace"
         ><span class="brand-mark" aria-hidden="true">rt<span>·</span></span
         ><span>Receipt<span class="brand-light">Trace</span></span></a
       >
       <nav aria-label="Navegação principal" data-i18n-aria="navigation">
-        <a href="#approach" data-i18n="nav_approach">A proposta</a
-        ><a href="#try" data-i18n="nav_try">Testar meu recibo</a
-        ><a href="#workspace" data-i18n="nav_demo">Explorar exemplo</a
-        ><a href="#results" data-i18n="nav_results">Resultados</a>
+        <a href="#case" data-i18n="nav_demo">Entender o caso</a
+        ><a href="#try" data-i18n="nav_try">Experimentar</a
+        ><a href="#results" data-i18n="nav_results">Resultados</a
+        ><a href="#engineering" data-i18n="nav_build">Como foi feito</a>
       </nav>
       <div class="language" role="group" aria-label="Idioma / Language">
         <button type="button" data-lang="pt" aria-pressed="true">PT</button
@@ -45,20 +45,20 @@
             >
           </h1>
           <p class="hero-description" data-i18n="hero_description">
-            Teste a leitura do seu recibo, confira os valores e leve o resultado com o registro das
-            correções. Explore também o estudo que compara OCR e IA em documentos públicos.
+            Para quem organiza comprovantes e precisa conferir os valores antes de usá-los. Veja
+            como a leitura automática pode errar, acompanhe uma correção e teste com uma imagem sua.
           </p>
           <div class="hero-actions">
-            <a class="button primary" href="#try"
+            <a class="button primary" href="#case"
               ><span data-i18n="explore">Testar meu recibo</span
               ><span aria-hidden="true">↗</span></a
-            ><a class="text-link" href="#results"
+            ><a class="text-link" href="#try"
               ><span data-i18n="see_results">Ver o que foi medido</span
               ><span aria-hidden="true">↓</span></a
             >
           </div>
           <p class="hero-note" data-i18n="hero_note">
-            Teste com OCR local ou explore exemplos prontos. Não exige chave de API.
+            Comece com um exemplo pronto. Não precisa de arquivo nem chave de API.
           </p>
         </div>
         <div
@@ -96,32 +96,6 @@
           <span class="visual-source">CORD v2 · CC BY 4.0</span>
         </div>
       </section>
-      <section
-        class="metrics wrap"
-        aria-label="Resumo do experimento"
-        data-i18n-aria="metrics_label"
-      >
-        <div>
-          <p data-i18n="metric_correct">Totais corretos com IA</p>
-          <strong id="metric-correct">—</strong
-          ><span data-i18n="metric_sample">na amostra de desenvolvimento</span>
-        </div>
-        <div>
-          <p data-i18n="metric_gain">Além do OCR</p>
-          <strong id="metric-gain">—</strong
-          ><span data-i18n="metric_gain_note">totais adicionais recuperados</span>
-        </div>
-        <div>
-          <p data-i18n="metric_time">Tempo típico com IA</p>
-          <strong id="metric-time">—</strong
-          ><span data-i18n="metric_time_note">mediana por recibo neste lote</span>
-        </div>
-        <div>
-          <p data-i18n="metric_cost">Custo estimado de API</p>
-          <strong id="metric-cost">—</strong
-          ><span data-i18n="metric_cost_note">Free Tier; não é custo operacional</span>
-        </div>
-      </section>
       <section class="approach wrap" id="approach" aria-labelledby="approach-title">
         <div>
           <p class="section-index" data-i18n="approach_index">01 / O PROBLEMA</p>
@@ -145,207 +119,56 @@
           </p>
         </div>
       </section>
-      <section class="upload-section wrap" id="try" aria-labelledby="upload-title">
-        <div class="section-heading">
-          <div>
-            <p class="section-index" data-i18n="upload_index">02 / TESTE COM SEU RECIBO</p>
-            <h2 id="upload-title" data-i18n="upload_title">
-              Seu documento. Uma leitura que você acompanha.
-            </h2>
-            <p class="muted" data-i18n="upload_description">
-              Envie uma imagem, veja o que foi encontrado e confira antes de usar.
+      <section class="guided wrap" id="case" aria-labelledby="guided-title">
+        <p class="section-index" data-i18n="guided_index">02 / UM ERRO QUE EXPLICA O PROJETO</p>
+        <h2 id="guided-title" data-i18n="guided_title">O pagamento não era o total.</h2>
+        <p class="guided-intro" data-i18n="guided_intro">
+          Neste recibo público, a leitura automática confundiu dois valores. A diferença só fica
+          clara quando você pode voltar ao documento.
+        </p>
+        <div class="case-story">
+          <article>
+            <span class="section-index">01</span>
+            <h3 data-i18n="guided_read">O que foi lido</h3>
+            <strong>62,000</strong>
+            <p data-i18n="guided_read_body">O leitor de texto selecionou esse valor como total.</p>
+          </article>
+          <article>
+            <span class="section-index">02</span>
+            <h3 data-i18n="guided_compare">O que a referência mostra</h3>
+            <strong>61,799</strong>
+            <p data-i18n="guided_compare_body">
+              A anotação oficial indica outro total. A leitura por Gemini recuperou esse valor.
             </p>
-          </div>
-          <a class="text-link" href="#workspace" data-i18n="upload_examples_link"
-            >Prefere começar por um exemplo?</a
-          >
-        </div>
-        <ol class="upload-steps" aria-label="Etapas do teste" data-i18n-aria="upload_steps_label">
-          <li data-upload-step="choose" aria-current="step">
-            <span>01</span><strong data-i18n="upload_step_choose">Escolher</strong>
-          </li>
-          <li data-upload-step="read">
-            <span>02</span><strong data-i18n="upload_step_read">Ler</strong>
-          </li>
-          <li data-upload-step="review">
-            <span>03</span><strong data-i18n="upload_step_review">Conferir</strong>
-          </li>
-          <li data-upload-step="export">
-            <span>04</span><strong data-i18n="upload_step_export">Levar o resultado</strong>
-          </li>
-        </ol>
-        <p class="notice" id="upload-offline" role="status" hidden></p>
-        <div class="upload-controls">
-          <div class="upload-picker">
-            <label for="upload-file" data-i18n="upload_choose">Escolha a imagem do recibo</label>
-            <input
-              id="upload-file"
-              type="file"
-              accept="image/png,image/jpeg"
-              aria-describedby="upload-file-help"
-            />
-            <span id="upload-file-name" class="small muted"></span>
-            <p id="upload-file-help" class="small muted" data-i18n="upload_formats">
-              PNG ou JPG · até 8 MB e 12 megapixels · uma imagem por vez.
+          </article>
+          <article>
+            <span class="section-index">03</span>
+            <h3 data-i18n="guided_decide">O que a pessoa precisa fazer</h3>
+            <p data-i18n="guided_decide_body">
+              Conferir a imagem, corrigir o campo e registrar por que mudou. O original continua
+              disponível.
             </p>
-          </div>
-          <div class="upload-policy">
-            <label for="upload-policy" data-i18n="upload_policy"
-              >Como os números estão escritos?</label
+            <button
+              type="button"
+              class="button primary"
+              id="guided-sample"
+              data-i18n="guided_action"
             >
-            <select id="upload-policy">
-              <option value="brl-grouped" data-i18n="upload_policy_brl">
-                Vírgula decimal: 12,50 ou 1.234,56
-              </option>
-              <option value="usd-grouped" data-i18n="upload_policy_usd">
-                Ponto decimal: 12.50 ou 1,234.56
-              </option>
-              <option value="idr-grouped" data-i18n="upload_policy_idr">
-                Sem centavos: 61,799 ou 61.799 (CORD)
-              </option>
-            </select>
-            <p class="small muted" data-i18n="upload_policy_help">
-              Escolha pelo documento, não pelo idioma da página. A moeda não será presumida.
-            </p>
-          </div>
-          <label class="upload-consent"
-            ><input id="upload-consent" type="checkbox" /><span data-i18n="upload_consent"
-              >Estou enviando apenas um recibo sem dados pessoais ou sensíveis.</span
-            ></label
-          >
-          <div class="hero-actions">
-            <button class="button primary" type="button" id="upload-read" data-i18n="upload_read">
-              Ler meu recibo
+              Experimentar este caso
             </button>
-            <button class="text-button" type="button" id="upload-reset" data-i18n="upload_reset">
-              Limpar este teste
-            </button>
-          </div>
-          <p class="small muted" data-i18n="upload_privacy">
-            OCR local no servidor, sem enviar a provedores de IA. Imagem e texto são processados em
-            memória, sem gravação pela aplicação. O resultado fica nesta aba até você limpar ou
-            fechar.
-          </p>
-        </div>
-        <div class="notice danger" id="upload-message" role="alert" hidden></div>
-        <div
-          class="notice upload-progress"
-          id="upload-progress"
-          role="status"
-          aria-live="polite"
-          hidden
-        >
-          <span class="dot" aria-hidden="true"></span><span id="upload-elapsed"></span>
-        </div>
-        <div class="upload-grid">
-          <article class="source-panel upload-image-panel">
-            <header class="panel-header">
-              <h3 data-i18n="upload_your_image">A imagem que você enviou</h3>
-            </header>
-            <div id="upload-preview-empty" class="upload-empty">
-              <span aria-hidden="true">↥</span>
-              <p data-i18n="upload_photo_tip">
-                Fotografe de frente, com boa luz e o recibo inteiro. Texto legível faz diferença.
-              </p>
-            </div>
-            <img
-              id="upload-preview"
-              alt="Prévia do recibo enviado"
-              data-i18n-alt="upload_preview_alt"
-              hidden
-            />
-          </article>
-          <article class="upload-result-panel">
-            <div id="upload-guide" class="upload-empty">
-              <span class="section-index" data-i18n="upload_guide_label"
-                >O QUE VOCÊ VAI RECEBER</span
-              >
-              <h3 data-i18n="upload_guide_title">Uma leitura inicial, com espaço para conferir.</h3>
-              <p data-i18n="upload_guide_body">
-                O sistema procura total, subtotal, imposto, serviço e desconto. Se não encontrar um
-                valor com clareza, deixa o campo em branco. Você confere a imagem e decide o que
-                corrigir.
-              </p>
-              <p class="small muted" data-i18n="upload_limit">
-                Recibos e idiomas diferentes podem exigir correção. Este teste ainda não valida
-                documentos fiscais brasileiros nem mede acurácia.
-              </p>
-            </div>
-            <div id="upload-results" hidden>
-              <p class="section-index" id="upload-found"></p>
-              <h3 id="upload-status"></h3>
-              <p class="small muted" id="upload-duration"></p>
-              <p class="small muted" id="upload-resized" data-i18n="upload_resized" hidden>
-                A imagem foi reduzida para limitar o processamento. Confira detalhes pequenos no
-                original.
-              </p>
-              <div id="upload-fields" class="upload-fields"></div>
-              <p class="small" id="upload-edit-note"></p>
-              <label for="upload-reason" data-i18n="upload_reason"
-                >O que você corrigiu e por quê?</label
-              >
-              <textarea
-                id="upload-reason"
-                maxlength="1000"
-                rows="2"
-                data-i18n-placeholder="upload_reason_placeholder"
-                placeholder="Ex.: o valor era do pagamento; corrigi pelo total na imagem."
-              ></textarea>
-              <p
-                class="small muted"
-                id="upload-reason-note"
-                data-i18n="upload_reason_required"
-                hidden
-              >
-                Descreva a correção para incluir o motivo no arquivo.
-              </p>
-              <div class="hero-actions upload-result-actions">
-                <button
-                  type="button"
-                  id="upload-validate"
-                  class="button secondary"
-                  data-i18n="upload_validate"
-                >
-                  Conferir formato e cálculos</button
-                ><button
-                  type="button"
-                  id="upload-download"
-                  class="button primary"
-                  data-i18n="upload_download"
-                >
-                  Baixar resultado em JSON
-                </button>
-              </div>
-              <ul id="upload-check-details" class="small upload-check-details"></ul>
-              <p id="upload-checks" class="notice" role="status"></p>
-              <p class="small muted" data-i18n="upload_check_limit">
-                Cálculos sem componentes suficientes ficam sem verificação. Um formato válido não
-                comprova que o valor foi lido corretamente.
-              </p>
-              <details>
-                <summary data-i18n="upload_text_title">Ver o texto que o OCR leu</summary>
-                <pre id="upload-text"></pre>
-              </details>
-              <details>
-                <summary data-i18n="upload_history_title">Acompanhar este teste</summary>
-                <ol id="upload-events"></ol>
-                <p class="small muted" data-i18n="upload_history_note">
-                  Registro desta aba, sem identidade autenticada. O download preserva a leitura
-                  original, as alterações e os horários. Nada é acrescentado aos indicadores do
-                  estudo.
-                </p>
-                <p id="upload-fingerprint" class="small muted"></p>
-              </details>
-            </div>
           </article>
         </div>
+        <p class="small muted" data-i18n="guided_numbers">
+          Os valores mantêm a escrita do recibo: 61,799 representa 61799 unidades, sem centavos
+          nesta convenção. Não é uma conversão para reais.
+        </p>
       </section>
 
       <section class="workspace-section" id="workspace" aria-labelledby="workspace-title">
         <div class="wrap">
           <div class="section-heading">
             <div>
-              <p class="section-index" data-i18n="workspace_index">03 / ENTENDA COM EXEMPLOS</p>
+              <p class="section-index" data-i18n="workspace_index">03 / COMPARE AS DUAS LEITURAS</p>
               <h2 id="workspace-title" data-i18n="workspace_title">Da leitura à revisão.</h2>
               <p class="muted" data-i18n="workspace_description">
                 Escolha um exemplo e veja o que cada abordagem encontrou.
@@ -396,7 +219,7 @@
                   <button data-method="ocr" type="button" aria-pressed="true" data-i18n="ocr">
                     OCR local</button
                   ><button data-method="gemini" type="button" aria-pressed="false" data-i18n="ai">
-                    Gemini · IA
+                    Leitura por IA (Gemini)
                   </button>
                 </div>
                 <span id="document-time" class="small muted">—</span>
@@ -584,10 +407,223 @@
           </div>
         </div>
       </section>
+      <section class="upload-section wrap" id="try" aria-labelledby="upload-title">
+        <div class="section-heading">
+          <div>
+            <p class="section-index" data-i18n="upload_index">04 / EXPERIMENTE E CONFIRA</p>
+            <h2 id="upload-title" data-i18n="upload_title">
+              Seu documento. Uma leitura que você acompanha.
+            </h2>
+            <p class="muted" data-i18n="upload_description">
+              Envie uma imagem, veja o que foi encontrado e confira antes de usar.
+            </p>
+          </div>
+          <a class="text-link" href="#workspace" data-i18n="upload_examples_link"
+            >Prefere começar por um exemplo?</a
+          >
+        </div>
+        <ol class="upload-steps" aria-label="Etapas do teste" data-i18n-aria="upload_steps_label">
+          <li data-upload-step="choose" aria-current="step">
+            <span>01</span><strong data-i18n="upload_step_choose">Escolher</strong>
+          </li>
+          <li data-upload-step="read">
+            <span>02</span><strong data-i18n="upload_step_read">Ler</strong>
+          </li>
+          <li data-upload-step="review">
+            <span>03</span><strong data-i18n="upload_step_review">Conferir</strong>
+          </li>
+          <li data-upload-step="export">
+            <span>04</span><strong data-i18n="upload_step_export">Levar o resultado</strong>
+          </li>
+        </ol>
+        <p class="notice" id="upload-offline" role="status" hidden></p>
+        <button id="upload-retry" type="button" class="text-button" data-i18n="upload_retry" hidden>
+          Verificar disponibilidade novamente
+        </button>
+        <p id="upload-sample-note" class="notice" data-i18n="upload_sample_note" hidden>
+          Exemplo público com leitura salva do estudo. Nenhum arquivo seu foi enviado e nenhuma nova
+          leitura foi executada. Você pode conferir, corrigir e baixar sua versão.
+        </p>
+        <button id="upload-sample" class="button secondary" type="button" data-i18n="upload_sample">
+          Usar recibo de exemplo
+        </button>
+        <div class="upload-controls">
+          <div class="upload-picker">
+            <label for="upload-file" data-i18n="upload_choose">Escolha a imagem do recibo</label>
+            <input
+              id="upload-file"
+              type="file"
+              accept="image/png,image/jpeg"
+              aria-describedby="upload-file-help"
+            />
+            <span id="upload-file-name" class="small muted"></span>
+            <p id="upload-file-help" class="small muted" data-i18n="upload_formats">
+              PNG ou JPG · até 8 MB e 12 megapixels · uma imagem por vez.
+            </p>
+          </div>
+          <div class="upload-policy">
+            <label for="upload-policy" data-i18n="upload_policy"
+              >Como os números estão escritos?</label
+            >
+            <select id="upload-policy">
+              <option value="brl-grouped" data-i18n="upload_policy_brl">
+                Vírgula decimal: 12,50 ou 1.234,56
+              </option>
+              <option value="usd-grouped" data-i18n="upload_policy_usd">
+                Ponto decimal: 12.50 ou 1,234.56
+              </option>
+              <option value="idr-grouped" data-i18n="upload_policy_idr">
+                Sem centavos: 61,799 ou 61.799 (CORD)
+              </option>
+            </select>
+            <p class="small muted" data-i18n="upload_policy_help">
+              Escolha pelo documento, não pelo idioma da página. A moeda não será presumida.
+            </p>
+          </div>
+          <label class="upload-consent"
+            ><input id="upload-consent" type="checkbox" /><span data-i18n="upload_consent"
+              >Estou enviando apenas um recibo sem dados pessoais ou sensíveis.</span
+            ></label
+          >
+          <div class="hero-actions">
+            <button class="button primary" type="button" id="upload-read" data-i18n="upload_read">
+              Ler meu recibo
+            </button>
+            <button class="text-button" type="button" id="upload-reset" data-i18n="upload_reset">
+              Limpar este teste
+            </button>
+          </div>
+          <p class="small muted" data-i18n="upload_privacy">
+            OCR local no servidor, sem enviar a provedores de IA. Imagem e texto são processados em
+            memória, sem gravação pela aplicação. O resultado fica nesta aba até você limpar ou
+            fechar.
+          </p>
+        </div>
+        <div class="notice danger" id="upload-message" role="alert" hidden></div>
+        <div
+          class="notice upload-progress"
+          id="upload-progress"
+          role="status"
+          aria-live="polite"
+          hidden
+        >
+          <span class="dot" aria-hidden="true"></span><span id="upload-elapsed"></span>
+        </div>
+        <div class="upload-grid">
+          <article class="source-panel upload-image-panel">
+            <header class="panel-header">
+              <h3 data-i18n="upload_your_image">A imagem que você enviou</h3>
+            </header>
+            <div id="upload-preview-empty" class="upload-empty">
+              <span aria-hidden="true">↥</span>
+              <p data-i18n="upload_photo_tip">
+                Fotografe de frente, com boa luz e o recibo inteiro. Texto legível faz diferença.
+              </p>
+            </div>
+            <img
+              id="upload-preview"
+              alt="Prévia do recibo enviado"
+              data-i18n-alt="upload_preview_alt"
+              hidden
+            />
+          </article>
+          <article class="upload-result-panel">
+            <div id="upload-guide" class="upload-empty">
+              <span class="section-index" data-i18n="upload_guide_label"
+                >O QUE VOCÊ VAI RECEBER</span
+              >
+              <h3 data-i18n="upload_guide_title">Uma leitura inicial, com espaço para conferir.</h3>
+              <p data-i18n="upload_guide_body">
+                O sistema procura total, subtotal, imposto, serviço e desconto. Se não encontrar um
+                valor com clareza, deixa o campo em branco. Você confere a imagem e decide o que
+                corrigir.
+              </p>
+              <p class="small muted" data-i18n="upload_limit">
+                Recibos e idiomas diferentes podem exigir correção. Este teste ainda não valida
+                documentos fiscais brasileiros nem mede acurácia.
+              </p>
+            </div>
+            <div id="upload-results" hidden>
+              <p class="section-index" id="upload-found"></p>
+              <h3 id="upload-status"></h3>
+              <p class="small muted" id="upload-duration"></p>
+              <p class="small muted" id="upload-resized" data-i18n="upload_resized" hidden>
+                A imagem foi reduzida para limitar o processamento. Confira detalhes pequenos no
+                original.
+              </p>
+              <div id="upload-fields" class="upload-fields"></div>
+              <p class="small" id="upload-edit-note"></p>
+              <label for="upload-reason" data-i18n="upload_reason"
+                >O que você corrigiu e por quê?</label
+              >
+              <textarea
+                id="upload-reason"
+                maxlength="1000"
+                rows="2"
+                data-i18n-placeholder="upload_reason_placeholder"
+                placeholder="Ex.: o valor era do pagamento; corrigi pelo total na imagem."
+              ></textarea>
+              <p
+                class="small muted"
+                id="upload-reason-note"
+                data-i18n="upload_reason_required"
+                hidden
+              >
+                Descreva a correção para incluir o motivo no arquivo.
+              </p>
+              <div class="hero-actions upload-result-actions">
+                <button
+                  type="button"
+                  id="upload-validate"
+                  class="button secondary"
+                  data-i18n="upload_validate"
+                >
+                  Conferir formato e cálculos</button
+                ><button
+                  type="button"
+                  id="upload-download"
+                  class="button primary"
+                  data-i18n="upload_download"
+                >
+                  Baixar registro completo (JSON)
+                </button>
+              </div>
+              <button id="upload-csv" type="button" class="button secondary" data-i18n="upload_csv">
+                Baixar tabela (CSV)
+              </button>
+              <p class="small muted" data-i18n="upload_export_help">
+                CSV abre em planilhas e resume os valores. JSON inclui a leitura original, as
+                evidências e o registro completo deste teste.
+              </p>
+              <ul id="upload-check-details" class="small upload-check-details"></ul>
+              <p id="upload-checks" class="notice" role="status"></p>
+              <p class="small muted" data-i18n="upload_check_limit">
+                Os itens não são estruturados neste teste, e sua soma não é conferida. Um formato
+                válido não comprova que o valor foi lido corretamente.
+              </p>
+              <details>
+                <summary data-i18n="upload_text_title">Ver o texto que o OCR leu</summary>
+                <pre id="upload-text"></pre>
+              </details>
+              <details>
+                <summary data-i18n="upload_history_title">Acompanhar este teste</summary>
+                <ol id="upload-events"></ol>
+                <p class="small muted" data-i18n="upload_history_note">
+                  Registro desta aba, sem identidade autenticada. O download preserva a leitura
+                  original, as alterações e os horários. Nada é acrescentado aos indicadores do
+                  estudo.
+                </p>
+                <p id="upload-fingerprint" class="small muted"></p>
+              </details>
+            </div>
+          </article>
+        </div>
+      </section>
+
       <section class="results wrap" id="results" aria-labelledby="results-title">
         <div class="section-heading">
           <div>
-            <p class="section-index" data-i18n="results_index">04 / O QUE OS DADOS RESPONDEM</p>
+            <p class="section-index" data-i18n="results_index">05 / O QUE O ESTUDO DEMONSTROU</p>
             <h2 id="results-title" data-i18n="results_title">
               Mais valores corretos. Mais tempo por leitura.
             </h2>
@@ -597,6 +633,32 @@
             ><span aria-hidden="true">↗</span></a
           >
         </div>
+        <section
+          class="metrics wrap"
+          aria-label="Resumo do experimento"
+          data-i18n-aria="metrics_label"
+        >
+          <div>
+            <p data-i18n="metric_correct">Totais corretos com IA</p>
+            <strong id="metric-correct">—</strong
+            ><span data-i18n="metric_sample">na amostra de desenvolvimento</span>
+          </div>
+          <div>
+            <p data-i18n="metric_gain">Além do OCR</p>
+            <strong id="metric-gain">—</strong
+            ><span data-i18n="metric_gain_note">totais adicionais recuperados</span>
+          </div>
+          <div>
+            <p data-i18n="metric_time">Tempo típico com IA</p>
+            <strong id="metric-time">—</strong
+            ><span data-i18n="metric_time_note">mediana por recibo neste lote</span>
+          </div>
+          <div>
+            <p data-i18n="metric_cost">Custo estimado de API</p>
+            <strong id="metric-cost">—</strong
+            ><span data-i18n="metric_cost_note">Free Tier; não é custo operacional</span>
+          </div>
+        </section>
         <div class="results-grid">
           <div>
             <table class="comparison-table">
@@ -606,8 +668,8 @@
               <thead>
                 <tr>
                   <th data-i18n="field">Informação</th>
-                  <th data-i18n="ocr">OCR local</th>
-                  <th data-i18n="ai">Gemini · IA</th>
+                  <th data-i18n="ocr">Leitura de texto (OCR)</th>
+                  <th data-i18n="ai">Leitura por IA (Gemini)</th>
                 </tr>
               </thead>
               <tbody id="comparison-rows"></tbody>
@@ -648,10 +710,94 @@
           <strong data-i18n="limits_title">Resultado de um estudo de desenvolvimento.</strong>
           <p data-i18n="limits_body">
             Não é teste em dados reservados, validação de documentos fiscais brasileiros ou medição
-            de economia de trabalho. A demonstração usa respostas salvas e não faz novas chamadas de
-            IA.
+            de economia de trabalho. Os exemplos usam respostas salvas. O envio de novos recibos usa
+            OCR local, sem chamadas a provedores de IA.
           </p>
         </div>
+      </section>
+      <section class="engineering wrap" id="engineering" aria-labelledby="engineering-title">
+        <p class="section-index" data-i18n="build_index">06 / COMO O PROJETO FOI CONSTRUÍDO</p>
+        <h2 id="engineering-title" data-i18n="build_title">
+          As decisões por trás da demonstração.
+        </h2>
+        <p class="guided-intro" data-i18n="build_intro">
+          Projeto de portfólio de Luiz. O trabalho conecta um problema de conferência a dados
+          públicos, comparação de métodos, uma API e uma interface utilizável. Cada escolha tem uma
+          evidência para você investigar.
+        </p>
+        <div class="engineering-grid">
+          <article>
+            <h3 data-i18n="build_eval">Avaliar antes de escolher</h3>
+            <p data-i18n="build_eval_body">
+              OCR e Gemini foram comparados nos mesmos 20 documentos. Falhas e campos sem resposta
+              entram na avaliação, sem selecionar só os acertos.
+            </p>
+            <a
+              href="https://github.com/luizznelson/receipttrace/blob/main/docs/evaluation.md"
+              data-i18n="build_eval_link"
+              >Consultar o método de avaliação</a
+            >
+          </article>
+          <article>
+            <h3 data-i18n="build_domain">Tratar dinheiro com regras explícitas</h3>
+            <p data-i18n="build_domain_body">
+              Os valores originais são preservados. Python e Decimal permitem conferir cálculos sem
+              arredondamentos de ponto flutuante; um campo ausente não vira zero.
+            </p>
+            <a
+              href="https://github.com/luizznelson/receipttrace/blob/main/docs/domain.md"
+              data-i18n="build_domain_link"
+              >Examinar as regras do domínio</a
+            >
+          </article>
+          <article>
+            <h3 data-i18n="build_trace">Preservar o que mudou</h3>
+            <p data-i18n="build_trace_body">
+              A revisão local usa transações SQLite e controle de versão. O teste nesta aba exporta
+              original, alterações e motivo, sem misturar dados de visitantes com o estudo.
+            </p>
+            <a
+              href="https://github.com/luizznelson/receipttrace/blob/main/docs/review.md"
+              data-i18n="build_trace_link"
+              >Entender o histórico de revisão</a
+            >
+          </article>
+          <article>
+            <h3 data-i18n="build_boundary">Tratar falhas como parte do produto</h3>
+            <p data-i18n="build_boundary_body">
+              FastAPI valida entradas. O envio tem limites de imagem, tempo e concorrência; erros
+              recebem mensagens claras e o OCR roda em processo separado.
+            </p>
+            <a
+              href="https://github.com/luizznelson/receipttrace/blob/main/docs/security.md"
+              data-i18n="build_boundary_link"
+              >Conferir proteções e limites</a
+            >
+          </article>
+        </div>
+        <div class="engineering-close">
+          <div>
+            <h3 data-i18n="build_evidence">Quer verificar a implementação?</h3>
+            <p data-i18n="build_evidence_body">
+              O repositório conecta decisões, código, testes e relatórios. Houve assistência de IA;
+              compreender e revisar a entrega é responsabilidade do mantenedor.
+            </p>
+          </div>
+          <a
+            class="button primary"
+            href="https://github.com/luizznelson/receipttrace"
+            data-i18n="build_repo"
+            >Explorar o repositório</a
+          >
+        </div>
+        <details>
+          <summary data-i18n="build_next">O que ainda precisa ser comprovado?</summary>
+          <p data-i18n="build_next_body">
+            Desempenho em documentos novos e brasileiros, tempo de revisão por pessoas, consumo de
+            recursos na hospedagem e uso com vários usuários ainda precisam de avaliação. Esta
+            demonstração não aprova pagamentos nem valida documentos fiscais.
+          </p>
+        </details>
       </section>
     </main>
     <footer class="footer wrap">
@@ -667,7 +813,8 @@
       <div class="footer-links">
         <a href="/api/evidence/gemini" target="_blank" rel="noopener" data-i18n="evidence"
           >Evidências da avaliação</a
-        ><a href="/api/openapi.json" target="_blank" rel="noopener">OpenAPI</a
+        ><a href="/api/openapi.json" target="_blank" rel="noopener" data-i18n="technical_contract"
+          >Contrato técnico da API</a
         ><a href="/api/evidence/attribution" target="_blank" rel="noopener" data-i18n="attribution"
           >Dados CORD · CC BY 4.0</a
         >

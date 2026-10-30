@@ -70,3 +70,26 @@ test("malformed successful response is rejected", async (t) => {
     { code: "invalid_response" },
   );
 });
+
+test("CSV neutralizes spreadsheet formulas and escapes quoted values", async () => {
+  const { csvCell } = await import("../../src/receipttrace/static/upload-client.js");
+  for (const value of ["=SUM(A1:A2)", "+cmd", "@SUM(1)", "-cmd", "  =1", "\t=1"])
+    assert.equal(csvCell(value)[1], String.fromCharCode(39));
+  assert.equal(csvCell("1.234,56"), '"1.234,56"');
+  assert.equal(csvCell('a"b;c'), '"a""b;c"');
+});
+test("CSV preserves original and reviewed values, reason and source hash", async () => {
+  const { receiptCSV } = await import("../../src/receipttrace/static/upload-client.js");
+  const text = receiptCSV(
+    { total: "62,000" },
+    { total: "61,799" },
+    { total: "Total" },
+    "=untrusted",
+    "image-hash",
+  );
+  assert.ok(text.startsWith("\uFEFF"));
+  assert.ok(text.includes('"62,000";"61,799"'));
+  assert.ok(text.includes("'="));
+  assert.ok(text.includes("image-hash"));
+  assert.equal(text.split("\r\n").length, 6);
+});

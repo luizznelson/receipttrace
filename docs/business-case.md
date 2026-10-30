@@ -58,4 +58,4 @@ Metas de ganho ou critérios de aprovação deverão ser definidos antes da aval
 
 **Limite e evolução:** isso ainda não prova ganho de produtividade nem autoriza aprovação automática. A revisão local foi implementada. A aplicação agora expõe esse fluxo. Ainda é necessário medir sua contribuição com pessoas.
 
-[Resultados completos](reports/gemini-development-20.md) · [Escopo](scope.md) · [Roteiro da apresentação e da interface](presentation.md)
+[Resultados completos](reports/gemini-development-20.md) · [Escopo](case-study.md) · [Roteiro da apresentação e da interface](case-study.md)

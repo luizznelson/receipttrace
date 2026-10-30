@@ -1,7 +1,7 @@
 import { request, APIError } from "./api.js";
 import { translate, messages } from "./i18n.js";
 import { element as el, fieldNames, valueText } from "./ui.js";
-import { checkFile, fieldChanges, readReceipt } from "./upload-client.js";
+import { checkFile, fieldChanges, readReceipt, receiptCSV } from "./upload-client.js";
 
 export function mountUploads(initialLanguage) {
   let language = initialLanguage;
@@ -22,10 +22,14 @@ export function mountUploads(initialLanguage) {
     events: [],
     reason: "",
     exported: false,
+    sample: false,
   };
   const record = (action) => state.events.push({ action, at_utc: new Date().toISOString() });
   const currentRaw = () => ({
     ...state.result.raw,
+    items: [],
+    items_complete: false,
+    currency: null,
     ...Object.fromEntries(fieldNames.map((field) => [field, state.draft[field]?.trim() || null])),
   });
   const currentValidated = () => state.validatedDraft === JSON.stringify(state.draft);
@@ -44,9 +48,17 @@ export function mountUploads(initialLanguage) {
       !enabled ||
       !$("#upload-consent").checked ||
       Boolean(state.result);
-    $("#upload-reset").disabled = state.busy || !state.file;
-    $("#upload-file-name").textContent = state.file ? state.file.name : t("upload_no_file");
-    $("#upload-progress").hidden = !state.busy;
+    $("#upload-reset").disabled = state.busy || (!state.file && !state.result);
+    $("#upload-sample").disabled = state.busy;
+    $("#guided-sample").disabled = state.busy;
+    $("#upload-retry").hidden = Boolean(enabled);
+    $("#upload-sample-note").hidden = !state.sample;
+    $("#upload-file-name").textContent = state.sample
+      ? t("upload_sample")
+      : state.file
+        ? state.file.name
+        : t("upload_no_file");
+    $("#upload-progress").hidden = !state.busy || state.phase !== "read";
     $("#upload-elapsed").textContent = t("upload_wait", { n: state.elapsed });
     $("#upload-message").hidden = !state.error || state.error === "capability";
     if (state.error)
@@ -66,6 +78,9 @@ export function mountUploads(initialLanguage) {
     $("#upload-results").hidden = !state.result;
     $("#upload-guide").hidden = Boolean(state.result);
     if (!state.result) return;
+    document.querySelector(".upload-image-panel h3").textContent = t(
+      state.sample ? "original_image" : "upload_your_image",
+    );
     const found = fieldNames.filter((field) => state.result.raw[field] !== null).length;
     $("#upload-found").textContent = t("upload_found", { n: found });
     $("#upload-status").textContent = t(
@@ -109,14 +124,20 @@ export function mountUploads(initialLanguage) {
             ? t("upload_ambiguous")
             : evidence
               ? t("upload_evidence", { text: evidence })
-              : t("upload_no_evidence"),
+              : state.sample && state.result.raw[field]
+                ? t("upload_saved_field")
+                : t("upload_no_evidence"),
         ),
       );
     });
     $("#upload-fields").replaceChildren(...fields);
-    $("#upload-text").textContent = state.result.evidence.rows.join("\n") || t("upload_empty");
+    $("#upload-text").textContent = state.sample
+      ? t("upload_saved_text")
+      : state.result.evidence.rows.join("\n") || t("upload_empty");
     $("#upload-fingerprint").textContent = `SHA-256: ${state.result.source.sha256}`;
-    $("#upload-duration").textContent = t("upload_duration", { n: state.result.seconds });
+    $("#upload-duration").textContent = state.sample
+      ? t("upload_sample_duration")
+      : t("upload_duration", { n: state.result.seconds });
     $("#upload-resized").hidden = !state.result.source.resized;
     $("#upload-reason").value = state.reason;
     $("#upload-reason").disabled = state.busy;
@@ -169,6 +190,7 @@ export function mountUploads(initialLanguage) {
     $("#upload-check-details").replaceChildren(...explanations.map((text) => el("li", {}, text)));
     $("#upload-download").disabled =
       state.busy || !validation || (changed > 0 && !state.reason.trim());
+    $("#upload-csv").disabled = $("#upload-download").disabled;
     $("#upload-reason-note").hidden = !(changed > 0 && !state.reason.trim());
   }
 
@@ -186,6 +208,7 @@ export function mountUploads(initialLanguage) {
       events: [],
       reason: "",
       exported: false,
+      sample: false,
     });
     if (resetFile) $("#upload-file").value = "";
     $("#upload-consent").checked = false;
@@ -315,16 +338,84 @@ export function mountUploads(initialLanguage) {
       event.returnValue = "";
     }
   });
-  request("/api/uploads/capabilities")
-    .then((capability) => {
-      state.capability = capability;
+  function checkAvailability() {
+    return request("/api/uploads/capabilities")
+      .then((capability) => {
+        state.capability = capability;
+        if (state.error === "capability") state.error = null;
+        render();
+      })
+      .catch(() => {
+        state.error = "capability";
+        state.capability = { enabled: false };
+        render();
+      });
+  }
+  $("#upload-retry").addEventListener("click", () => {
+    state.error = null;
+    checkAvailability();
+  });
+  async function sample() {
+    if (state.busy) return;
+    clear();
+    state.busy = true;
+    render();
+    try {
+      const detail = await request("/api/examples/cord-train-shard0-row0006?method=ocr");
+      state.sample = true;
+      $("#upload-policy").value = detail.validation.numeric_policy;
+      state.url = detail.image_url;
+      state.result = {
+        ...detail,
+        document_id: detail.id,
+        method: "saved_ocr_example",
+        source: { ...detail.source, sha256: detail.source.image_sha256 },
+        numeric_policy: detail.validation.numeric_policy,
+        evidence: { rows: [], fields: {} },
+        status: "read",
+        benchmark_included: false,
+        provenance: "saved_public_study_example",
+      };
+      state.draft = Object.fromEntries(fieldNames.map((field) => [field, detail.raw[field] ?? ""]));
+      state.validation = detail.validation;
+      state.validatedDraft = JSON.stringify(state.draft);
+      state.phase = "review";
+      record("sample");
+      document.getElementById("try").scrollIntoView({ block: "start" });
+    } catch (error) {
+      state.error = error instanceof APIError ? error.code : "generic";
+    } finally {
+      state.busy = false;
       render();
-    })
-    .catch(() => {
-      state.error = "capability";
-      state.capability = { enabled: false };
-      render();
-    });
+    }
+  }
+  $("#upload-sample").addEventListener("click", sample);
+  $("#guided-sample").addEventListener("click", sample);
+  $("#upload-csv").addEventListener("click", () => {
+    if (!currentValidated() || $("#upload-download").disabled) return;
+    const labels = Object.fromEntries(fieldNames.map((field) => [field, t(field)]));
+    const csv = receiptCSV(
+      state.result.raw,
+      currentRaw(),
+      labels,
+      state.reason,
+      state.result.source.sha256,
+      ["csv_field", "csv_original", "csv_reviewed", "csv_reason", "csv_source"].map((key) =>
+        t(key),
+      ),
+    );
+    const url = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
+    const anchor = el("a", { href: url, download: `receipttrace-${state.result.document_id}.csv` });
+    document.body.append(anchor);
+    anchor.click();
+    anchor.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+    record("exported");
+    state.exported = true;
+    state.phase = "export";
+    render();
+  });
+  checkAvailability();
   render();
   return {
     setLanguage(value) {

@@ -72,7 +72,7 @@ Não houve publicação nem configuração de hospedagem nesta entrega. O histó
 
 FastAPI serve a interface e a API na mesma origem. CSS e JavaScript são locais, sem CDN ou scripts de terceiros. Dados de recibos e notas de revisão são inseridos como texto, não como HTML. Os valores `Decimal` da validação são serializados como texto na API.
 
-A opção por módulos JavaScript sem framework está registrada na [decisão de arquitetura](architecture-web.md). O [roteiro de apresentação](presentation.md) continua orientando a evolução do produto.
+A opção por módulos JavaScript sem framework está registrada na [decisão de arquitetura](architecture-web.md). O [roteiro de apresentação](case-study.md) continua orientando a evolução do produto.
 
 ## Rotas principais
 
@@ -114,7 +114,11 @@ Os dois comandos `npm.cmd` são para PowerShell no Windows; em Linux/macOS, use 
 
 O ambiente de checagem de tipos inclui o extra `web`. Os testes de API são ignorados quando esse extra não está instalado. A CI separa análise estática, matrizes de dependências opcionais, verificação do pacote e testes/formatação de JavaScript; execução remota precisa ser confirmada no GitHub.
 
-[Contrato OpenAPI exportado](contracts/web-openapi.json) · [Relatório de verificação](reports/web-verification.md) · [Atribuição dos dados incluídos](../src/receipttrace/webdata/ATTRIBUTION.md)
+[Contrato OpenAPI exportado](contracts/web-openapi.json) · [Relatório de verificação](quality.md) · [Atribuição dos dados incluídos](../src/receipttrace/webdata/ATTRIBUTION.md)
 
 
 Consulte também [segurança e tratamento de falhas](security.md) e o [relatório de revisão de 30/10/2026](reports/security-audit-2026-10-30.md).
+
+## Ordem de apresentação
+
+Problema → caso guiado → comparação das leituras → teste próprio ou exemplo pronto → resultados do estudo → decisões de engenharia e repositório. O resumo numérico fica junto dos resultados, depois da explicação do problema. O [estudo de caso](case-study.md) conecta a experiência aos motivos das escolhas técnicas.

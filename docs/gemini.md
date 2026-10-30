@@ -70,7 +70,7 @@ Use saídas novas. A extração envia imagens públicas ao provedor; a avaliaç�
 
 A geração usa `POST /v1beta/interactions`, imagem inline em base64, `response_format` com JSON Schema, `generation_config.thinking_level` explícito e `store=false`. O texto final é lido de `steps/model_output`; blocos de pensamento não são usados como resposta. Não são habilitadas ferramentas ou navegação.
 
-O esquema remoto permite filhos recursivos opcionais e omite limites grandes de arrays para evitar a rejeição por complexidade documentada na [auditoria](reports/gemini-api-audit.md). Pydantic mantém os limites locais de 1.000 itens e 100 filhos. O ID é atribuído localmente, `items_complete` permanece `false` e `null` não é convertido em zero.
+O esquema remoto permite filhos recursivos opcionais e omite limites grandes de arrays para evitar a rejeição por complexidade documentada na [auditoria](gemini.md). Pydantic mantém os limites locais de 1.000 itens e 100 filhos. O ID é atribuído localmente, `items_complete` permanece `false` e `null` não é convertido em zero.
 
 A pré-contagem usa `countTokens` com a representação GenerateContent do conteúdo e do esquema. O uso efetivo vem da Interactions, é preservado separadamente e pode diferir dessa estimativa. A contagem normalizada de saída inclui tokens de pensamento quando houver. Manifestos registram configurações e hashes; não são faturas nem comprovantes de plano gratuito.
 

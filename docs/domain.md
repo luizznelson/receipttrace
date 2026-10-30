@@ -55,4 +55,4 @@ O exemplo é sintético e demonstra as regras; não mede qualidade de extração
 
 Códigos de saída: `0` sem achados numéricos, `2` com `invalid` ou `mismatch`, `1` para erro de contrato, arquivo ou configuração. Código `0` pode conter `skipped`; esse estado é explícito no relatório.
 
-[Contrato JSON Schema](contracts/raw-receipt.schema.json) · [Verificação histórica do domínio](reports/domain-verification.md)
+[Contrato JSON Schema](contracts/raw-receipt.schema.json) · [Verificação histórica do domínio](quality.md)

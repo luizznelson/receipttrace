@@ -1,128 +1,85 @@
 # ReceiptTrace
 
-Transforma imagens de recibos em dados estruturados e permite conferir a origem de cada resultado.
+**Leia um recibo, confira os valores e preserve o que foi corrigido.**
 
-[English](README.en.md)
+Projeto de portfólio de engenharia de IA aplicada, desenvolvido por Luiz. Conecta dados públicos, comparação de OCR e Gemini, regras monetárias, uma API e uma interface em português e inglês.
 
-## O problema e a proposta
+[English](README.en.md) · [Entenda o caso](docs/case-study.md) · [Decisões de engenharia](docs/architecture.md) · [Documentação](docs/README.md)
 
-Lançar informações de recibos manualmente exige atenção: um valor de pagamento pode ser confundido com o total, e um campo ilegível pode passar despercebido. O ReceiptTrace explora como apoiar essa tarefa com extração automática, validação e evidências para revisão.
+## 1. O problema: uma leitura concluída pode estar errada
 
-O projeto compara duas abordagens nos mesmos documentos: OCR, que reconhece o texto e aplica regras, e Gemini, que interpreta a imagem para extrair os campos. A proposta é avaliar qualidade, tempo e custo antes de escolher uma solução. A redução de trabalho manual ainda não foi medida em uma operação real.
+Quem organiza comprovantes precisa conferir os valores antes de lançá-los. Neste projeto, um recibo público tornou o risco concreto: o OCR selecionou **`62,000`** como total, enquanto a referência oficial indica **`61,799`**. O Gemini recuperou o valor da referência.
 
-## Para quem e quais decisões o projeto apoia
+Os valores mantêm a escrita do documento: nessa convenção, `61,799` significa `61799` unidades inteiras. Não é uma conversão para reais. [Veja as respostas preservadas dos dois métodos](docs/reports/evidence/).
 
-O cenário proposto é uma equipe administrativa ou financeira que organiza comprovantes e precisa conferir os valores antes de usá-los em outro processo. A pessoa revisora precisa localizar dúvidas; a gestão precisa avaliar se a qualidade da extração justifica seu tempo e custo. Esse é um cenário de uso, ainda sem implantação em uma empresa.
+O objetivo é ajudar uma equipe administrativa a localizar dúvidas, conferir a imagem e registrar correções. Economia de trabalho ainda não foi medida em uma operação real.
 
-| Pergunta de negócio | Resposta disponível |
-|---|---|
-| A IA recupera mais valores corretos que o OCR? | Recuperou cinco totais adicionais nesta amostra. |
-| Quanto tempo leva? | Mediana de 8,33 s com IA e 1,04 s com OCR, com escopos de medição diferentes. |
-| Quanto custou a API neste lote? | US$ 0 estimados sob a configuração gratuita usada; não é custo operacional completo. |
-| Podemos dispensar a conferência humana? | Não há evidência para isso. Itens e consistência aritmética não foram certificados. |
-| Podemos conferir a origem de um resultado? | Sim, por meio das respostas, configurações e hashes preservados. O histórico de correções já está implementado localmente, com responsável e motivo declarados. |
-| Já foi comprovada economia de trabalho? | Não. É necessário medir digitação, conferência e correção em uma avaliação própria. |
+## 2. A solução: automatizar a leitura e tornar a conferência possível
 
-[Problema, perguntas de negócio e próximos indicadores](docs/business-case.md).
+**Imagem → leitura → conferência → correção com motivo → exportação.**
 
-## Resultados em 20 recibos reais
+- Comece pelo caso guiado, sem arquivo ou chave de API. A leitura salva é identificada como exemplo do estudo.
+- Envie uma imagem PNG/JPG para executar OCR local, quando o envio estiver habilitado.
+- Confira os cinco campos ao lado da imagem. Valores conflitantes ficam vazios e componentes ausentes não viram zero.
+- Baixe uma tabela CSV para abrir em planilha ou um JSON com o registro completo da sessão.
 
-Na amostra de desenvolvimento do CORD v2, o Gemini recuperou corretamente cinco totais que o OCR havia errado ou deixado sem resposta.
+O teste da aba é temporário. O histórico persistente com SQLite está disponível na revisão local dos exemplos. As correções de visitantes não alteram os indicadores do estudo.
 
-| Informação | OCR local: acertos | Gemini: acertos |
-|---|---:|---:|
-| Total do recibo | 14 de 19 | 19 de 19 |
-| Subtotal | 9 de 14 | 14 de 14 |
-| Imposto | 7 de 11 | 11 de 11 |
+![Exemplo guiado: leitura, referência e conferência](docs/images/receipttrace-overview.jpg)
 
-Os denominadores variam porque nem todo recibo tem todos os campos anotados para conferência. Os dois métodos processaram os mesmos 20 documentos.
+## 3. O que foi medido
 
-O Gemini concluiu as 20 extrações sem falha técnica. O tempo mediano por recibo foi de **8,33 segundos**; o percentil 95 foi de **22,52 segundos**. O OCR foi mais rápido: mediana de 1,04 segundo. Os tempos incluem etapas diferentes, explicadas no relatório.
+OCR e Gemini processaram os mesmos **20 recibos públicos do CORD v2**, selecionados com semente 42. O resultado apoia continuar o experimento; não comprova desempenho em documentos novos.
 
-O custo estimado conhecido da API foi de **US$ 0**, sob a configuração Free Tier confirmada, sem faturamento ativado. Esse valor não é uma fatura e não inclui computação ou hospedagem.
+| Pergunta | Evidência disponível |
+| --- | --- |
+| A IA recuperou mais totais corretos? | OCR: **14 de 19**; Gemini: **19 de 19**. Cinco totais adicionais recuperados. |
+| E os outros campos? | Subtotal: 9/14 → 14/14. Imposto: 7/11 → 11/11. Os denominadores dependem das referências válidas. |
+| Quanto demorou? | Mediana: 1,04 s com OCR e 8,33 s com Gemini, com escopos de medição diferentes. |
+| Quanto custou a API? | US$ 0 estimados no Free Tier confirmado para aquele lote; não inclui computação nem hospedagem. |
+| As contas foram certificadas? | Não. As 76 verificações aritméticas ficaram sem componentes suficientes. |
 
-**Limites do resultado:** esta é uma amostra pequena de treino, já usada no desenvolvimento. Não comprova desempenho em novos documentos. A qualidade dos itens ainda não foi medida. As 76 verificações aritméticas foram puladas por falta dos componentes exigidos; portanto, os acertos de extração não certificam a consistência financeira dos recibos.
+Esta é uma amostra de treino já utilizada no desenvolvimento, sem teste reservado. Itens não tiveram qualidade avaliada. Não há validação fiscal brasileira, aprovação de pagamento ou comprovação de produtividade.
 
-[Relatório explicado e instruções de reprodução](docs/reports/gemini-development-20.md) · [Resultados por documento](docs/reports/gemini-development-20.json) · [Comparação detalhada](docs/reports/ocr-vs-gemini-development-20.json)
+[Relatório com método e limites](docs/reports/gemini-development-20.md) · [Comparação por campo](docs/reports/ocr-vs-gemini-development-20.json) · [Protocolo de avaliação](docs/evaluation.md)
 
-## O que já funciona
+## 4. O que a implementação demonstra
 
-- Aquisição dos dados públicos e verificação de integridade dos arquivos.
-- Extração por OCR local e por Gemini 3.5 Flash-Lite.
-- Validação do formato, preservação do texto original e regras monetárias explícitas.
-- Avaliação independente, com falhas e campos sem resposta incluídos nos resultados.
-- Preservação de respostas, configurações e hashes para auditoria.
-- Revisão local com valores originais preservados, correções e conclusão registradas em histórico.
+| Decisão | Por que foi feita | Onde conferir |
+| --- | --- | --- |
+| Separar extração de avaliação | O extrator recebe imagens; as respostas esperadas são usadas separadamente. | [Avaliação](docs/evaluation.md) |
+| Preservar texto e usar Decimal | Interpretar separadores explicitamente e evitar arredondamentos de ponto flutuante. | [Domínio e números](docs/domain.md) |
+| Usar transações e versão esperada | Preservar o original e impedir sobrescrita silenciosa de uma revisão. | [Revisão local](docs/review.md) |
+| Executar OCR em processo separado | Limitar duração e concorrência, sem salvar o material enviado. | [Envio temporário](docs/uploads.md) |
+| Servir interface e API na mesma origem | Manter a execução reproduzível, com FastAPI e sem build de frontend. | [Arquitetura web](docs/architecture-web.md) |
+| Testar falhas e preservar evidências | Verificar entradas inválidas, conflitos, timeouts e integridade dos arquivos. | [Qualidade e reprodução](docs/quality.md) |
 
-A aplicação possui interface bilíngue e API, além dos comandos locais. A revisão visual edita cinco campos de totais e preserva o histórico. A publicação em hospedagem continua pendente. O fluxo planejado é: imagem → extração → validação → revisão → exportação.
+## 5. Como experimentar
 
-## Abrir a demonstração local
-
-![Apresentação da interface local do ReceiptTrace](docs/images/receipttrace-overview.jpg)
-
-Interface em PT-BR; também disponível em inglês.
+Requisitos: Python 3.14 e uv. Na pasta do projeto:
 
 ```powershell
 uv sync --locked --extra web --extra ocr
 uv run --no-sync receipttrace serve --uploads
 ```
 
-Abra [http://127.0.0.1:8000](http://127.0.0.1:8000). A interface permite testar uma imagem própria com OCR local e explorar três exemplos públicos com comparação OCR/IA. Oferece conferência e exportação em PT-BR e inglês, sem chave de API e sem baixar o dataset completo. [Guia da aplicação e da API](docs/web.md).
+Abra [a demonstração local](http://127.0.0.1:8000). O caso pronto não exige nova inferência. O envio próprio usa OCR local e não consome chave Gemini. [Guia da interface](docs/web.md).
 
-## Como conferir os resultados sem usar uma API
+Para explorar apenas o exemplo pronto, instale o extra `web` e inicie com `receipttrace serve --read-only`. A conferência transitória de campos e o download continuam disponíveis, sem liberar o banco local. Publicação em hospedagem ainda está pendente.
 
-Requisitos: Python 3.14 e uv. Na raiz do projeto:
+## 6. Como investigar o repositório
 
-```powershell
-uv sync --locked
-uv run receipttrace prepare-cord
-uv run receipttrace verify-sample
-uv run receipttrace evaluate-extraction --sample data/processed/cord-inspection --run docs/reports/evidence/gemini-development-20 --output runs/gemini-replay.json
-```
+| Pasta | Conteúdo |
+| --- | --- |
+| `src/receipttrace/` | Regras do domínio, extratores, avaliação, revisão e API. |
+| `src/receipttrace/static/` | Interface bilíngue e clientes HTTP. |
+| `src/receipttrace/webdata/` | Cópias verificadas dos recursos públicos necessários à demonstração instalada. |
+| `tests/` | Testes de regras, contratos, falhas e proteção das entradas. |
+| `docs/reports/` | Resultados publicados, origem dos dados e evidências para reprodução. |
+| `examples/` | Configurações e requisições exemplificadas, sem credenciais. |
 
-A preparação baixa aproximadamente 490 MB e seleciona os 20 documentos com semente 42. Se a amostra já existir, execute apenas a verificação e a avaliação. Use um arquivo de saída novo. Essa avaliação usa respostas salvas: não exige chave e não envia imagens ao provedor.
+Comece pelo [índice de documentação](docs/README.md). As versões estão fixadas em `uv.lock`; o [guia de desenvolvimento](docs/development.md) contém as verificações locais e da CI.
 
-Para extrair novas respostas, siga o [guia de configuração do Gemini](docs/gemini.md). A chave fica no arquivo `.env`, fora do Git. O [OCR local](docs/ocr.md) pode ser executado sem API externa. As versões das dependências estão fixadas em `uv.lock`.
+Os dados vêm do [CORD v2](https://huggingface.co/datasets/naver-clova-ix/cord-v2), pelos [autores do CORD](https://github.com/clovaai/cord), sob CC BY 4.0. A atribuição acompanha as três imagens distribuídas; a licença dos dados é independente da do código. Credenciais, dataset completo e bancos locais ficam fora do Git.
 
-## Como revisar um resultado
-
-O [guia de revisão](docs/review.md) explica como abrir uma extração salva, corrigir campos e registrar a conclusão. As ações são enviadas por arquivos JSON; não é necessária chave de API. Cada evento registra responsável, motivo, data e valores antes/depois em um banco SQLite local. Uma alteração posterior reabre a revisão.
-
-O estado de revisão é separado do sucesso da extração e das verificações aritméticas. Concluir a revisão não aprova pagamento nem cálculos que ficaram sem verificação. A identidade do responsável é declarada localmente, sem autenticação.
-
-## Como o projeto pode ser auditado
-
-Cada execução registra a imagem de origem, a configuração, o prompt, a resposta, o tempo e os hashes dos arquivos. O avaliador confere a integridade e compara os valores extraídos com as anotações oficiais. O extrator recebe apenas imagens; as respostas esperadas são usadas separadamente na avaliação.
-
-Os resultados salvos permitem recalcular as métricas sem novas chamadas de IA. Uma nova inferência pode produzir respostas diferentes. O [relatório](docs/reports/gemini-development-20.md) descreve as condições da medição e as diferenças de metadados na reprodução do OCR histórico.
-
-## Documentação do produto e da implementação
-
-- [Problema e perguntas de negócio](docs/business-case.md)
-- [Jornada e apresentação do produto](docs/presentation.md)
-- [Escopo e critérios de entrega](docs/scope.md)
-- [Arquitetura e responsabilidades](docs/architecture.md)
-- [Dados e método de avaliação](docs/evaluation.md)
-- [Aplicação web e API](docs/web.md)
-- [Teste com seu próprio recibo](docs/uploads.md)
-- [Segurança, erros e limites de publicação](docs/security.md)
-- [Decisão da arquitetura web](docs/architecture-web.md)
-- [Revisão e histórico de correções](docs/review.md)
-- [Campos, números e verificações aritméticas](docs/domain.md)
-- [Ambiente e verificações de qualidade](docs/development.md)
-- [Etapas de implementação](docs/roadmap.md)
-- [Padrões de contribuição e escrita](CONTRIBUTING.md)
-
-## Dados, atribuição e transparência
-
-Os recibos vêm do [CORD v2 público](https://huggingface.co/datasets/naver-clova-ix/cord-v2), dos [autores do CORD](https://github.com/clovaai/cord), sob CC BY 4.0. A demonstração inclui três imagens originais do CORD, com atribuição, além dos resultados derivados. O dataset completo e os arquivos de gabarito permanecem fora do repositório. A licença dos dados é independente da licença do código.
-
-O projeto ainda não comprova suporte a documentos fiscais brasileiros nem conferência entre nota e pedido. Houve assistência de IA no desenvolvimento e na documentação. A responsabilidade por compreender, revisar e verificar as entregas é do mantenedor.
-
-## Teste com um recibo próprio
-
-A interface permite enviar PNG ou JPG, acompanhar o OCR local, conferir cinco campos e baixar o resultado com original, correções e registro da sessão. Não exige chave de API. O envio precisa ser habilitado com `--uploads` e requer o extra `ocr`. A aplicação processa imagem e texto em memória, sem gravá-los no servidor.
-
-Os testes enviados por visitantes ficam separados dos indicadores do estudo. A conferência humana continua necessária. Veja o [guia de uso, proteção e limites](docs/uploads.md).
-
-![Envio e conferência de um recibo](docs/images/receipttrace-upload.png)
+Houve assistência de IA no desenvolvimento. A responsabilidade por compreender, revisar e verificar a entrega é do mantenedor. Veja os [limites de segurança](docs/security.md).

@@ -17,7 +17,7 @@ O README e os resumos dos relatórios devem permitir que uma pessoa de gestão e
 
 ## Apresentação do produto
 
-O [caso de negócio](docs/business-case.md) define problema, público, perguntas e evidências. O [roteiro da interface](docs/presentation.md) define a ordem de apresentação, os estados e o vocabulário PT-BR/EN. Revise esses documentos ao mudar o escopo ou a evidência disponível.
+O [caso de negócio](docs/business-case.md) define problema, público, perguntas e evidências. O [roteiro da interface](docs/case-study.md) define a ordem de apresentação, os estados e o vocabulário PT-BR/EN. Revise esses documentos ao mudar o escopo ou a evidência disponível.
 
 Todo indicador visível deve identificar sua fonte e seu recorte. Não transforme sucesso técnico em aprovação financeira nem uma hipótese de produtividade em benefício medido.
 
@@ -37,7 +37,7 @@ Os testes cobrem regras e falhas relevantes, como valores monetários, campos au
 
 ## Commits
 
-O proprietário revisa as entregas e faz os commits. Use mensagens em inglês, no imperativo, com os prefixos `docs:`, `feat:`, `fix:`, `test:` ou `chore:`. A mensagem deve descrever uma mudança real e coerente. Não crie commits vazios nem divida arquivos artificialmente para aparentar atividade.
+O proprietário revisa as entregas e faz os commits. Use mensagens claras em português, no imperativo, com os prefixos `docs:`, `feat:`, `fix:`, `test:` ou `chore:`. A mensagem deve descrever uma mudança real e coerente. Não crie commits vazios nem divida arquivos artificialmente para aparentar atividade.
 
 ## Licenciamento
 

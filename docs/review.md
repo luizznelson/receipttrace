@@ -117,4 +117,4 @@ As verificações usam as regras atuais do domínio, versão 1. A origem guarda 
 
 Não apague o banco se precisar do histórico. Faça cópias com a aplicação parada ou com a ferramenta de backup do SQLite. Bancos e arquivos de trabalho não entram no Git. Os comandos retornam código `0` em sucesso e `1` para erros, conflitos ou requisitos de conclusão não atendidos. Um código `0` não indica aprovação financeira.
 
-[Contrato de correção](contracts/review-correction.schema.json) · [Contrato de conclusão](contracts/review-completion.schema.json) · [Verificação do fluxo](reports/review-verification.md)
+[Contrato de correção](contracts/review-correction.schema.json) · [Contrato de conclusão](contracts/review-completion.schema.json) · [Verificação do fluxo](quality.md)

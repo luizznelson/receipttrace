@@ -348,3 +348,27 @@ def test_validation_bounds_user_fields_and_rejects_item_injection() -> None:
             json={"raw": {"document_id": "synthetic", **extra}, "policy": "brl-grouped"},
         )
         assert response.status_code == 422
+
+
+def test_saved_example_can_be_checked_without_enabling_ocr_or_storage(tmp_path: Path) -> None:
+    pytest.importorskip("fastapi")
+    pytest.importorskip("httpx2")
+    from fastapi.testclient import TestClient
+
+    from receipttrace.web import create_app
+
+    database = tmp_path / "private.sqlite3"
+    client = TestClient(create_app(read_only=True, allow_uploads=False, database=database))
+    detail = client.get("/api/examples/cord-train-shard0-row0006?method=ocr").json()
+    raw = {"document_id": detail["id"], "total": "61,799"}
+    response = client.post("/api/uploads/validate", json={"raw": raw, "policy": "idr-grouped"})
+    assert response.status_code == 200
+    assert response.json()["normalized"]["total"]["value"] == "61799"
+    assert client.post("/api/reviews", json={}).status_code == 403
+    assert (
+        client.post(
+            "/api/uploads", content=b"image", headers={"content-type": "image/png"}
+        ).status_code
+        == 403
+    )
+    assert not database.exists()

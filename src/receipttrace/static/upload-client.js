@@ -47,3 +47,30 @@ export async function readReceipt(file, policy, { timeoutMs = 70000 } = {}) {
     clearTimeout(timer);
   }
 }
+
+// Neutralize spreadsheet formulas in every untrusted cell, including notes.
+export function csvCell(value) {
+  const text = String(value ?? "");
+  const safe = /^[\s\uFEFF]*[=+@-]/u.test(text) || /^[\t\r\n]/u.test(text) ? "'" + text : text;
+  return '"' + safe.replaceAll('"', '""') + '"';
+}
+export function receiptCSV(
+  original,
+  current,
+  labels,
+  reason,
+  sha256,
+  headers = ["field", "original", "reviewed", "reason", "source_sha256"],
+) {
+  const rows = [
+    headers,
+    ...["total", "subtotal", "tax", "service", "discount"].map((field) => [
+      labels[field],
+      original[field],
+      current[field],
+      reason,
+      sha256,
+    ]),
+  ];
+  return "\uFEFF" + rows.map((row) => row.map(csvCell).join(";")).join("\r\n");
+}
