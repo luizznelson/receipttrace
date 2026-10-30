@@ -1,0 +1,28 @@
+# Render Blueprint for the public demonstration (free web service, built from the Dockerfile).
+# Nothing here is a secret. The Gemini key is entered in the Render dashboard, never in Git.
+services:
+  - type: web
+    name: receipttrace
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      # Secret: paste it in the dashboard when Render asks (sync: false keeps it out of Git).
+      - key: GEMINI_API_KEY
+        sync: false
+      # Turns on AI reading of uploaded receipts. Remove it to serve local OCR only.
+      - key: RECEIPTTRACE_UPLOAD_GEMINI
+        value: "1"
+      # You must type `confirmed` yourself: the key's project is Free Tier with billing disabled.
+      - key: RECEIPTTRACE_GEMINI_FREE_TIER
+        sync: false
+      # Conservative limits, per running instance. Google's own quota remains the hard limit.
+      - key: RECEIPTTRACE_GEMINI_DAILY_LIMIT
+        value: "40"
+      - key: RECEIPTTRACE_GEMINI_CLIENT_DAILY_LIMIT
+        value: "5"
+      # One trusted proxy in front of the app. Verify it after deploying (docs/deploy.md).
+      - key: RECEIPTTRACE_PROXY_HOPS
+        value: "1"
