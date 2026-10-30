@@ -24,7 +24,7 @@ class GeminiSchemaTooComplex(ValueError):
 
 
 class GeminiProvider:
-    def __init__(self, config: LLMConfig) -> None:
+    def __init__(self, config: LLMConfig, *, timeout: float = 180) -> None:
         if not config.free_tier_confirmed:
             raise ValueError(
                 "Confirm a Gemini Free Tier project with billing disabled in configuration"
@@ -38,7 +38,7 @@ class GeminiProvider:
         self.client = httpx.Client(
             base_url="https://generativelanguage.googleapis.com/v1beta/",
             headers={"x-goog-api-key": key},
-            timeout=180,
+            timeout=timeout,
             follow_redirects=False,
         )
 

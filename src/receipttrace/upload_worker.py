@@ -1,5 +1,6 @@
 """One-shot OCR subprocess. Image and extracted text stay in process memory."""
 
+import base64
 import hashlib
 import io
 import json
@@ -10,7 +11,7 @@ from contextlib import redirect_stdout
 from dataclasses import asdict
 from datetime import UTC, datetime
 from decimal import Decimal
-from typing import Any, cast
+from typing import Any, Literal, cast
 from uuid import uuid4
 
 from PIL import Image, ImageOps
@@ -30,7 +31,13 @@ class InvalidImage(ValueError):
     """Unsupported, damaged or resource-intensive image."""
 
 
-def prepare_image(data: bytes, content_type: str) -> tuple[bytes, dict[str, Any]]:
+def prepare_image(
+    data: bytes,
+    content_type: str,
+    *,
+    output_format: Literal["PNG", "JPEG"] = "PNG",
+) -> tuple[bytes, dict[str, Any]]:
+    """Validate, orient, strip metadata and re-encode. PNG feeds OCR; JPEG feeds a provider."""
     if not data or len(data) > MAX_UPLOAD_BYTES:
         raise InvalidImage("invalid_image")
     try:
@@ -57,7 +64,11 @@ def prepare_image(data: bytes, content_type: str) -> tuple[bytes, dict[str, Any]
                 image.thumbnail((OCR_SIDE, OCR_SIDE))
                 image.info.clear()
                 output = io.BytesIO()
-                image.save(output, format="PNG")
+                if output_format == "JPEG":
+                    # Smaller payload for a remote model; quality stays high for small print.
+                    image.save(output, format="JPEG", quality=92, optimize=True)
+                else:
+                    image.save(output, format="PNG")
                 return output.getvalue(), {
                     "width": width,
                     "height": height,
@@ -116,13 +127,29 @@ def extract(data: bytes, policy: NumberPolicy, content_type: str) -> dict[str, A
     }
 
 
+def prepare_for_provider(data: bytes, content_type: str) -> dict[str, Any]:
+    """Sanitized JPEG for a remote model. Runs in the worker, never in the server process."""
+    image, dimensions = prepare_image(data, content_type, output_format="JPEG")
+    return {
+        "content_type": content_type,
+        "mime_type": "image/jpeg",
+        "image_base64": base64.b64encode(image).decode("ascii"),
+        "dimensions": dimensions,
+        "sha256": hashlib.sha256(data).hexdigest(),
+        "bytes": len(data),
+    }
+
+
 def main() -> None:
     payload: dict[str, Any]
     try:
         data = sys.stdin.buffer.read(MAX_UPLOAD_BYTES + 1)
         # Dependency output must never corrupt the JSON response or leak to the server log.
         with redirect_stdout(sys.stderr):
-            result = extract(data, cast(NumberPolicy, sys.argv[1]), sys.argv[2])
+            if len(sys.argv) > 3 and sys.argv[3] == "prepare":
+                result = prepare_for_provider(data, sys.argv[2])
+            else:
+                result = extract(data, cast(NumberPolicy, sys.argv[1]), sys.argv[2])
         payload = {"result": result}
     except InvalidImage as error:
         payload = {"error": str(error)}

@@ -316,6 +316,96 @@ const phrases = {
     "A leitura está indisponível nesta instância. Explore os exemplos enquanto isso.",
     "Reading is unavailable on this instance. Explore the examples meanwhile.",
   ],
+  upload_engine: ["Como ler o recibo?", "How should the receipt be read?"],
+  upload_engine_gemini: [
+    "IA (Gemini): mais precisa. A imagem é enviada ao Google.",
+    "AI (Gemini): more accurate. The image is sent to Google.",
+  ],
+  upload_engine_ocr: [
+    "OCR local: a imagem fica neste servidor.",
+    "Local OCR: the image stays on this server.",
+  ],
+  upload_engine_help: [
+    "Se a IA estiver indisponível ou o limite diário acabar, o OCR local faz a leitura e a tela avisa.",
+    "If the AI is unavailable or the daily limit is reached, local OCR reads it instead and the page tells you.",
+  ],
+  upload_consent_gemini: [
+    "Estou enviando apenas um recibo sem dados pessoais ou sensíveis e aceito que a imagem seja enviada ao Google (Gemini, plano gratuito). Pelos termos do plano gratuito, o Google pode usar o conteúdo para melhorar seus produtos.",
+    "I am only sending a receipt without personal or sensitive information, and I accept that the image is sent to Google (Gemini, free tier). Under the free-tier terms, Google may use the content to improve its products.",
+  ],
+  upload_privacy_gemini: [
+    "Este servidor remove os metadados, reduz a imagem e a envia ao Google Gemini (plano gratuito). Ele não grava a imagem nem o resultado; o Google segue os próprios termos. Há um limite diário de leituras por IA e, ao atingi-lo, o OCR local assume.",
+    "This server strips metadata, shrinks the image and sends it to Google Gemini (free tier). It does not save the image or the result; Google follows its own terms. There is a daily limit on AI readings, and local OCR takes over when it is reached.",
+  ],
+  upload_wait_gemini: [
+    "Lendo a imagem com IA · {n} s. Pode levar até dois minutos se o OCR local precisar assumir. Mantenha esta aba aberta.",
+    "Reading the image with AI · {n} s. It may take up to two minutes if local OCR has to take over. Keep this tab open.",
+  ],
+  upload_duration_gemini: [
+    "Leitura por IA (Gemini, plano gratuito) · {n} s.",
+    "AI reading (Gemini, free tier) · {n} s.",
+  ],
+  upload_duration_fallback: [
+    "OCR local, porque a IA não foi usada · {n} s, incluindo inicialização.",
+    "Local OCR, because the AI was not used · {n} s, including initialization.",
+  ],
+  upload_text_title_gemini: ["Como esta leitura foi feita", "How this reading was made"],
+  upload_text_gemini: [
+    "A IA devolve os valores já organizados, não o texto reconhecido. Por isso não há trecho de evidência: confira cada campo na imagem.",
+    "The AI returns organized values, not the recognized text. That is why there is no evidence excerpt: check each field against the image.",
+  ],
+  upload_gemini_field: [
+    "Valor sugerido pela IA. Confira-o na imagem.",
+    "Value suggested by the AI. Check it against the image.",
+  ],
+  upload_fallback_generic: [
+    "A IA não foi usada nesta leitura; o OCR local assumiu. No estudo, o OCR errou mais. Confira cada campo com atenção.",
+    "The AI was not used for this reading; local OCR took over. In the study, OCR made more mistakes. Check every field carefully.",
+  ],
+  upload_fallback_gemini_daily_limit: [
+    "O limite diário de leituras por IA desta demonstração foi atingido. O OCR local assumiu; no estudo, ele errou mais. Confira cada campo com atenção.",
+    "This demo's daily limit of AI readings was reached. Local OCR took over; in the study it made more mistakes. Check every field carefully.",
+  ],
+  upload_fallback_gemini_client_limit: [
+    "Você atingiu o limite diário de leituras por IA. O OCR local assumiu; no estudo, ele errou mais. Confira cada campo com atenção.",
+    "You reached the daily limit of AI readings. Local OCR took over; in the study it made more mistakes. Check every field carefully.",
+  ],
+  upload_fallback_gemini_rate_limited: [
+    "Muitas leituras por IA em pouco tempo. O OCR local assumiu; tente a IA de novo em um minuto.",
+    "Too many AI readings in a short time. Local OCR took over; try the AI again in a minute.",
+  ],
+  upload_fallback_gemini_busy: [
+    "A IA está ocupada com outras leituras. O OCR local assumiu; tente a IA de novo em instantes.",
+    "The AI is busy with other readings. Local OCR took over; try the AI again shortly.",
+  ],
+  upload_fallback_gemini_paused: [
+    "A IA está em pausa temporária por limite do provedor. O OCR local assumiu; confira cada campo com atenção.",
+    "The AI is temporarily paused because of a provider limit. Local OCR took over; check every field carefully.",
+  ],
+  upload_fallback_gemini_unavailable: [
+    "A IA está indisponível agora. O OCR local assumiu; no estudo, ele errou mais. Confira cada campo com atenção.",
+    "The AI is unavailable right now. Local OCR took over; in the study it made more mistakes. Check every field carefully.",
+  ],
+  upload_fallback_gemini_invalid_response: [
+    "A IA não conseguiu ler esta imagem. O OCR local assumiu; confira cada campo com atenção.",
+    "The AI could not read this image. Local OCR took over; check every field carefully.",
+  ],
+  upload_fallback_gemini_error: [
+    "A IA não conseguiu ler esta imagem. O OCR local assumiu; confira cada campo com atenção.",
+    "The AI could not read this image. Local OCR took over; check every field carefully.",
+  ],
+  upload_fallback_gemini_timeout: [
+    "A IA demorou demais. O OCR local assumiu; confira cada campo com atenção.",
+    "The AI took too long. Local OCR took over; check every field carefully.",
+  ],
+  upload_event_fallback: [
+    "IA não utilizada; leitura feita pelo OCR local",
+    "AI not used; read with local OCR",
+  ],
+  upload_error_consent_required: [
+    "Para usar a IA, aceite o envio da imagem ao Google. Ou escolha o OCR local.",
+    "To use the AI, accept sending the image to Google, or choose local OCR.",
+  ],
   upload_error_generic: [
     "Não foi possível concluir o teste. A imagem não foi salva pela aplicação. Tente novamente ou explore os exemplos.",
     "The test could not be completed. The image was not saved by the application. Try again or explore the examples.",
@@ -542,8 +632,8 @@ const phrases = {
   ],
   limits_title: ["Resultado de um estudo de desenvolvimento.", "Results from a development study."],
   limits_body: [
-    "Não é teste em dados reservados, validação de documentos fiscais brasileiros ou medição de economia de trabalho. Os exemplos usam respostas salvas. O envio de novos recibos usa OCR local, sem chamadas a provedores de IA.",
-    "This is not a held-out test, validation of Brazilian fiscal documents, or a measurement of labor savings. The examples use saved responses. New receipts use local OCR, without calls to AI providers.",
+    "Não é teste em dados reservados, validação de documentos fiscais brasileiros ou medição de economia de trabalho. Os exemplos usam respostas salvas. Um recibo enviado é lido por IA (Gemini, plano gratuito) só se você aceitar o envio ao Google; caso contrário, ou se a IA estiver indisponível, usa OCR local.",
+    "This is not a held-out test, validation of Brazilian fiscal documents, or a measurement of labor savings. The examples use saved responses. An uploaded receipt is read by AI (Gemini, free tier) only if you accept sending it to Google; otherwise, or if the AI is unavailable, local OCR is used.",
   ],
   footer_description: [
     "Engenharia de IA com resultados que podem ser conferidos.",

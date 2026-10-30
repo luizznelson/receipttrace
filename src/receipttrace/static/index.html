@@ -480,8 +480,27 @@
               Escolha pelo documento, não pelo idioma da página. A moeda não será presumida.
             </p>
           </div>
+          <fieldset class="upload-engine" id="upload-engine-group" hidden>
+            <legend data-i18n="upload_engine">Como ler o recibo?</legend>
+            <label class="upload-engine-option"
+              ><input type="radio" name="upload-engine" value="gemini" id="upload-engine-gemini" />
+              <span data-i18n="upload_engine_gemini"
+                >IA (Gemini): mais precisa. A imagem é enviada ao Google.</span
+              ></label
+            >
+            <label class="upload-engine-option"
+              ><input type="radio" name="upload-engine" value="ocr" id="upload-engine-ocr" />
+              <span data-i18n="upload_engine_ocr"
+                >OCR local: a imagem fica neste servidor.</span
+              ></label
+            >
+            <p class="small muted" data-i18n="upload_engine_help">
+              Se a IA estiver indisponível ou o limite diário acabar, o OCR local faz a leitura e a
+              tela avisa.
+            </p>
+          </fieldset>
           <label class="upload-consent"
-            ><input id="upload-consent" type="checkbox" /><span data-i18n="upload_consent"
+            ><input id="upload-consent" type="checkbox" /><span id="upload-consent-text"
               >Estou enviando apenas um recibo sem dados pessoais ou sensíveis.</span
             ></label
           >
@@ -493,7 +512,7 @@
               Limpar este teste
             </button>
           </div>
-          <p class="small muted" data-i18n="upload_privacy">
+          <p class="small muted" id="upload-privacy">
             OCR local no servidor, sem enviar a provedores de IA. Imagem e texto são processados em
             memória, sem gravação pela aplicação. O resultado fica nesta aba até você limpar ou
             fechar.
@@ -544,6 +563,7 @@
               </p>
             </div>
             <div id="upload-results" hidden>
+              <p class="notice" id="upload-fallback" role="status" hidden></p>
               <p class="section-index" id="upload-found"></p>
               <h3 id="upload-status"></h3>
               <p class="small muted" id="upload-duration"></p>
@@ -602,7 +622,7 @@
                 válido não comprova que o valor foi lido corretamente.
               </p>
               <details>
-                <summary data-i18n="upload_text_title">Ver o texto que o OCR leu</summary>
+                <summary id="upload-text-title">Ver o texto que o OCR leu</summary>
                 <pre id="upload-text"></pre>
               </details>
               <details>
@@ -710,8 +730,9 @@
           <strong data-i18n="limits_title">Resultado de um estudo de desenvolvimento.</strong>
           <p data-i18n="limits_body">
             Não é teste em dados reservados, validação de documentos fiscais brasileiros ou medição
-            de economia de trabalho. Os exemplos usam respostas salvas. O envio de novos recibos usa
-            OCR local, sem chamadas a provedores de IA.
+            de economia de trabalho. Os exemplos usam respostas salvas. Um recibo enviado é lido por
+            IA (Gemini, plano gratuito) só se você aceitar o envio ao Google; caso contrário, ou se
+            a IA estiver indisponível, usa OCR local.
           </p>
         </div>
       </section>

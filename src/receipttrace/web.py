@@ -1,6 +1,7 @@
 """Same-origin FastAPI application for saved examples and local receipt review."""
 
 import json
+import os
 import sqlite3
 from collections.abc import Callable
 from decimal import Decimal
@@ -28,6 +29,7 @@ from receipttrace.review import (
     ReviewStorageError,
     ReviewStore,
 )
+from receipttrace.upload_gemini import CONSENT_HEADER, CONSENT_VALUE
 from receipttrace.uploads import UploadRejected, UploadService
 from receipttrace.web_boundary import WebBoundary
 
@@ -86,6 +88,24 @@ class UploadValidationRequest(BaseModel):
 
 def _error(status: int, code: str, message: str) -> ExactJSONResponse:
     return ExactJSONResponse({"error": {"code": code, "message": message}}, status_code=status)
+
+
+def client_address(request: Request) -> str:
+    """Caller address for per-visitor limits. Forwarded headers count only behind a known proxy.
+
+    RECEIPTTRACE_PROXY_HOPS is the number of trusted proxies in front of the app; the address
+    they appended is the one that many entries from the right. Zero trusts only the socket."""
+    try:
+        hops = min(max(int(os.environ.get("RECEIPTTRACE_PROXY_HOPS", "0")), 0), 5)
+    except ValueError:
+        hops = 0
+    if hops:
+        chain = [
+            p.strip() for p in request.headers.get("x-forwarded-for", "").split(",") if p.strip()
+        ]
+        if len(chain) >= hops:
+            return chain[-hops]
+    return request.client.host if request.client else "unknown"
 
 
 def create_app(
@@ -188,8 +208,15 @@ def create_app(
 
     @app.post(
         "/api/uploads",
-        summary="Read a temporary receipt image using local OCR",
+        summary="Read a temporary receipt image with Gemini (opt-in) or local OCR",
+        description=(
+            "engine=ocr (default) never leaves the server. engine=gemini sends a sanitized JPEG to "
+            "the Google Gemini free tier and requires the header "
+            f"`{CONSENT_HEADER}: {CONSENT_VALUE}`. Any Gemini problem falls back to local OCR and "
+            "the response carries `fallback.reason`."
+        ),
         responses={
+            400: {"description": "Consent missing for Gemini, or unknown engine"},
             413: {"description": "Image exceeds the byte limit"},
             429: {"description": "OCR capacity or shared rate limit reached"},
             503: {"description": "OCR unavailable or failed"},
@@ -208,10 +235,16 @@ def create_app(
     async def upload(
         request: Request,
         policy: Literal["brl-grouped", "usd-grouped", "idr-grouped"] = "brl-grouped",
+        engine: Literal["ocr", "gemini"] = "ocr",
     ) -> Response:
         content_type = request.headers.get("content-type", "").split(";")[0].strip().lower()
-        result = await uploads.extract(
-            await request.body(), cast(NumberPolicy, policy), content_type
+        result = await uploads.read(
+            await request.body(),
+            cast(NumberPolicy, policy),
+            content_type,
+            engine=engine,
+            consent=request.headers.get(CONSENT_HEADER, "").strip().lower() == CONSENT_VALUE,
+            client=client_address(request),
         )
         return ExactJSONResponse(result)
 

@@ -23,6 +23,8 @@ export function mountUploads(initialLanguage) {
     reason: "",
     exported: false,
     sample: false,
+    engine: "ocr",
+    engineChosen: false,
   };
   const record = (action) => state.events.push({ action, at_utc: new Date().toISOString() });
   const currentRaw = () => ({
@@ -33,9 +35,22 @@ export function mountUploads(initialLanguage) {
     ...Object.fromEntries(fieldNames.map((field) => [field, state.draft[field]?.trim() || null])),
   });
   const currentValidated = () => state.validatedDraft === JSON.stringify(state.draft);
+  // The AI path is used only when the server offers it and the visitor chose it.
+  const activeEngine = () =>
+    state.capability?.engines?.gemini?.available && state.engine === "gemini" ? "gemini" : "ocr";
 
   function render() {
     const enabled = state.capability?.enabled;
+    const engines = state.capability?.engines;
+    const aiOffered = Boolean(engines?.gemini?.available);
+    $("#upload-engine-group").hidden = !aiOffered;
+    $("#upload-engine-group").disabled = state.busy || Boolean(state.result);
+    $("#upload-engine-ocr").disabled = engines?.ocr?.available === false;
+    $("#upload-engine-gemini").checked = activeEngine() === "gemini";
+    $("#upload-engine-ocr").checked = activeEngine() !== "gemini";
+    const useAI = activeEngine() === "gemini";
+    $("#upload-consent-text").textContent = t(useAI ? "upload_consent_gemini" : "upload_consent");
+    $("#upload-privacy").textContent = t(useAI ? "upload_privacy_gemini" : "upload_privacy");
     $("#upload-offline").hidden = enabled !== false && state.error !== "capability";
     $("#upload-offline").textContent =
       state.error === "capability" ? t("upload_connection") : t("upload_disabled");
@@ -59,7 +74,9 @@ export function mountUploads(initialLanguage) {
         ? state.file.name
         : t("upload_no_file");
     $("#upload-progress").hidden = !state.busy || state.phase !== "read";
-    $("#upload-elapsed").textContent = t("upload_wait", { n: state.elapsed });
+    $("#upload-elapsed").textContent = t(useAI ? "upload_wait_gemini" : "upload_wait", {
+      n: state.elapsed,
+    });
     $("#upload-message").hidden = !state.error || state.error === "capability";
     if (state.error)
       $("#upload-message").textContent = t(
@@ -85,6 +102,18 @@ export function mountUploads(initialLanguage) {
     $("#upload-found").textContent = t("upload_found", { n: found });
     $("#upload-status").textContent = t(
       state.result.status === "empty" ? "upload_empty" : "upload_needs_review",
+    );
+    const byAI = state.result.method === "gemini_vision";
+    const fallback = state.result.fallback;
+    $("#upload-fallback").hidden = !fallback;
+    if (fallback)
+      $("#upload-fallback").textContent = t(
+        messages[language][`upload_fallback_${fallback.reason}`]
+          ? `upload_fallback_${fallback.reason}`
+          : "upload_fallback_generic",
+      );
+    $("#upload-text-title").textContent = t(
+      byAI ? "upload_text_title_gemini" : "upload_text_title",
     );
     const fields = fieldNames.map((field) => {
       const source = state.result.evidence.fields[field];
@@ -126,18 +155,26 @@ export function mountUploads(initialLanguage) {
               ? t("upload_evidence", { text: evidence })
               : state.sample && state.result.raw[field]
                 ? t("upload_saved_field")
-                : t("upload_no_evidence"),
+                : byAI && state.result.raw[field]
+                  ? t("upload_gemini_field")
+                  : t("upload_no_evidence"),
         ),
       );
     });
     $("#upload-fields").replaceChildren(...fields);
     $("#upload-text").textContent = state.sample
       ? t("upload_saved_text")
-      : state.result.evidence.rows.join("\n") || t("upload_empty");
+      : byAI
+        ? t("upload_text_gemini")
+        : state.result.evidence.rows.join("\n") || t("upload_empty");
     $("#upload-fingerprint").textContent = `SHA-256: ${state.result.source.sha256}`;
     $("#upload-duration").textContent = state.sample
       ? t("upload_sample_duration")
-      : t("upload_duration", { n: state.result.seconds });
+      : byAI
+        ? t("upload_duration_gemini", { n: state.result.seconds })
+        : t(fallback ? "upload_duration_fallback" : "upload_duration", {
+            n: state.result.seconds,
+          });
     $("#upload-resized").hidden = !state.result.source.resized;
     $("#upload-reason").value = state.reason;
     $("#upload-reason").disabled = state.busy;
@@ -232,6 +269,13 @@ export function mountUploads(initialLanguage) {
     render();
   });
   $("#upload-consent").addEventListener("change", render);
+  for (const input of document.querySelectorAll('input[name="upload-engine"]'))
+    input.addEventListener("change", () => {
+      state.engine = input.value;
+      state.engineChosen = true;
+      $("#upload-consent").checked = false;
+      render();
+    });
   $("#upload-policy").addEventListener("change", () => {
     if (state.result) {
       state.result = null;
@@ -253,10 +297,15 @@ export function mountUploads(initialLanguage) {
     render();
     const timer = setInterval(() => {
       state.elapsed = Math.floor((performance.now() - started) / 1000);
-      $("#upload-elapsed").textContent = t("upload_wait", { n: state.elapsed });
+      $("#upload-elapsed").textContent = t(
+        activeEngine() === "gemini" ? "upload_wait_gemini" : "upload_wait",
+        { n: state.elapsed },
+      );
     }, 1000);
     try {
-      const result = await readReceipt(state.file, $("#upload-policy").value);
+      const result = await readReceipt(state.file, $("#upload-policy").value, {
+        engine: activeEngine(),
+      });
       state.result = result;
       state.draft = Object.fromEntries(fieldNames.map((field) => [field, result.raw[field] ?? ""]));
       state.validation = result.validation;
@@ -264,6 +313,7 @@ export function mountUploads(initialLanguage) {
       state.phase = "review";
       state.reason = "";
       record("read");
+      if (result.fallback) record("fallback");
     } catch (error) {
       state.error = error instanceof APIError ? error.code : "generic";
       state.phase = "choose";
@@ -342,6 +392,7 @@ export function mountUploads(initialLanguage) {
     return request("/api/uploads/capabilities")
       .then((capability) => {
         state.capability = capability;
+        if (!state.engineChosen) state.engine = capability.default_engine ?? "ocr";
         if (state.error === "capability") state.error = null;
         render();
       })

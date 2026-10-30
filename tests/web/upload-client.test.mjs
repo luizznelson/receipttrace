@@ -4,8 +4,12 @@ import {
   checkFile,
   fieldChanges,
   readReceipt,
+  GEMINI_CONSENT,
+  GEMINI_TIMEOUT_MS,
   MAX_IMAGE_BYTES,
+  OCR_TIMEOUT_MS,
 } from "../../src/receipttrace/static/upload-client.js";
+import { messages } from "../../src/receipttrace/static/i18n.js";
 
 test("file checks reject unsupported, empty and excessive uploads before network", () => {
   assert.equal(checkFile({ type: "application/pdf", size: 100 }), "image_required");
@@ -92,4 +96,38 @@ test("CSV preserves original and reviewed values, reason and source hash", async
   assert.ok(text.includes("'="));
   assert.ok(text.includes("image-hash"));
   assert.equal(text.split("\r\n").length, 6);
+});
+test("AI reading sends explicit consent per request and waits long enough for the fallback", async (t) => {
+  const file = new File(["synthetic-image"], "test.png", { type: "image/png" });
+  const seen = [];
+  t.mock.method(globalThis, "fetch", async (path, options) => {
+    seen.push({ path, headers: options.headers });
+    return Response.json({ raw: {}, source: {}, evidence: {}, validation: {} });
+  });
+  await readReceipt(file, "brl-grouped");
+  await readReceipt(file, "usd-grouped", { engine: "gemini" });
+  assert.equal(seen[0].path, "/api/uploads?policy=brl-grouped");
+  assert.equal(seen[0].headers["X-Provider-Consent"], undefined);
+  assert.equal(seen[1].path, "/api/uploads?policy=usd-grouped&engine=gemini");
+  assert.equal(seen[1].headers["X-Provider-Consent"], GEMINI_CONSENT);
+  assert.ok(GEMINI_TIMEOUT_MS > OCR_TIMEOUT_MS);
+});
+test("every reason the server can give for skipping the AI has a message in both languages", () => {
+  const reasons = [
+    "gemini_paused",
+    "gemini_daily_limit",
+    "gemini_client_limit",
+    "gemini_rate_limited",
+    "gemini_busy",
+    "gemini_timeout",
+    "gemini_invalid_response",
+    "gemini_error",
+    "gemini_unavailable",
+  ];
+  for (const language of ["pt", "en"])
+    for (const reason of [...reasons, "generic"])
+      assert.ok(
+        messages[language][`upload_fallback_${reason}`],
+        `${language}.upload_fallback_${reason}`,
+      );
 });

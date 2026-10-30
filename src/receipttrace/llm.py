@@ -33,6 +33,7 @@ def request(
     *,
     prompt_text: str | None = None,
     schema: dict[str, Any] | None = None,
+    mime_type: str = "image/png",
 ) -> dict[str, Any]:
     if config.provider == "gemini-free":
         return {
@@ -43,7 +44,7 @@ def request(
                 {"type": "text", "text": "Extract this receipt. Return null for unknown fields."},
                 {
                     "type": "image",
-                    "mime_type": "image/png",
+                    "mime_type": mime_type,
                     "data": base64.b64encode(image).decode("ascii"),
                 },
             ],

@@ -14,15 +14,27 @@ export function fieldChanges(original, current) {
       : [{ field, before: original[field] ?? null, after }];
   });
 }
-export async function readReceipt(file, policy, { timeoutMs = 70000 } = {}) {
+export const GEMINI_CONSENT = "google-gemini-free";
+// The AI path may spend up to ~50 s on Gemini and then fall back to a local OCR run.
+export const OCR_TIMEOUT_MS = 70000;
+export const GEMINI_TIMEOUT_MS = 130000;
+export async function readReceipt(file, policy, { engine = "ocr", timeoutMs } = {}) {
   const invalid = checkFile(file);
   if (invalid) throw new APIError(invalid, 0);
+  const useAI = engine === "gemini";
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  const timer = setTimeout(
+    () => controller.abort(),
+    timeoutMs ?? (useAI ? GEMINI_TIMEOUT_MS : OCR_TIMEOUT_MS),
+  );
+  const headers = { "Content-Type": file.type, Accept: "application/json" };
+  // Consent is sent per request, only for the AI path; the server refuses without it.
+  if (useAI) headers["X-Provider-Consent"] = GEMINI_CONSENT;
   try {
-    const response = await fetch(`/api/uploads?policy=${encodeURIComponent(policy)}`, {
+    const query = `policy=${encodeURIComponent(policy)}${useAI ? "&engine=gemini" : ""}`;
+    const response = await fetch(`/api/uploads?${query}`, {
       method: "POST",
-      headers: { "Content-Type": file.type, Accept: "application/json" },
+      headers,
       body: file,
       signal: controller.signal,
       credentials: "same-origin",
