@@ -1,7 +1,7 @@
 import { request, APIError } from "./api.js";
 import { translate, messages } from "./i18n.js";
 import { element as el, fieldNames, valueText } from "./ui.js";
-import { checkFile, fieldChanges, readReceipt, receiptCSV } from "./upload-client.js";
+import { checkFile, fieldChanges, itemChanges, readReceipt, receiptCSV } from "./upload-client.js";
 
 export function mountUploads(initialLanguage) {
   let language = initialLanguage;
@@ -12,6 +12,8 @@ export function mountUploads(initialLanguage) {
     url: null,
     result: null,
     draft: {},
+    itemDraft: [],
+    itemsCheck: null,
     validation: null,
     validatedDraft: null,
     busy: false,
@@ -34,7 +36,21 @@ export function mountUploads(initialLanguage) {
     currency: null,
     ...Object.fromEntries(fieldNames.map((field) => [field, state.draft[field]?.trim() || null])),
   });
-  const currentValidated = () => state.validatedDraft === JSON.stringify(state.draft);
+  // Fields and item amounts are validated together: changing either invalidates the last check.
+  const draftKey = () => JSON.stringify([state.draft, state.itemDraft]);
+  const currentValidated = () => state.validatedDraft === draftKey();
+  const originalItems = () => state.result?.items ?? [];
+  const currentItems = () =>
+    originalItems().map((item, index) => ({
+      description: item.description ?? null,
+      quantity: item.quantity ?? null,
+      unit_price: item.unit_price ?? null,
+      amount: state.itemDraft[index]?.trim() || null,
+    }));
+  const totalChanges = () =>
+    fieldChanges(state.result.raw, state.draft).length +
+    itemChanges(originalItems(), state.itemDraft).length;
+  const shown = (value) => (language === "pt" ? String(value).replace(".", ",") : String(value));
   // The AI path is used only when the server offers it and the visitor chose it.
   const activeEngine = () =>
     state.capability?.engines?.gemini?.available && state.engine === "gemini" ? "gemini" : "ocr";
@@ -162,6 +178,10 @@ export function mountUploads(initialLanguage) {
       );
     });
     $("#upload-fields").replaceChildren(...fields);
+    renderItems(byAI);
+    const limit = $("#upload-check-limit");
+    limit.dataset.i18n = byAI ? "upload_check_limit_gemini" : "upload_check_limit";
+    limit.textContent = t(limit.dataset.i18n);
     $("#upload-text").textContent = state.sample
       ? t("upload_saved_text")
       : byAI
@@ -191,6 +211,67 @@ export function mountUploads(initialLanguage) {
     );
   }
 
+  function renderItems(byAI) {
+    const items = originalItems();
+    $("#upload-items").hidden = !byAI;
+    if (!byAI) return;
+    $("#upload-items-note").textContent = t(
+      items.length ? "upload_items_note" : "upload_items_none",
+      {
+        n: items.length,
+      },
+    );
+    $("#upload-items-body").replaceChildren(
+      ...items.map((item, index) => {
+        const input = el("input", {
+          id: `uploaded-item-${index}`,
+          class: "field-input",
+          type: "text",
+          maxlength: "64",
+          autocomplete: "off",
+          "aria-label": t("upload_items_edit", { n: index + 1 }),
+        });
+        input.value = state.itemDraft[index] ?? "";
+        input.disabled = state.busy;
+        input.addEventListener("input", () => {
+          state.itemDraft[index] = input.value;
+          state.exported = false;
+          state.phase = "review";
+          state.validatedDraft = null;
+          updateValidation();
+        });
+        const text = (value) => value ?? "—";
+        return el(
+          "tr",
+          {},
+          el("td", {}, String(index + 1)),
+          el("td", {}, text(item.description)),
+          el("td", {}, text(item.quantity)),
+          el("td", {}, text(item.unit_price)),
+          el("td", {}, input),
+        );
+      }),
+    );
+  }
+
+  function itemsSummary(check) {
+    const target = (state.draft.subtotal ?? "").trim() ? "subtotal" : "total";
+    if (!check) return t("upload_items_pending", { target: t(`upload_items_target_${target}`) });
+    if (check.status === "unavailable") {
+      const key = `upload_items_unavailable_${check.reason}`;
+      return t(messages[language][key] ? key : "upload_items_unavailable_generic", {
+        list: (check.unreadable_items ?? []).map((index) => index + 1).join(", "),
+      });
+    }
+    return t(check.status === "match" ? "upload_items_match" : "upload_items_mismatch", {
+      n: check.items,
+      sum: shown(check.sum),
+      expected: shown(check.expected),
+      target: t(`upload_items_target_${check.target}`),
+      difference: shown(String(check.difference).replace("-", "")),
+    });
+  }
+
   function updateValidation() {
     if (!state.result) return;
     for (const node of document.querySelectorAll("[data-upload-step]")) {
@@ -198,7 +279,7 @@ export function mountUploads(initialLanguage) {
       node.setAttribute("aria-current", active ? "step" : "false");
       node.classList.toggle("active", active);
     }
-    const changed = fieldChanges(state.result.raw, state.draft).length;
+    const changed = totalChanges();
     $("#upload-edit-note").textContent = t(changed ? "upload_changed" : "upload_unchanged", {
       n: changed,
     });
@@ -225,6 +306,17 @@ export function mountUploads(initialLanguage) {
         explanations.push(t("upload_total_skipped"));
     }
     $("#upload-check-details").replaceChildren(...explanations.map((text) => el("li", {}, text)));
+    if (!$("#upload-items").hidden) {
+      const itemsCheck = currentValidated() ? state.itemsCheck : null;
+      $("#upload-items-sum").textContent = itemsSummary(itemsCheck);
+      $("#upload-items-sum").classList.toggle("upload-warning", itemsCheck?.status === "mismatch");
+      originalItems().forEach((_, index) =>
+        $(`#uploaded-item-${index}`)?.setAttribute(
+          "aria-invalid",
+          String(Boolean(itemsCheck?.unreadable_items?.includes(index))),
+        ),
+      );
+    }
     $("#upload-download").disabled =
       state.busy || !validation || (changed > 0 && !state.reason.trim());
     $("#upload-csv").disabled = $("#upload-download").disabled;
@@ -238,6 +330,8 @@ export function mountUploads(initialLanguage) {
       url: null,
       result: null,
       draft: {},
+      itemDraft: [],
+      itemsCheck: null,
       validation: null,
       validatedDraft: null,
       error: null,
@@ -281,6 +375,8 @@ export function mountUploads(initialLanguage) {
       state.result = null;
       state.phase = "choose";
       state.draft = {};
+      state.itemDraft = [];
+      state.itemsCheck = null;
     }
     render();
   });
@@ -308,8 +404,10 @@ export function mountUploads(initialLanguage) {
       });
       state.result = result;
       state.draft = Object.fromEntries(fieldNames.map((field) => [field, result.raw[field] ?? ""]));
+      state.itemDraft = (result.items ?? []).map((item) => item.amount ?? "");
+      state.itemsCheck = result.items_check ?? null;
       state.validation = result.validation;
-      state.validatedDraft = JSON.stringify(state.draft);
+      state.validatedDraft = draftKey();
       state.phase = "review";
       state.reason = "";
       record("read");
@@ -334,11 +432,14 @@ export function mountUploads(initialLanguage) {
     state.error = null;
     render();
     try {
-      state.validation = await request("/api/uploads/validate", {
+      const validation = await request("/api/uploads/validate", {
         raw: currentRaw(),
+        items: currentItems(),
         policy: state.result.numeric_policy,
       });
-      state.validatedDraft = JSON.stringify(state.draft);
+      state.validation = validation;
+      state.itemsCheck = validation.items_check ?? null;
+      state.validatedDraft = draftKey();
       state.phase = "export";
       record("checked");
     } catch (error) {
@@ -359,6 +460,9 @@ export function mountUploads(initialLanguage) {
         current_raw: currentRaw(),
         validation: state.validation,
         changes: fieldChanges(state.result.raw, state.draft),
+        current_items: currentItems(),
+        item_changes: itemChanges(originalItems(), state.itemDraft),
+        items_check: state.itemsCheck,
         reason: state.reason.trim() || null,
         identity: "anonymous_browser_session",
         status: "not_independently_verified",
@@ -383,7 +487,7 @@ export function mountUploads(initialLanguage) {
     $("#upload-checks").textContent = t("upload_downloaded");
   });
   window.addEventListener("beforeunload", (event) => {
-    if (state.result && !state.exported && fieldChanges(state.result.raw, state.draft).length) {
+    if (state.result && !state.exported && totalChanges()) {
       event.preventDefault();
       event.returnValue = "";
     }
@@ -428,8 +532,10 @@ export function mountUploads(initialLanguage) {
         provenance: "saved_public_study_example",
       };
       state.draft = Object.fromEntries(fieldNames.map((field) => [field, detail.raw[field] ?? ""]));
+      state.itemDraft = [];
+      state.itemsCheck = null;
       state.validation = detail.validation;
-      state.validatedDraft = JSON.stringify(state.draft);
+      state.validatedDraft = draftKey();
       state.phase = "review";
       record("sample");
       document.getElementById("try").scrollIntoView({ block: "start" });
@@ -454,6 +560,11 @@ export function mountUploads(initialLanguage) {
       ["csv_field", "csv_original", "csv_reviewed", "csv_reason", "csv_source"].map((key) =>
         t(key),
       ),
+      originalItems().map((item, index) => [
+        `${t("csv_item", { n: index + 1 })} · ${item.description ?? "—"}`,
+        item.amount,
+        state.itemDraft[index]?.trim() || null,
+      ]),
     );
     const url = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
     const anchor = el("a", { href: url, download: `receipttrace-${state.result.document_id}.csv` });

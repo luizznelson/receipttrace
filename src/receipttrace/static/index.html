@@ -572,6 +572,30 @@
                 original.
               </p>
               <div id="upload-fields" class="upload-fields"></div>
+              <section id="upload-items" class="upload-items" hidden>
+                <h4 id="upload-items-title" data-i18n="upload_items_title">Itens lidos pela IA</h4>
+                <p class="small muted" id="upload-items-note"></p>
+                <div
+                  class="upload-items-scroll"
+                  tabindex="0"
+                  role="group"
+                  aria-labelledby="upload-items-title"
+                >
+                  <table>
+                    <thead>
+                      <tr>
+                        <th scope="col" data-i18n="upload_items_col_n">#</th>
+                        <th scope="col" data-i18n="upload_items_col_description">Descrição</th>
+                        <th scope="col" data-i18n="upload_items_col_quantity">Qtd.</th>
+                        <th scope="col" data-i18n="upload_items_col_unit">Unitário</th>
+                        <th scope="col" data-i18n="upload_items_col_amount">Valor</th>
+                      </tr>
+                    </thead>
+                    <tbody id="upload-items-body"></tbody>
+                  </table>
+                </div>
+                <p class="notice" id="upload-items-sum" role="status"></p>
+              </section>
               <p class="small" id="upload-edit-note"></p>
               <label for="upload-reason" data-i18n="upload_reason"
                 >O que você corrigiu e por quê?</label
@@ -617,7 +641,7 @@
               </p>
               <ul id="upload-check-details" class="small upload-check-details"></ul>
               <p id="upload-checks" class="notice" role="status"></p>
-              <p class="small muted" data-i18n="upload_check_limit">
+              <p class="small muted" id="upload-check-limit" data-i18n="upload_check_limit">
                 Os itens não são estruturados neste teste, e sua soma não é conferida. Um formato
                 válido não comprova que o valor foi lido corretamente.
               </p>

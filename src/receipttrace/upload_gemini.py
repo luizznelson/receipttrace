@@ -17,6 +17,7 @@ from collections.abc import Callable, Mapping
 from dataclasses import dataclass
 from datetime import UTC, datetime
 from decimal import Decimal
+from importlib.resources import files
 from importlib.util import find_spec
 from typing import Any
 from uuid import uuid4
@@ -30,17 +31,23 @@ from receipttrace.gemini import (
     GeminiQuotaExceeded,
     GeminiSchemaTooComplex,
 )
-from receipttrace.llm import Answer, decode, prompt, request
+from receipttrace.item_sum import MAX_ITEMS, check_item_sum
+from receipttrace.llm import Answer, decode, request
 from receipttrace.llm_config import LLMConfig
 from receipttrace.money import NumberPolicy
 
-RULES_VERSION = "upload-gemini-1"
+RULES_VERSION = "upload-gemini-2"
 CONSENT_HEADER = "x-provider-consent"
 CONSENT_VALUE = "google-gemini-free"
 DEFAULT_MODEL = "gemini-3.5-flash-lite"
 GEMINI_TIMEOUT_SECONDS = 45.0
 MAX_CLIENTS_TRACKED = 10_000
 FIELDS = ("total", "subtotal", "tax", "service", "discount")
+
+
+def upload_prompt() -> str:
+    """Upload-only instructions; the published study keeps its own, unchanged prompt."""
+    return files("receipttrace").joinpath("prompts/upload-v1.txt").read_text(encoding="utf-8")
 
 
 class GeminiFallback(Exception):
@@ -197,7 +204,9 @@ class GeminiReader:
     def _call(self, prepared: dict[str, Any], document_id: str) -> tuple[RawReceipt, Answer]:
         config = self.settings.config()
         image = base64.b64decode(prepared["image_base64"], validate=True)
-        payload = request(image, config, mime_type=prepared["mime_type"])
+        payload = request(
+            image, config, prompt_text=upload_prompt(), mime_type=prepared["mime_type"]
+        )
         provider = self.provider_factory(config)
         try:
             answer = provider.extract(payload, config.max_output_tokens)
@@ -253,9 +262,26 @@ class GeminiReader:
         document_id: str,
         started: float,
     ) -> dict[str, Any]:
-        # Same contract as the OCR result: five fields only; items are not evaluated live.
-        ignored = len(raw.items)
+        # Five fields feed the field validation; item lines feed the separate sum check.
+        # Items are read live but never evaluated against references, so they stay unscored.
+        nested = any(item.children for item in raw.items)
+        every_item = [
+            {
+                "description": item.description,
+                "quantity": item.quantity,
+                "unit_price": item.unit_price,
+                "amount": item.amount,
+            }
+            for item in raw.items
+        ]
+        items = every_item[:MAX_ITEMS]
         fields = raw.model_copy(update={"items": [], "currency": None, "items_complete": False})
+        items_check = check_item_sum(
+            every_item,
+            {name: getattr(fields, name) for name in FIELDS},
+            policy,
+            nested=nested,
+        )
         validation = report(fields, policy, Decimal(0))
         found = any(getattr(fields, name) is not None for name in FIELDS)
         usage = answer.response.get("usage")
@@ -277,9 +303,9 @@ class GeminiReader:
                 "model": answer.response.get("model"),
                 "api": "interactions-v1beta",
                 "thinking_level": self.settings.config().thinking_level,
-                "prompt_sha256": hashlib.sha256(prompt().encode()).hexdigest(),
+                "prompt_sha256": hashlib.sha256(upload_prompt().encode()).hexdigest(),
                 "usage": usage if isinstance(usage, dict) else None,
-                "items_ignored": ignored,
+                "items_read": len(raw.items),
                 "sent_to_provider": "sanitized_jpeg_without_metadata",
             },
             "numeric_policy": policy,
@@ -287,6 +313,8 @@ class GeminiReader:
             "raw": fields.model_dump(),
             "validation": validation,
             "arithmetic": summarize_validation(validation),
+            "items": items,
+            "items_check": items_check,
             "lines": [],
             "evidence": {"rows": [], "fields": {}},
             "seconds": round(time.perf_counter() - started, 3),

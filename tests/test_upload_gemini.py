@@ -122,9 +122,14 @@ def test_successful_read_matches_the_ocr_contract_and_sends_only_sanitized_jpeg(
     result = read(instance)
     assert result["method"] == "gemini_vision" and result["status"] == "read"
     assert result["raw"]["total"] == "11,00" and result["raw"]["service"] == "1,00"
-    # Items are not evaluated live, and a model-chosen currency is never trusted.
+    # Items feed the sum check but are never scored; a model-chosen currency is never trusted.
     assert result["raw"]["items"] == [] and result["raw"]["currency"] is None
-    assert result["engine"]["items_ignored"] == 1
+    assert result["engine"]["items_read"] == 1
+    assert result["items"] == [
+        {"description": "Café", "quantity": "1", "unit_price": "10,00", "amount": "10,00"}
+    ]
+    assert result["items_check"]["status"] == "match"
+    assert result["items_check"]["target"] == "subtotal"
     assert result["external_provider"] is True and result["benchmark_included"] is False
     assert result["review_status"] == "needs_human_review"
     assert result["evidence"] == {"rows": [], "fields": {}}

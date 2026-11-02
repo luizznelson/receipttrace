@@ -14,6 +14,15 @@ export function fieldChanges(original, current) {
       : [{ field, before: original[field] ?? null, after }];
   });
 }
+// Item amounts the visitor changed; rows are matched by position, never by description.
+export function itemChanges(original, current) {
+  return original.flatMap((item, index) => {
+    const after = current[index]?.trim() || null;
+    return after === (item.amount ?? null)
+      ? []
+      : [{ index, description: item.description ?? null, before: item.amount ?? null, after }];
+  });
+}
 export const GEMINI_CONSENT = "google-gemini-free";
 // The AI path may spend up to ~50 s on Gemini and then fall back to a local OCR run.
 export const OCR_TIMEOUT_MS = 70000;
@@ -73,6 +82,7 @@ export function receiptCSV(
   reason,
   sha256,
   headers = ["field", "original", "reviewed", "reason", "source_sha256"],
+  itemRows = [],
 ) {
   const rows = [
     headers,
@@ -83,6 +93,7 @@ export function receiptCSV(
       reason,
       sha256,
     ]),
+    ...itemRows.map(([label, before, after]) => [label, before, after, reason, sha256]),
   ];
   return "\uFEFF" + rows.map((row) => row.map(csvCell).join(";")).join("\r\n");
 }

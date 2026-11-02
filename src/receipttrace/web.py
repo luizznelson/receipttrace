@@ -19,6 +19,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from receipttrace.cli_serialization import decimal_json
 from receipttrace.demo_catalog import DemoCatalog, DemoIntegrityError, ExampleNotFound, Method
 from receipttrace.domain import RawReceipt, report
+from receipttrace.item_sum import MAX_ITEMS, check_item_sum
 from receipttrace.money import NumberPolicy
 from receipttrace.review import (
     CompletionRequest,
@@ -80,9 +81,18 @@ class UploadedFields(BaseModel):
     discount: str | None = Field(default=None, max_length=64)
 
 
+class UploadedItem(BaseModel):
+    model_config = ConfigDict(extra="forbid", strict=True)
+    description: str | None = Field(default=None, max_length=200)
+    quantity: str | None = Field(default=None, max_length=64)
+    unit_price: str | None = Field(default=None, max_length=64)
+    amount: str | None = Field(default=None, max_length=64)
+
+
 class UploadValidationRequest(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True)
     raw: UploadedFields
+    items: list[UploadedItem] = Field(default_factory=list, max_length=MAX_ITEMS)
     policy: Literal["brl-grouped", "usd-grouped", "idr-grouped"]
 
 
@@ -200,7 +210,12 @@ def create_app(
     @app.post("/api/uploads/validate")
     def validate_upload(body: UploadValidationRequest) -> Response:
         raw = RawReceipt.model_validate(body.raw.model_dump())
-        return ExactJSONResponse(report(raw, body.policy, Decimal(0)))
+        items_check = check_item_sum(
+            [item.model_dump() for item in body.items], body.raw.model_dump(), body.policy
+        )
+        return ExactJSONResponse(
+            {**report(raw, body.policy, Decimal(0)), "items_check": items_check}
+        )
 
     @app.get("/api/uploads/capabilities")
     def upload_capabilities() -> Response:

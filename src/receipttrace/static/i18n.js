@@ -241,8 +241,8 @@ const phrases = {
     "Local OCR and reading rules · {n} s, including initialization.",
   ],
   upload_changed: [
-    "{n} campo(s) alterado(s). Confira o formato e registre o motivo antes de baixar.",
-    "{n} changed field(s). Check the format and record the reason before downloading.",
+    "{n} valor(es) alterado(s). Confira o formato e registre o motivo antes de baixar.",
+    "{n} changed value(s). Check the format and record the reason before downloading.",
   ],
   upload_unchanged: [
     "Nenhuma alteração em relação à leitura original.",
@@ -349,6 +349,77 @@ const phrases = {
     "OCR local, porque a IA não foi usada · {n} s, incluindo inicialização.",
     "Local OCR, because the AI was not used · {n} s, including initialization.",
   ],
+  upload_items_title: ["Itens lidos pela IA", "Items read by the AI"],
+  upload_items_note: [
+    "A IA leu {n} item(ns). A leitura de itens não foi avaliada no estudo: confira cada valor na imagem e corrija na tabela, se precisar.",
+    "The AI read {n} item(s). Item reading was not evaluated in the study: check each value against the image and correct the table if needed.",
+  ],
+  upload_items_none: [
+    "A IA não encontrou itens nesta imagem.",
+    "The AI found no items in this image.",
+  ],
+  upload_items_col_n: ["#", "#"],
+  upload_items_col_description: ["Descrição", "Description"],
+  upload_items_col_quantity: ["Qtd.", "Qty"],
+  upload_items_col_unit: ["Unitário", "Unit"],
+  upload_items_col_amount: ["Valor", "Amount"],
+  upload_items_edit: ["Valor do item {n}", "Amount of item {n}"],
+  upload_items_pending: [
+    "Selecione “Conferir formato e cálculos” para comparar a soma dos itens com o {target}.",
+    "Select “Check format and calculations” to compare the sum of the items with the {target}.",
+  ],
+  upload_items_match: [
+    "A soma dos {n} itens ({sum}) é igual ao {target} ({expected}). Isso não prova que todos os itens foram lidos.",
+    "The sum of the {n} items ({sum}) equals the {target} ({expected}). This does not prove that every item was read.",
+  ],
+  upload_items_mismatch: [
+    "A soma dos {n} itens ({sum}) difere do {target} ({expected}) em {difference}. Confira se algum item foi lido errado ou ficou de fora.",
+    "The sum of the {n} items ({sum}) differs from the {target} ({expected}) by {difference}. Check whether an item was misread or left out.",
+  ],
+  upload_items_target_total: ["total", "total"],
+  upload_items_target_subtotal: ["subtotal", "subtotal"],
+  upload_items_unavailable_generic: [
+    "A soma dos itens não pôde ser conferida.",
+    "The sum of the items could not be checked.",
+  ],
+  upload_items_unavailable_no_items: ["Não há itens para somar.", "There are no items to add up."],
+  upload_items_unavailable_nested_items: [
+    "Há itens aninhados, e a soma não tem regra definida para eles.",
+    "There are nested items, and the sum has no defined rule for them.",
+  ],
+  upload_items_unavailable_too_many_items: [
+    "Há itens demais para conferir aqui.",
+    "There are too many items to check here.",
+  ],
+  upload_items_unavailable_item_amount_unreadable: [
+    "Não deu para somar: o valor dos itens {list} está vazio ou ilegível. Corrija-o na tabela e confira de novo.",
+    "The sum could not be checked: the amount of items {list} is empty or unreadable. Fix it in the table and check again.",
+  ],
+  upload_items_unavailable_adjustments_present: [
+    "O recibo tem desconto, imposto ou serviço sem subtotal; a soma dos itens não pode ser comparada com segurança.",
+    "The receipt has a discount, tax or service without a subtotal, so the item sum cannot be compared safely.",
+  ],
+  upload_items_unavailable_total_missing: [
+    "Não deu para somar: falta o total para comparar.",
+    "The sum could not be checked: there is no total to compare with.",
+  ],
+  upload_items_unavailable_total_invalid: [
+    "Não deu para somar: o total está em formato inválido.",
+    "The sum could not be checked: the total has an invalid format.",
+  ],
+  upload_items_unavailable_subtotal_missing: [
+    "Não deu para somar: falta o subtotal para comparar.",
+    "The sum could not be checked: there is no subtotal to compare with.",
+  ],
+  upload_items_unavailable_subtotal_invalid: [
+    "Não deu para somar: o subtotal está em formato inválido.",
+    "The sum could not be checked: the subtotal has an invalid format.",
+  ],
+  upload_check_limit_gemini: [
+    "Os itens vêm da IA e não foram avaliados no estudo. Uma soma igual ao total é um bom sinal, mas não prova que nenhum item foi esquecido ou lido em duplicidade; uma soma diferente indica algo a conferir. Um formato válido não comprova que o valor foi lido corretamente.",
+    "The items come from the AI and were not evaluated in the study. A sum equal to the total is a good sign but does not prove that no item was missed or read twice; a different sum points to something to check. A valid format does not prove the value was read correctly.",
+  ],
+  csv_item: ["Item {n}", "Item {n}"],
   upload_text_title_gemini: ["Como esta leitura foi feita", "How this reading was made"],
   upload_text_gemini: [
     "A IA devolve os valores já organizados, não o texto reconhecido. Por isso não há trecho de evidência: confira cada campo na imagem.",

@@ -3,7 +3,9 @@ import assert from "node:assert/strict";
 import {
   checkFile,
   fieldChanges,
+  itemChanges,
   readReceipt,
+  receiptCSV,
   GEMINI_CONSENT,
   GEMINI_TIMEOUT_MS,
   MAX_IMAGE_BYTES,
@@ -130,4 +132,48 @@ test("every reason the server can give for skipping the AI has a message in both
         messages[language][`upload_fallback_${reason}`],
         `${language}.upload_fallback_${reason}`,
       );
+});
+test("item changes match rows by position and keep the printed writing", () => {
+  const original = [
+    { description: "A", amount: "10,00" },
+    { description: "B", amount: null },
+    { description: "C", amount: "3,50" },
+  ];
+  assert.deepEqual(itemChanges(original, ["10,00", "", "3,60"]), [
+    { index: 2, description: "C", before: "3,50", after: "3,60" },
+  ]);
+  assert.deepEqual(itemChanges(original, ["10,00", "2,00", "3,50"]), [
+    { index: 1, description: "B", before: null, after: "2,00" },
+  ]);
+  assert.deepEqual(itemChanges(original, ["10,00", " ", "3,50"]), []);
+});
+test("CSV carries item rows and still neutralizes formulas typed by the visitor", () => {
+  const labels = { total: "T", subtotal: "S", tax: "X", service: "V", discount: "D" };
+  const csv = receiptCSV({ total: "1,00" }, { total: "1,00" }, labels, "ok", "abc", undefined, [
+    ["Item 1 · Leite", "4,50", "=1+1"],
+  ]);
+  assert.ok(csv.includes('"Item 1 · Leite";"4,50";"\'=1+1"'));
+});
+test("every item-sum state the server can report has a message in both languages", () => {
+  const reasons = [
+    "generic",
+    "no_items",
+    "nested_items",
+    "too_many_items",
+    "item_amount_unreadable",
+    "adjustments_present",
+    "total_missing",
+    "total_invalid",
+    "subtotal_missing",
+    "subtotal_invalid",
+  ];
+  for (const language of ["pt", "en"]) {
+    for (const reason of reasons)
+      assert.ok(
+        messages[language][`upload_items_unavailable_${reason}`],
+        `${language}.upload_items_unavailable_${reason}`,
+      );
+    for (const key of ["upload_items_match", "upload_items_mismatch", "upload_items_pending"])
+      assert.ok(messages[language][key], `${language}.${key}`);
+  }
 });
