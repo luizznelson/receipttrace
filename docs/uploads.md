@@ -34,7 +34,23 @@ Os números do estudo vêm de uma amostra pequena de desenvolvimento e não gara
 
 **Privacidade do plano gratuito.** Nos termos do plano gratuito do Gemini, o Google pode usar o conteúdo enviado para melhorar seus produtos. Por isso a IA só é oferecida com `RECEIPTTRACE_GEMINI_FREE_TIER=confirmed` (decisão de quem hospeda, depois de conferir os termos vigentes) e a pessoa precisa marcar o consentimento a cada leitura. O servidor não grava a imagem nem o resultado.
 
-**Itens e moeda.** A leitura por IA devolve os cinco campos; itens são descartados (`items_ignored` no registro) e a moeda não é presumida.
+**Itens e moeda.** A leitura por IA devolve os cinco campos e também as linhas de compra (descrição, quantidade, valor unitário e valor da linha). O OCR local não estrutura itens. A moeda não é presumida.
+
+## Soma dos itens
+
+Muitos recibos, como o cupom fiscal de supermercado (NFC-e), imprimem só o total. Nesses casos os outros quatro campos ficam vazios, e a conferência útil é outra: os valores das linhas devem somar o total. `item_sum.py` faz essa conta com Decimal e devolve `items_check`:
+
+| Estado | Quando ocorre |
+| --- | --- |
+| `match` | A soma dos itens é igual ao total (ou ao subtotal, se houver subtotal impresso). |
+| `mismatch` | A soma difere; a tela mostra os dois valores e a diferença. |
+| `unavailable` | Não há como comparar com segurança, com o motivo (`reason`): sem itens, valor de item vazio ou ilegível (com a posição), desconto/imposto/serviço sem subtotal, total ausente ou inválido, itens aninhados ou itens demais (acima de 200). |
+
+Regras de segurança da conta: valor de item ausente nunca vira zero; linhas negativas (descontos impressos como item) são tratadas como ilegíveis, não abatidas em silêncio; a tolerância é zero, porque os valores das linhas já vêm arredondados do papel.
+
+Cada valor de item pode ser corrigido na tabela. A conferência é refeita em `POST /api/uploads/validate` e entra no JSON e no CSV exportados, com os valores antes e depois.
+
+**O que a soma não prova.** Soma igual é um bom sinal, mas não garante que nenhum item foi esquecido ou lido em duplicidade, e dois erros podem se compensar. A leitura de itens **não foi avaliada** no estudo (20 recibos do CORD, sem itens avaliados); só o total e os outros quatro campos têm números publicados. Um recibo com mais de cerca de 60 linhas pode ultrapassar o limite de saída da IA; nesse caso a leitura cai para o OCR local, com o motivo `gemini_invalid_response`.
 
 ## Como iniciar
 
@@ -110,7 +126,7 @@ O processo separado não é um isolamento de segurança do sistema operacional n
 
 O OCR pode errar letras e números. As regras reconhecem rótulos comuns em português, inglês e os rótulos indonésios usados no estudo; isso não comprova suporte geral a esses idiomas. Modelos e regras ainda não foram avaliados em uma amostra independente de recibos brasileiros.
 
-Itens não são estruturados no teste ao vivo. A soma dos itens fica sem conferência. Para verificar `subtotal − desconto + imposto + serviço = total`, todos os cinco componentes precisam estar explícitos e válidos. Campo ausente não é convertido em zero. Uma igualdade aritmética ou uma correção feita no navegador não aprova pagamento, documento fiscal ou autenticidade.
+No OCR local, itens não são estruturados e a soma dos itens não é conferida; na leitura por IA, veja a seção “Soma dos itens”. Para verificar `subtotal − desconto + imposto + serviço = total`, todos os cinco componentes precisam estar explícitos e válidos. Campo ausente não é convertido em zero. Uma igualdade aritmética ou uma correção feita no navegador não aprova pagamento, documento fiscal ou autenticidade.
 
 ## API e responsabilidades
 
@@ -118,7 +134,7 @@ Itens não são estruturados no teste ao vivo. A soma dos itens fica sem confer�
 | --- | --- |
 | `GET /api/uploads/capabilities` | Disponibilidade e limites; não inicializa o motor OCR. |
 | `POST /api/uploads?policy=brl-grouped&engine=ocr\|gemini` | Corpo binário PNG/JPEG; `engine=gemini` exige o cabeçalho de consentimento (400 `consent_required` sem ele). Devolve leitura, evidências, validação e, se houve fallback, `fallback.reason`. |
-| `POST /api/uploads/validate` | JSON transitório com os cinco campos e política; reavalia sem salvar. |
+| `POST /api/uploads/validate` | JSON transitório com os cinco campos, até 200 itens e a política; reavalia sem salvar e devolve também `items_check`. |
 
 `upload_worker.py` verifica e prepara a imagem e executa o OCR. `upload_rules.py` seleciona campos de forma conservadora. `uploads.py` controla processo, concorrência, tempo e a escolha do método com fallback. `upload_gemini.py` contém o leitor Gemini, as cotas e o mapeamento de erros para motivos de fallback. `web_boundary.py` aplica origem, formato e tamanho. `upload.js` apresenta a jornada, correções e exportação; `upload-client.js` contém o contrato de envio e as diferenças entre original e versão atual.
 

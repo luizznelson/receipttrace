@@ -15,7 +15,7 @@ Projeto de portfólio de engenharia de IA aplicada, desenvolvido por Luiz. Conec
 | | |
 | --- | --- |
 | **Problema** | Uma leitura automática de recibo pode terminar sem erro e ainda assim trazer o valor errado. |
-| **O que construí** | API FastAPI e interface em português e inglês que leem o recibo por IA (Gemini) ou OCR local, mostram a evidência ao lado da imagem e registram cada correção com motivo. |
+| **O que construí** | API FastAPI e interface em português e inglês que leem o recibo por IA (Gemini) ou OCR local, mostram a evidência ao lado da imagem, registram cada correção com motivo e conferem se a soma dos itens bate com o total. |
 | **Resultado medido** | Total correto em 14 de 19 recibos com OCR e 19 de 19 com Gemini, em 20 recibos públicos usados no desenvolvimento. Não é um teste independente. |
 | **Habilidades que o projeto mostra** | Python 3.14 tipado, FastAPI, regras monetárias com Decimal, integração com LLM (consentimento, cotas, fallback), segurança no envio de arquivos, testes Python e JavaScript, CI, Docker e implantação, e avaliação com limites declarados. |
 | **Onde começar** | [Demonstração](https://receipttrace.onrender.com) · [Estudo de caso](docs/case-study.md) · [Decisões de engenharia](docs/architecture.md) · [Como verificar](docs/quality.md) |
@@ -34,6 +34,7 @@ O objetivo é ajudar uma equipe administrativa a localizar dúvidas, conferir a 
 
 - Comece pelo caso guiado, sem arquivo ou chave de API. A leitura salva é identificada como exemplo do estudo.
 - Envie uma imagem PNG/JPG e escolha a leitura: **IA (Gemini, plano gratuito)**, com consentimento a cada envio e retorno automático ao OCR local se a IA falhar, ou **OCR local**.
+- Na leitura por IA, confira também os itens lidos: a soma deles é comparada com o total (útil em cupons de supermercado, que só imprimem o total). Essa leitura de itens ainda não foi avaliada.
 - Confira os cinco campos ao lado da imagem. Valores conflitantes ficam vazios e componentes ausentes não viram zero.
 - Baixe uma tabela CSV para abrir em planilha ou um JSON com o registro completo da sessão.
 

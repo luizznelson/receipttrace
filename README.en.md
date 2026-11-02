@@ -15,7 +15,7 @@ An applied AI engineering portfolio project developed by Luiz. It connects publi
 | | |
 | --- | --- |
 | **Problem** | An automatic receipt reading can finish without errors and still return the wrong amount. |
-| **What I built** | A FastAPI service and a Portuguese/English interface that read a receipt with AI (Gemini) or local OCR, show the evidence beside the image and record each correction with a reason. |
+| **What I built** | A FastAPI service and a Portuguese/English interface that read a receipt with AI (Gemini) or local OCR, show the evidence beside the image, record each correction with a reason and check whether the sum of the items matches the total. |
 | **Measured result** | Correct total on 14 of 19 receipts with OCR and 19 of 19 with Gemini, across 20 public receipts used during development. Not an independent test. |
 | **Skills shown** | Typed Python 3.14, FastAPI, monetary rules with Decimal, LLM integration (consent, quotas, fallback), file-upload security, Python and JavaScript tests, CI, Docker and deployment, and evaluation with stated limits. |
 | **Where to start** | [Demo](https://receipttrace.onrender.com) · [Case study](docs/case-study.md) · [Engineering decisions](docs/architecture.md) · [How to verify](docs/quality.md) |
@@ -34,6 +34,7 @@ The proposed use case is an administrative team identifying uncertainty, checkin
 
 - Start with the guided case without a file or API key. Its saved reading is identified as a study example.
 - Upload PNG/JPG when uploads are enabled and choose how it is read: **Gemini AI** (free tier, explicit consent, automatic fallback to local OCR with the reason shown) or **local OCR**.
+- With AI reading, also check the items it found: their sum is compared with the total (useful for supermarket receipts, which print only a total). This item reading has not been evaluated yet.
 - Check five fields beside the image. Conflicting values stay blank; missing components do not become zero.
 - Download a CSV table for spreadsheets or JSON with the full session record.
 

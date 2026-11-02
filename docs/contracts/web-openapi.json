@@ -699,6 +699,14 @@
           "raw": {
             "$ref": "#/components/schemas/UploadedFields"
           },
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/UploadedItem"
+            },
+            "type": "array",
+            "maxItems": 200,
+            "title": "Items"
+          },
           "policy": {
             "type": "string",
             "enum": [
@@ -808,6 +816,61 @@
           "document_id"
         ],
         "title": "UploadedFields"
+      },
+      "UploadedItem": {
+        "properties": {
+          "description": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 200
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "quantity": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Quantity"
+          },
+          "unit_price": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unit Price"
+          },
+          "amount": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 64
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Amount"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "title": "UploadedItem"
       },
       "ValidationError": {
         "properties": {
