@@ -20,6 +20,10 @@ An applied AI engineering portfolio project developed by Luiz. It connects publi
 | **Skills shown** | Typed Python 3.14, FastAPI, monetary rules with Decimal, LLM integration (consent, quotas, fallback), file-upload security, Python and JavaScript tests, CI, Docker and deployment, and evaluation with stated limits. |
 | **Where to start** | [Demo](https://receipttrace.onrender.com) · [Case study](docs/case-study.md) · [Engineering decisions](docs/architecture.md) · [How to verify](docs/quality.md) |
 
+![AI reading of a supermarket receipt, with the item table and the sum compared with the total](docs/media/receipttrace-itens.gif)
+
+*Reading a supermarket tax receipt: the AI reads 23 items and their sum is compared with the printed total. The receipt's access key was blurred. [Watch as video (MP4)](docs/media/receipttrace-itens.mp4).*
+
 ## 1. The problem: a completed reading can be wrong
 
 People organizing receipts need to check amounts before entering them elsewhere. One public receipt made this concrete: OCR selected **`62,000`** as the total, while the official reference gives **`61,799`**. Gemini recovered the reference value.
@@ -92,7 +96,7 @@ uv sync --locked --extra web --extra ocr
 uv run --no-sync receipttrace serve --uploads
 ```
 
-Open [the local demonstration](http://127.0.0.1:8000). The ready example requires no new inference. Personal-image testing offers Gemini (only if the host configures a key) or local OCR; without a key only OCR appears. See [Deployment](docs/deploy.md). [Interface guide](docs/web.md).
+To try AI reading on your computer, also install the `gemini` extra and set the variables described in [Temporary uploads](docs/uploads.md) (Portuguese); without them only local OCR appears. Open [the local demonstration](http://127.0.0.1:8000). The ready example requires no new inference. Personal-image testing offers Gemini (only if the host configures a key) or local OCR; without a key only OCR appears. See [Deployment](docs/deploy.md). [Interface guide](docs/web.md).
 
 For the ready example alone, install the `web` extra and start `receipttrace serve --read-only`. Stateless field checks and downloads remain available without exposing local review storage. The demo is published at [https://receipttrace.onrender.com](https://receipttrace.onrender.com); the deployment record is in [Deployment](docs/deploy.md).
 

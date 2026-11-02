@@ -20,6 +20,10 @@ Projeto de portfólio de engenharia de IA aplicada, desenvolvido por Luiz. Conec
 | **Habilidades que o projeto mostra** | Python 3.14 tipado, FastAPI, regras monetárias com Decimal, integração com LLM (consentimento, cotas, fallback), segurança no envio de arquivos, testes Python e JavaScript, CI, Docker e implantação, e avaliação com limites declarados. |
 | **Onde começar** | [Demonstração](https://receipttrace.onrender.com) · [Estudo de caso](docs/case-study.md) · [Decisões de engenharia](docs/architecture.md) · [Como verificar](docs/quality.md) |
 
+![Leitura por IA de um cupom de supermercado, com a tabela de itens e a soma comparada ao total](docs/media/receipttrace-itens.gif)
+
+*Leitura de um cupom fiscal de supermercado: a IA lê 23 itens e a soma deles é comparada com o total impresso. A chave de acesso do cupom foi desfocada. [Ver em vídeo (MP4)](docs/media/receipttrace-itens.mp4).*
+
 ## 1. O problema: uma leitura concluída pode estar errada
 
 Quem organiza comprovantes precisa conferir os valores antes de lançá-los. Neste projeto, um recibo público tornou o risco concreto: o OCR selecionou **`62,000`** como total, enquanto a referência oficial indica **`61,799`**. O Gemini recuperou o valor da referência.
@@ -92,7 +96,7 @@ uv sync --locked --extra web --extra ocr
 uv run --no-sync receipttrace serve --uploads
 ```
 
-Abra [a demonstração local](http://127.0.0.1:8000). O caso pronto não exige nova inferência. O envio próprio oferece duas leituras: **IA (Gemini, plano gratuito)**, com consentimento explícito e fallback automático, e **OCR local**. Sem chave configurada, só o OCR local aparece. [Guia da interface](docs/web.md).
+Para testar a leitura por IA no seu computador, instale também o extra `gemini` e defina as variáveis descritas em [Envio temporário](docs/uploads.md); sem elas, só o OCR local aparece. Abra [a demonstração local](http://127.0.0.1:8000). O caso pronto não exige nova inferência. O envio próprio oferece duas leituras: **IA (Gemini, plano gratuito)**, com consentimento explícito e fallback automático, e **OCR local**. Sem chave configurada, só o OCR local aparece. [Guia da interface](docs/web.md).
 
 Para explorar apenas o exemplo pronto, instale o extra `web` e inicie com `receipttrace serve --read-only`. A conferência transitória de campos e o download continuam disponíveis, sem liberar o banco local. A demonstração está publicada em [https://receipttrace.onrender.com](https://receipttrace.onrender.com); o roteiro e o registro da implantação estão em [Implantação](docs/deploy.md).
 

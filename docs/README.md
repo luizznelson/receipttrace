@@ -25,7 +25,7 @@ A documentação acompanha a mesma história da aplicação: problema, experiên
 
 ## O que fica em cada lugar
 
-`reports/` contém o experimento publicado, a origem dos dados e evidências relevantes. `reports/evidence/` preserva respostas e manifestos usados na avaliação. `contracts/` contém esquemas verificáveis da API e dos dados. `images/` apresenta a experiência da aplicação.
+`reports/` contém o experimento publicado, a origem dos dados e evidências relevantes. `reports/evidence/` preserva respostas e manifestos usados na avaliação. `contracts/` contém esquemas verificáveis da API e dos dados. `images/` e `media/` apresentam a experiência da aplicação (imagens e uma demonstração em vídeo).
 
 As cópias em `src/receipttrace/webdata/` são necessárias à distribuição: permitem abrir a demonstração instalada sem baixar o dataset. Elas são verificadas por checksum. Não substituem as evidências do experimento.
 
