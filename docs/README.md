@@ -2,6 +2,15 @@
 
 A documentação acompanha a mesma história da aplicação: problema, experiência, resultado e implementação.
 
+## Se você tem 5 minutos
+
+1. Leia a seção 3 do [README](../README.md): o que foi medido e o que não foi.
+2. Abra o [estudo de caso](case-study.md) para ver o problema e as decisões.
+3. Veja [Arquitetura](architecture.md) e o fluxo em [Envio temporário](uploads.md).
+4. Confira [Qualidade](quality.md) e rode os testes com o [guia de desenvolvimento](development.md).
+
+## Por tema
+
 | O que você quer entender? | Comece aqui |
 | --- | --- |
 | Qual problema motivou o projeto? | [Estudo de caso](case-study.md) e [perguntas de negócio](business-case.md) |

@@ -4,7 +4,19 @@
 
 Projeto de portfólio de engenharia de IA aplicada, desenvolvido por Luiz. Conecta dados públicos, comparação de OCR e Gemini, regras monetárias, uma API e uma interface em português e inglês.
 
+**▶ [Ver a demonstração ao vivo](https://receipttrace.onrender.com)** (serviço gratuito: a primeira visita pode levar cerca de 1 minuto para acordar)
+
 [English](README.en.md) · [Entenda o caso](docs/case-study.md) · [Decisões de engenharia](docs/architecture.md) · [Documentação](docs/README.md)
+
+## Em 1 minuto
+
+| | |
+| --- | --- |
+| **Problema** | Uma leitura automática de recibo pode terminar sem erro e ainda assim trazer o valor errado. |
+| **O que construí** | API FastAPI e interface em português e inglês que leem o recibo por IA (Gemini) ou OCR local, mostram a evidência ao lado da imagem e registram cada correção com motivo. |
+| **Resultado medido** | Total correto em 14 de 19 recibos com OCR e 19 de 19 com Gemini, em 20 recibos públicos usados no desenvolvimento. Não é um teste independente. |
+| **Habilidades que o projeto mostra** | Python 3.14 tipado, FastAPI, regras monetárias com Decimal, integração com LLM (consentimento, cotas, fallback), segurança no envio de arquivos, testes Python e JavaScript, CI, Docker e implantação, e avaliação com limites declarados. |
+| **Onde começar** | [Demonstração](https://receipttrace.onrender.com) · [Estudo de caso](docs/case-study.md) · [Decisões de engenharia](docs/architecture.md) · [Como verificar](docs/quality.md) |
 
 ## 1. O problema: uma leitura concluída pode estar errada
 
@@ -19,11 +31,24 @@ O objetivo é ajudar uma equipe administrativa a localizar dúvidas, conferir a 
 **Imagem → leitura → conferência → correção com motivo → exportação.**
 
 - Comece pelo caso guiado, sem arquivo ou chave de API. A leitura salva é identificada como exemplo do estudo.
-- Envie uma imagem PNG/JPG para executar OCR local, quando o envio estiver habilitado.
+- Envie uma imagem PNG/JPG e escolha a leitura: **IA (Gemini, plano gratuito)**, com consentimento a cada envio e retorno automático ao OCR local se a IA falhar, ou **OCR local**.
 - Confira os cinco campos ao lado da imagem. Valores conflitantes ficam vazios e componentes ausentes não viram zero.
 - Baixe uma tabela CSV para abrir em planilha ou um JSON com o registro completo da sessão.
 
 O teste da aba é temporário. O histórico persistente com SQLite está disponível na revisão local dos exemplos. As correções de visitantes não alteram os indicadores do estudo.
+
+```mermaid
+flowchart LR
+  A[Imagem PNG ou JPG] --> B[Validação e limpeza<br/>em processo isolado]
+  B --> C{Método escolhido}
+  C -->|IA, com consentimento| D[Gemini, plano gratuito]
+  C -->|OCR local| E[OCR e regras de leitura]
+  D -->|limite, falha ou tempo esgotado| E
+  D --> F[Cinco campos e evidências]
+  E --> F
+  F --> G[Conferência humana<br/>correção com motivo]
+  G --> H[Exportar CSV ou JSON]
+```
 
 ![Exemplo guiado: leitura, referência e conferência](docs/images/receipttrace-overview.jpg)
 
@@ -66,7 +91,7 @@ uv run --no-sync receipttrace serve --uploads
 
 Abra [a demonstração local](http://127.0.0.1:8000). O caso pronto não exige nova inferência. O envio próprio oferece duas leituras: **IA (Gemini, plano gratuito)**, com consentimento explícito e fallback automático, e **OCR local**. Sem chave configurada, só o OCR local aparece. [Guia da interface](docs/web.md).
 
-Para explorar apenas o exemplo pronto, instale o extra `web` e inicie com `receipttrace serve --read-only`. A conferência transitória de campos e o download continuam disponíveis, sem liberar o banco local. Publicação em hospedagem ainda está pendente; o roteiro está em [Implantação](docs/deploy.md).
+Para explorar apenas o exemplo pronto, instale o extra `web` e inicie com `receipttrace serve --read-only`. A conferência transitória de campos e o download continuam disponíveis, sem liberar o banco local. A demonstração está publicada em [https://receipttrace.onrender.com](https://receipttrace.onrender.com); o roteiro e o registro da implantação estão em [Implantação](docs/deploy.md).
 
 ## 6. Como investigar o repositório
 

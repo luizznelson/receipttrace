@@ -38,6 +38,6 @@ Consulte o [guia de segurança](security.md) para limites de autenticação, has
 
 ## Verificação local da apresentação atual
 
-Em 30/10/2026, a suíte completa passou com 233 testes Python e 29 testes JavaScript. Ruff, mypy em 20 módulos, sintaxe JavaScript e Prettier foram conferidos. Os alvos relativos dos links Markdown também foram verificados. São resultados locais, sem afirmar execução remota da CI ou teste de invasão.
+Em 30/10/2026, a suíte completa passou com 233 testes Python e 29 testes JavaScript. Depois da leitura por IA no envio, a suíte local passou com 262 testes Python e 31 testes JavaScript; Ruff, mypy em 22 módulos, sintaxe JavaScript e Prettier foram conferidos. Os alvos relativos dos links Markdown também foram verificados. São resultados locais, sem afirmar execução remota da CI ou teste de invasão.
 
 A apresentação reorganizada foi conferida no navegador: exemplo salvo identificado, política numérica correta, correção com motivo, revalidação, download CSV com conteúdo verificado e troca de idioma preservando valores. Em viewport de 375 × 812, a largura observada do documento foi 360 pixels, sem rolagem horizontal. Os 19 documentos intermediários retirados estavam no Git e tiveram recuperação verificada antes da limpeza. Os resultados e as respostas originais do experimento permaneceram inalterados.

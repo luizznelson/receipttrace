@@ -4,7 +4,19 @@
 
 An applied AI engineering portfolio project developed by Luiz. It connects public data, OCR/Gemini comparison, monetary rules, an API and a Portuguese/English interface.
 
+**▶ [Open the live demo](https://receipttrace.onrender.com)** (free hosting: the first visit can take about a minute to wake up)
+
 [Português](README.md) · [Case study](docs/case-study.md) · [Engineering decisions](docs/architecture.md) · [Documentation](docs/README.md)
+
+## In one minute
+
+| | |
+| --- | --- |
+| **Problem** | An automatic receipt reading can finish without errors and still return the wrong amount. |
+| **What I built** | A FastAPI service and a Portuguese/English interface that read a receipt with AI (Gemini) or local OCR, show the evidence beside the image and record each correction with a reason. |
+| **Measured result** | Correct total on 14 of 19 receipts with OCR and 19 of 19 with Gemini, across 20 public receipts used during development. Not an independent test. |
+| **Skills shown** | Typed Python 3.14, FastAPI, monetary rules with Decimal, LLM integration (consent, quotas, fallback), file-upload security, Python and JavaScript tests, CI, Docker and deployment, and evaluation with stated limits. |
+| **Where to start** | [Demo](https://receipttrace.onrender.com) · [Case study](docs/case-study.md) · [Engineering decisions](docs/architecture.md) · [How to verify](docs/quality.md) |
 
 ## 1. The problem: a completed reading can be wrong
 
@@ -24,6 +36,19 @@ The proposed use case is an administrative team identifying uncertainty, checkin
 - Download a CSV table for spreadsheets or JSON with the full session record.
 
 The browser test is temporary. Persistent SQLite history is available for local review of saved examples. Visitor corrections never change study metrics.
+
+```mermaid
+flowchart LR
+  A[PNG or JPG image] --> B[Validation and cleanup<br/>in an isolated process]
+  B --> C{Chosen method}
+  C -->|AI, with consent| D[Gemini, free tier]
+  C -->|Local OCR| E[OCR and reading rules]
+  D -->|limit, failure or timeout| E
+  D --> F[Five fields and evidence]
+  E --> F
+  F --> G[Human check<br/>correction with a reason]
+  G --> H[Export CSV or JSON]
+```
 
 ![Guided example: reading, reference and review](docs/images/receipttrace-overview.jpg)
 
@@ -66,7 +91,7 @@ uv run --no-sync receipttrace serve --uploads
 
 Open [the local demonstration](http://127.0.0.1:8000). The ready example requires no new inference. Personal-image testing offers Gemini (only if the host configures a key) or local OCR; without a key only OCR appears. See [Deployment](docs/deploy.md). [Interface guide](docs/web.md).
 
-For the ready example alone, install the `web` extra and start `receipttrace serve --read-only`. Stateless field checks and downloads remain available without exposing local review storage. Hosted deployment remains pending.
+For the ready example alone, install the `web` extra and start `receipttrace serve --read-only`. Stateless field checks and downloads remain available without exposing local review storage. The demo is published at [https://receipttrace.onrender.com](https://receipttrace.onrender.com); the deployment record is in [Deployment](docs/deploy.md).
 
 ## 6. Explore the repository
 

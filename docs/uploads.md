@@ -6,6 +6,20 @@ Os novos testes não possuem gabarito e não entram nos indicadores do estudo CO
 
 ## Dois métodos de leitura
 
+```mermaid
+flowchart LR
+  A[Imagem PNG ou JPG] --> B[Validação e limpeza<br/>em processo isolado]
+  B --> C{Método escolhido}
+  C -->|IA, com consentimento| D[Gemini, plano gratuito]
+  C -->|OCR local| E[OCR e regras de leitura]
+  D -->|limite, falha ou tempo esgotado| E
+  D --> F[Cinco campos e evidências]
+  E --> F
+  F --> G[Conferência humana<br/>correção com motivo]
+  G --> H[Exportar CSV ou JSON]
+```
+
+
 | | IA (Gemini) | OCR local |
 | --- | --- | --- |
 | Onde a imagem é lida | Enviada ao Google, depois de remover metadados e reduzir o tamanho | Neste servidor, em processo separado |
