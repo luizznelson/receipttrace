@@ -1,5 +1,7 @@
 # ReceiptTrace
 
+[![Quality](https://github.com/luizznelson/receipttrace/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/luizznelson/receipttrace/actions/workflows/ci.yml)
+
 **Read a receipt, check the values and preserve what changed.**
 
 An applied AI engineering portfolio project developed by Luiz. It connects public data, OCR/Gemini comparison, monetary rules, an API and a Portuguese/English interface.
