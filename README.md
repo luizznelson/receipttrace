@@ -17,7 +17,8 @@ Projeto de portfólio de engenharia de IA aplicada, desenvolvido por Luiz. Conec
 | **Problema** | Uma leitura automática de recibo pode terminar sem erro e ainda assim trazer o valor errado. |
 | **O que construí** | API FastAPI e interface em português e inglês que leem o recibo por IA (Gemini) ou OCR local, mostram a evidência ao lado da imagem, registram cada correção com motivo e conferem se a soma dos itens bate com o total. |
 | **Resultado medido** | Total correto em 14 de 19 recibos com OCR e 19 de 19 com Gemini, em 20 recibos públicos usados no desenvolvimento. Não é um teste independente. |
-| **Habilidades que o projeto mostra** | Python 3.14 tipado, FastAPI, regras monetárias com Decimal, integração com LLM (consentimento, cotas, fallback), segurança no envio de arquivos, testes Python e JavaScript, CI, Docker e implantação, e avaliação com limites declarados. |
+| **Decisão central** | Tratar a leitura automática como suspeita até ser conferida: comparar OCR local e Gemini nos mesmos recibos, interpretar valores com Decimal, deixar vazio o que conflita e registrar cada correção com motivo. A imagem só vai para a IA com consentimento, e o OCR local assume se ela falhar. |
+| **Próxima decisão pendente** | Avaliar em um conjunto reservado: a amostra atual foi usada no desenvolvimento e a leitura de itens ainda não foi avaliada. |
 | **Onde começar** | [Demonstração](https://receipttrace.onrender.com) · [Estudo de caso](docs/case-study.md) · [Decisões de engenharia](docs/architecture.md) · [Como verificar](docs/quality.md) |
 
 ![Leitura por IA de um cupom de supermercado, com a tabela de itens e a soma comparada ao total](docs/media/receipttrace-itens.gif)
@@ -75,17 +76,20 @@ Esta é uma amostra de treino já utilizada no desenvolvimento, sem teste reserv
 
 [Relatório com método e limites](docs/reports/gemini-development-20.md) · [Comparação por campo](docs/reports/ocr-vs-gemini-development-20.json) · [Protocolo de avaliação](docs/evaluation.md)
 
-## 4. O que a implementação demonstra
+## 4. Decisões de arquitetura e trade-offs
 
-| Decisão | Por que foi feita | Onde conferir |
-| --- | --- | --- |
-| Separar extração de avaliação | O extrator recebe imagens; as respostas esperadas são usadas separadamente. | [Avaliação](docs/evaluation.md) |
-| Preservar texto e usar Decimal | Interpretar separadores explicitamente e evitar arredondamentos de ponto flutuante. | [Domínio e números](docs/domain.md) |
-| Usar transações e versão esperada | Preservar o original e impedir sobrescrita silenciosa de uma revisão. | [Revisão local](docs/review.md) |
-| Executar OCR em processo separado | Limitar duração e concorrência, sem salvar o material enviado. | [Envio temporário](docs/uploads.md) |
-| Oferecer IA só com consentimento, cotas e fallback | A imagem sai do servidor apenas por escolha; se a IA falha ou o limite acaba, o OCR local assume e a tela explica. | [Envio temporário](docs/uploads.md) · [Implantação](docs/deploy.md) |
-| Servir interface e API na mesma origem | Manter a execução reproduzível, com FastAPI e sem build de frontend. | [Arquitetura web](docs/architecture-web.md) |
-| Testar falhas e preservar evidências | Verificar entradas inválidas, conflitos, timeouts e integridade dos arquivos. | [Qualidade e reprodução](docs/quality.md) |
+As escolhas abaixo estão registradas nos ADRs de [docs/architecture.md](docs/architecture.md) e [docs/architecture-web.md](docs/architecture-web.md).
+
+| Decisão | Por quê | Custo aceito | Evidência |
+| --- | --- | --- | --- |
+| **Medir OCR e Gemini nos mesmos recibos antes de escolher** | Decidir o extrator por dado, não por preferência: total correto em 14/19 com OCR e 19/19 com Gemini | Gemini é mais lento (mediana de 8,33 s contra 1,04 s, com escopos de medição diferentes) e depende de cota; por isso o OCR fica como alternativa | [Relatório](docs/reports/gemini-development-20.md) |
+| **Separar extração de avaliação** | O extrator recebe só imagens; as respostas esperadas nunca entram no prompt | Mais uma etapa no fluxo | [Avaliação](docs/evaluation.md) |
+| **Validar contrato, regras e acerto como três verificações diferentes** | Uma saída no formato certo ainda pode trazer o valor errado | Mais código de verificação | [Domínio e números](docs/domain.md) |
+| **Preservar o texto e usar Decimal** | Interpretar separadores explicitamente e evitar arredondamento de ponto flutuante | Valores conflitantes ficam vazios em vez de adivinhados | [Domínio e números](docs/domain.md) |
+| **IA só com consentimento, cotas e fallback para OCR** | A imagem só sai do servidor por escolha; a falha da IA não derruba o serviço | Quando cai para o OCR, a precisão do total é menor | [Envio temporário](docs/uploads.md), [implantação](docs/deploy.md) |
+| **Transações e versão esperada na revisão** | Preservar o original e impedir sobrescrita silenciosa | Revisão persistente só no SQLite local | [Revisão local](docs/review.md) |
+| **OCR em processo separado** | Limitar duração e concorrência sem salvar o material enviado | Uma imagem por vez por processo; não é isolamento de segurança do sistema operacional | [Envio temporário](docs/uploads.md) |
+| **Aplicação pequena: API e interface na mesma origem, sem filas nem microsserviços** | Distribuir em serviços aumentaria a operação antes de haver demanda comprovada | Escala limitada a uma aplicação; filas só entram quando houver necessidade demonstrada | [ADR-001](docs/architecture.md), [ADR-002](docs/architecture-web.md) |
 
 ## 5. Como experimentar
 

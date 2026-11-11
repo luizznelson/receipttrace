@@ -17,7 +17,8 @@ An applied AI engineering portfolio project developed by Luiz. It connects publi
 | **Problem** | An automatic receipt reading can finish without errors and still return the wrong amount. |
 | **What I built** | A FastAPI service and a Portuguese/English interface that read a receipt with AI (Gemini) or local OCR, show the evidence beside the image, record each correction with a reason and check whether the sum of the items matches the total. |
 | **Measured result** | Correct total on 14 of 19 receipts with OCR and 19 of 19 with Gemini, across 20 public receipts used during development. Not an independent test. |
-| **Skills shown** | Typed Python 3.14, FastAPI, monetary rules with Decimal, LLM integration (consent, quotas, fallback), file-upload security, Python and JavaScript tests, CI, Docker and deployment, and evaluation with stated limits. |
+| **Core decision** | Treat automatic reading as suspect until checked: compare local OCR and Gemini on the same receipts, parse amounts with Decimal, leave conflicting values empty and log each correction with a reason. The image only goes to AI with consent, and local OCR takes over if AI fails. |
+| **Next open decision** | Evaluate on a held-out set: the current sample was used during development and item reading has not been evaluated yet. |
 | **Where to start** | [Demo](https://receipttrace.onrender.com) · [Case study](docs/case-study.md) · [Engineering decisions](docs/architecture.md) · [How to verify](docs/quality.md) |
 
 ![AI reading of a supermarket receipt, with the item table and the sum compared with the total](docs/media/receipttrace-itens.gif)
@@ -75,17 +76,20 @@ This training sample was already used during development; no held-out test was r
 
 [Report and limitations](docs/reports/gemini-development-20.md) · [Field comparison](docs/reports/ocr-vs-gemini-development-20.json) · [Evaluation protocol](docs/evaluation.md)
 
-## 4. What the implementation demonstrates
+## 4. Architecture decisions and trade-offs
 
-| Decision | Why | Evidence |
-| --- | --- | --- |
-| Separate extraction and evaluation | Extractors receive images; expected answers are used separately. | [Evaluation](docs/evaluation.md) |
-| Preserve text and use Decimal | Interpret separators explicitly and avoid floating-point rounding. | [Domain rules](docs/domain.md) |
-| Use transactions and expected revisions | Preserve the original and prevent silent review overwrites. | [Local review](docs/review.md) |
-| Run OCR in a separate process | Bound duration and concurrency without saving uploaded material. | [Temporary uploads](docs/uploads.md) |
-| Offer AI only with consent, quotas and fallback | The image leaves the server only by choice; if AI fails or the limit is reached, local OCR takes over and the screen says why. | [Temporary uploads](docs/uploads.md) (Portuguese) · [Deployment](docs/deploy.md) |
-| Serve UI and API from one origin | Keep execution reproducible using FastAPI without a frontend build. | [Web architecture](docs/architecture-web.md) |
-| Test failures and retain evidence | Check invalid inputs, conflicts, timeouts and artifact integrity. | [Quality and reproduction](docs/quality.md) |
+These choices are recorded in the ADRs in [docs/architecture.md](docs/architecture.md) and [docs/architecture-web.md](docs/architecture-web.md).
+
+| Decision | Why | Accepted cost | Evidence |
+| --- | --- | --- | --- |
+| **Measure OCR and Gemini on the same receipts before choosing** | Pick the extractor from data, not preference: correct total on 14/19 with OCR and 19/19 with Gemini | Gemini is slower (median 8.33 s vs 1.04 s, with different measurement scopes) and quota-bound, so OCR stays as the alternative | [Report](docs/reports/gemini-development-20.md) |
+| **Separate extraction from evaluation** | Extractors only receive images; expected answers never enter the prompt | One more step in the flow | [Evaluation](docs/evaluation.md) |
+| **Validate contract, rules and accuracy as three separate checks** | Output in the right format can still carry the wrong value | More verification code | [Domain rules](docs/domain.md) |
+| **Preserve text and use Decimal** | Interpret separators explicitly and avoid floating-point rounding | Conflicting values stay empty instead of being guessed | [Domain rules](docs/domain.md) |
+| **AI only with consent, quotas and OCR fallback** | The image leaves the server only by choice; an AI failure does not take the service down | When it falls back to OCR, total accuracy is lower | [Temporary uploads](docs/uploads.md) (Portuguese), [deployment](docs/deploy.md) |
+| **Transactions and expected revisions in review** | Preserve the original and prevent silent overwrites | Persistent review only in local SQLite | [Local review](docs/review.md) |
+| **OCR in a separate process** | Bound duration and concurrency without saving uploads | One image at a time per process; not an operating-system security boundary | [Temporary uploads](docs/uploads.md) |
+| **Small application: API and UI on one origin, no queues or microservices** | Splitting into services would add operations before proven demand | Scales as a single app; queues only when a need is shown | [ADR-001](docs/architecture.md), [ADR-002](docs/architecture-web.md) |
 
 ## 5. Try it locally
 
